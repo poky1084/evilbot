@@ -60,7 +60,7 @@ nextbet = 0
 <b>Limbo:</b>
 ```javascript
 game = "limbo"
-chance = 49.5
+target = 2
 nextbet = 0 
 ```
 <b>Dice:</b>
