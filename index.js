@@ -1084,7 +1084,7 @@ let pattern = []
 let patternlist = []
 let decision = "skip"
 let votecast = decision
-
+let HILO_BET_EQUAL = 2
 let HILO_SKIP = 7
 let HILO_BET_HIGH = 5
 let HILO_BET_LOW = 4
@@ -6735,9 +6735,12 @@ function data(json){
 				cashout_done = false
 				hiloBet(nextbet, startcard)
 				} else {
-				if(hiloguess == 7 || hiloguess == 5 || hiloguess == 4){
+				if(hiloguess == 7 || hiloguess == 5 || hiloguess == 4 || hiloguess == 2){
 					let lastCard = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
-					if(hiloguess == 7){
+					if(hiloguess == 2){
+						guessed = 'equal'
+						hiloNext(guessed)
+					} else if(hiloguess == 7){
 						guessed = 'skip'
 						hiloNext(guessed)
 					} else if(hiloguess == 5){
