@@ -183,7 +183,7 @@ function round(){
         return HILO_CASHOUT;
     }
     if (currentCardRank === "A") {
-        return HILO_BET_HIGH;
+        return HILO_BET_EQUAL;
     }
     
     if (currentCardRank === "J") {
