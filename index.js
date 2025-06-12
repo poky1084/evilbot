@@ -1,4 +1,943 @@
- document.body.insertAdjacentHTML("beforebegin", '<body><div id="wdbWrapLicenseBox">       <style>         #wdbLicenseBox {           all: revert;           font-family: "Courier New", monospace;           font-size: 12px!important;           text-align: left;           background: #fff!important;           color: black!important;           line-height: 1.5!important;           top: 60px;           left: 60px;           padding: 5px;           position: absolute;           z-index: 2147483002;           border: 1px solid #ccc!important;           border-radius: 3px;         }         .wdb-input {           all: revert;           padding: 2px;           border: 1px solid #ccc;           border-radius: 3px;         }                 .btn-grad {           all: revert;           cursor: pointer;           background-image: linear-gradient(to right, #ffb347 0%, #ffcc33  51%, #ffb347  100%);           text-align: center;           transition: 0.5s;           padding: 3px;           background-size: 200% auto;           border: #ffc107;           border-radius: 3px;         }                 .btn-grad:hover {           background-position: right center;           text-decoration: none;         }                 .btn-grad:active {           opacity: .65;         }                 .btn-grad:disabled {           cursor: auto;           opacity: .65;           color: #fff;         }         #wdbLicenseAlert {           text-align: left!important;           color: red;           margin-top: 5px;         }       </style>       </div><div id="wdbWrap"><style> ::-webkit-scrollbar {   width: 8px;   height: 8px; } ::-webkit-scrollbar-track {   background: #f1f1f1; } ::-webkit-scrollbar-thumb {   background: #888; } ::-webkit-scrollbar-thumb:hover {   background: #555; } #wdb {   all: revert;   width: 1000px;   font-family: "Courier New", monospace;   font-size: 12px!important;   text-align: left;   background: #000;   color: #fff;   line-height: 1.5!important;   position: absolute;   z-index: 2147483002;   border: 0.6px solid #ccc;   border-radius: 3px;   top: 50%;   left: 50%;   transform: translate(-50%, -50%); } #wdbHeader, #wdbFooter {   cursor: move;   height: 20px;   padding: 3px 5px; } .wdb-toggle {   cursor: pointer;   padding: 5px;   z-index: 2147483003; } #wdbMenu {   padding: 3px; } #wdbMenu select, #wdbMenu span input[type=number] {   all: revert;   background: #fff!important;   padding: 3px 5px;   border: 1px solid #ccc;   border-radius: 0;   border-radius: 3px; } #wdbMenu span input[type=number] {   width: 86px; } .switch {   position: relative;   display: inline-block;   width: 45px;   height: 19px; } .switch input {   opacity: 0;   width: 0;   height: 0; } .slider {   all: revert;   position: absolute;   cursor: pointer;   top: 0;   left: 0;   right: 0;   bottom: 0;   border-radius: 3px;   -webkit-transition: .4s;   transition: .4s; } .slider:before {   content: "";   position: absolute;   background: white;   height: 13px;   width: 13px;   left: 3px;   bottom: 3.5px;   border-radius: 3px;   -webkit-transition: .3s;   transition: .3s; } input:checked + .slider {   background: linear-gradient(to right, #ffb347 0%, #ffcc33  51%, #ffb347  100%);; } input:focus + .slider {   box-shadow: 0 0 1px #ffc107; } input:checked + .slider:before {   -webkit-transform: translateX(26px);   -ms-transform: translateX(26px);   transform: translateX(26px); } .btn-grad {   all: revert;   cursor: pointer;   background-image: linear-gradient(to right, #ffb347 0%, #ffcc33  51%, #ffb347  100%);   text-align: center;   transition: 0.5s;   padding: 3px;   background-size: 200% auto;   border: #ffc107;   border-radius: 3px; } .btn-grad:hover {   background-position: right center;   text-decoration: none; } .btn-grad:active {   opacity: .65; } .btn-grad:disabled {   cursor: auto;   opacity: .65;   color: #fff; } .btn-control {   padding-top: 10px!important;   padding-bottom: 10px!important; } #wdbOpenLUAScript, #wdbOpenJSScript {   all: revert; } #wdbChart, #wdbWrapHistory {   height: 200px;   padding: 3px; } #wdbWrapHistory {   overflow-x: auto; } #wdbWrapHistory table {   border-collapse: collapse;   font-size: 11px!important; } #wdbWrapHistory table thead tr th {   text-align: left;   padding: 1px;   border: 1px solid #ccc; } #wdbHistory tr {   border-bottom: 1px solid #fff;   color: #000!important; } #wdbHistory tr:last-child {   border-bottom: 1px solid #ccc; } #wdbHistory tr td {   all: revert;   white-space: nowrap;   padding: 1.5px;   border-right: 1px solid #fff;   border-left: 1px solid #fff; } #wdbHistory tr td:first-child {   border-left: 1px solid #ccc; } #wdbHistory tr td:last-child {   border-right: 1px solid #ccc; } #wdbHistory tr td input {   all: revert; } #wdbAdvancedMode, #wdbWrapMode, #wdbWrapLog, #wdbWrapVariables, #wdbWrapFunctions, #wdbWrapTips {   overflow: scroll;   height: 340px; } #wdbWrapVariables pre, #wdbWrapFunctions pre, #wdbWrapTips pre {   all: revert;   background: #fff;   color: #000;   margin: 0; } .wdbSim { 	overflow: auto; 	visibility : visible; 	grid-area: 1 / 1; 	width: 100%; 	overflow: auto } .code-lua { 	overflow: auto; 	visibility : visible; 	grid-area: 1 / 1; 	width: 100%; 	overflow: auto } .code-js { 	visibility : hidden; 	z-index: 10; 	grid-area: 1 / 1; 	overflow: auto; 	width: 100%; } #wdbWrapLog { 	visibility : hidden; 	z-index: 10; 	grid-area: 1 / 1; } #wdbLog li { 	font-size: 6px!important; } #wdbSimLog { 	font-size: 11px!important; } #wdbOpenScript {   all: revert; } .CodeMirror {   } .wdb-stats, .wdb-flex-container {   display: flex;   align-items: stretch;   font-weight: bold; } .wdb-stats div {   flex-grow: 1;   padding: 2px 32px; } .wdb-stats div li {   list-style: none; } .wdb-advanced-item {   line-height: 2;   padding: 3px 0;   border-bottom: 1px solid #e7e7e7; } .wdb-advanced-item:last-child {   border: none; } .wdb-advanced-item input {   all: revert; } .wdb-advanced-item input[type=number] {   width: 86px; } .clearfix::after {   content: "";   clear: both;   display: table; } .float-left {   float: left!important; } .float-right {   float: right!important; } .wdb-menu2 {   display: flex;   font-size: 11px!important; } .wdb-menu2 span {   padding: 3px 6px;   text-align: center; } #wdbTabMenu, #wdbControlMenu {   display: flex; flex-wrap: wrap;   margin-top: 3px; } #wdbTabMenu button, #wdbControlMenu button {   flex-basis: 0;   flex-grow: 1;   margin: 3px; } /**  *  * In this pen:  * added stylesheets with CDN:  *   -  //cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/codemirror.css  *   -  //cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/theme/material.css  *  */ *, *:after, *:before { 	margin: 0; 	padding: 0; 	box-sizing: border-box; } html, body { 	height: 100%; } html { 	text-rendering: optimizeLegibility; 	line-height: 1.5em; 	letter-spacing: .3px; 	font-family: "Poppins", sans-serif; 	-webkit-text-size-adjust: 100%; 	-webkit-font-smoothing: antialiased; 	-moz-osx-font-smoothing: grayscale; } body { } html { 	font-family: "Geneva", sans-serif; } /* ---------- 	WRAPPERS & CONTAINERS ---------- */ section { 	position: relative; 	padding: 2.5rem 0; } .container { 	position: relative; 	margin: auto; 	padding: 0 20px; 	width: 100%; 	max-width: 970px; } section:after, .container:after, .row:after { 	display: table; 	content: ""; 	clear: both; } /* ---------- 	ANHOR TAG ---------- */ a { 	cursor: pointer; 	outline: 0; } h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a, p  > a { 	color: #ed9d0a; 	text-decoration: none; } h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover, p  > a:hover { 	text-decoration: underline; } /* ---------- 	TYPOGRAPHY ---------- */ h1, h2, h3, h4, h5, h6, p, blockquote, ul { 	margin-bottom: 1rem; 	-ms-word-break: break-word; 	-ms-word-wrap: break-word; 	-webkit-word-break: break-word; 	-webkit-word-wrap: break-word; 	word-break: break-word; 	word-wrap: break-word; } h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child, p:last-child, blockquote:last-child, ul:last-child { 	margin-bottom: 0; } h1, h2, h3, h4, h5, h6 { 	line-height: 1.25em; 	letter-spacing: 1px; 	font-weight: 600; } h1:not(:first-child), h2:not(:first-child), h3:not(:first-child), h4:not(:first-child), h5:not(:first-child), h6:not(:first-child) { 	margin-top: 1.5em; } h1 { 	letter-spacing: 2px; 	font-size: 1.75rem; } h2 { 	font-size: 1.5rem; } h1 strong, h2 strong, h3 strong, h4 strong, h5 strong, h6 strong { 	font-weight: 700; } p { 	line-height: 1.5em; } ul { 	padding-left: 1.5rem; } hr { 	border: 0; 	border-top: 1px solid #e1e1e1; } /* ---------- 	CODE BLOCK ---------- */ .code-container { 	display: grid; 	position: relative; 	margin-bottom: 1.5rem; 	overflow: auto; 	border-radius: 3px; 	box-shadow: 3px 3px 6px rgba(0, 0, 0, .3); 	width: 100%; } .code-container:last-child { 	margin-bottom: 0; 	width: 100%; } .btn { 	background-color: #ed9d0a; 	color: #fff; 	padding: 4px 10px; 	text-decoration: none; 	border-radius: 3px; 	box-shadow: 0 8px 6px -6px rgba(0, 0, 0, .15); 	-webkit-backface-visibility: hidden; 	-webkit-transition: 200ms -webkit-transform ease, 200ms transform ease, 200ms box-shadow ease; 			transition: 200ms -webkit-transform ease, 200ms transform ease, 200ms box-shadow ease; } .btn:hover { 	box-shadow: 0 6px 6px -4px rgba(0, 0, 0, .2); 	-webkit-transform: translateY(-2px); 			transform: translateY(-2px); } .btn.btn-left { 	float: left; } .btn.btn-right { 	float: right; } .row { 	margin-bottom: 1.5rem; 	width: 100%; } .row:last-child { 	margin-bottom: 0; } #runcmd { 	width: 30% } #runinput { 	width: 70% } </style> <center> <div id="wdb">   <div id="wdbHeader">     <div class="clearfix">       <div class="float-left" style="padding-left: 5px;">         #evilbot | stake.com | stake.us | primedice       </div>       <div class="float-right">         <span class="wdb-toggle" id="wdbToggleMinimal" >▼</span>       </div>     </div>   </div>   <div id="wdbMain">     <div id="wdbMenu">       <select id="wdbMenuMode" class="wdb-select">         <option value="js" selected="selected">JsMode</option>       </select>       <select id="wdbMenuCoin" class="wdb-select"> 	  <option value="btc" selected="selected">btc</option>       </select> 	  <select id="gameselect" class="gameselect">         <option value="dice" selected="selected">dice</option> 		<option value="limbo">limbo</option> 		<option value="mines">mines</option> 		<option value="keno">keno</option> 		<option value="plinko">plinko</option> 		<option value="hilo">hilo</option> 		<option value="wheel">wheel</option> 		<option value="roulette">roulette</option> 		<option value="dragontower">dragon</option> 		<option value="baccarat">baccarat</option> 		<option value="pump">pump</option> 		<option value="flip">flip</option> 		<option value="darts">darts</option> 		<option value="snakes">snakes</option> 		<option value="cases">cases</option> 		<option value="rps">rps</option> 		<option value="tomeoflife">tomeoflife</option> 		<option value="scarabspin">scarabspin</option> 		<option value="bluesamurai">bluesamurai</option> 		<option value="diamonds">diamonds</option>       </select> 	   <select id="mirrors" class="mirrors">         <option value="stake.games" >stake.games</option> 		<option value="stake.bet" >stake.bet</option> 		<option value="stake.com" >stake.com</option> 		<option value="staketr.com" selected="selected">staketr.com</option> 		<option value="stake.us" >stake.us</option> 		<option value="stake1021.com" >stake1021.com</option> 		<option value="primedice.com" >primedice.com</option> 		<option value="primedice.games" >primedice.games</option>       </select> 	  <input type="password" id="tokenkey" value="" style="width: 30%; background: black; color: white;" placeholder="Stake.com or Primedice api key here">       <span>         MaxRecords         <input type="number" id="wdbMaxRows" value="20" style="width: 55px;"> 		<select id="thememod" class="thememod"> 		<option value="dark" >dark</option> 		<option value="light" >light</option>       </select>       </span>       <span id="scriptName"></span>     </div>     <div class="wdb-menu2">     <center>       <span style="padding-top: 19px;">         <button class="btn-grad" id="resetstat">ResetStats</button>       </span>       <span style="padding-top: 19px;">         <button class="btn-grad" id="resetChart">ResetChart</button>       </span>       <span style="padding-top: 19px;">         <button class="btn-grad" id="deleteTable">ResetHistory</button>       </span>       <span style="padding-top: 19px;">         <button class="btn-grad" id="deleteLog">ResetLog</button>       </span>       <span style="padding-top: 19px;">         <button class="btn-grad" id="resetsee">ResetSeed</button>       </span>       <span style="padding-top: 19px;">         <button class="btn-grad" id="resetAlles">ResetAll</button>       </span> 	  </center>     </div>     <div class="wdb-stats" id="wdbStats">       <div>         <li class="clearfix">           <span class="float-left">Time:</span>           <span class="float-right"><span id="wdbTime">0:0:0:0</span></span>         </li>         <li class="clearfix">           <span class="float-left">Balance:</span>           <span class="float-right"><span id="wdbBalance">0.00000000</span></span>         </li>         <li class="clearfix">           <span class="float-left">Wagered:</span>           <span class="float-right">(<span id="wdbPercentWagered">0.00</span>x) <span id="wdbWagered">0.00000000</span></span>         </li>         <li class="clearfix">           <span class="float-left">Profit:</span>           <span class="float-right" id="wdbWrapPercentProfit">(<span id="wdbPercentProfit">0.00</span>%) <span id="wdbProfit">0.00000000</span></span>         </li>       </div>             <div>         <li class="clearfix">           <span class="float-left">HighBet:</span>           <span class="float-right"><span id="wdbHighBet">0.00000000</span></span>         </li>         <li class="clearfix">           <span class="float-left">HighLose:</span>           <span class="float-right"><span id="wdbHighLose">0.00000000</span></span>         </li>         <li class="clearfix">           <span class="float-left">HighProfit:</span>           <span class="float-right"><span id="wdbHighProfit">0.00000000</span></span>         </li>         <li class="clearfix">           <span class="float-left">High/Low-Streak:</span>           <span class="float-right"><span id="wdbHighLowStreak">0 / 0</span></span>         </li>       </div>       <div style="flex-grow: 1; padding: 2px 32px;">         <li class="clearfix">           <span class="float-left">Bets:</span>           <span class="float-right"><span id="wdbBets">0</span></span>         </li>         <li class="clearfix">           <span class="float-left">Wins:</span>           <span class="float-right"><span id="wdbWins">0</span></span>         </li>         <li class="clearfix">           <span class="float-left">Losses:</span>           <span class="float-right"><span id="wdbLosses">0</span></span>         </li>         <li class="clearfix">           <span class="float-left">CurrentStreak:</span>           <span class="float-right"><span id="wdbCurrentStreak">0</span></span>         </li>       </div>     </div>     <div class="wdb-flex-container" id="wdbWrapControl">       <div style="flex-grow: 1; width: 50%;">         <div id="chartContainer" style="height: 195px; width:100%;"></div>         <div id="wdbWrapHistory">           <table>             <thead>               <tr>                 <th>Bets</th>                 <th>Amount</th>                 <th>High</th>                 <th>TargetChance</th>                 <th>RollChance</th>                 <th>Profit</th> 				<th>Payout</th>                 <th>TargetNumber</th>                 <th>RollNumber</th>                 <th>Game</th>                 <th>BetID</th>               </tr>             </thead>             <tbody id="wdbHistory"></tbody>           </table>         </div>       </div>       <div style="flex-grow: 1; width: 50%; padding-left: 5px;">         <div id="wdbTabMenu">           <button class="btn-grad" id="wdbShowMode"  >Code</button>           <button class="btn-grad" id="wdbShowLog" >Log</button> 		  <button class="btn-grad" id="wdbShowSim" >Sim (dice)</button>         </div>         <div>           <div id="wdbWrapMode">             <div id="wdbLUAMode">               <div style="padding: 5px 2px 5px">                 <button class="btn-grad" id="wdbSaveScriptButton">Save</button>                 <input style="margin: 0 3px;" type="file" id="wdbOpenLUAScript" accept=".txt, .lua, .js">               </div> <div class="code-container"> <div class="code-lua"> 	<textarea id="code">chance=49.5 bethigh=true basebet=0.00000000 nextbet=basebet function dobet()   if (win) then     nextbet=basebet   else     nextbet=previousbet*2   end end</textarea></div> <div class="code-js"> <textarea id="jscode">chance=49.5 bethigh=true basebet=0.00000000 nextbet=basebet dobet = function() {   if (win) {     nextbet=basebet   } else {     nextbet=previousbet*2   } }</textarea></div>                <div class="wdbSim"> 			ServerSeed:<input id="serverseed" type="text" style="color:black; background:white;"></br>             ClientSeed:<input id="clientseed" type="text" style="color:black; background:white;"></br> 			Nonce:<input id="nonce" type="text" value="1" style="color:black; background:white;"></br> 			<button id="runsim" type="button">Simulate</button> 			<button id="stopsim" type="button">Stop</button> 			<textarea id="wdbSimLog" style="width: 100%; height: 80%; color:white; background:black;"></textarea>           </div>                <div id="wdbWrapLog">             <textarea id="wdbLog" style="width: 110%; height: 90%; font-size: 11px; color:white; background:black;"></textarea> 			<button id="runcmd" type="button">Command</button><input id="runinput" type="text">           </div>  </div>   	</div>           </div>  	</div>           </div>           <div id="wdbWrapVariables" style="display: none;">             <pre>chance : % win chance in next game plinkoRow : Plinko rows, only for plinko game, some site not have plinkoRisk : risk level for plinko game (low, medium, high) bethigh : Bet side in next game (true is over/above, false is under/below) nextbet : Amount in next game lastBet.amount, previousbet : Amount in previous game lastBet.chance : % win chance in previous game lastBet.roll : % roll chance in previous game lastBet.target : Target number in previous game (some sites have) lastBet.result : Result number in previous game (some sites have) lastBet.profit, currentprofit : Profit in previous game lastBet.nonce : Current seed nonce lastBet.id : Bet ID in previous game currency : Currency to play (some site not work) balance : Current balance profit : Session profit wagered : Session wagered win : State in previous game (true is win, false is lose) bets : Bet count wins : Win count winstreak  : Winning streak losses : Lose count losestreak : Losing streak currentstreak : Current streak (smaller 0 is losing streak and vice versa) partialprofit : partialprofit (same in other dicebot) scriptname : Name of script u use</pre>           </div>           <div id="wdbWrapFunctions" style="display: none;"> <pre>dobet() : Main function for betting stop() : Stop betting resume() : Resume betting with current params resetseed() : Reset fairness resetstats() : Reset statistics resetchart() : Reset chart resethistory() : Reset history resetlog() : Reset log resetall() : Reset time, statistics, chart, history, log checkbalance() : Check actual balance ching() : Alert with sound log(message) : Write a message in Log area sleep(sec) : Pause betting system with sec resetpartialprofit() : Reset partialprofit</pre>           </div>           <div id="wdbWrapTips" style="display: none;">             <pre>Click ▼ or ▲ on to see something change Disable chart, history, log to have best performance Hold top or bottom area to move the bot around</pre>           </div>         </div>         <div id="wdbControlMenu">           <button id="wdbStartButton" class="btn-grad btn-control" >Start</button>           <button id="wdbStopButton" class="btn-grad btn-control" >Stop</button>           <button id="wdbResumeButton" class="btn-grad btn-control"  disabled="disabled">Resume</button>           <button id="wdbStopOnWinButton" disabled="disabled" class="btn-grad btn-control" >StopOnWin</button>           <button class="btn-grad btn-control" id="userBal">CheckBalance</button>         </div>       </div> 	  <div id="wdbFooter">     <div class="clearfix">       <div id="infobar" class="float-left" style="padding-left: 5px;color:white">         github.com/poky1084 | Discord: fisk_992 | Telegram: https://t.me/poky_1084       </div>       <div id="infospeed" class="float-right" style="color:white">         Speed: <span id="wdbSpeed" style="color:white">0</span>         <span class="wdb-toggle" id="wdbToggleHideControlBot" >▲</span>       </div>     </div>   </div>     </div>   </div>   </div></div> </center> </body>')
+ document.body.insertAdjacentHTML("beforebegin", `<body><div id="wdbWrapLicenseBox">
+      <style>
+        #wdbLicenseBox {
+          all: revert;
+          font-family: "Courier New", monospace;
+          font-size: 12px!important;
+          text-align: left;
+          background: #fff!important;
+          color: black!important;
+          line-height: 1.5!important;
+          top: 60px;
+          left: 60px;
+          padding: 5px;
+          position: absolute;
+          z-index: 2147483002;
+          border: 1px solid #ccc!important;
+          border-radius: 3px;
+        }
+
+        .wdb-input {
+          all: revert;
+          padding: 2px;
+          border: 1px solid #ccc;
+          border-radius: 3px;
+        }
+        
+        .btn-grad {
+          all: revert;
+          cursor: pointer;
+          background-image: linear-gradient(to right, #ffb347 0%, #ffcc33  51%, #ffb347  100%);
+          text-align: center;
+          transition: 0.5s;
+          padding: 3px;
+          background-size: 200% auto;
+          border: #ffc107;
+          border-radius: 3px;
+        }
+        
+        .btn-grad:hover {
+          background-position: right center;
+          text-decoration: none;
+        }
+        
+        .btn-grad:active {
+          opacity: .65;
+        }
+        
+        .btn-grad:disabled {
+          cursor: auto;
+          opacity: .65;
+          color: #fff;
+        }
+
+        #wdbLicenseAlert {
+          text-align: left!important;
+          color: red;
+          margin-top: 5px;
+        }
+      </style>
+
+      </div><div id="wdbWrap"><style>
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+#wdb {
+  all: revert;
+  width: 1000px;
+  font-family: "Courier New", monospace;
+  font-size: 12px!important;
+  text-align: left;
+  background: #000;
+  color: #fff;
+  line-height: 1.5!important;
+  position: absolute;
+  z-index: 2147483002;
+  border: 0.6px solid #ccc;
+  border-radius: 3px;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#wdbHeader,
+#wdbFooter {
+  cursor: move;
+  height: 20px;
+  padding: 3px 5px;
+}
+
+.wdb-toggle {
+  cursor: pointer;
+  padding: 5px;
+  z-index: 2147483003;
+}
+
+#wdbMenu {
+  padding: 3px;
+}
+
+#wdbMenu select,
+#wdbMenu span input[type=number] {
+  all: revert;
+  background: #fff!important;
+  padding: 3px 5px;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  border-radius: 3px;
+}
+
+#wdbMenu span input[type=number] {
+  width: 86px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 19px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  all: revert;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 3px;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  background: white;
+  height: 13px;
+  width: 13px;
+  left: 3px;
+  bottom: 3.5px;
+  border-radius: 3px;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+input:checked + .slider {
+  background: linear-gradient(to right, #ffb347 0%, #ffcc33  51%, #ffb347  100%);;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #ffc107;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.btn-grad {
+  all: revert;
+  cursor: pointer;
+  background-image: linear-gradient(to right, #ffb347 0%, #ffcc33  51%, #ffb347  100%);
+  text-align: center;
+  transition: 0.5s;
+  padding: 3px;
+  background-size: 200% auto;
+  border: #ffc107;
+  border-radius: 3px;
+}
+
+.btn-grad:hover {
+  background-position: right center;
+  text-decoration: none;
+}
+
+.btn-grad:active {
+  opacity: .65;
+}
+
+.btn-grad:disabled {
+  cursor: auto;
+  opacity: .65;
+  color: #fff;
+}
+
+.btn-control {
+  padding-top: 10px!important;
+  padding-bottom: 10px!important;
+}
+
+#wdbOpenLUAScript,
+#wdbOpenJSScript {
+  all: revert;
+}
+
+#wdbChart,
+#wdbWrapHistory {
+  height: 200px;
+  padding: 3px;
+}
+
+#wdbWrapHistory {
+  overflow-x: auto;
+}
+
+#wdbWrapHistory table {
+  border-collapse: collapse;
+  font-size: 11px!important;
+}
+
+#wdbWrapHistory table thead tr th {
+  text-align: left;
+  padding: 1px;
+  border: 1px solid #ccc;
+}
+
+#wdbHistory tr {
+  border-bottom: 1px solid #fff;
+  color: #000!important;
+}
+
+#wdbHistory tr:last-child {
+  border-bottom: 1px solid #ccc;
+}
+
+#wdbHistory tr td {
+  all: revert;
+  white-space: nowrap;
+  padding: 1.5px;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+}
+
+#wdbHistory tr td:first-child {
+  border-left: 1px solid #ccc;
+}
+
+#wdbHistory tr td:last-child {
+  border-right: 1px solid #ccc;
+}
+
+#wdbHistory tr td input {
+  all: revert;
+}
+
+#wdbAdvancedMode,
+#wdbWrapMode,
+#wdbWrapLog,
+#wdbWrapVariables,
+#wdbWrapFunctions,
+#wdbWrapTips {
+  overflow: scroll;
+  height: 340px;
+}
+
+#wdbWrapVariables pre,
+#wdbWrapFunctions pre,
+#wdbWrapTips pre {
+  all: revert;
+  background: #fff;
+  color: #000;
+  margin: 0;
+}
+
+.wdbSim {
+	overflow: auto;
+	visibility : visible;
+	grid-area: 1 / 1;
+	width: 100%;
+	overflow: auto
+}
+.code-lua {
+	overflow: auto;
+	visibility : hidden;
+	grid-area: 1 / 1;
+	width: 100%;
+	overflow: auto
+}
+.code-js {
+	visibility : visible;
+	z-index: 10;
+	grid-area: 1 / 1;
+	overflow: auto;
+	width: 100%;
+}
+
+#wdbWrapLog {
+	visibility : hidden;
+	z-index: 10;
+	grid-area: 1 / 1;
+}
+
+#wdbLog li {
+	font-size: 6px!important;
+}
+
+#wdbSimLog {
+	font-size: 11px!important;
+}
+
+#wdbOpenScript {
+  all: revert;
+}
+
+.CodeMirror {
+  
+}
+
+.wdb-stats,
+.wdb-flex-container {
+  display: flex;
+  align-items: stretch;
+  font-weight: bold;
+}
+
+.wdb-stats div {
+  flex-grow: 1;
+  padding: 2px 32px;
+}
+
+.wdb-stats div li {
+  list-style: none;
+}
+
+.wdb-advanced-item {
+  line-height: 2;
+  padding: 3px 0;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.wdb-advanced-item:last-child {
+  border: none;
+}
+
+.wdb-advanced-item input {
+  all: revert;
+}
+
+.wdb-advanced-item input[type=number] {
+  width: 86px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.float-left {
+  float: left!important;
+}
+
+.float-right {
+  float: right!important;
+}
+
+.wdb-menu2 {
+  display: flex;
+  font-size: 11px!important;
+}
+
+.wdb-menu2 span {
+  padding: 3px 6px;
+  text-align: center;
+}
+
+#wdbTabMenu,
+#wdbControlMenu {
+  display: flex; flex-wrap: wrap;
+  margin-top: 3px;
+}
+
+#wdbTabMenu button,
+#wdbControlMenu button {
+  flex-basis: 0;
+  flex-grow: 1;
+  margin: 3px;
+}
+
+
+/**
+ *
+ * In this pen:
+ * added stylesheets with CDN:
+ *   -  //cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/codemirror.css
+ *   -  //cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/theme/material.css
+ *
+ */
+
+*, *:after, *:before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html,
+body {
+	height: 100%;
+}
+html {
+	text-rendering: optimizeLegibility;
+	line-height: 1.5em;
+	letter-spacing: .3px;
+	font-family: "Poppins", sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+body {
+}
+html {
+	font-family: "Geneva", sans-serif;
+}
+
+
+/* ----------
+	WRAPPERS & CONTAINERS
+---------- */
+section {
+	position: relative;
+	padding: 2.5rem 0;
+}
+.container {
+	position: relative;
+	margin: auto;
+	padding: 0 20px;
+	width: 100%;
+	max-width: 970px;
+}
+section:after, .container:after, .row:after {
+	display: table;
+	content: "";
+	clear: both;
+}
+
+
+/* ----------
+	ANHOR TAG
+---------- */
+a {
+	cursor: pointer;
+	outline: 0;
+}
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a,
+h6 > a,
+p  > a {
+	color: #ed9d0a;
+	text-decoration: none;
+}
+h1 > a:hover,
+h2 > a:hover,
+h3 > a:hover,
+h4 > a:hover,
+h5 > a:hover,
+h6 > a:hover,
+p  > a:hover {
+	text-decoration: underline;
+}
+
+
+/* ----------
+	TYPOGRAPHY
+---------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+ul {
+	margin-bottom: 1rem;
+	-ms-word-break: break-word;
+	-ms-word-wrap: break-word;
+	-webkit-word-break: break-word;
+	-webkit-word-wrap: break-word;
+	word-break: break-word;
+	word-wrap: break-word;
+}
+h1:last-child,
+h2:last-child,
+h3:last-child,
+h4:last-child,
+h5:last-child,
+h6:last-child,
+p:last-child,
+blockquote:last-child,
+ul:last-child {
+	margin-bottom: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	line-height: 1.25em;
+	letter-spacing: 1px;
+	font-weight: 600;
+}
+h1:not(:first-child),
+h2:not(:first-child),
+h3:not(:first-child),
+h4:not(:first-child),
+h5:not(:first-child),
+h6:not(:first-child) {
+	margin-top: 1.5em;
+}
+h1 {
+	letter-spacing: 2px;
+	font-size: 1.75rem;
+}
+h2 {
+	font-size: 1.5rem;
+}
+h1 strong,
+h2 strong,
+h3 strong,
+h4 strong,
+h5 strong,
+h6 strong {
+	font-weight: 700;
+}
+p {
+	line-height: 1.5em;
+}
+ul {
+	padding-left: 1.5rem;
+}
+hr {
+	border: 0;
+	border-top: 1px solid #e1e1e1;
+}
+
+
+/* ----------
+	CODE BLOCK
+---------- */
+.code-container {
+	display: grid;
+	position: relative;
+	margin-bottom: 1.5rem;
+	overflow: auto;
+	border-radius: 3px;
+	box-shadow: 3px 3px 6px rgba(0, 0, 0, .3);
+	width: 100%;
+}
+.code-container:last-child {
+	margin-bottom: 0;
+	width: 100%;
+}
+
+.btn {
+	background-color: #ed9d0a;
+	color: #fff;
+	padding: 4px 10px;
+	text-decoration: none;
+	border-radius: 3px;
+	box-shadow: 0 8px 6px -6px rgba(0, 0, 0, .15);
+	-webkit-backface-visibility: hidden;
+	-webkit-transition: 200ms -webkit-transform ease, 200ms transform ease, 200ms box-shadow ease;
+			transition: 200ms -webkit-transform ease, 200ms transform ease, 200ms box-shadow ease;
+}
+.btn:hover {
+	box-shadow: 0 6px 6px -4px rgba(0, 0, 0, .2);
+	-webkit-transform: translateY(-2px);
+			transform: translateY(-2px);
+}
+.btn.btn-left {
+	float: left;
+}
+.btn.btn-right {
+	float: right;
+}
+
+
+.row {
+	margin-bottom: 1.5rem;
+	width: 100%;
+}
+.row:last-child {
+	margin-bottom: 0;
+}
+
+#runcmd {
+	width: 30%
+}
+
+#runinput {
+	width: 70%
+}
+
+</style>
+<center>
+<div id="wdb">
+  <div id="wdbHeader">
+    <div class="clearfix">
+      <div class="float-left" style="padding-left: 5px;">
+        #evilbot | stake.com | stake.us | primedice
+      </div>
+      <div class="float-right">
+        <span class="wdb-toggle" id="wdbToggleMinimal" >▼</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="wdbMain">
+    <div id="wdbMenu">
+      <select id="wdbMenuMode" class="wdb-select">
+        <option value="js" selected="selected">JsMode</option>
+      </select>
+      <select id="wdbMenuCoin" class="wdb-select">
+	  <option value="btc" selected="selected">btc</option>
+      </select>
+	  <select id="gameselect" class="gameselect">
+        <option value="dice" selected="selected">dice</option>
+		<option value="limbo">limbo</option>
+		<option value="mines">mines</option>
+		<option value="keno">keno</option>
+		<option value="plinko">plinko</option>
+		<option value="hilo">hilo</option>
+		<option value="wheel">wheel</option>
+		<option value="roulette">roulette</option>
+		<option value="dragontower">dragon</option>
+		<option value="baccarat">baccarat</option>
+		<option value="pump">pump</option>
+		<option value="flip">flip</option>
+		<option value="darts">darts</option>
+		<option value="snakes">snakes</option>
+		<option value="cases">cases</option>
+		<option value="rps">rps</option>
+		<option value="tomeoflife">tomeoflife</option>
+		<option value="scarabspin">scarabspin</option>
+		<option value="bluesamurai">bluesamurai</option>
+		<option value="diamonds">diamonds</option>
+      </select>
+	   <select id="mirrors" class="mirrors">
+        <option value="stake.games" >stake.games</option>
+		<option value="stake.bet" >stake.bet</option>
+		<option value="stake.com" >stake.com</option>
+		<option value="staketr.com" selected="selected">staketr.com</option>
+		<option value="stake.us" >stake.us</option>
+		<option value="stake1021.com" >stake1021.com</option>
+		<option value="primedice.com" >primedice.com</option>
+		<option value="primedice.games" >primedice.games</option>
+      </select>
+	  <input type="password" id="tokenkey" value="" style="width: 30%; background: black; color: white;" placeholder="Stake.com or Primedice api key here">
+      <span>
+        MaxRecords
+        <input type="number" id="wdbMaxRows" value="20" style="width: 55px;">
+		<select id="thememod" class="thememod">
+		<option value="dark" >dark</option>
+		<option value="light" >light</option>
+      </select>
+      </span>
+      <span id="scriptName"></span>
+    </div>
+
+    <div class="wdb-menu2">
+    <center>
+      <span style="padding-top: 19px;">
+        <button class="btn-grad" id="resetstat">ResetStats</button>
+      </span>
+      <span style="padding-top: 19px;">
+        <button class="btn-grad" id="resetChart">ResetChart</button>
+      </span>
+      <span style="padding-top: 19px;">
+        <button class="btn-grad" id="deleteTable">ResetHistory</button>
+      </span>
+      <span style="padding-top: 19px;">
+        <button class="btn-grad" id="deleteLog">ResetLog</button>
+      </span>
+      <span style="padding-top: 19px;">
+        <button class="btn-grad" id="resetsee">ResetSeed</button>
+      </span>
+      <span style="padding-top: 19px;">
+        <button class="btn-grad" id="resetAlles">ResetAll</button>
+      </span>
+	  </center>
+    </div>
+
+    <div class="wdb-stats" id="wdbStats">
+      <div>
+        <li class="clearfix">
+          <span class="float-left">Time:</span>
+          <span class="float-right"><span id="wdbTime">0:0:0:0</span></span>
+        </li>
+        <li class="clearfix">
+          <span class="float-left">Balance:</span>
+          <span class="float-right"><span id="wdbBalance">0.00000000</span></span>
+        </li>
+        <li class="clearfix">
+          <span class="float-left">Wagered:</span>
+          <span class="float-right">(<span id="wdbPercentWagered">0.00</span>x) <span id="wdbWagered">0.00000000</span></span>
+        </li>
+        <li class="clearfix">
+          <span class="float-left">Profit:</span>
+          <span class="float-right" id="wdbWrapPercentProfit">(<span id="wdbPercentProfit">0.00</span>%) <span id="wdbProfit">0.00000000</span></span>
+        </li>
+      </div>
+      
+      <div>
+        <li class="clearfix">
+          <span class="float-left">HighBet:</span>
+          <span class="float-right"><span id="wdbHighBet">0.00000000</span></span>
+        </li>
+        <li class="clearfix">
+          <span class="float-left">HighLose:</span>
+          <span class="float-right"><span id="wdbHighLose">0.00000000</span></span>
+        </li>
+        <li class="clearfix">
+          <span class="float-left">HighProfit:</span>
+          <span class="float-right"><span id="wdbHighProfit">0.00000000</span></span>
+        </li>
+        <li class="clearfix">
+          <span class="float-left">High/Low-Streak:</span>
+          <span class="float-right"><span id="wdbHighLowStreak">0 / 0</span></span>
+        </li>
+      </div>
+
+      <div style="flex-grow: 1; padding: 2px 32px;">
+        <li class="clearfix">
+          <span class="float-left">Bets:</span>
+          <span class="float-right"><span id="wdbBets">0</span></span>
+        </li>
+        <li class="clearfix">
+          <span class="float-left">Wins:</span>
+          <span class="float-right"><span id="wdbWins">0</span></span>
+        </li>
+        <li class="clearfix">
+          <span class="float-left">Losses:</span>
+          <span class="float-right"><span id="wdbLosses">0</span></span>
+        </li>
+        <li class="clearfix">
+          <span class="float-left">CurrentStreak:</span>
+          <span class="float-right"><span id="wdbCurrentStreak">0</span></span>
+        </li>
+      </div>
+    </div>
+
+    <div class="wdb-flex-container" id="wdbWrapControl">
+      <div style="flex-grow: 1; width: 50%;">
+        <div id="chartContainer" style="height: 195px; width:100%;"></div>
+
+        <div id="wdbWrapHistory">
+          <table>
+            <thead>
+              <tr>
+                <th>Bets</th>
+                <th>Amount</th>
+                <th>High</th>
+                <th>TargetChance</th>
+                <th>RollChance</th>
+                <th>Profit</th>
+				<th>Payout</th>
+                <th>TargetNumber</th>
+                <th>RollNumber</th>
+                <th>Game</th>
+                <th>BetID</th>
+              </tr>
+            </thead>
+            <tbody id="wdbHistory"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="flex-grow: 1; width: 50%; padding-left: 5px;">
+        <div id="wdbTabMenu">
+          <button class="btn-grad" id="wdbShowMode"  >Code</button>
+          <button class="btn-grad" id="wdbShowLog" >Log</button>
+		  <button class="btn-grad" id="wdbShowSim" >Sim (dice)</button>
+        </div>
+
+        <div>
+          <div id="wdbWrapMode">
+            <div id="wdbLUAMode">
+              <div style="padding: 5px 2px 5px">
+                <button class="btn-grad" id="wdbSaveScriptButton">Save</button>
+                <input style="margin: 0 3px;" type="file" id="wdbOpenLUAScript" accept=".txt, .lua, .js">
+              </div>
+<div class="code-container">
+
+
+
+<div class="code-js">
+<textarea id="jscode">chance=49.5
+bethigh=true
+nextbet=0.00000000
+basebet=nextbet
+
+dobet = function() {
+  if (win) {
+    nextbet=basebet
+  } else {
+    nextbet=previousbet*2
+  }
+}</textarea></div>
+<div class="code-lua">
+	<textarea id="code">chance=49.5
+bethigh=true
+basebet=0.00000000
+nextbet=basebet
+
+function dobet()
+  if (win) then
+    nextbet=basebet
+  else
+    nextbet=previousbet*2
+  end
+end</textarea></div>
+     
+
+          <div class="wdbSim">
+			ServerSeed:<input id="serverseed" type="text" style="color:black; background:white;"></br>
+            ClientSeed:<input id="clientseed" type="text" style="color:black; background:white;"></br>
+			Nonce:<input id="nonce" type="text" value="1" style="color:black; background:white;"></br>
+			<button id="runsim" type="button">Simulate</button>
+			<button id="stopsim" type="button">Stop</button>
+			<textarea id="wdbSimLog" style="width: 100%; height: 80%; color:white; background:black;"></textarea>
+          </div>
+     
+
+          <div id="wdbWrapLog">
+            <textarea id="wdbLog" style="width: 110%; height: 90%; font-size: 11px; color:white; background:black;"></textarea>
+			<button id="runcmd" type="button">Command</button><input id="runinput" type="text">
+          </div>
+ </div>   
+	</div>
+          </div>
+
+
+
+ 
+	</div>
+          </div>
+          <div id="wdbWrapVariables" style="display: none;">
+            <pre>chance : % win chance in next game
+plinkoRow : Plinko rows, only for plinko game, some site not have
+plinkoRisk : risk level for plinko game (low, medium, high)
+bethigh : Bet side in next game (true is over/above, false is under/below)
+nextbet : Amount in next game
+lastBet.amount, previousbet : Amount in previous game
+lastBet.chance : % win chance in previous game
+lastBet.roll : % roll chance in previous game
+lastBet.target : Target number in previous game (some sites have)
+lastBet.result : Result number in previous game (some sites have)
+lastBet.profit, currentprofit : Profit in previous game
+lastBet.nonce : Current seed nonce
+lastBet.id : Bet ID in previous game
+currency : Currency to play (some site not work)
+balance : Current balance
+profit : Session profit
+wagered : Session wagered
+win : State in previous game (true is win, false is lose)
+bets : Bet count
+wins : Win count
+winstreak  : Winning streak
+losses : Lose count
+losestreak : Losing streak
+currentstreak : Current streak (smaller 0 is losing streak and vice versa)
+partialprofit : partialprofit (same in other dicebot)
+scriptname : Name of script u use</pre>
+          </div>
+
+          <div id="wdbWrapFunctions" style="display: none;">
+<pre>dobet() : Main function for betting
+stop() : Stop betting
+resume() : Resume betting with current params
+resetseed() : Reset fairness
+resetstats() : Reset statistics
+resetchart() : Reset chart
+resethistory() : Reset history
+resetlog() : Reset log
+resetall() : Reset time, statistics, chart, history, log
+checkbalance() : Check actual balance
+ching() : Alert with sound
+log(message) : Write a message in Log area
+sleep(sec) : Pause betting system with sec
+resetpartialprofit() : Reset partialprofit</pre>
+          </div>
+
+          <div id="wdbWrapTips" style="display: none;">
+            <pre>Click ▼ or ▲ on to see something change
+Disable chart, history, log to have best performance
+Hold top or bottom area to move the bot around</pre>
+          </div>
+        </div>
+
+        <div id="wdbControlMenu">
+          <button id="wdbStartButton" class="btn-grad btn-control" >Start</button>
+          <button id="wdbStopButton" class="btn-grad btn-control" >Stop</button>
+          <button id="wdbResumeButton" class="btn-grad btn-control"  disabled="disabled">Resume</button>
+          <button id="wdbStopOnWinButton" disabled="disabled" class="btn-grad btn-control" >StopOnWin</button>
+          <button class="btn-grad btn-control" id="userBal">CheckBalance</button>
+        </div>
+      </div>
+	  <div id="wdbFooter">
+    <div class="clearfix">
+      <div id="infobar" class="float-left" style="padding-left: 5px;color:white"> 
+        github.com/poky1084 | Discord: fisk_992 | Telegram: https://t.me/poky_1084 
+      </div>
+      <div id="infospeed" class="float-right" style="color:white">
+        Speed: <span id="wdbSpeed" style="color:white">0</span>
+        <span class="wdb-toggle" id="wdbToggleHideControlBot" >▲</span>
+      </div>
+    </div>
+  </div>
+    </div>
+  </div>
+
+  
+</div></div>
+</center>
+</body>`)
 
 
 function addCss(src, cb) {
@@ -160,9 +1099,9 @@ initUser();
 resetChart();
 startScoket();
 
-htmlEditor = CodeMirror.fromTextArea(document.getElementById("code"), {
+htmlEditor = CodeMirror.fromTextArea(document.getElementById("jscode"), {
 	lineNumbers: true,
-	mode: 'lua',
+	mode: 'javascript',
 	// theme: 'default',
 });
 
@@ -371,8 +1310,8 @@ function showOnChange(e) {
 	var value = elem.options[elem.selectedIndex].value;
 	if(value == "lua")
 	{
-		document.getElementsByClassName('code-lua')[0].style.visibility  = "visible";
-		document.getElementsByClassName('code-js')[0].style.visibility  = "hidden";
+		document.getElementsByClassName('code-lua')[0].style.visibility  = "hidden";
+		document.getElementsByClassName('code-js')[0].style.visibility  = "visible";
 	}
 	else if(value == "js")
 	{
@@ -557,8 +1496,8 @@ if (localStorage.getItem("menumode") != null) {
 	var value = elem.options[elem.selectedIndex].value;
 	if(value == "lua")
 	{
-		document.getElementsByClassName('code-lua')[0].style.visibility  = "visible";
-		document.getElementsByClassName('code-js')[0].style.visibility  = "hidden";
+		document.getElementsByClassName('code-lua')[0].style.visibility  = "hidden";
+		document.getElementsByClassName('code-js')[0].style.visibility  = "visible";
 	}
 	else if(value == "js")
 	{
@@ -6691,6 +7630,7 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
     //console.log('Received message:', event.data);
 			const obj = JSON.parse(event.data);		
 			if (obj.hasOwnProperty("payload")) {
+				if (obj.payload.hasOwnProperty("data")) {
 				if (obj.payload.data.hasOwnProperty("availableBalances")) {
 					if(obj.payload.data.availableBalances.balance.currency == currency){
 					if(simrunning == false){
@@ -6701,6 +7641,7 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 						}
 					}
 				} 
+				}
 			}
 				
   if(event.data.includes("connection_ack")){
