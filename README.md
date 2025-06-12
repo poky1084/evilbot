@@ -7,7 +7,6 @@ the strategy script must be coded in javascript, and not Lua script.
 
 # Videos: <br /> 
 install extension: https://vimeo.com/954123726 <br />
-install console: https://cos.tv/videos/play/52855058251682816 <br />
 
 # Info: <br />
 Please favourite the repo in case you liked/used it. Thank you!
