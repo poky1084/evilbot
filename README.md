@@ -1,5 +1,5 @@
 # evilbot
-stake.com, stake.us, primedice bot by me with love
+stake.com, stake.us, primedice bot by me with ❤
 
 # bot4stake  <br /> 
 a javascript coded bot for Stake, Primedice, ()<br />
