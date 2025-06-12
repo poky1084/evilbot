@@ -2,7 +2,7 @@
 stake.com, stake.us, primedice bot by me with love
 
 # bot4stake  <br /> 
-a javascript coded bot for Stake, Primedice, (Dice, Limbo, Crash, Slide, Keno, Plinko, Mines, Roulette, Wheel, Baccarat, Dragontower)<br />
+a javascript coded bot for Stake, Primedice, ()<br />
 the strategy script must be coded in javascript, and not Lua script. 
 
 # Videos: <br /> 
