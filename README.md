@@ -171,7 +171,8 @@ startcard = {"rank":"A","suit":"H"}
 nextbet = 0
 
 function dobet(){
-  
+    let scard = Math.floor(Math.random() * (9 - 2 + 1) + 2).toString()
+    startcard = {"rank":scard,"suit":"H"}
 }  
 
 function round(){
