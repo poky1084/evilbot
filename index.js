@@ -1099,11 +1099,11 @@ initUser();
 resetChart();
 startScoket();
 
-htmlEditor = CodeMirror.fromTextArea(document.getElementById("jscode"), {
+/*(htmlEditor = CodeMirror.fromTextArea(document.getElementById("jscode"), {
 	lineNumbers: true,
 	mode: 'javascript',
 	// theme: 'default',
-});
+});*/
 
 htmlEditor2 = CodeMirror.fromTextArea(document.getElementById("jscode"), {
 	lineNumbers: true,
@@ -1116,7 +1116,7 @@ if(localStorage.getItem("jscode") != null){
 } 
 
 if(localStorage.getItem("luacode") != null){
-	htmlEditor.setValue(localStorage.getItem("luacode"));
+	//htmlEditor.setValue(localStorage.getItem("luacode"));
 } 
 
 
@@ -1180,9 +1180,9 @@ if (localStorage.getItem("thememod") != null) {
 	}
 }
 
-htmlEditor.on("change", function (e) {
+/*htmlEditor.on("change", function (e) {
 	localStorage.setItem("luacode", e.getValue());
-});
+});*/
 htmlEditor2.on("change", function (e) {
 	localStorage.setItem("jscode", e.getValue());
 });
@@ -7146,7 +7146,7 @@ btnStartSim.addEventListener('click', function() {
 	simrunning = true; 
 	nonce = parseInt(document.getElementById('nonce').value);
 	localStorage.setItem("jscode", htmlEditor2.getValue());
-	localStorage.setItem("luacode", htmlEditor.getValue());
+	//localStorage.setItem("luacode", htmlEditor.getValue());
 	
 	var elem = document.getElementById("wdbMenuMode");
 	var value = elem.options[elem.selectedIndex].value;
@@ -7434,7 +7434,7 @@ function start(){
 				guesses = guesses.split(',')
 				
 				localStorage.setItem("jscode", htmlEditor2.getValue());
-				localStorage.setItem("luacode", htmlEditor.getValue());
+				//localStorage.setItem("luacode", htmlEditor.getValue());
 			 
 			 currency = document.getElementById('wdbMenuCoin').value;
 			 
@@ -7517,7 +7517,7 @@ function start(){
 			game=undefined
 			setTimeout(htmlEditor2.getValue() + `
 			localStorage.setItem("jscode", htmlEditor2.getValue());
-			localStorage.setItem("luacode", htmlEditor.getValue());
+			//localStorage.setItem("luacode", htmlEditor.getValue());
 			 
 			 currency = document.getElementById('wdbMenuCoin').value;
 			 //patternlist = []
