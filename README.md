@@ -162,11 +162,7 @@ game = "tomeoflife"
 lines = 1
 nextbet = 0
  ```
-<b>darts:</b>
-```javascript
-game = "darts"
-nextbet = 0
- ```
+
 
 <b>hilo:</b>
 ```javascript
