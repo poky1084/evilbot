@@ -100,7 +100,7 @@ chips = [{"value": "number0", "amount": 0.001},{"value": "colorBlack", "amount":
 ```javascript
 game = "flip"
 nextbet = 0
-guesses = 1
+guesses = ["tails", "heads"]
  ```
 <b>rock, paper, scissors:</b>
 ```javascript
