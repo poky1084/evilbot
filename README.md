@@ -167,45 +167,81 @@ nextbet = 0
 <b>hilo:</b>
 ```javascript
 game = "hilo"
-startcard = {"rank":"A","suit":"H"}
 nextbet = 0
+startcard = {"rank":"A","suit":"H"}
+pattern = [2]
+index = 0  
 
 function dobet(){
     card = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"].sort(() => Math.random() - 0.5).slice(0, 1).toString();
-    startcard = {"rank":card,"suit":"H"}
-}  
+    startcard = {"rank":card,"suit":"H"}  
+    index = 0
+}	
 
 function round(){
   currentCardRank = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
   payoutMultiplier = currentBet.state.rounds.at(-1)?.payoutMultiplier || 0;
-  skippedCards = currentBet.state.rounds.filter(round => round.guess === 'skip').length;  
-
-  if (payoutMultiplier >= 1.1) {
-        return HILO_CASHOUT;
-    }
-    if (currentCardRank === "A") {
-        return HILO_BET_EQUAL;
-    }
-    
-    if (currentCardRank === "J") {
+  skippedCards = currentBet.state.rounds.filter(round => round.guess === 'skip').length;	
+	
+  	if(index < pattern.length){
+		guessing = pattern[index]
+	} else {
+		return HILO_CASHOUT;
+	}
+  	log(guessing)
+	index++ 
+	
+  	if (currentCardRank === "A" && guessing === 4) {
         return HILO_BET_LOW;
     }
     
-    if (currentCardRank === "Q") {
-        return HILO_BET_LOW;
+    if (currentCardRank === "J" && guessing === 4) {
+        return HILO_BET_HIGH;
     }
     
-    if (currentCardRank === "K") {
-        return HILO_BET_LOW;
+    if (currentCardRank === "Q" && guessing === 4) {
+        return HILO_BET_HIGH;
     }
     
-    if (parseInt(currentCardRank) <= 10 && parseInt(currentCardRank) > 7) {
+    if (currentCardRank === "K" && guessing === 4) {
+        return HILO_BET_HIGH;
+    }
+    
+    if (parseInt(currentCardRank) <= 10 && parseInt(currentCardRank) >= 7 && guessing === 4) {
+        return HILO_BET_HIGH;
+    } 
+ 
+    if (parseInt(currentCardRank) < 7 && guessing === 4) {
         return HILO_BET_LOW;
     } 
-  
-    if (parseInt(currentCardRank) === 7 && skippedCards <= 52) {
-        return HILO_SKIP;
+   	 if (currentCardRank === "A" && guessing === 5) {
+        return HILO_BET_HIGH;
     }
-    return HILO_BET_HIGH;
+    
+    if (currentCardRank === "J" && guessing === 5) {
+        return HILO_BET_LOW;
+    }
+    
+    if (currentCardRank === "Q" && guessing === 5) {
+        return HILO_BET_LOW;
+    }
+    
+    if (currentCardRank === "K" && guessing === 5) {
+        return HILO_BET_LOW;
+    }
+    
+    if (parseInt(currentCardRank) <= 10 && parseInt(currentCardRank) >= 7 && guessing === 5) {
+        return HILO_BET_LOW;
+    } 
+
+    if (parseInt(currentCardRank) < 7 && guessing === 5) {
+        return HILO_BET_HIGH;
+    } 
+	
+	if(guessing === 2){
+		return HILO_BET_EQUAL
+	}
+	
+   return HILO_SKIP;
 }
  ```
