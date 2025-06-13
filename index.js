@@ -6739,7 +6739,6 @@ function data(json){
 			if(game == "hilo"){
 				if(cashout_done){
 				cashout_done = false
-				log("new bet")
 				hiloBet(nextbet, startcard)
 				} else {
 				if(hiloguess == 7 || hiloguess == 5 || hiloguess == 4 || hiloguess == 2){
