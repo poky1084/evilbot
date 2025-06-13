@@ -7397,7 +7397,7 @@ function sendLua() {
 }
 
 function start(){
-		running = true; countTime(); 
+		running = true; cashout_done = false; countTime(); 
 		var elem = document.getElementById("wdbMenuMode");
 		var value = elem.options[elem.selectedIndex].value;
 		if(value == "lua"){
