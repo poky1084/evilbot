@@ -169,14 +169,14 @@ nextbet = 0
 game = "hilo"
 nextbet = 0
 startcard = {"rank":"A","suit":"H"}
-pattern = [5]
-selection = [4,5]
+pattern = [5,5]
+//selection = [4,5]
 index = 0  
 
 function dobet(){
     card = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"].sort(() => Math.random() - 0.5).slice(0, 1).toString();
     startcard = {"rank":card,"suit":"H"}  
-    pattern = selection.sort(() => Math.random() - 0.5).slice(0, 1)
+    //pattern = selection.sort(() => Math.random() - 0.5).slice(0, 1)
     index = 0
 }	
 
