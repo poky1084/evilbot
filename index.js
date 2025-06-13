@@ -6726,7 +6726,9 @@ function data(json){
 			
 			
 		}
-		
+		if(hiloguess == 3 && !running){
+			hiloCash()
+		}
 		if(running && !samuraiskip){
 			sleep(sleepfor).then(() => {
 			sleepfor = 0
