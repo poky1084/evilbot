@@ -1743,6 +1743,9 @@ function deleteLogs(){
 
 function stopOnWin() {
     running = false;
+	btnStart.disabled = false;
+	simrunning = false;
+	cashout_done = false;
 }
 
 
@@ -6726,15 +6729,17 @@ function data(json){
 			
 			
 		}
-		if(hiloguess == 3 && running == false){
+		if(hiloguess == 3 && running == false && cashout_done == false && game === "hilo"){
+			//cashout_done = true
 			hiloCash()
 		}
-		if(running && !samuraiskip){
+		if(running && samuraiskip == false){
 			sleep(sleepfor).then(() => {
 			sleepfor = 0
 			if(game == "hilo"){
 				if(cashout_done){
 				cashout_done = false
+				log("new bet")
 				hiloBet(nextbet, startcard)
 				} else {
 				if(hiloguess == 7 || hiloguess == 5 || hiloguess == 4 || hiloguess == 2){
@@ -6857,6 +6862,8 @@ function data(json){
 function stop(){
 	running = false;
 	simrunning = false;
+	cashout_done = false;
+	btnStart.disabled = false;
 }
 
 function resetAll(){
@@ -7612,7 +7619,7 @@ var btnStart = document.getElementById("wdbStartButton");
 btnStart.addEventListener('click', function() {  if(document.getElementById("tokenkey").value.length < 96){return;}; start();}, false);
 
 var btnStop = document.getElementById("wdbStopButton");
-btnStop.addEventListener('click', function() {  btnStart.disabled = false; running = false; }, false);
+btnStop.addEventListener('click', function() {  btnStart.disabled = false; stop(); }, false);
 
 
 
