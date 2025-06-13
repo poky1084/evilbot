@@ -169,7 +169,7 @@ nextbet = 0
 game = "hilo"
 nextbet = 0
 startcard = {"rank":"A","suit":"H"}
-pattern = [2,5]
+pattern = [5,5]
 index = 0  
 
 function dobet(){
