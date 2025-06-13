@@ -171,7 +171,7 @@ startcard = {"rank":"A","suit":"H"}
 nextbet = 0
 
 function dobet(){
-    card = Math.floor(Math.random() * (10 - 2 + 1) + 2).toString()
+    card = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"].sort(() => Math.random() - 0.5).slice(0, 1).toString();
     startcard = {"rank":card,"suit":"H"}
 }  
 
