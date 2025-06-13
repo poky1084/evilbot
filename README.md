@@ -6,7 +6,7 @@ a javascript coded bot for Stake, Primedice, ()<br />
 the strategy script must be coded in javascript, and not Lua script. 
 
 # Videos: <br /> 
-install extension: [https://vimeo.com/954123726](https://vimeo.com/1092943750) <br />
+install extension: [https://vimeo.com/1092943750](https://vimeo.com/1092943750) <br />
 
 # Info: <br />
 Please favourite the repo in case you liked/used it. Thank you!
