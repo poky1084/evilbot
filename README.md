@@ -169,12 +169,14 @@ nextbet = 0
 game = "hilo"
 nextbet = 0
 startcard = {"rank":"A","suit":"H"}
-pattern = [5,5]
+pattern = [5]
+selection = [4,5]
 index = 0  
 
 function dobet(){
     card = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"].sort(() => Math.random() - 0.5).slice(0, 1).toString();
     startcard = {"rank":card,"suit":"H"}  
+    pattern = selection.sort(() => Math.random() - 0.5).slice(0, 1)
     index = 0
 }	
 
@@ -183,12 +185,12 @@ function round(){
   payoutMultiplier = currentBet.state.rounds.at(-1)?.payoutMultiplier || 0;
   skippedCards = currentBet.state.rounds.filter(round => round.guess === 'skip').length;	
 	
-   if(index < pattern.length){
+    if(index < pattern.length){
 	 guessing = pattern[index]
-   } else {
-	 return HILO_CASHOUT;
-   }
-   index++ 
+    } else {
+         return HILO_CASHOUT;
+    }
+    index++ 
 	
     if (currentCardRank === "A" && guessing === 4) {
         return HILO_BET_LOW;
@@ -238,8 +240,9 @@ function round(){
     } 
 	
     if(guessing === 2){
-	return HILO_BET_EQUAL
-    }	
+        return HILO_BET_EQUAL
+    }
+
     return HILO_SKIP;
 }
  ```
