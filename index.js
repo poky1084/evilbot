@@ -6726,7 +6726,7 @@ function data(json){
 			
 			
 		}
-		if(hiloguess == 3 && !running){
+		if(hiloguess == 3 && running == false){
 			hiloCash()
 		}
 		if(running && !samuraiskip){
