@@ -183,15 +183,14 @@ function round(){
   payoutMultiplier = currentBet.state.rounds.at(-1)?.payoutMultiplier || 0;
   skippedCards = currentBet.state.rounds.filter(round => round.guess === 'skip').length;	
 	
-  	if(index < pattern.length){
-		guessing = pattern[index]
-	} else {
-		return HILO_CASHOUT;
-	}
-  	log(guessing)
-	index++ 
+   if(index < pattern.length){
+	 guessing = pattern[index]
+   } else {
+	 return HILO_CASHOUT;
+   }
+   index++ 
 	
-  	if (currentCardRank === "A" && guessing === 4) {
+    if (currentCardRank === "A" && guessing === 4) {
         return HILO_BET_LOW;
     }
     
@@ -238,10 +237,9 @@ function round(){
         return HILO_BET_HIGH;
     } 
 	
-	if(guessing === 2){
-		return HILO_BET_EQUAL
-	}
-	
-   return HILO_SKIP;
+    if(guessing === 2){
+	return HILO_BET_EQUAL
+    }	
+    return HILO_SKIP;
 }
  ```
