@@ -662,10 +662,21 @@ hr {
       </select>
 	   <select id="mirrors" class="mirrors">
         <option value="stake.games" >stake.games</option>
+		<option value="stake.us" >stake.us</option>
 		<option value="stake.bet" >stake.bet</option>
 		<option value="stake.com" >stake.com</option>
 		<option value="staketr.com" selected="selected">staketr.com</option>
-		<option value="stake.us" >stake.us</option>
+		<option value="stake.ac" >stake.ac</option>
+		<option value="stake.pet" >stake.pet</option>
+		<option value="stake.mba" >stake.mba</option>
+		<option value="stake.jp" >stake.jp</option>
+		<option value="stake.bz" >stake.bz</option>
+		<option value="stake.ceo" >stake.ceo</option>
+		<option value="stake.krd" >stake.krd</option>
+		<option value="stake1001.com" >stake1001.com</option>
+		<option value="stake1002.com" >stake1002.com</option>
+		<option value="stake1003.com" >stake1003.com</option>
+		<option value="stake1022.com" >stake1022.com</option>
 		<option value="stake1021.com" >stake1021.com</option>
 		<option value="primedice.com" >primedice.com</option>
 		<option value="primedice.games" >primedice.games</option>
@@ -1236,7 +1247,7 @@ var body = {
 		query:"mutation RotateSeedPair($seed: String!) {\n  rotateSeedPair(seed: $seed) {\n    clientSeed {\n      user {\n        id\n        activeClientSeed {\n          id\n          seed\n          __typename\n        }\n        activeServerSeed {\n          id\n          nonce\n          seedHash\n          nextSeedHash\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"		}
 		
 	var mirror = document.getElementById("mirrors").value;
-	fetch('https://' +  mirror + '/_api/graphql', {
+	fetch('https://' + mirror + '/_api/graphql', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -1606,7 +1617,7 @@ var body = {
 		query:"query UserBalances {\n  user {\n    id\n    balances {\n      available {\n        amount\n        currency\n        __typename\n      }\n      vault {\n        amount\n        currency\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"		}
 		
 	var mirror = document.getElementById("mirrors").value;
-	fetch('https://' +  mirror + '/_api/graphql', {
+	fetch('https://' + mirror + '/_api/graphql', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -1769,7 +1780,7 @@ var body = {
 		query:"query UserBalances {\n  user {\n    id\n    balances {\n      available {\n        amount\n        currency\n        __typename\n      }\n      vault {\n        amount\n        currency\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"		}
 		
 	var mirror = document.getElementById("mirrors").value;
-	fetch('https://' +  mirror + '/_api/graphql', {
+	fetch('https://' + mirror + '/_api/graphql', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -1815,8 +1826,8 @@ var body = {
         "amount": e
 		},
 		query:"mutation CreateVaultDeposit($currency: CurrencyEnum!, $amount: Float!) {\n  createVaultDeposit(currency: $currency, amount: $amount) {\n    id\n    amount\n    currency\n    user {\n      id\n      balances {\n        available {\n          amount\n          currency\n          __typename\n        }\n        vault {\n          amount\n          currency\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"		}
-	
-	fetch('https://' +   window.location.host + '/_api/graphql', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/graphql', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -1853,8 +1864,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
     "startCard": startcard
 }
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/hilo/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/hilo/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -1881,8 +1892,8 @@ function hiloNext(guessed){
     "guess": guessed
 	}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/hilo/next', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/hilo/next', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -1910,8 +1921,8 @@ function hiloCash(){
     "identifier": randomString(21)
 	}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/hilo/cashout', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/hilo/cashout', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -1946,8 +1957,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
     "difficulty": diff
 }
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/darts/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/darts/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -1980,8 +1991,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
     "amount": betsize
 	}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/video-poker/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/video-poker/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2018,8 +2029,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
     "identifier": randomString(21)
 	}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/slots-samurai/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/slots-samurai/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2047,8 +2058,8 @@ function samuraiNext(){
     "identifier": randomString(21)
 	}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/slots-samurai/next', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/slots-samurai/next', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2084,8 +2095,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
     "identifier": randomString(21)
 	}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/slots/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/slots/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2121,8 +2132,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 		"identifier": randomString(21)
 	}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/slots-tome-of-life/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/slots-tome-of-life/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2157,8 +2168,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
     "identifier": randomString(21)
 	}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/diamonds/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/diamonds/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2193,8 +2204,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
     "difficulty": difficulty
 	}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/cases/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/cases/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2233,8 +2244,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
     }
 	}
 		
-
-	fetch('https://' + window.location.host + '/_api/graphql', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/graphql', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2269,8 +2280,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
     "guesses": guesses
 	}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/rock-paper-scissors/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/rock-paper-scissors/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2306,8 +2317,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
     "rollCount": snakerolls
 	}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/snakes/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/snakes/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2344,8 +2355,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 		"player": baccaratplayer
 		}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/baccarat/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/baccarat/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2381,8 +2392,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
         "eggs": dragoneggs
 		}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/dragon-tower/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/dragon-tower/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2444,8 +2455,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 		"parities": roulette_parity
 		}
 		
-	
-	fetch('https://' +  window.location.host + '/_api/casino/roulette/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/roulette/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2481,8 +2492,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
         "segments": wheelsegments
 		}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/wheel/spin', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/wheel/spin', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2518,8 +2529,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
         "rows": plinkorows
 		}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/plinko/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/plinko/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2555,8 +2566,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
         "numbers": kenoselected
 		}
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/keno/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/keno/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2592,8 +2603,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
     "fields": fieldcount
 }
 		
-
-	fetch('https://' + window.location.host + '/_api/casino/mines/bet', {
+	var mirror = document.getElementById("mirrors").value;
+	fetch('https://' + mirror + '/_api/casino/mines/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2629,8 +2640,8 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
     "round": rounds,
     "difficulty": difficulty
 	}
-		
-	fetch('https://' +  window.location.host + '/_api/casino/pump/bet', {
+	var mirror = document.getElementById("mirrors").value;	
+	fetch('https://' + mirror + '/_api/casino/pump/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2675,7 +2686,7 @@ sendDate = (new Date()).getTime();
 			"currency": currency
 		}
 	var mirror = document.getElementById("mirrors").value;
-	fetch('https://' +  mirror + '/_api/casino/limbo/bet', {
+	fetch('https://' + mirror + '/_api/casino/limbo/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2724,7 +2735,7 @@ sendDate = (new Date()).getTime();
 			query:"mutation PrimediceRoll($amount: Float!, $target: Float!, $condition: CasinoGamePrimediceConditionEnum!, $currency: CurrencyEnum!) {\n  primediceRoll(amount: $amount, target: $target, condition: $condition, currency: $currency) {\n    ...CasinoBetFragment\n    state {\n      ...PrimediceStateFragment\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment CasinoBetFragment on CasinoBet {\n  id\n  active\n  payoutMultiplier\n  amountMultiplier\n  amount\n  payout\n  updatedAt\n  currency\n  game\n  user {\n    id\n    name\n    __typename\n  }\n  __typename\n}\n\nfragment PrimediceStateFragment on CasinoGamePrimedice {\n  result\n  target\n  condition\n  __typename\n}\n"	}
 			
 		var mirror = document.getElementById("mirrors").value;
-		fetch('https://' +  mirror + '/_api/graphql', {
+		fetch('https://' + mirror + '/_api/graphql', {
 			method: 'post',
 			body:    JSON.stringify(body),
 			headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -2772,7 +2783,7 @@ sendDate = (new Date()).getTime();
     "currency": currency
 		}
 	var mirror = document.getElementById("mirrors").value;
-	fetch('https://' +  mirror + '/_api/casino/dice/roll', {
+	fetch('https://' + mirror + '/_api/casino/dice/roll', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
