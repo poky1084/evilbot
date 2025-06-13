@@ -6729,7 +6729,7 @@ function data(json){
 			
 			
 		}
-		if(hiloguess == 3 && running == false && cashout_done == false && game === "hilo"){
+		if(hiloguess == 3 && running == false && cashout_done == false && game === "hilo" && win == false){
 			//cashout_done = true
 			hiloCash()
 		}
