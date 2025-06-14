@@ -4,10 +4,6 @@ stake.com, stake.us, primedice bot by me with ❤
 a javascript coded bot for Stake, Primedice<br />
 the strategy script must be coded in javascript, and not Lua script. 
 
-![Screenshot-2025-06-14-game](https://github.com/user-attachments/assets/64957497-c8da-49c7-94da-a2d3887be950)
-
-![Screenshot-2025-06-14-mirror](https://github.com/user-attachments/assets/ede6666c-7e44-46fc-92ff-3184beff5c25)
-
 # Videos: <br /> 
 install extension: [https://vimeo.com/1092943750](https://vimeo.com/1092943750) <br />
 
@@ -17,6 +13,10 @@ Please favourite the repo in case you liked/used it. Thank you!
 <b>Discord</b>: fisk_992 <br />
 <b>Stake</b>: poky1084 <br />
 <b>Telegram:</b>: https://t.me/poky_1084
+
+![Screenshot-games](https://github.com/user-attachments/assets/dab0b363-f5c2-4c0b-9fa1-70914e391476)
+![Screenshot-mirror](https://github.com/user-attachments/assets/e18aa32c-2190-446a-a86a-607206143805)
+
 
 
 # Use: <br />
