@@ -1475,8 +1475,8 @@ const inputHandler6 = function(e) {
 apichange = document.getElementById("tokenkey");
 apichange.addEventListener('input', inputHandler);
 
-apichange2 = document.getElementById("tokenkey");
-apichange2.addEventListener('change', inputHandler);
+//apichange2 = document.getElementById("tokenkey");
+//apichange2.addEventListener('change', inputHandler);
 
 sitechange = document.getElementById("mirrors");
 sitechange.addEventListener('change', inputHandler2);
