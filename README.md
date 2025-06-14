@@ -34,7 +34,7 @@ dobet = function(){
  //strategy code
 }
 
-or:
+# or:
 
 function dobet(){
  //strategy code
