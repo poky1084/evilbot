@@ -102,6 +102,14 @@ eggs = [0,1]
 game = "roulette"
 chips = [{"value": "number0", "amount": 0.001},{"value": "colorBlack", "amount": 0.001}]
  ```
+```
+ranges = {{value = "range2536",amount = 0.0001},{value = "range1324",amount = 0.0001},{value = "range0112",amount = 0.0001},{value = "range0118",amount = 0.0001},{value = "range1936",amount = 0.0001}}
+parities = {{value = "parityOdd",amount = 0.0001},{value = "parityEven",amount = 0.0001}}
+colors = {{value = "colorRed",amount = 0.0001},{value = "colorBlack",amount = 0.0001}}
+rows = {{value = "row3",amount = 0.0001},{value = "row2",amount = 0.0001},{value = "row1",amount = 0.0001}} 
+numbers = {{value = "number0",amount = 0.0001},{value = "number1",amount = 0.0001},{value = "number2",amount = 0.0001}}
+ ```
+
 <b>flip:</b>
 ```javascript
 game = "flip"
