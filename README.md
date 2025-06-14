@@ -1,9 +1,12 @@
 # evilbot
 stake.com, stake.us, primedice bot by me with ❤
 
-# bot4stake  <br /> 
-a javascript coded bot for Stake, Primedice, ()<br />
+a javascript coded bot for Stake, Primedice<br />
 the strategy script must be coded in javascript, and not Lua script. 
+
+![Screenshot-2025-06-14-game](https://github.com/user-attachments/assets/64957497-c8da-49c7-94da-a2d3887be950)
+
+![Screenshot-2025-06-14-mirror](https://github.com/user-attachments/assets/ede6666c-7e44-46fc-92ff-3184beff5c25)
 
 # Videos: <br /> 
 install extension: [https://vimeo.com/1092943750](https://vimeo.com/1092943750) <br />
