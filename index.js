@@ -6885,6 +6885,7 @@ function stop(){
 	simrunning = false;
 	cashout_done = false;
 	btnStart.disabled = false;
+	dobet = function(){}
 }
 
 function resetAll(){
