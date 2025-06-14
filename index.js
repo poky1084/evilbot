@@ -681,10 +681,11 @@ hr {
 		<option value="primedice.com" >primedice.com</option>
 		<option value="primedice.games" >primedice.games</option>
       </select>
-	  <input type="password" id="tokenkey" value="" style="width: 30%; background: black; color: white;" placeholder="Stake.com or Primedice api key here">
-      <span>
-        MaxRecords
-        <input type="number" id="wdbMaxRows" value="20" style="width: 55px;">
+	  <input type="text" id="tokenkey" value="" style="width: 24%; background: black; color: white;" placeholder="Stake.com or Primedice api key here">
+      <button class="btn-grad" id="getkey">Get API</button>
+	  <span>
+        Records
+        <input type="number" id="wdbMaxRows" value="20" style="width: 40px;">
 		<select id="thememod" class="thememod">
 		<option value="dark" >dark</option>
 		<option value="light" >light</option>
@@ -949,6 +950,12 @@ Hold top or bottom area to move the bot around</pre>
 </div></div>
 </center>
 </body>`)
+ function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 
 
 function addCss(src, cb) {
@@ -1467,6 +1474,9 @@ const inputHandler6 = function(e) {
 
 apichange = document.getElementById("tokenkey");
 apichange.addEventListener('input', inputHandler);
+
+apichange2 = document.getElementById("tokenkey");
+apichange2.addEventListener('change', inputHandler);
 
 sitechange = document.getElementById("mirrors");
 sitechange.addEventListener('change', inputHandler2);
@@ -7632,7 +7642,14 @@ btnStart.addEventListener('click', function() {  if(document.getElementById("tok
 var btnStop = document.getElementById("wdbStopButton");
 btnStop.addEventListener('click', function() {  btnStart.disabled = false; stop(); }, false);
 
-
+var btnKey= document.getElementById("getkey");
+btnKey.addEventListener('click', function() {  
+	tokenapi = getCookie("session"); 
+	document.getElementById("tokenkey").value = tokenapi;
+	localStorage.setItem("apitoken", tokenapi);
+	initUser()
+	startScoket();
+}, false);
 
 function startScoket(){
 var mirror = document.getElementById("mirrors").value;
@@ -7654,6 +7671,7 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 			const obj = JSON.parse(event.data);		
 			if (obj.hasOwnProperty("payload")) {
 				if (obj.payload.hasOwnProperty("data")) {
+				if (obj.payload.data != undefined){
 				if (obj.payload.data.hasOwnProperty("availableBalances")) {
 					if(obj.payload.data.availableBalances.balance.currency == currency){
 					if(simrunning == false){
@@ -7664,6 +7682,7 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 						}
 					}
 				} 
+				}
 				}
 			}
 				
