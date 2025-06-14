@@ -1088,13 +1088,11 @@ let target = 1.01
 let samuraiskip = false
 let spinType = "complete"
 let guessed = "skip"
-let hiloguess = 3
+let hiloguess = null
 let cards = []
 let startcard = {}
 let pattern = []
 let patternlist = []
-let decision = "skip"
-let votecast = decision
 let HILO_BET_EQUAL = 2
 let HILO_SKIP = 7
 let HILO_BET_HIGH = 5
@@ -6723,6 +6721,9 @@ function data(json){
 		
 		}
 		}
+		if(game != "hilo"){
+			cashout_done = true
+		}
 		var elem = document.getElementById("wdbMenuMode");
 		var value = elem.options[elem.selectedIndex].value;
 		if(value == "lua"){
@@ -7458,10 +7459,10 @@ function start(){
 				localStorage.setItem("jscode", htmlEditor2.getValue());
 				//localStorage.setItem("luacode", htmlEditor.getValue());
 			 
-			 currency = document.getElementById('wdbMenuCoin').value;
+			 //currency = document.getElementById('wdbMenuCoin').value;
 			 
 			 btnStart.disabled = true; 
-			 tokenapi = document.getElementById("tokenkey").value; 
+			 //tokenapi = document.getElementById("tokenkey").value; 
 			 userBalances(); 
 			 started_bal = balance; 
 			 amount = nextbet;
@@ -7541,11 +7542,11 @@ function start(){
 			localStorage.setItem("jscode", htmlEditor2.getValue());
 			//localStorage.setItem("luacode", htmlEditor.getValue());
 			 
-			 currency = document.getElementById('wdbMenuCoin').value;
+			 //currency = document.getElementById('wdbMenuCoin').value;
 			 //patternlist = []
 			 //Array.prototype.push.apply(patternlist,pattern)
 			 btnStart.disabled = true; 
-			 tokenapi = document.getElementById("tokenkey").value; 
+			 //tokenapi = document.getElementById("tokenkey").value; 
 			 userBalances(); 
 			 started_bal = balance; 
 			 amount = nextbet;
