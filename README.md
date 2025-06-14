@@ -105,7 +105,7 @@ guesses = ["tails", "heads"]
 <b>rock, paper, scissors:</b>
 ```javascript
 game = "rps"
-guesses = ["rock", "paper"]
+guesses = ["rock", "paper", "scissors"]
 nextbet = 0
  ```
 <b>pump:</b>
