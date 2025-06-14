@@ -23,6 +23,9 @@ Please favourite the repo in case you liked/used it. Thank you!
 
 <b>functions:</b> `resetseed('clientseed'), resetstats(), vault(amount), log('text'), start(), stop(), resetAll(), resetChart(), deleteLogs()`
 
+<b>Variables:</b> `win, currentstreak, profit, wagered, balance, previousbet, currentprofit, bets, wins, losses, losestreak, winstreak`
+<b>lastBet vars:</b> `lastBet.Roll, lastBet.win, lastBet.amount, lastBet.payout, lastBet.payoutMultiplier, lastBet.name`
+
 !!the strategy must be in `dobet()` method, and `dobet()` must be declared as shown below!!
 ```javascript
 nextbet = 0.00001 //in crypto format, not USD
