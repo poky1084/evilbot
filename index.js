@@ -1208,7 +1208,7 @@ if (localStorage.getItem("thememod") != null) {
 		drawChart()
 	}
 	
-	if(thememod == 'blue'){
+	if(themepick == 'blue'){
 		themesel.style.color = "white"
 		themesel.style.background = "#036ffc"
 		simtheme.style.color = "white"
@@ -1227,6 +1227,8 @@ if (localStorage.getItem("thememod") != null) {
 		drawChart()
 	}
 	
+} else {
+	changeTheme();
 }
 
 /*htmlEditor.on("change", function (e) {
@@ -1451,6 +1453,11 @@ const inputHandler5 = function(e) {
 }
 
 const inputHandler6 = function(e) {
+	changeTheme();
+
+}
+
+function changeTheme(){
 	var thememod = document.getElementById('thememod').value;
 	localStorage.setItem("thememod", thememod);
 	var themesel = document.getElementById('wdb')
@@ -1533,9 +1540,8 @@ const inputHandler6 = function(e) {
 		infoms.style.background = "#036ffc"
 		chartcolor = "#036ffc"
 		drawChart()
-	}
+	}	
 	
-
 }
 
 apichange = document.getElementById("tokenkey");
