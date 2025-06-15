@@ -24,7 +24,7 @@ Please favourite the repo in case you liked/used it. Thank you!
 
 <b>functions:</b> `resetseed('clientseed'), resetstats(), vault(amount), log('text'), start(), stop(), sleep(1000), resetAll(), resetChart(), deleteLogs()` <br />
 
-<b>Variables:</b> `win, currentstreak, profit, wagered, balance, previousbet, currentprofit, bets, wins, losses, losestreak, winstreak` <br />
+<b>Variables:</b> `win, currentstreak, profit, wagered, balance, previousbet, currentprofit, bets, wins, losses, losestreak, winstreak, fastmode = true` <br />
 <b>lastBet vars:</b> `lastBet.Roll, lastBet.win, lastBet.amount, lastBet.payout, lastBet.payoutMultiplier, lastBet.name`
 
 !!the strategy must be in `dobet()` method, and `dobet()` must be declared as shown below!!
