@@ -333,6 +333,7 @@ input:checked + .slider:before {
   display: flex;
   align-items: stretch;
   font-weight: bold;
+  font-size: 14px;
 }
 
 .wdb-stats div {
