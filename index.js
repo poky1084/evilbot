@@ -65,7 +65,7 @@
   font-family: "Courier New", monospace;
   font-size: 12px!important;
   text-align: left;
-  background: #000;
+  background: #036ffc;
   color: #fff;
   line-height: 1.5!important;
   position: absolute;
@@ -113,7 +113,7 @@
   display: inline-block;
   width: 45px;
   height: 19px;
-  background: #ffb347;
+  background: #03c6fc;
 }
 
 .switch input { 
@@ -147,13 +147,6 @@
   transition: .3s;
 }
 
-input:checked + .slider {
-  background: linear-gradient(to right, #ffb347 0%, #ffcc33  51%, #ffb347  100%);;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #ffc107;
-}
 
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);
@@ -164,13 +157,13 @@ input:checked + .slider:before {
 .btn-grad {
   all: revert;
   cursor: pointer;
-  background-image: linear-gradient(to right, #ffb347 0%, #ffcc33  51%, #ffb347  100%);
   text-align: center;
   transition: 0.5s;
   padding: 3px;
   background-size: 200% auto;
   border: #ffc107;
   border-radius: 3px;
+  background-color: #03c6fc;
 }
 
 .btn-grad:hover {
@@ -682,8 +675,9 @@ hr {
         Records
         <input type="number" id="wdbMaxRows" value="20" style="width: 40px;">
 		<select id="thememod" class="thememod">
-		<option value="dark" >dark</option>
 		<option value="light" >light</option>
+		<option value="blue" >blue</option>
+		<option value="dark" >dark</option>
       </select>
       </span>
       <span id="scriptName"></span>
@@ -1157,6 +1151,23 @@ if (localStorage.getItem("thememod") != null) {
 	var infobar = document.getElementById('infobar')
 	var infospeed = document.getElementById('infospeed')
 	var infoms = document.getElementById("wdbSpeed")
+	//var buttonCss = document.getElementsByClassName("btn-grad")[0]
+	
+	themesel.style.color = "white"
+	themesel.style.background = "#036ffc"
+	simtheme.style.color = "white"
+	simtheme.style.background = "#036ffc"
+	logtheme.style.color = "white"
+	logtheme.style.background = "#036ffc"
+	keytheme.style.color = "white"
+	keytheme.style.background = "#036ffc"
+	infospeed.style.color = "white"
+	infospeed.style.background = "#036ffc"
+	infobar.style.color = "white"
+	infobar.style.background = "#036ffc"
+	infoms.style.color = "white"
+	infoms.style.background = "#036ffc"
+	//buttonCss.style.background = "#036ffc"
 	
 	if(themepick == 'dark'){
 		themesel.style.color = "white"
@@ -1173,6 +1184,7 @@ if (localStorage.getItem("thememod") != null) {
 		infobar.style.background = "black"
 		infoms.style.color = "white"
 		infoms.style.background = "black"
+		//buttonCss.style.background = "#5b05f0"
 		chartcolor = "#000"
 		drawChart()
 	}
@@ -1195,16 +1207,26 @@ if (localStorage.getItem("thememod") != null) {
 		chartcolor = "#fff"
 		drawChart()
 	}
-		
-	if(themepick == 'prime'){
-		themesel.style.color = "white"
-		themesel.style.background = "black"	
-	}	
 	
-	if(themepick == 'stake'){
+	if(thememod == 'blue'){
 		themesel.style.color = "white"
-		themesel.style.background = "black"	
+		themesel.style.background = "#036ffc"
+		simtheme.style.color = "white"
+		simtheme.style.background = "#036ffc"
+		logtheme.style.color = "white"
+		logtheme.style.background = "#036ffc"
+		keytheme.style.color = "white"
+		keytheme.style.background = "#036ffc"
+		infospeed.style.color = "white"
+		infospeed.style.background = "#036ffc"
+		infobar.style.color = "white"
+		infobar.style.background = "#036ffc"
+		infoms.style.color = "white"
+		infoms.style.background = "#036ffc"
+		chartcolor = "#036ffc"
+		drawChart()
 	}
+	
 }
 
 /*htmlEditor.on("change", function (e) {
@@ -1438,6 +1460,22 @@ const inputHandler6 = function(e) {
 	var infobar = document.getElementById('infobar')
 	var infospeed = document.getElementById('infospeed')
 	var infoms = document.getElementById("wdbSpeed")
+	//var buttonCss = document.getElementsByClassName("btn-grad")[0]
+	
+	themesel.style.color = "white"
+	themesel.style.background = "#036ffc"
+	simtheme.style.color = "white"
+	simtheme.style.background = "#036ffc"
+	logtheme.style.color = "white"
+	logtheme.style.background = "#036ffc"
+	keytheme.style.color = "white"
+	keytheme.style.background = "#036ffc"
+	infospeed.style.color = "white"
+	infospeed.style.background = "#036ffc"
+	infobar.style.color = "white"
+	infobar.style.background = "#036ffc"
+	infoms.style.color = "white"
+	infoms.style.background = "#036ffc"
 	
 	if(thememod == 'dark'){
 		themesel.style.color = "white"
@@ -1454,6 +1492,7 @@ const inputHandler6 = function(e) {
 		infobar.style.background = "black"
 		infoms.style.color = "white"
 		infoms.style.background = "black"
+		//buttonCss.style.background = "#5b05f0"
 		chartcolor = "#000"
 		drawChart()
 	}
@@ -1476,16 +1515,27 @@ const inputHandler6 = function(e) {
 		chartcolor = "#fff"
 		drawChart()
 	}
-		
-	if(thememod == 'prime'){
-		themesel.style.color = "white"
-		themesel.style.background = "black"	
-	}	
 	
-	if(thememod == 'stake'){
+	if(thememod == 'blue'){
 		themesel.style.color = "white"
-		themesel.style.background = "black"	
+		themesel.style.background = "#036ffc"
+		simtheme.style.color = "white"
+		simtheme.style.background = "#036ffc"
+		logtheme.style.color = "white"
+		logtheme.style.background = "#036ffc"
+		keytheme.style.color = "white"
+		keytheme.style.background = "#036ffc"
+		infospeed.style.color = "white"
+		infospeed.style.background = "#036ffc"
+		infobar.style.color = "white"
+		infobar.style.background = "#036ffc"
+		infoms.style.color = "white"
+		infoms.style.background = "#036ffc"
+		chartcolor = "#036ffc"
+		drawChart()
 	}
+	
+
 }
 
 apichange = document.getElementById("tokenkey");
@@ -1723,7 +1773,7 @@ function indexMatchingText(text) {
 function drawChart() {
     dps = [{ x: betcount, y: profit_total }]
     chart = new CanvasJS.Chart('chartContainer', {
-        backgroundColor: chartcolor,
+        backgroundColor: "transparent",
         theme: 'light2',
         title: {
             //text: BOT_URL,
@@ -6843,6 +6893,7 @@ function stop(){
 	simrunning = false;
 	cashout_done = false;
 	btnStart.disabled = false;
+	fastmode = false;
 	for (var i=0; i<timeouts.length; i++) {
 	  clearTimeout(timeouts[i]);
 	}
@@ -7382,6 +7433,7 @@ function sendLua() {
 
 function start(){
 		running = true; cashout_done = false; countTime(); 
+		fastmode = document.querySelector('#speedChange').checked;
 		var elem = document.getElementById("wdbMenuMode");
 		var value = elem.options[elem.selectedIndex].value;
 		if(value == "lua"){
