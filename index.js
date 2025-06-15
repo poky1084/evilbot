@@ -1731,6 +1731,7 @@ function outjson(json){
 	//localStorage.setItem("nicks", nicker);
 	
 	select = document.getElementById('wdbMenuCoin');
+	select.innerHTML = "";
 	for (var i = 0; i < json.data.user.balances.length; i++)
 	{
 		var opt = document.createElement('option');
