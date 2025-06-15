@@ -2851,7 +2851,7 @@ function data(json){
 		} else {
 		errorgame = false
 		
-		}
+		
 		if(json.hasOwnProperty("data")){
 		if(json.data.hasOwnProperty("primediceRoll"))
 		{
@@ -6783,6 +6783,7 @@ function data(json){
 		if(hiloguess == 3 && running == false && cashout_done == false && game === "hilo" && win == false){
 			//cashout_done = true
 			hiloCash()
+		}
 		}
 		if(running && samuraiskip == false){
 			sleep(sleepfor).then(() => {
