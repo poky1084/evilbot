@@ -2820,6 +2820,9 @@ function data(json){
 			log(json.errors[0].errorType + ". " +json.errors[0].message )
 			errorgame = true
 			}
+			if(json.errors[0].errorType.includes("existingGame")){
+				hiloguess = round()
+			}
 			//return;
 		} else {
 		errorgame = false
