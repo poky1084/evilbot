@@ -2751,19 +2751,19 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 sendDate = (new Date()).getTime();
 	if(document.getElementById("mirrors").value.includes("primedice")){
 	
-		var target = 49.5
+		var targetdice = 49.5
 		if(bethigh == false){
-			target = chance
+			targetdice = chance
 			cond = "below"
 		} else {
-			target = 100 - 0.01 - chance
+			targetdice = 100 - 0.01 - chance
 			cond = "above"
 		}
 		
 
 		var body = {
 			variables:{ 
-			"target": target,
+			"target": targetdice,
 			"condition": cond,
 			"amount": amount,
 			"currency": currency
@@ -2792,12 +2792,12 @@ sendDate = (new Date()).getTime();
 	
 	} else {
 	
-	var target = 49.5
+	var targetdice = 49.5
 	if(bethigh == false){
-		target = chance
+		targetdice = chance
 		cond = "below"
 	} else {
-		target = 100 - chance
+		targetdice = 100 - chance
 		cond = "above"
 	}
 	
@@ -2813,7 +2813,7 @@ sendDate = (new Date()).getTime();
 		query:"mutation DiceRoll($amount: Float!, $target: Float!, $condition: CasinoGameDiceConditionEnum!, $currency: CurrencyEnum!, $identifier: String!) {\n  diceRoll(\n    amount: $amount\n    target: $target\n    condition: $condition\n    currency: $currency\n    identifier: $identifier\n  ) {\n    ...CasinoBet\n    state {\n      ...CasinoGameDice\n    }\n  }\n}\n\nfragment CasinoBet on CasinoBet {\n  id\n  active\n  payoutMultiplier\n  amountMultiplier\n  amount\n  payout\n  updatedAt\n  currency\n  game\n  user {\n    id\n    name\n  }\n}\n\nfragment CasinoGameDice on CasinoGameDice {\n  result\n  target\n  condition\n}\n"	}
 	*/
 	var body = {
-    "target": target,
+    "target": targetdice,
     "condition": cond,
     "identifier": randomString(21),
     "amount": amount,
@@ -3565,7 +3565,7 @@ function data(json){
 			currentprofit = current_profit;
 			betcount++;
 			bets = betcount;
-			chance = 99 / json.limboBet.state.multiplierTarget;
+			
 
 			
 			updateChart();
@@ -7779,7 +7779,7 @@ function start(){
 			 //tokenapi = document.getElementById("tokenkey").value; 
 			 userBalances(); 
 			 started_bal = balance; 
-			 amount = nextbet;
+			 //amount = nextbet;
 				var selectedGame = document.getElementById("gameselect").value;
 				if(game === undefined){
 					game = selectedGame
