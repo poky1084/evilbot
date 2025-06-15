@@ -1856,7 +1856,9 @@ setTimeout(() => {
 	if (localStorage.getItem("currenc") != null) {
 	//document.getElementById("currenc").value = localStorage.getItem("currenc");
 		currency = localStorage.getItem("currenc");
+		if(document.getElementById("wdbMenuCoin").options[indexMatchingText(currency)] != undefined){
 		document.getElementById("wdbMenuCoin").options[indexMatchingText(currency)].selected = 'selected';
+		}
 	} else {
 		document.getElementById("wdbMenuCoin").options[0].selected = 'selected';
 		currency = document.getElementById("wdbMenuCoin").value;
