@@ -1235,6 +1235,7 @@ function sleep(ms){
 }
 
 function sleepfor (time) {
+	timeouts = [];
   return new Promise((resolve) => timeouts.push(setTimeout(resolve, time)));
 }
 
@@ -6852,6 +6853,7 @@ function stop(){
 	for (var i=0; i<timeouts.length; i++) {
 	  clearTimeout(timeouts[i]);
 	}
+	timeouts = [];
 	dobet = function(){}
 }
 
