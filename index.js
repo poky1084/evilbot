@@ -7645,7 +7645,7 @@ btnStop.addEventListener('click', function() {  btnStart.disabled = false; stop(
 
 var btnKey= document.getElementById("getkey");
 btnKey.addEventListener('click', function() {  
-	if(tokenapi != undefined){
+	if(getCookie("session") != undefined){
 		tokenapi = getCookie("session"); 
 		document.getElementById("tokenkey").value = tokenapi;
 		localStorage.setItem("apitoken", tokenapi);
