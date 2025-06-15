@@ -1,22 +1,5 @@
  document.body.insertAdjacentHTML("beforebegin", `<body><div id="wdbWrapLicenseBox">
       <style>
-        #wdbLicenseBox {
-          all: revert;
-          font-family: "Courier New", monospace;
-          font-size: 12px!important;
-          text-align: left;
-          background: #fff!important;
-          color: black!important;
-          line-height: 1.5!important;
-          top: 60px;
-          left: 60px;
-          padding: 5px;
-          position: absolute;
-          z-index: 2147483002;
-          border: 1px solid #ccc!important;
-          border-radius: 3px;
-        }
-
         .wdb-input {
           all: revert;
           padding: 2px;
@@ -1132,6 +1115,11 @@ let timeoutClear = null
 var timeouts = [];
 
 function addBot(){
+
+/*var svelt = document.getElementById("svelte");
+if(svelt != undefined){
+	//svelt.remove();
+}*/
 
 initUser();			
 //loadLua();	
@@ -2784,6 +2772,11 @@ function data(json){
 			meter.innerHTML = (1000 / (endMS - startMS)).toFixed(1) + " bet/s"
 			startMS = performance.now();
 			}
+		} else {
+			const endMS = performance.now();
+			var meter = document.getElementById("wdbSpeed");
+			meter.innerHTML = (1000 / (endMS - startMS)).toFixed(1) + " bet/s"
+			startMS = performance.now();
 		}
 		if(json.hasOwnProperty("data")){
 		if(json.data.hasOwnProperty("primediceRoll"))
