@@ -617,8 +617,15 @@ hr {
 }
 
 .fastmode{
-     float: right;
+     display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Aligns contents to the right inside .fastmode */
+    text-align: right;
+    padding: 10px;
      font-weight: bold;
+	 position: absolute; /* Or use relative/other as needed */
+    top: 40px;
+    right: 10px;
 }
 </style>
 <center>
