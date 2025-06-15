@@ -1089,11 +1089,11 @@ let opensocket = []
 
 var sendDate = (new Date()).getTime();
 var errorgame = false
-var sleepfor = 0
+var sleep = 0
 var htmlEditor = ''
 var htmlEditor2 = ''
 var fastmode = false;
-
+var startMS = performance.now()
 let mines = 1
 let fields = [1,2,3]
 let risk = "low"
@@ -1226,7 +1226,7 @@ htmlEditor2.on("change", function (e) {
 
 }
 
-function sleep (time) {
+function sleepfor (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
@@ -1890,11 +1890,7 @@ function outvault(json){
 }
 
 function hiloBet(betsize, startcard){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	var body = {
     "identifier": randomString(21),
     "currency": currency,
@@ -1983,11 +1979,7 @@ function hiloCash(){
 }
 
 function dartsBet(betsize, diff){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+
 	var body = {
     "currency": currency,
     "amount": betsize,
@@ -2019,11 +2011,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 }
 
 function videopokerBet(betsize){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	var body = {
     "currency": currency,
     "amount": betsize
@@ -2054,11 +2042,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 
 
 function samuraiBet(betsize){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+
 	spinType = "complete"
 	
 	var body = {
@@ -2121,11 +2105,7 @@ function samuraiNext(){
 
 
 function scarabBet(betsize, lines){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	var body = {
     "currency": currency,
     "amount": betsize,
@@ -2158,11 +2138,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 
 
 function tomeBet(betsize, lines){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	var body = {
 		"currency": currency,
 		"amount": betsize,
@@ -2195,11 +2171,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 
 
 function diamondBet(betsize){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+
 	var body = {
     "currency": currency,
     "amount": betsize,
@@ -2230,11 +2202,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 }
 
 function caseBet(betsize, difficulty){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+
 	var body = {
     "currency": currency,
     "amount": betsize,
@@ -2267,11 +2235,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 
 
 function flipBet(betsize, guesses){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+
 	var body = {
     "query": "mutation FlipBet($amount: Float!, $currency: CurrencyEnum!, $identifier: String, $guesses: [FlipConditionEnum!]!) {\n  flipBet(\n    amount: $amount\n    currency: $currency\n    identifier: $identifier\n    guesses: $guesses\n  ) {\n    ...CasinoBet\n    state {\n      ...CasinoGameFlip\n    }\n  }\n}\n\nfragment CasinoBet on CasinoBet {\n  id\n  active\n  payoutMultiplier\n  amountMultiplier\n  amount\n  payout\n  updatedAt\n  currency\n  game\n  user {\n    id\n    name\n  }\n}\n\nfragment CasinoGameFlip on CasinoGameFlip {\n  currentRound\n  payoutMultiplier\n  playedRounds\n  flips\n}\n",
     "variables": {
@@ -2306,11 +2270,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 }
 
 function rockpaperBet(betsize, guesses){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	var body = {
     "currency": currency,
     "amount": betsize,
@@ -2342,11 +2302,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 }
 
 function snakesBet(betsize, snakedifficulty, snakerolls){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+
 	var body = {
     "currency": currency,
     "amount": betsize,
@@ -2380,11 +2336,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 
 
 function baccaratbet(baccarattie, baccaratplayer, baccaratbanker){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	var body = {
         "currency": currency,
         "identifier": randomString(21),
@@ -2417,11 +2369,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 }
 
 function dragontowerBet(betsize, dragondifficulty, dragoneggs){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	var body = {
         "amount": betsize,
         "currency": currency,
@@ -2454,11 +2402,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 }
 
 function roulettebet(selection){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	let roulette_row = []
 	let roulette_parity = []
 	let roulette_range = []
@@ -2517,11 +2461,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 }
 
 function wheelbet(betsize, wheelsegments, wheelrisk){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	var body = {
         "amount": betsize,
         "currency": currency,
@@ -2554,11 +2494,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 }
 
 function plinkobet(betsize, plinkorows, plinkorisk){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	var body = {
         "amount": betsize,
         "currency": currency,
@@ -2591,11 +2527,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 }
 
 function kenobet(betsize, kenoselected, kenorisk){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	var body = {
         "amount": betsize,
         "currency": currency,
@@ -2628,11 +2560,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 }
 
 function minebet(betsize, fieldcount, minecount){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	var body = {
     "amount": betsize,
     "currency": currency,
@@ -2666,11 +2594,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 
 
 function pumpBet(betsize, rounds, difficulty){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"	
-	sendDate = (new Date()).getTime();
+	
 	var body = {
     "amount": betsize,
     "currency": currency,
@@ -2703,11 +2627,7 @@ meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
 
 
 function LimboBet(amount, target_multi){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
-sendDate = (new Date()).getTime();
+	
 	/*var body = {
 		variables:{
 		"multiplierTarget": target_multi,
@@ -2745,11 +2665,7 @@ sendDate = (new Date()).getTime();
 }
 
 function DiceBet(amount, chance, bethigh){
-var receiveDate = (new Date()).getTime();
-var responseTimeMs = receiveDate - sendDate;
-var meter = document.getElementById("wdbSpeed");
-meter.innerHTML = (1000 / responseTimeMs).toFixed(1) + " bet/s"
-sendDate = (new Date()).getTime();
+
 	if(document.getElementById("mirrors").value.includes("primedice")){
 	
 		var targetdice = 49.5
@@ -2851,8 +2767,15 @@ function data(json){
 			//return;
 		} else {
 		errorgame = false
-		
-		
+		if(!json.hasOwnProperty("data")){
+			if(!json.hasOwnProperty("hiloNext") && !json.hasOwnProperty("hiloCashout"))
+			{
+			const endMS = performance.now();
+			var meter = document.getElementById("wdbSpeed");
+			meter.innerHTML = (1000 / (endMS - startMS)).toFixed(1) + " bet/s"
+			startMS = performance.now();
+			}
+		}
 		if(json.hasOwnProperty("data")){
 		if(json.data.hasOwnProperty("primediceRoll"))
 		{
@@ -6787,8 +6710,8 @@ function data(json){
 		}
 		}
 		if(running && samuraiskip == false){
-			sleep(sleepfor).then(() => {
-			sleepfor = 0
+			sleepfor(sleep).then(() => {
+			sleep = 0
 			if(game == "hilo"){
 				if(cashout_done){
 				cashout_done = false
