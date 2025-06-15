@@ -1089,7 +1089,7 @@ let opensocket = []
 
 var sendDate = (new Date()).getTime();
 var errorgame = false
-var sleep = 0
+//var sleep = 0
 var htmlEditor = ''
 var htmlEditor2 = ''
 var fastmode = false;
@@ -1126,6 +1126,8 @@ let HILO_BET_LOW = 4
 let HILO_CASHOUT = 3
 let currentBet = null
 let cashout_done = false
+let ms = 0
+let sleeptime = 0
 
 function addBot(){
 
@@ -1224,6 +1226,10 @@ htmlEditor2.on("change", function (e) {
 
 
 
+}
+
+function sleep(ms){
+	sleeptime = ms
 }
 
 function sleepfor (time) {
@@ -6710,8 +6716,8 @@ function data(json){
 		}
 		}
 		if(running && samuraiskip == false){
-			sleepfor(sleep).then(() => {
-			sleep = 0
+			sleepfor(sleeptime).then(() => {
+			sleeptime = 0
 			if(game == "hilo"){
 				if(cashout_done){
 				cashout_done = false
