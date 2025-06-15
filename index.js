@@ -2823,6 +2823,11 @@ function data(json){
 			if(json.errors[0].errorType.includes("existingGame")){
 				hiloguess = round()
 			}
+			if(json.errors[0].errorType.includes("insignificantBet") && game === "hilo"){
+				cashout_done = true
+			} else {
+				cashout_done = false
+			}
 			//return;
 		} else {
 		errorgame = false
