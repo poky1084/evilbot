@@ -1128,6 +1128,8 @@ let currentBet = null
 let cashout_done = false
 let ms = 0
 let sleeptime = 0
+let timeoutClear = null
+var timeouts = [];
 
 function addBot(){
 
@@ -1229,11 +1231,11 @@ htmlEditor2.on("change", function (e) {
 }
 
 function sleep(ms){
-	sleeptime = ms
+	sleeptime = ms || 0
 }
 
 function sleepfor (time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
+  return new Promise((resolve) => timeouts.push(setTimeout(resolve, time)));
 }
 
 function countTime() {
@@ -6718,6 +6720,7 @@ function data(json){
 		if(running && samuraiskip == false){
 			sleepfor(sleeptime).then(() => {
 			sleeptime = 0
+			if(running){
 			if(game == "hilo"){
 				if(cashout_done){
 				cashout_done = false
@@ -6834,6 +6837,7 @@ function data(json){
 			if(game == "darts"){
 			dartsBet(nextbet, difficulty)
 			} 
+			}
 			});
 		}		
 }
@@ -6845,6 +6849,9 @@ function stop(){
 	simrunning = false;
 	cashout_done = false;
 	btnStart.disabled = false;
+	for (var i=0; i<timeouts.length; i++) {
+	  clearTimeout(timeouts[i]);
+	}
 	dobet = function(){}
 }
 
@@ -7701,7 +7708,8 @@ function start(){
 			setTimeout(htmlEditor2.getValue() + `
 			localStorage.setItem("jscode", htmlEditor2.getValue());
 			//localStorage.setItem("luacode", htmlEditor.getValue());
-			 
+			 sleeptime = 0
+			 sleep(0)
 			 //currency = document.getElementById('wdbMenuCoin').value;
 			 //patternlist = []
 			 //Array.prototype.push.apply(patternlist,pattern)
