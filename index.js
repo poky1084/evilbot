@@ -130,10 +130,10 @@
   display: inline-block;
   width: 45px;
   height: 19px;
+  background: #ffb347;
 }
 
 .switch input { 
-  opacity: 0;
   width: 0;
   height: 0;
 }
@@ -616,6 +616,10 @@ hr {
 	width: 70%
 }
 
+.fastmode{
+     float: right;
+     font-weight: bold;
+}
 </style>
 <center>
 <div id="wdb">
@@ -714,6 +718,12 @@ hr {
       <span style="padding-top: 19px;">
         <button class="btn-grad" id="resetAlles">ResetAll</button>
       </span>
+	  <div class="fastmode"> Fast Mode:
+			<label class="switch">
+				<input id="speedChange" type="checkbox"> <span class="slider"></span>
+			</label>
+			
+		</div>
 	  </center>
     </div>
 
@@ -1074,6 +1084,7 @@ var errorgame = false
 var sleepfor = 0
 var htmlEditor = ''
 var htmlEditor2 = ''
+var fastmode = false;
 
 let mines = 1
 let fields = [1,2,3]
@@ -1554,7 +1565,18 @@ $('#mirrors').on('change', function (e) {
 function downloadFile() {
 
 }
+const checkbox = document.getElementById('speedChange')
 
+checkbox.addEventListener('change', (event) => {
+	//var textFs = document.getElementById("textFast");
+  if (event.currentTarget.checked) {
+		fastmode = true;
+		//textFs.style.display = "inline-block";
+  } else {
+		fastmode = false;
+		//textFs.style.display = "none";
+  }
+})
 
 
 var inputcommand = document.getElementById("runinput");
@@ -7484,65 +7506,254 @@ function start(){
 				if(game == "hilo"){
 				hiloBet(nextbet, startcard)
 				} 
-				if(game == "darts"){
-				dartsBet(nextbet, difficulty)
-				} 
-				if(game == "tomeoflife"){
-				tomeBet(nextbet, lines)
-				} 
-				if(game == "scarabspin"){
-				scarabBet(nextbet, lines)
-				} 
 				if(game == "bluesamurai"){
 				 samuraiBet(nextbet)
 				} 
+				if(game == "darts"){
+					if(fastmode){
+						setTimeout(function () {
+							dartsBet(nextbet, difficulty)
+						}, 5);
+						setTimeout(function () {
+							dartsBet(nextbet, difficulty)
+						}, 50);
+					}  else {
+						dartsBet(nextbet, difficulty)
+					}
+				}
+				if(game == "tomeoflife"){
+					if(fastmode){
+						setTimeout(function () {
+							tomeBet(nextbet, lines)
+						}, 5);
+						setTimeout(function () {
+							tomeBet(nextbet, lines)
+						}, 50);
+					}  else {
+						tomeBet(nextbet, lines)
+					}
+				
+				} 
+				if(game == "scarabspin"){
+					if(fastmode){
+						setTimeout(function () {
+							scarabBet(nextbet, lines)
+						}, 5);
+						setTimeout(function () {
+							scarabBet(nextbet, lines)
+						}, 50);
+					}  else {
+						scarabBet(nextbet, lines)
+					}
+				
+				} 
 				if(game == "diamonds"){
-				diamondBet(nextbet)
+					if(fastmode){
+						setTimeout(function () {
+							diamondBet(nextbet)
+						}, 5);
+						setTimeout(function () {
+							diamondBet(nextbet)
+						}, 50);
+					}  else {
+						diamondBet(nextbet)
+					}
+				
 				} 
 				if(game == "cases"){
-				caseBet(nextbet, difficulty)
+					if(fastmode){
+						setTimeout(function () {
+							caseBet(nextbet, difficulty)
+						}, 5);
+						setTimeout(function () {
+							caseBet(nextbet, difficulty)
+						}, 50);
+					}  else {
+						caseBet(nextbet, difficulty)
+					}
+				
 				} 
 				if(game == "videopoker"){
-				videopokerBet(nextbet)
+					if(fastmode){
+						setTimeout(function () {
+							videopokerBet(nextbet)
+						}, 5);
+						setTimeout(function () {
+							videopokerBet(nextbet)
+						}, 50);
+					}  else {
+						videopokerBet(nextbet)
+					}
+				
 				} 
 				if(game == "rps"){
-				rockpaperBet(nextbet, guesses)
+					if(fastmode){
+						setTimeout(function () {
+							rockpaperBet(nextbet, guesses)
+						}, 5);
+						setTimeout(function () {
+							rockpaperBet(nextbet, guesses)
+						}, 50);
+					}  else {
+						rockpaperBet(nextbet, guesses)
+					}
+				
 				} 
 				if(game == "flip"){
-				flipBet(nextbet, guesses)
+					if(fastmode){
+						setTimeout(function () {
+							flipBet(nextbet, guesses)
+						}, 5);
+						setTimeout(function () {
+							flipBet(nextbet, guesses)
+						}, 50);
+					}  else {
+						flipBet(nextbet, guesses)
+					}
+				
 				} 
 				if(game == "snakes"){
-				snakesBet(nextbet, difficulty, rolls)
+					if(fastmode){
+						setTimeout(function () {
+							snakesBet(nextbet, difficulty, rolls)
+						}, 5);
+						setTimeout(function () {
+							snakesBet(nextbet, difficulty, rolls)
+						}, 50);
+					}  else {
+						snakesBet(nextbet, difficulty, rolls)
+					}
+				
 				} 
 				if(game == "pump"){
-				pumpBet(nextbet, pumps, difficulty)
+					if(fastmode){
+						setTimeout(function () {
+							pumpBet(nextbet, pumps, difficulty)
+						}, 5);
+						setTimeout(function () {
+							pumpBet(nextbet, pumps, difficulty)
+						}, 50);
+					}  else {
+						pumpBet(nextbet, pumps, difficulty)
+					}
+				
 				} 
 				if(game == "baccarat"){
-				baccaratbet(tie, player, banker)
+					if(fastmode){
+						setTimeout(function () {
+							baccaratbet(tie, player, banker)
+						}, 5);
+						setTimeout(function () {
+							baccaratbet(tie, player, banker)
+						}, 50);
+					}  else {
+						baccaratbet(tie, player, banker)
+					}
+				
 				} 
 				if(game == "dragontower"){
-				dragontowerBet(nextbet, difficulty, eggs)
+					if(fastmode){
+						setTimeout(function () {
+							dragontowerBet(nextbet, difficulty, eggs)
+						}, 5);
+						setTimeout(function () {
+							dragontowerBet(nextbet, difficulty, eggs)
+						}, 50);
+					}  else {
+						dragontowerBet(nextbet, difficulty, eggs)
+					}
+				
 				} 			
 				if(game == "roulette"){
-				roulettebet(chips)
+					if(fastmode){
+						setTimeout(function () {
+							roulettebet(chips)
+						}, 5);
+						setTimeout(function () {
+							roulettebet(chips)
+						}, 50);
+					}  else {
+						roulettebet(chips)
+					}
+				
 				} 
 				if(game == "wheel"){
-				wheelbet(nextbet, segments, risk)
+					if(fastmode){
+						setTimeout(function () {
+							wheelbet(nextbet, segments, risk)
+						}, 5);
+						setTimeout(function () {
+							wheelbet(nextbet, segments, risk)
+						}, 50);
+					}  else {
+						wheelbet(nextbet, segments, risk)
+					}
+				
 				} 		
 				if(game == "plinko"){
-				plinkobet(nextbet, rows, risk)
+					if(fastmode){
+						setTimeout(function () {
+							plinkobet(nextbet, rows, risk)
+						}, 5);
+						setTimeout(function () {
+							plinkobet(nextbet, rows, risk)
+						}, 50);
+					}  else {
+						plinkobet(nextbet, rows, risk)
+					}
+				
 				} 
 				if(game == "mines"){
-				minebet(nextbet, fields, mines)
+					if(fastmode){
+						setTimeout(function () {
+							minebet(nextbet, fields, mines)
+						}, 5);
+						setTimeout(function () {
+							minebet(nextbet, fields, mines)
+						}, 50);
+					}  else {
+						minebet(nextbet, fields, mines)
+					}
+				
 				}
 				if(game == "keno"){
-				kenobet(nextbet, numbers, risk)
+					if(fastmode){
+						setTimeout(function () {
+							kenobet(nextbet, numbers, risk)
+						}, 5);
+						setTimeout(function () {
+							kenobet(nextbet, numbers, risk)
+						}, 50);
+					}  else {
+						kenobet(nextbet, numbers, risk)
+					}
+				
 				}
 				if(game == "dice"){
-				DiceBet(nextbet, chance, bethigh)
+					if(fastmode){
+						setTimeout(function () {
+							DiceBet(nextbet, chance, bethigh)
+						}, 5);
+						setTimeout(function () {
+							DiceBet(nextbet, chance, bethigh)
+						}, 50);
+					}  else {
+						DiceBet(nextbet, chance, bethigh)
+					}
+				
 				}
 				if(game == "limbo"){
-				LimboBet(nextbet, target);
+					if(fastmode){
+						setTimeout(function () {
+							LimboBet(nextbet, target);
+						}, 5);
+						setTimeout(function () {
+							LimboBet(nextbet, target);
+						}, 50);
+					}  else {
+						LimboBet(nextbet, target);
+					}
+				
 				}
 			 
 			 drawChart();
@@ -7568,65 +7779,254 @@ function start(){
 				if(game == "hilo"){
 				hiloBet(nextbet, startcard)
 				} 
-				if(game == "darts"){
-				dartsBet(nextbet, difficulty)
-				} 
-				if(game == "tomeoflife"){
-				tomeBet(nextbet, lines)
-				} 
-				if(game == "scarabspin"){
-				scarabBet(nextbet, lines)
-				} 
 				if(game == "bluesamurai"){
 				 samuraiBet(nextbet)
 				} 
+				if(game == "darts"){
+					if(fastmode){
+						setTimeout(function () {
+							dartsBet(nextbet, difficulty)
+						}, 5);
+						setTimeout(function () {
+							dartsBet(nextbet, difficulty)
+						}, 50);
+					}  else {
+						dartsBet(nextbet, difficulty)
+					}
+				}
+				if(game == "tomeoflife"){
+					if(fastmode){
+						setTimeout(function () {
+							tomeBet(nextbet, lines)
+						}, 5);
+						setTimeout(function () {
+							tomeBet(nextbet, lines)
+						}, 50);
+					}  else {
+						tomeBet(nextbet, lines)
+					}
+				
+				} 
+				if(game == "scarabspin"){
+					if(fastmode){
+						setTimeout(function () {
+							scarabBet(nextbet, lines)
+						}, 5);
+						setTimeout(function () {
+							scarabBet(nextbet, lines)
+						}, 50);
+					}  else {
+						scarabBet(nextbet, lines)
+					}
+				
+				} 
 				if(game == "diamonds"){
-				diamondBet(nextbet)
+					if(fastmode){
+						setTimeout(function () {
+							diamondBet(nextbet)
+						}, 5);
+						setTimeout(function () {
+							diamondBet(nextbet)
+						}, 50);
+					}  else {
+						diamondBet(nextbet)
+					}
+				
 				} 
 				if(game == "cases"){
-				caseBet(nextbet, difficulty)
+					if(fastmode){
+						setTimeout(function () {
+							caseBet(nextbet, difficulty)
+						}, 5);
+						setTimeout(function () {
+							caseBet(nextbet, difficulty)
+						}, 50);
+					}  else {
+						caseBet(nextbet, difficulty)
+					}
+				
 				} 
 				if(game == "videopoker"){
-				videopokerBet(nextbet)
+					if(fastmode){
+						setTimeout(function () {
+							videopokerBet(nextbet)
+						}, 5);
+						setTimeout(function () {
+							videopokerBet(nextbet)
+						}, 50);
+					}  else {
+						videopokerBet(nextbet)
+					}
+				
 				} 
 				if(game == "rps"){
-				rockpaperBet(nextbet, guesses)
+					if(fastmode){
+						setTimeout(function () {
+							rockpaperBet(nextbet, guesses)
+						}, 5);
+						setTimeout(function () {
+							rockpaperBet(nextbet, guesses)
+						}, 50);
+					}  else {
+						rockpaperBet(nextbet, guesses)
+					}
+				
 				} 
 				if(game == "flip"){
-				flipBet(nextbet, guesses)
+					if(fastmode){
+						setTimeout(function () {
+							flipBet(nextbet, guesses)
+						}, 5);
+						setTimeout(function () {
+							flipBet(nextbet, guesses)
+						}, 50);
+					}  else {
+						flipBet(nextbet, guesses)
+					}
+				
 				} 
 				if(game == "snakes"){
-				snakesBet(nextbet, difficulty, rolls)
+					if(fastmode){
+						setTimeout(function () {
+							snakesBet(nextbet, difficulty, rolls)
+						}, 5);
+						setTimeout(function () {
+							snakesBet(nextbet, difficulty, rolls)
+						}, 50);
+					}  else {
+						snakesBet(nextbet, difficulty, rolls)
+					}
+				
 				} 
 				if(game == "pump"){
-				pumpBet(nextbet, pumps, difficulty)
+					if(fastmode){
+						setTimeout(function () {
+							pumpBet(nextbet, pumps, difficulty)
+						}, 5);
+						setTimeout(function () {
+							pumpBet(nextbet, pumps, difficulty)
+						}, 50);
+					}  else {
+						pumpBet(nextbet, pumps, difficulty)
+					}
+				
 				} 
 				if(game == "baccarat"){
-				baccaratbet(tie, player, banker)
+					if(fastmode){
+						setTimeout(function () {
+							baccaratbet(tie, player, banker)
+						}, 5);
+						setTimeout(function () {
+							baccaratbet(tie, player, banker)
+						}, 50);
+					}  else {
+						baccaratbet(tie, player, banker)
+					}
+				
 				} 
 				if(game == "dragontower"){
-				dragontowerBet(nextbet, difficulty, eggs)
+					if(fastmode){
+						setTimeout(function () {
+							dragontowerBet(nextbet, difficulty, eggs)
+						}, 5);
+						setTimeout(function () {
+							dragontowerBet(nextbet, difficulty, eggs)
+						}, 50);
+					}  else {
+						dragontowerBet(nextbet, difficulty, eggs)
+					}
+				
 				} 			
 				if(game == "roulette"){
-				roulettebet(chips)
+					if(fastmode){
+						setTimeout(function () {
+							roulettebet(chips)
+						}, 5);
+						setTimeout(function () {
+							roulettebet(chips)
+						}, 50);
+					}  else {
+						roulettebet(chips)
+					}
+				
 				} 
 				if(game == "wheel"){
-				wheelbet(nextbet, segments, risk)
+					if(fastmode){
+						setTimeout(function () {
+							wheelbet(nextbet, segments, risk)
+						}, 5);
+						setTimeout(function () {
+							wheelbet(nextbet, segments, risk)
+						}, 50);
+					}  else {
+						wheelbet(nextbet, segments, risk)
+					}
+				
 				} 		
 				if(game == "plinko"){
-				plinkobet(nextbet, rows, risk)
+					if(fastmode){
+						setTimeout(function () {
+							plinkobet(nextbet, rows, risk)
+						}, 5);
+						setTimeout(function () {
+							plinkobet(nextbet, rows, risk)
+						}, 50);
+					}  else {
+						plinkobet(nextbet, rows, risk)
+					}
+				
 				} 
 				if(game == "mines"){
-				minebet(nextbet, fields, mines)
+					if(fastmode){
+						setTimeout(function () {
+							minebet(nextbet, fields, mines)
+						}, 5);
+						setTimeout(function () {
+							minebet(nextbet, fields, mines)
+						}, 50);
+					}  else {
+						minebet(nextbet, fields, mines)
+					}
+				
 				}
 				if(game == "keno"){
-				kenobet(nextbet, numbers, risk)
+					if(fastmode){
+						setTimeout(function () {
+							kenobet(nextbet, numbers, risk)
+						}, 5);
+						setTimeout(function () {
+							kenobet(nextbet, numbers, risk)
+						}, 50);
+					}  else {
+						kenobet(nextbet, numbers, risk)
+					}
+				
 				}
 				if(game == "dice"){
-				DiceBet(nextbet, chance, bethigh)
+					if(fastmode){
+						setTimeout(function () {
+							DiceBet(nextbet, chance, bethigh)
+						}, 5);
+						setTimeout(function () {
+							DiceBet(nextbet, chance, bethigh)
+						}, 50);
+					}  else {
+						DiceBet(nextbet, chance, bethigh)
+					}
+				
 				}
 				if(game == "limbo"){
-				LimboBet(nextbet, target);
+					if(fastmode){
+						setTimeout(function () {
+							LimboBet(nextbet, target);
+						}, 5);
+						setTimeout(function () {
+							LimboBet(nextbet, target);
+						}, 50);
+					}  else {
+						LimboBet(nextbet, target);
+					}
+				
 				}
 			 
 			 drawChart();
