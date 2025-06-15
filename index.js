@@ -1186,7 +1186,7 @@ if (localStorage.getItem("thememod") != null) {
 		infoms.style.background = "black"
 		//buttonCss.style.background = "#5b05f0"
 		chartcolor = "#000"
-		drawChart()
+		
 	}
 	
 	if(themepick == 'light'){
@@ -1205,7 +1205,7 @@ if (localStorage.getItem("thememod") != null) {
 		infoms.style.color = "black"
 		infoms.style.background = "white"
 		chartcolor = "#fff"
-		drawChart()
+		
 	}
 	
 	if(themepick == 'blue'){
@@ -1224,7 +1224,7 @@ if (localStorage.getItem("thememod") != null) {
 		infoms.style.color = "white"
 		infoms.style.background = "#036ffc"
 		chartcolor = "#036ffc"
-		drawChart()
+		
 	}
 	
 } else {
@@ -1501,7 +1501,7 @@ function changeTheme(){
 		infoms.style.background = "black"
 		//buttonCss.style.background = "#5b05f0"
 		chartcolor = "#000"
-		drawChart()
+		
 	}
 	
 	if(thememod == 'light'){
@@ -1520,7 +1520,7 @@ function changeTheme(){
 		infoms.style.color = "black"
 		infoms.style.background = "white"
 		chartcolor = "#fff"
-		drawChart()
+		
 	}
 	
 	if(thememod == 'blue'){
@@ -1539,7 +1539,7 @@ function changeTheme(){
 		infoms.style.color = "white"
 		infoms.style.background = "#036ffc"
 		chartcolor = "#036ffc"
-		drawChart()
+		
 	}	
 	
 }
