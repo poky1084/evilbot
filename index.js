@@ -681,7 +681,7 @@ hr {
 		<option value="primedice.com" >primedice.com</option>
 		<option value="primedice.games" >primedice.games</option>
       </select>
-	  <input type="text" id="tokenkey" value="" style="width: 24%; background: black; color: white;" placeholder="Stake.com or Primedice api key here">
+	  <input type="text" id="tokenkey" value="" style="width: 24%; background: black; color: white;" placeholder="Stake or Primedice api key here">
       <button class="btn-grad" id="getkey">Get API</button>
 	  <span>
         Records
@@ -7646,10 +7646,12 @@ btnStop.addEventListener('click', function() {  btnStart.disabled = false; stop(
 var btnKey= document.getElementById("getkey");
 btnKey.addEventListener('click', function() {  
 	tokenapi = getCookie("session"); 
-	document.getElementById("tokenkey").value = tokenapi;
-	localStorage.setItem("apitoken", tokenapi);
-	initUser()
-	startScoket();
+	if(tokenapi != undefined){
+		document.getElementById("tokenkey").value = tokenapi;
+		localStorage.setItem("apitoken", tokenapi);
+		initUser()
+		startScoket();
+	}
 }, false);
 
 function startScoket(){
