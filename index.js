@@ -955,7 +955,7 @@ Hold top or bottom area to move the bot around</pre>
         github.com/poky1084 | Discord: fisk_992 | Telegram: https://t.me/poky_1084 
       </div>
       <div id="infospeed" class="float-right" style="color:white">
-        Speed: <span id="wdbSpeed" style="color:white">0</span>
+        <span id="wdbSpeed" style="color:white">0</span>
         <span class="wdb-toggle" id="wdbToggleHideControlBot" >▲</span>
       </div>
     </div>
