@@ -177,7 +177,35 @@ game = "tomeoflife"
 lines = 1
 nextbet = 0
  ```
+<b>Crash:</b>
+```javascript
+game = "crash"
+target = 2
+nextbet = 0 
+```
 
+<b>Slide:</b>
+> Use: https://www.youtube.com/watch?v=TkDPeuxEOUM <br />
+```javascript
+game = "slide"
+nextbet = 0
+target = 1.5
+
+dobet = function(){
+
+ if(id["identifier01"]){
+    log("identifier01 won.")
+ }
+
+ if(id["identifier02"] == false){
+    log("identifier02 lost.")
+ }
+
+ makebet(nextbet, target, "identifier01")
+ makebet(nextbet, target, "identifier02")
+ makebet(nextbet, target, "identifier03")
+}
+```
 
 <b>hilo:</b>
 ```javascript
