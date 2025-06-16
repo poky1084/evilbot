@@ -2939,7 +2939,6 @@ function data(json){
 				measures.shift()
 			}
 			meter.innerHTML = (1000 / (measures.reduce((partialSum, a) => partialSum + a, 0)/measures.length)).toFixed(1) + " bet/s"
-			meter.innerHTML = (1000 / (endMS - startMS)).toFixed(1) + " bet/s"
 			startMS = performance.now();
 		}
 		if(json.hasOwnProperty("data")){
