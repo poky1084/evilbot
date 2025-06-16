@@ -645,6 +645,72 @@ a:link {
 #wdbStartButton {
 	font-size: 14px;
 }
+
+.loader {
+  display: none;
+  color: #ffffff;
+  font-size: 19px;
+  overflow: hidden;
+  width: 1em;
+  height: 1em;
+  border-radius: 30%;
+  transform: translateZ(0);
+  animation: mltShdSpin 1.7s infinite ease, round 1.7s infinite ease;
+}
+
+@keyframes mltShdSpin {
+  0% {
+    box-shadow: 0 -0.83em 0 -0.4em,
+    0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+    0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em, 
+    0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 
+    0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em, 
+    -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, 
+    -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+  }
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
+     -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, 
+     -0.749em -0.34em 0 -0.477em;
+  }
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
+     -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, 
+     -0.82em -0.09em 0 -0.477em;
+  }
+  100% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 
+    0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+}
+
+@keyframes round {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}
+ 
+   
+.button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.button-wrapper .loader {
+  position: absolute;
+  top: 30%;
+  left: 46%;
+  transform: translate(-50%, -50%) rotateZ(45deg);
+  z-index: 2;
+  pointer-events: none; /* so the button is still clickable if needed */
+}
 </style>
 <center>
 <div id="wdb">
@@ -966,7 +1032,10 @@ Hold top or bottom area to move the bot around</pre>
         <div id="wdbControlMenu">
           <button id="wdbStartButton" class="btn-grad btn-control fontbigger" >Start</button>
           <button id="wdbStopButton" class="btn-grad btn-control fontbigger" >Stop</button>
-          <button id="result" class="btn-grad btn-control fontbigger"  disabled="disabled"></button>
+         <div class="button-wrapper">
+			<button id="result" class="btn-grad btn-control fontbigger" disabled="disabled" style="width:250px;height:45px;"></button>
+			<span class="loader"></span>
+		  </div>
           <button id="wdbStopOnWinButton" disabled="disabled" class="btn-grad btn-control fontbigger" >StopOnWin</button>
           <button class="btn-grad btn-control fontbigger" id="userBal">CheckBalance</button>
         </div>
@@ -8675,6 +8744,8 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 								document.getElementById("result").style.color = "white";
 							}
 							document.getElementById("result").innerHTML = "Crash at " + obj.payload.data.crash.event.multiplier.toFixed(2);
+							const loader1 = document.querySelector('.loader');
+							loader1.style.display = 'inline-block';
 							//var prog = document.getElementById("progress");
 							//var elem = document.getElementById("myBar");
 							//prog.style.display = "none";
@@ -8791,7 +8862,9 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 							
 						} 
 						if(obj.payload.data.crash.event.status == "pending"){
-							
+							const loader1 = document.querySelector('.loader');
+							loader1.style.display = 'none';
+							document.getElementById("result").innerHTML = ""
 							////lastBet.win = null;
 							cashedoutauto = false;
 							//bet_has_been_made = false
@@ -8817,6 +8890,8 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 								document.getElementById("result").style.color = "white";
 							}
 							document.getElementById("result").innerHTML = "Slide at " + obj.payload.data.slide.event.multiplier.toFixed(2);
+							const loader1 = document.querySelector('.loader');
+							loader1.style.display = 'none';
 							//var prog = document.getElementById("progress");
 							//var elem = document.getElementById("myBar");
 							//prog.style.display = "none";
@@ -9196,7 +9271,8 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 						if(obj.payload.data.slide.event.nextRoundIn < 15000 && obj.payload.data.slide.event.nextRoundIn > 1000){
 							
 							document.getElementById("result").innerHTML = ""
-							
+							const loader1 = document.querySelector('.loader');
+							loader1.style.display = 'inline-block';
 
 								
 								/*if(win == null){
