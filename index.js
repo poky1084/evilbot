@@ -1820,6 +1820,9 @@ function outjson(json){
 	
 	select = document.getElementById('wdbMenuCoin');
 	select.innerHTML = "";
+	balance = 0
+	var balan1 = document.getElementById("wdbBalance");
+	balan1.innerHTML = balance.toFixed(8);
 	for (var i = 0; i < json.data.user.balances.length; i++)
 	{
 		var opt = document.createElement('option');
@@ -1981,6 +1984,10 @@ var body = {
 
 function outbals(json){
 
+	var balan1 = document.getElementById("wdbBalance");
+	balance = 0
+	var balan1 = document.getElementById("wdbBalance");
+	balan1.innerHTML = balance.toFixed(8);
 	for (var i = 0; i < json.data.user.balances.length; i++)
 	{
 		if (json.data.user.balances[i].available.currency == document.getElementById('wdbMenuCoin').value)
