@@ -306,11 +306,24 @@ input:checked + .slider:before {
 
 .wdb-stats,
 .wdb-flex-container {
-  display: flex;
-  align-items: stretch;
-  font-weight: bold;
-  font-size: 14px;
-}
+    display: flex;
+    align-items: stretch;
+    font-weight: bold;
+    font-size: 14px;
+    position: relative; /* Enable absolute positioning inside */
+  }
+
+  .overlay-text {
+	font-size: 30px;
+    position: absolute;
+    top: 10px; /* Adjust position as needed */
+    left: 390px;
+    color: #000; /* or white, depending on background */
+    background: rgba(255, 255, 255, 0.7); /* optional background */
+    padding: 4px 8px;
+    border-radius: 4px;
+    pointer-events: none; /* So it doesn't block clicks */
+  }
 
 .wdb-stats div {
   flex-grow: 1;
@@ -613,6 +626,25 @@ a:link {
   text-decoration: underline;
 }
 
+#result {
+	font-size: 16px;
+}
+
+#userBal {
+	font-size: 14px;
+}
+
+#wdbStopOnWinButton {
+	font-size: 14px;
+}
+
+#wdbStopButton {
+	font-size: 14px;
+}
+
+#wdbStartButton {
+	font-size: 14px;
+}
 </style>
 <center>
 <div id="wdb">
@@ -656,6 +688,8 @@ a:link {
 		<option value="scarabspin">scarabspin</option>
 		<option value="bluesamurai">bluesamurai</option>
 		<option value="diamonds">diamonds</option>
+		<option value="crash">crash</option>
+		<option value="slide">slide</option>
       </select>
 	   <select id="mirrors" class="mirrors">
         <option value="stake.games" >stake.games</option>
@@ -781,6 +815,7 @@ a:link {
     </div>
 
     <div class="wdb-flex-container" id="wdbWrapControl">
+	  
       <div style="flex-grow: 1; width: 50%;">
         <div id="chartContainer" style="height: 195px; width:100%;"></div>
 
@@ -929,11 +964,11 @@ Hold top or bottom area to move the bot around</pre>
         </div>
 
         <div id="wdbControlMenu">
-          <button id="wdbStartButton" class="btn-grad btn-control" >Start</button>
-          <button id="wdbStopButton" class="btn-grad btn-control" >Stop</button>
-          <button id="wdbResumeButton" class="btn-grad btn-control"  disabled="disabled">Resume</button>
-          <button id="wdbStopOnWinButton" disabled="disabled" class="btn-grad btn-control" >StopOnWin</button>
-          <button class="btn-grad btn-control" id="userBal">CheckBalance</button>
+          <button id="wdbStartButton" class="btn-grad btn-control fontbigger" >Start</button>
+          <button id="wdbStopButton" class="btn-grad btn-control fontbigger" >Stop</button>
+          <button id="result" class="btn-grad btn-control fontbigger"  disabled="disabled"></button>
+          <button id="wdbStopOnWinButton" disabled="disabled" class="btn-grad btn-control fontbigger" >StopOnWin</button>
+          <button class="btn-grad btn-control fontbigger" id="userBal">CheckBalance</button>
         </div>
       </div>
 	  <div id="wdbFooter">
@@ -1119,6 +1154,26 @@ var timeouts = [];
 var measures = [];
 
 
+var stopped = true;
+var bet_found = false;
+var run_clicked = false;
+var bet_placed = false;
+var starting_done = false;
+var cashedoutauto = false;
+var bet_has_been_made = false;
+var dobet_run = false;
+var crash_bet_placed = false;
+var slide_bet_placed = false;
+var crash_game_ran = false;
+var slide_game_ran = false;
+var make_slide_bet = false;
+dobet = function(){}
+var gamelist = {}
+var makecount = 0
+var id = {}
+var betidentifier = "identity01"
+var betlist = []
+
 function addBot(){
 
 /*var svelt = document.getElementById("svelte");
@@ -1169,7 +1224,12 @@ if (localStorage.getItem("thememod") != null) {
 	var mirrorsVal = document.getElementById("mirrors")
 	var wdbMaxRow = document.getElementById("wdbMaxRows")
 	var thememod2 = document.getElementById("thememod")
+	var fonter = document.getElementsByClassName("fontbigger")
+
 	
+	for (const element of fonter) {
+		element.style.fontSize = "15px"
+	}
 	
 	wdbMenuMod.style.color = "black"
 	wdbMenuC.style.color = "black"
@@ -1292,6 +1352,8 @@ htmlEditor2.on("change", function (e) {
 
 }
 
+
+
 function sleep(ms){
 	sleeptime = ms || 0
 }
@@ -1325,7 +1387,107 @@ if(localStorage.getItem("modecode") != null){
 } 
 
 
+function makebet(n, y, betidentifier){
+	if(game == "slide"){
+		makecount++;
+		betlist.push([n, y, betidentifier])
+		
+	}
+}
+function dataslide(json, betidentifier){
+	if(json.data.hasOwnProperty("multiplayerSlideBet")){
+		//console.log(json.data.multiplayerSlideBet.id)
+		gamelist[json.data.multiplayerSlideBet.id] = betidentifier
+		log("Slide bet placed. ID:" + betidentifier + " | amount: " + nextbet.toFixed(8) + " | target: " + target.toFixed(2))
+		slide_bet_placed = true;
+		if(json.data.multiplayerCrashBet.hasOwnProperty("slideResult")){
+			if(json.data.multiplayerCrashBet.slideResult == "pending"){
+					slide_bet_placed = true;	
+										
+			}
+		}
+	}
+}
 
+
+function datacrash(json){
+	if(json.data.hasOwnProperty("multiplayerCrashBet")){
+		
+		if(json.data.multiplayerCrashBet.hasOwnProperty("result")){
+			if(json.data.multiplayerCrashBet.result == "pending"){
+				crash_bet_placed = true;
+				cbamount = json.data.multiplayerCrashBet.amount
+				cbtarget = json.data.multiplayerCrashBet.cashoutAt
+			log("Crash bet placed | Amount: " + cbamount.toFixed(8) + " | Target: " + cbtarget.toFixed(2))
+				
+			}
+		}
+	}
+}
+
+
+
+function crashbet(betsize, target_multi){
+	
+	
+	var body = {
+		variables:{
+        "cashoutAt": target_multi,
+        "amount": betsize,
+        "currency": currency
+		},
+		query:"mutation MultiplayerCrashBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!) {\n  multiplayerCrashBet(amount: $amount, currency: $currency, cashoutAt: $cashoutAt) {\n    ...MultiplayerCrashBet\n    user {\n      id\n      activeCrashBet {\n        ...MultiplayerCrashBet\n      }\n    }\n  }\n}\n\nfragment MultiplayerCrashBet on MultiplayerCrashBet {\n  id\n  user {\n    id\n    name\n  }\n  payoutMultiplier\n  gameId\n  amount\n  payout\n  currency\n  result\n  updatedAt\n  cashoutAt\n  btcAmount: amount(currency: btc)\n}\n"		}
+		
+	fetch('https://' +  window.location.host + '/_api/graphql', {
+		method: 'post',
+		body:    JSON.stringify(body),
+		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
+	})
+	.then(res => res.json())
+	.then(json => datacrash(json))
+	.catch(function(err, json) {
+		//console.log(err);
+		if(running == true)
+		{
+			setTimeout(() => {
+				//crashbet(betsize, target_multi)							
+			}, "2000");
+			
+		}
+	});
+	
+}
+
+function slidebet(betsize, slideat, betidentifier){
+	var body = {
+		variables:{
+        "identifier": randomString(21),
+        "cashoutAt": slideat,
+        "amount": betsize,
+        "currency": currency
+		},
+		query:"mutation MultiplayerSlideBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!, $identifier: String!) {\n  multiplayerSlideBet(\n    amount: $amount\n    currency: $currency\n    cashoutAt: $cashoutAt\n    identifier: $identifier\n  ) {\n    __typename\n    ...MultiplayerSlideBet\n    user {\n      id\n      activeSlideBet {\n        ...MultiplayerSlideBet\n      }\n    }\n  }\n}\n\nfragment MultiplayerSlideBet on MultiplayerSlideBet {\n  id\n  user {\n    id\n    name\n    preferenceHideBets\n  }\n  payoutMultiplier\n  gameId\n  amount\n  payout\n  currency\n  slideResult: result\n  updatedAt\n  cashoutAt\n  btcAmount: amount(currency: btc)\n  active\n  createdAt\n}\n"		}
+		
+	
+	fetch('https://' +  window.location.host + '/_api/graphql', {
+		method: 'post',
+		body:    JSON.stringify(body),
+		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
+	})
+	.then(res => res.json())
+	.then(json => dataslide(json, betidentifier))
+	.catch(function(err, json) {
+		//console.log(err);
+		if(running == true)
+		{
+			setTimeout(() => {
+				//slidebet(betsize, target_multi)							
+			}, "2000");
+			
+		}
+	});
+	
+}
 
 
 function resetseed(e){
@@ -1524,7 +1686,11 @@ function changeTheme(){
 	var mirrorsVal = document.getElementById("mirrors")
 	var wdbMaxRow = document.getElementById("wdbMaxRows")
 	var thememod2 = document.getElementById("thememod")
+	var fonter = document.getElementsByClassName("fontbigger")
 	
+	for (const element of fonter) {
+		element.style.fontSize = "15px"
+	}
 	
 	wdbMenuMod.style.color = "black"
 	wdbMenuC.style.color = "black"
@@ -7009,6 +7175,7 @@ function data(json){
 
 function stop(){
 	running = false;
+	run_clicked = false;
 	simrunning = false;
 	cashout_done = false;
 	btnStart.disabled = false;
@@ -7553,6 +7720,7 @@ function sendLua() {
 function start(){
 		running = true; cashout_done = false; countTime(); 
 		fastmode = document.querySelector('#speedChange').checked;
+		run_clicked = true;
 		var elem = document.getElementById("wdbMenuMode");
 		var value = elem.options[elem.selectedIndex].value;
 		if(value == "lua"){
@@ -7893,7 +8061,7 @@ function start(){
 				} 
 				if(game == "bluesamurai"){
 				 samuraiBet(nextbet)
-				} 
+				}
 				if(game == "darts"){
 					if(fastmode){
 						setTimeout(function () {
@@ -8196,7 +8364,891 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 						balance = current_balance;
 						}
 					}
-				} 
+				}
+				if(obj.payload.data.hasOwnProperty("crash") && game == "crash" ){
+					previousbet = amount;
+					
+					if(obj.payload.data.crash.event.status == "in_progress"){
+						
+						multiplier_start = obj.payload.data.crash.event.multiplier
+						document.getElementById("result").innerHTML = obj.payload.data.crash.event.multiplier.toFixed(2) + 'x'
+					} 
+					
+					if(obj.payload.data.crash.event.result == "autocashout")
+					{
+						cashedoutauto = true;
+						//bet_has_been_made = false;
+						color = "#05f711";
+						bet_found = true;
+						win = true;
+						lastBet.win = true;
+						lastBet.amount = previousbet;
+						lastBet.payoutMultiplier = target;
+						
+						//win
+						winstreak++;
+						wins++;
+						losestreak = 0;
+						betcount++;
+						bets = betcount;
+						
+					
+						current_profit = parseFloat(nextbet * target) - parseFloat(nextbet);
+						profit_total += parseFloat(nextbet * target) - parseFloat(nextbet);
+						wagered += parseFloat(nextbet);
+						
+						var row = document.createElement("tr");
+					
+					
+					
+						row.style.background = "#91F190";
+					
+					
+						var tdbets = document.createElement("td");
+						var tdamount = document.createElement("td");
+						var tdhigh = document.createElement("td");
+						var tdTargetChance = document.createElement("td");
+						var tdRollChance= document.createElement("td");
+						var tdProfit = document.createElement("td");
+						var tdPayout = document.createElement("td");
+						var tdTargetNumber = document.createElement("td");
+						var tdRollNumber = document.createElement("td");
+						var tdNonce = document.createElement("td");
+						var tdBetID = document.createElement("td");
+						
+						tdbets.innerHTML = betcount;
+						tdamount.innerHTML = nextbet.toFixed(8)
+						
+						var tdcheck = document.createElement("input");
+						tdcheck.type = "checkbox";
+						tdcheck.name = "checked";
+						tdcheck.checked = "checked";
+						tdcheck.id = "checked";
+						
+						tdhigh.appendChild(tdcheck);
+						tdTargetChance.innerHTML = target.toFixed(4) + ""
+						tdRollChance.innerHTML = ""
+						tdProfit.innerHTML = current_profit.toFixed(8)
+						tdTargetNumber.innerHTML = ">" + target.toFixed(4)
+						//lastBet.targetNumber = obj.payload.data.crash.event.cashoutAt;
+						tdRollNumber.innerHTML = ""
+						tdNonce.innerHTML = game;
+						tdBetID.innerHTML = obj.payload.data.crash.event.id;
+						tdPayout.innerHTML = parseFloat(nextbet * target).toFixed(8);
+						
+
+						
+						row.appendChild(tdbets);
+						row.appendChild(tdamount);
+						row.appendChild(tdhigh);
+						row.appendChild(tdTargetChance);
+						row.appendChild(tdRollChance);
+						row.appendChild(tdProfit);
+						row.appendChild(tdPayout);
+						row.appendChild(tdTargetNumber);
+						row.appendChild(tdRollNumber);
+						row.appendChild(tdNonce);
+						row.appendChild(tdBetID);
+						var table = document.getElementById("wdbHistory");							
+						table.prepend(row);
+		
+						if (table.rows.length > 50)
+						{
+							table.deleteRow(table.rows.length - 1);
+						}
+					
+						if(winstreak > losestreak){
+							currentstreak = winstreak;
+						} else {
+							currentstreak = -losestreak;
+						}
+					
+						if(highest_bet[highest_bet.length-1] < nextbet){
+							highest_bet.pop();
+							highest_bet.push(nextbet);
+						}
+						if(highest_profit[highest_profit.length-1] < profit_total){
+							highest_profit.pop();
+							highest_profit.push(profit_total);
+						}
+						if(lowest_profit[lowest_profit.length-1] > profit_total){
+							lowest_profit.pop();
+							lowest_profit.push(profit_total);
+						}
+						if(highest_streak[highest_streak.length-1] < currentstreak){
+							highest_streak.pop();
+							highest_streak.push(currentstreak);
+						}
+						if(lowest_streak[lowest_streak.length-1] > currentstreak){
+							lowest_streak.pop();
+							lowest_streak.push(currentstreak);
+						}
+
+						balance = current_balance;
+						profit = profit_total;
+						previousbet = amount;
+						currentprofit = current_profit;
+						
+						
+						
+						updateChart();
+						
+						document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
+						document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
+						document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+						document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+						document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+						document.getElementById("wdbBets").innerHTML = bets;
+						document.getElementById("wdbWins").innerHTML = wins;
+						document.getElementById("wdbLosses").innerHTML = losses;
+						document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
+						document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+						document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+						document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+						
+						lastBet.percent = (profit_total / started_bal * 100)
+					
+					
+						
+						
+						//amount = nextbet;
+						
+						lastBet.amount = previousbet;
+						lastBet.target = target;
+
+						dobet();
+							
+						
+						
+					}
+					if(obj.payload.data.crash.event.result == "busted"){
+						
+						color = "#f72a42"
+						current_profit = -parseFloat(nextbet);
+						profit_total += -parseFloat(nextbet);
+						wagered += parseFloat(nextbet);
+						losses++;
+						losestreak++
+						winstreak = 0;
+						lastBet.payoutMultiplier = 0;
+						win = false;
+						lastBet.win = false;
+						lastBet.amount = previousbet;
+						lastBet.payoutMultiplier = 0;
+						
+						betcount++;
+						bets = betcount;
+						
+						var row = document.createElement("tr");
+					
+						
+						row.style.background = "#FFC0CB";
+			
+						
+						var tdbets = document.createElement("td");
+						var tdamount = document.createElement("td");
+						var tdhigh = document.createElement("td");
+						var tdTargetChance = document.createElement("td");
+						var tdRollChance= document.createElement("td");
+						var tdProfit = document.createElement("td");
+						var tdPayout = document.createElement("td");
+						var tdTargetNumber = document.createElement("td");
+						var tdRollNumber = document.createElement("td");
+						var tdNonce = document.createElement("td");
+						var tdBetID = document.createElement("td");
+						
+						tdbets.innerHTML = betcount;
+						tdamount.innerHTML = nextbet.toFixed(8)
+						
+						var tdcheck = document.createElement("input");
+						tdcheck.type = "checkbox";
+						tdcheck.name = "checked";
+						tdcheck.checked = "checked";
+						tdcheck.id = "checked";
+						
+						tdhigh.appendChild(tdcheck);
+						tdTargetChance.innerHTML = (0).toFixed(4) + ""
+						tdRollChance.innerHTML = ""
+						tdProfit.innerHTML = current_profit.toFixed(8)
+						tdTargetNumber.innerHTML = ">" + target.toFixed(4)
+						lastBet.targetNumber = target;
+						tdRollNumber.innerHTML = ""
+						tdNonce.innerHTML = game;
+						tdBetID.innerHTML = "";
+						tdPayout.innerHTML = ""
+						
+						
+						
+						row.appendChild(tdbets);
+						row.appendChild(tdamount);
+						row.appendChild(tdhigh);
+						row.appendChild(tdTargetChance);
+						row.appendChild(tdRollChance);
+						row.appendChild(tdProfit);
+						row.appendChild(tdPayout);
+						row.appendChild(tdTargetNumber);
+						row.appendChild(tdRollNumber);
+						row.appendChild(tdNonce);
+						row.appendChild(tdBetID);
+						
+						var table = document.getElementById("wdbHistory");							
+						table.prepend(row);
+		
+						if (table.rows.length > 50)
+						{
+							table.deleteRow(table.rows.length - 1);
+						}
+					
+						if(winstreak > losestreak){
+							currentstreak = winstreak;
+						} else {
+							currentstreak = -losestreak;
+						}
+					
+						if(highest_bet[highest_bet.length-1] < nextbet){
+							highest_bet.pop();
+							highest_bet.push(nextbet);
+						}
+						if(highest_profit[highest_profit.length-1] < profit_total){
+							highest_profit.pop();
+							highest_profit.push(profit_total);
+						}
+						if(lowest_profit[lowest_profit.length-1] > profit_total){
+							lowest_profit.pop();
+							lowest_profit.push(profit_total);
+						}
+						if(highest_streak[highest_streak.length-1] < currentstreak){
+							highest_streak.pop();
+							highest_streak.push(currentstreak);
+						}
+						if(lowest_streak[lowest_streak.length-1] > currentstreak){
+							lowest_streak.pop();
+							lowest_streak.push(currentstreak);
+						}
+
+						balance = current_balance;
+						profit = profit_total;
+						previousbet = nextbet;
+						currentprofit = current_profit;
+						
+						
+						
+						updateChart();
+						
+						document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
+						document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
+						document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+						document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+						document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+						document.getElementById("wdbBets").innerHTML = bets;
+						document.getElementById("wdbWins").innerHTML = wins;
+						document.getElementById("wdbLosses").innerHTML = losses;
+						document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
+						document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+						document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+						document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+						
+						lastBet.percent = (profit_total / started_bal * 100)
+						
+	
+						
+						
+						//amount = nextbet;
+						
+						lastBet.amount = previousbet;
+						lastBet.target = target;
+						
+						dobet();
+
+				
+					}
+					if(obj.payload.data.crash.event.status == "crash"){
+							crash_bet_placed = false;
+							slide_bet_placed = false;
+							make_slide_bet = false;
+							if(document.getElementById("thememod").value == "light"){
+								document.getElementById("result").style.color = "black";
+							} else {
+								document.getElementById("result").style.color = "white";
+							}
+							document.getElementById("result").innerHTML = "Crash at " + obj.payload.data.crash.event.multiplier.toFixed(2);
+							//var prog = document.getElementById("progress");
+							//var elem = document.getElementById("myBar");
+							//prog.style.display = "none";
+							//elem.style.width = "0%";
+							//betcount++;
+							//bets = betcount;
+							lastBet.crashAt = obj.payload.data.crash.event.multiplier;
+							
+							
+							var row = document.createElement("tr");
+							//betcount++;
+							row.style.background = "#e8e9eb";
+							//win = null
+							//lastBet.win = null
+							
+							var tdbets = document.createElement("td");
+							var tdamount = document.createElement("td");
+							var tdhigh = document.createElement("td");
+							var tdTargetChance = document.createElement("td");
+							var tdRollChance= document.createElement("td");
+							var tdProfit = document.createElement("td");
+							var tdPayout = document.createElement("td");
+							var tdTargetNumber = document.createElement("td");
+							var tdRollNumber = document.createElement("td");
+							var tdNonce = document.createElement("td");
+							var tdBetID = document.createElement("td");
+							
+							tdbets.innerHTML = ""
+							tdamount.innerHTML = "CrashAt"
+							
+							var tdcheck = document.createElement("input");
+							tdcheck.type = "checkbox";
+							tdcheck.name = "checked";
+							tdcheck.checked = "checked";
+							tdcheck.id = "checked";
+							
+							tdhigh.appendChild(tdcheck);
+							tdTargetChance.innerHTML = lastBet.crashAt.toFixed(4) + "";
+							tdRollChance.innerHTML = ""
+							tdProfit.innerHTML = ""
+							tdTargetNumber.innerHTML = ""
+							//lastBet.targetNumber = target_multi;
+							tdRollNumber.innerHTML = lastBet.crashAt.toFixed(4) + "";
+							tdNonce.innerHTML = game;
+							tdBetID.innerHTML = "";
+							tdPayout.innerHTML = "";
+							
+							
+							row.appendChild(tdbets);
+							row.appendChild(tdamount);
+							row.appendChild(tdhigh);
+							row.appendChild(tdTargetChance);
+							row.appendChild(tdRollChance);
+							row.appendChild(tdProfit);
+							row.appendChild(tdPayout);
+							row.appendChild(tdTargetNumber);
+							row.appendChild(tdRollNumber);
+							row.appendChild(tdNonce);
+							row.appendChild(tdBetID);
+							
+							var table = document.getElementById("wdbHistory");							
+							table.prepend(row);
+			
+							if (table.rows.length > 50)
+							{
+								table.deleteRow(table.rows.length - 1);
+							}
+							
+							if(cashedoutauto == false){
+								
+								
+							}
+							
+							
+	
+						} 
+					
+						
+						/*if(obj.payload.data.crash.event.result == "autocashout")
+						{
+							cashedoutauto = true;
+						}*/
+						
+						if(obj.payload.data.crash.event.nextRoundIn < 5000 && obj.payload.data.crash.event.nextRoundIn > 200){
+								slide_game_ran = false
+								crash_game_ran = false
+								if(run_clicked){
+								
+									if(game == "crash" && crash_bet_placed == false){
+										crash_bet_placed = true
+		
+										crashbet(nextbet, target);
+									} 
+									if(game == "slide" && slide_bet_placed == false){
+										id = {}
+										gamelist = {}
+										slide_bet_placed = true									
+										betlist.forEach(function(value){
+											slidebet(value[0], value[1], value[2])
+										});
+										betlist = []
+										
+										
+										
+									}
+								}
+							
+							//win = false;
+							//lastBet.win = false;
+							//document.getElementById("listed").innerHTML = "";
+							
+
+							
+							
+						} 
+						if(obj.payload.data.crash.event.status == "pending"){
+							
+							////lastBet.win = null;
+							cashedoutauto = false;
+							//bet_has_been_made = false
+							//dobet_run = false
+							//win = null;
+							
+						}
+						
+					 
+			
+								
+			} else if(obj.payload.data.hasOwnProperty("slide") && game == "slide"){
+			
+					if(obj.payload.data.slide.event.status == "result" ){
+							slide_bet_placed = false
+							crash_bet_placed = false
+							make_slide_bet = false;
+							betlist = []
+							previousbet = nextbet;
+							if(document.getElementById("thememod").value == "light"){
+								document.getElementById("result").style.color = "black";
+							} else {
+								document.getElementById("result").style.color = "white";
+							}
+							document.getElementById("result").innerHTML = "Slide at " + obj.payload.data.slide.event.multiplier.toFixed(2);
+							//var prog = document.getElementById("progress");
+							//var elem = document.getElementById("myBar");
+							//prog.style.display = "none";
+							//elem.style.width = "0%";
+							if(run_clicked == true){
+								betcount++;
+								bets = betcount;
+							}
+							
+							lastBet.crashAt = obj.payload.data.slide.event.multiplier;
+							var row = document.createElement("tr");
+							//betcount++;
+							row.style.background = "#e8e9eb";
+							//win = null
+							//lastBet.win = null
+							
+							var tdbets = document.createElement("td");
+							var tdamount = document.createElement("td");
+							var tdhigh = document.createElement("td");
+							var tdTargetChance = document.createElement("td");
+							var tdRollChance= document.createElement("td");
+							var tdProfit = document.createElement("td");
+							var tdPayout = document.createElement("td");
+							var tdTargetNumber = document.createElement("td");
+							var tdRollNumber = document.createElement("td");
+							var tdNonce = document.createElement("td");
+							var tdBetID = document.createElement("td");
+							
+							tdbets.innerHTML = "";
+							tdamount.innerHTML = "SlideAt"
+							
+							var tdcheck = document.createElement("input");
+							tdcheck.type = "checkbox";
+							tdcheck.name = "checked";
+							tdcheck.checked = "checked";
+							tdcheck.id = "checked";
+							
+							tdhigh.appendChild(tdcheck);
+							tdTargetChance.innerHTML = lastBet.crashAt.toFixed(4) + "";
+							tdRollChance.innerHTML = ""
+							tdProfit.innerHTML = ""
+							tdTargetNumber.innerHTML = ""
+							//lastBet.targetNumber = target_multi;
+							tdRollNumber.innerHTML = lastBet.crashAt.toFixed(4) + "";
+							tdNonce.innerHTML = game;
+							tdBetID.innerHTML = "";
+							tdPayout.innerHTML = "";
+							
+							
+							row.appendChild(tdbets);
+							row.appendChild(tdamount);
+							row.appendChild(tdhigh);
+							row.appendChild(tdTargetChance);
+							row.appendChild(tdRollChance);
+							row.appendChild(tdProfit);
+							row.appendChild(tdPayout);
+							row.appendChild(tdTargetNumber);
+							row.appendChild(tdRollNumber);
+							row.appendChild(tdNonce);
+							row.appendChild(tdBetID);
+							
+							var table = document.getElementById("wdbHistory");							
+							table.prepend(row);
+			
+							if (table.rows.length > 50)
+							{
+								table.deleteRow(table.rows.length - 1);
+							}
+							
+							setTimeout(() => {
+								dobet();
+								
+								target_multi = 99 / chance;
+							}, "5000");
+					
+					}
+			
+					
+			
+					
+						
+					
+						if(obj.payload.data.slide.event.__typename == "MultiplayerSlideBet"){
+						
+							if(obj.payload.data.slide.event.result == "autocashout"){
+								betlist = []
+								color = "#05f711";
+								bet_found = true;
+								win = true;
+								lastBet.win = true;
+								lastBet.amount = previousbet;
+								lastBet.payoutMultiplier = obj.payload.data.slide.event.payoutMultiplier;
+								
+								//obj2 = (99 / obj.payload.data.slide.event.cashoutAt)
+								//object1 = { obj2: win }
+								
+								id[gamelist[obj.payload.data.slide.event.id]] = win
+								//win
+								winstreak++;
+								wins++;
+								losestreak = 0;
+							    //starting_done = true;
+								current_profit = parseFloat(obj.payload.data.slide.event.payout) - parseFloat(obj.payload.data.slide.event.amount);
+								profit_total += parseFloat(obj.payload.data.slide.event.payout) - parseFloat(obj.payload.data.slide.event.amount);
+								wagered += parseFloat(obj.payload.data.slide.event.amount);
+								
+								var row = document.createElement("tr");
+
+								row.style.background = "#91F190";
+
+								var tdbets = document.createElement("td");
+								var tdamount = document.createElement("td");
+								var tdhigh = document.createElement("td");
+								var tdTargetChance = document.createElement("td");
+								var tdRollChance= document.createElement("td");
+								var tdProfit = document.createElement("td");
+								var tdPayout = document.createElement("td");
+								var tdTargetNumber = document.createElement("td");
+								var tdRollNumber = document.createElement("td");
+								var tdNonce = document.createElement("td");
+								var tdBetID = document.createElement("td");
+								
+								tdbets.innerHTML = betcount;
+								tdamount.innerHTML = obj.payload.data.slide.event.amount.toFixed(8)
+								
+								var tdcheck = document.createElement("input");
+								tdcheck.type = "checkbox";
+								tdcheck.name = "checked";
+								tdcheck.checked = "checked";
+								tdcheck.id = "checked";
+								
+								tdhigh.appendChild(tdcheck);
+								tdTargetChance.innerHTML = obj.payload.data.slide.event.cashoutAt.toFixed(4) + ""
+								tdRollChance.innerHTML = ""
+								tdProfit.innerHTML = current_profit.toFixed(8)
+								tdTargetNumber.innerHTML = ">" + obj.payload.data.slide.event.cashoutAt.toFixed(4) + "";
+								//lastBet.targetNumber = target_multi;
+								tdRollNumber.innerHTML = lastBet.crashAt.toFixed(4) + "";
+								tdNonce.innerHTML = game;
+								tdBetID.innerHTML = obj.payload.data.slide.event.gameId;
+								tdPayout.innerHTML = obj.payload.data.slide.event.payout.toFixed(8);
+
+			
+								row.appendChild(tdbets);
+								row.appendChild(tdamount);
+								row.appendChild(tdhigh);
+								row.appendChild(tdTargetChance);
+								row.appendChild(tdRollChance);
+								row.appendChild(tdProfit);
+								row.appendChild(tdPayout);
+								row.appendChild(tdTargetNumber);
+								row.appendChild(tdRollNumber);
+								row.appendChild(tdNonce);
+								row.appendChild(tdBetID);
+								var table = document.getElementById("wdbHistory");							
+								
+								
+								table.prepend(row);
+								
+				
+								if (table.rows.length > 50)
+								{
+									table.deleteRow(table.rows.length - 1);
+								}
+							
+								if(winstreak > losestreak){
+									currentstreak = winstreak;
+								} else {
+									currentstreak = -losestreak;
+								}
+							
+								if(highest_bet[highest_bet.length-1] < nextbet){
+									highest_bet.pop();
+									highest_bet.push(nextbet);
+								}
+								if(highest_profit[highest_profit.length-1] < profit_total){
+									highest_profit.pop();
+									highest_profit.push(profit_total);
+								}
+								if(lowest_profit[lowest_profit.length-1] > profit_total){
+									lowest_profit.pop();
+									lowest_profit.push(profit_total);
+								}
+								if(highest_streak[highest_streak.length-1] < currentstreak){
+									highest_streak.pop();
+									highest_streak.push(currentstreak);
+								}
+								if(lowest_streak[lowest_streak.length-1] > currentstreak){
+									lowest_streak.pop();
+									lowest_streak.push(currentstreak);
+								}
+
+								balance = current_balance;
+								profit = profit_total;
+								previousbet = nextbet;
+								currentprofit = current_profit;
+		
+								
+								
+								updateChart();
+													
+								document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
+								document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
+								document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+								document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+								document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+								document.getElementById("wdbBets").innerHTML = bets;
+								document.getElementById("wdbWins").innerHTML = wins;
+								document.getElementById("wdbLosses").innerHTML = losses;
+								document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
+								document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+								document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+								document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+								
+								lastBet.percent = (profit_total / started_bal * 100)
+								
+							
+								/*
+								dobet();
+					
+								amount = nextbet;
+								target_multi = 99 / chance;
+								*/
+							}
+						
+							
+							if (obj.payload.data.slide.event.result == "busted"){
+								betlist = []
+								color = "#f72a42"
+								losses++;
+								losestreak++
+								winstreak = 0;
+								lastBet.amount = previousbet;
+								win = false;
+								lastBet.win = false;
+								id[gamelist[obj.payload.data.slide.event.id]] = win
+								//obj2 = (99 / obj.payload.data.slide.event.cashoutAt)
+								//object1 = { obj2: win }
+								
+							
+								current_profit = parseFloat(obj.payload.data.slide.event.payout) - parseFloat(obj.payload.data.slide.event.amount);
+								profit_total += parseFloat(obj.payload.data.slide.event.payout) - parseFloat(obj.payload.data.slide.event.amount);
+								wagered += parseFloat(obj.payload.data.slide.event.amount);
+								
+								var row = document.createElement("tr");
+								
+								
+								row.style.background = "#FFC0CB";
+								
+								var tdbets = document.createElement("td");
+								var tdamount = document.createElement("td");
+								var tdhigh = document.createElement("td");
+								var tdTargetChance = document.createElement("td");
+								var tdRollChance= document.createElement("td");
+								var tdProfit = document.createElement("td");
+								var tdPayout = document.createElement("td");
+								var tdTargetNumber = document.createElement("td");
+								var tdRollNumber = document.createElement("td");
+								var tdNonce = document.createElement("td");
+								var tdBetID = document.createElement("td");
+								
+								tdbets.innerHTML = betcount;
+								tdamount.innerHTML = obj.payload.data.slide.event.amount.toFixed(8)
+								
+								var tdcheck = document.createElement("input");
+								tdcheck.type = "checkbox";
+								tdcheck.name = "checked";
+								tdcheck.checked = "checked";
+								tdcheck.id = "checked";
+								
+								tdhigh.appendChild(tdcheck);
+								tdTargetChance.innerHTML = (0).toFixed(4) + "";
+								tdRollChance.innerHTML = ""
+								tdProfit.innerHTML = current_profit.toFixed(8)
+								tdTargetNumber.innerHTML = ">" + obj.payload.data.slide.event.cashoutAt.toFixed(4) + "";
+								//lastBet.targetNumber = target_multi;
+								tdRollNumber.innerHTML = lastBet.crashAt.toFixed(4) + "";
+								tdNonce.innerHTML = game;
+								tdBetID.innerHTML = obj.payload.data.slide.event.gameId;
+								tdPayout.innerHTML = obj.payload.data.slide.event.payout.toFixed(8);
+								
+								
+								row.appendChild(tdbets);
+								row.appendChild(tdamount);
+								row.appendChild(tdhigh);
+								row.appendChild(tdTargetChance);
+								row.appendChild(tdRollChance);
+								row.appendChild(tdProfit);
+								row.appendChild(tdPayout);
+								row.appendChild(tdTargetNumber);
+								row.appendChild(tdRollNumber);
+								row.appendChild(tdNonce);
+								row.appendChild(tdBetID);
+								var table = document.getElementById("wdbHistory");							
+								
+								
+								table.prepend(row);
+								
+				
+								if (table.rows.length > 50)
+								{
+									table.deleteRow(table.rows.length - 1);
+								}
+							
+								if(winstreak > losestreak){
+									currentstreak = winstreak;
+								} else {
+									currentstreak = -losestreak;
+								}
+							
+								if(highest_bet[highest_bet.length-1] < nextbet){
+									highest_bet.pop();
+									highest_bet.push(nextbet);
+								}
+								if(highest_profit[highest_profit.length-1] < profit_total){
+									highest_profit.pop();
+									highest_profit.push(profit_total);
+								}
+								if(lowest_profit[lowest_profit.length-1] > profit_total){
+									lowest_profit.pop();
+									lowest_profit.push(profit_total);
+								}
+								if(highest_streak[highest_streak.length-1] < currentstreak){
+									highest_streak.pop();
+									highest_streak.push(currentstreak);
+								}
+								if(lowest_streak[lowest_streak.length-1] > currentstreak){
+									lowest_streak.pop();
+									lowest_streak.push(currentstreak);
+								}
+
+								balance = current_balance;
+								profit = profit_total;
+								//previousbet = amount;
+								currentprofit = current_profit;
+			
+								
+								
+								updateChart();
+								
+								document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
+								document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
+								document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+								document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+								document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+								document.getElementById("wdbBets").innerHTML = bets;
+								document.getElementById("wdbWins").innerHTML = wins;
+								document.getElementById("wdbLosses").innerHTML = losses;
+								document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
+								document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+								document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+								document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+								
+								lastBet.percent = (profit_total / started_bal * 100)
+													
+								
+								
+								/*
+								dobet();
+					
+								amount = nextbet;
+								target_multi = 99 / chance;
+								*/
+								
+							}
+						}
+						
+							
+
+	
+							
+	
+				
+						
+						
+					
+						if(obj.payload.data.slide.event.nextRoundIn < 15000 && obj.payload.data.slide.event.nextRoundIn > 1000){
+							
+							document.getElementById("result").innerHTML = ""
+							
+
+								
+								/*if(win == null){
+									win = true;
+									lastBet.win = true;
+								}*/
+								
+								
+								
+								
+								lastBet.amount = previousbet;
+								lastBet.target = target;
+								
+								target_multi = 99 / chance;
+								
+								
+								slide_game_ran = false
+								crash_game_ran = false
+								
+								if(run_clicked){
+									if(game == "crash" && crash_bet_placed == false){
+										crash_bet_placed = true
+
+										crashbet(nextbet, target);
+									}
+									if(game == "slide" && slide_bet_placed == false){
+										slide_bet_placed = true
+										id = {}
+										gamelist = {}
+										betlist.forEach(function(value){
+											slidebet(value[0], value[1], value[2])
+										});
+										betlist = []
+										
+										
+									}
+									
+									
+								}
+								
+
+						}
+					
+					
+						if(obj.payload.data.slide.event.status == "pending"){
+										
+							//lastBet.win = null;
+							//win = null;
+							//winid = {};
+		
+						}
+						
+									
+					}
+				
 				}
 				}
 			}
@@ -8204,6 +9256,14 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
   if(event.data.includes("connection_ack")){
   
 		websocket.send(JSON.stringify({"id":"e0f09352-0cc1-4485-8acf-ca53caccb5a8","type":"subscribe","payload":{"query":"subscription AvailableBalances {\n  availableBalances {\n    amount\n    identifier\n    balance {\n      amount\n      currency\n    }\n  }\n}\n"}}));
+		
+		 setTimeout(() => {
+  websocket.send(JSON.stringify({"id":"3c099e10-dd7d-4a93-a86c-f2fe0082a6f3","type":"subscribe","payload":{"query":"subscription Crash {\n  crash {\n    event {\n      ... on MultiplayerCrash {\n        ...MultiplayerCrash\n      }\n      ... on MultiplayerCrashBet {\n        ...MultiplayerCrashBet\n      }\n      __typename\n    }\n  }\n}\n\nfragment MultiplayerCrash on MultiplayerCrash {\n  id\n  status\n  multiplier\n  startTime\n  nextRoundIn\n  crashpoint\n  elapsed\n  timestamp\n  cashedIn {\n    id\n    user {\n      id\n      name\n    }\n    payoutMultiplier\n    gameId\n    amount\n    payout\n    currency\n    result\n    updatedAt\n    cashoutAt\n    btcAmount: amount(currency: btc)\n  }\n  cashedOut {\n    id\n    user {\n      id\n      name\n    }\n    payoutMultiplier\n    gameId\n    amount\n    payout\n    currency\n    result\n    updatedAt\n    cashoutAt\n    btcAmount: amount(currency: btc)\n  }\n}\n\nfragment MultiplayerCrashBet on MultiplayerCrashBet {\n  id\n  user {\n    id\n    name\n  }\n  payoutMultiplier\n  gameId\n  amount\n  payout\n  currency\n  result\n  updatedAt\n  cashoutAt\n  btcAmount: amount(currency: btc)\n}\n"}}));
+  }, "1000");
+  
+	setTimeout(() => {
+  websocket.send(JSON.stringify({"id":"dfd28075-20ec-455b-b652-27a1a9d93e05","type":"subscribe","payload":{"query":"subscription slide {\n  slide {\n    event {\n      __typename\n      ... on MultiplayerSlide {\n        ...MultiplayerSlide\n      }\n      ... on MultiplayerSlideBet {\n        id\n        user {\n          id\n          name\n        }\n        payoutMultiplier\n        gameId\n        amount\n        payout\n        currency\n        result\n        updatedAt\n        cashoutAt\n        btcAmount: amount(currency: btc)\n      }\n    }\n  }\n}\n\nfragment MultiplayerSlide on MultiplayerSlide {\n  __typename\n  id\n  status\n  multiplier\n  startTime\n  nextRoundIn\n  elapsed\n  timestamp\n  cashedIn {\n    id\n    user {\n      id\n      name\n      preferenceHideBets\n    }\n    payoutMultiplier\n    gameId\n    amount\n    payout\n    currency\n    result\n    updatedAt\n    cashoutAt\n    btcAmount: amount(currency: btc)\n  }\n  numbers\n}\n"}}))
+  }, "1000");
 	
   };
   }
