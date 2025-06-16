@@ -8681,7 +8681,7 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 							//elem.style.width = "0%";
 							//betcount++;
 							//bets = betcount;
-							lastBet.crashAt = obj.payload.data.crash.event.multiplier;
+							lastBet.Roll = obj.payload.data.crash.event.multiplier;
 							
 							
 							var row = document.createElement("tr");
@@ -8712,12 +8712,12 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 							tdcheck.id = "checked";
 							
 							tdhigh.appendChild(tdcheck);
-							tdTargetChance.innerHTML = lastBet.crashAt.toFixed(4) + "";
+							tdTargetChance.innerHTML = lastBet.Roll.toFixed(4) + "";
 							tdRollChance.innerHTML = ""
 							tdProfit.innerHTML = ""
 							tdTargetNumber.innerHTML = ""
 							//lastBet.targetNumber = target_multi;
-							tdRollNumber.innerHTML = lastBet.crashAt.toFixed(4) + "";
+							tdRollNumber.innerHTML = lastBet.Roll.toFixed(4) + "";
 							tdNonce.innerHTML = game;
 							tdBetID.innerHTML = "";
 							tdPayout.innerHTML = "";
@@ -8826,7 +8826,7 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 								bets = betcount;
 							}
 							
-							lastBet.crashAt = obj.payload.data.slide.event.multiplier;
+							lastBet.Roll = obj.payload.data.slide.event.multiplier;
 							var row = document.createElement("tr");
 							//betcount++;
 							row.style.background = "#e8e9eb";
@@ -8855,12 +8855,12 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 							tdcheck.id = "checked";
 							
 							tdhigh.appendChild(tdcheck);
-							tdTargetChance.innerHTML = lastBet.crashAt.toFixed(4) + "";
+							tdTargetChance.innerHTML = lastBet.Roll.toFixed(4) + "";
 							tdRollChance.innerHTML = ""
 							tdProfit.innerHTML = ""
 							tdTargetNumber.innerHTML = ""
 							//lastBet.targetNumber = target_multi;
-							tdRollNumber.innerHTML = lastBet.crashAt.toFixed(4) + "";
+							tdRollNumber.innerHTML = lastBet.Roll.toFixed(4) + "";
 							tdNonce.innerHTML = game;
 							tdBetID.innerHTML = "";
 							tdPayout.innerHTML = "";
@@ -8954,7 +8954,7 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 								tdProfit.innerHTML = current_profit.toFixed(8)
 								tdTargetNumber.innerHTML = ">" + obj.payload.data.slide.event.cashoutAt.toFixed(4) + "";
 								//lastBet.targetNumber = target_multi;
-								tdRollNumber.innerHTML = lastBet.crashAt.toFixed(4) + "";
+								tdRollNumber.innerHTML = lastBet.Roll.toFixed(4) + "";
 								tdNonce.innerHTML = game;
 								tdBetID.innerHTML = obj.payload.data.slide.event.gameId;
 								tdPayout.innerHTML = obj.payload.data.slide.event.payout.toFixed(8);
@@ -9093,7 +9093,7 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 								tdProfit.innerHTML = current_profit.toFixed(8)
 								tdTargetNumber.innerHTML = ">" + obj.payload.data.slide.event.cashoutAt.toFixed(4) + "";
 								//lastBet.targetNumber = target_multi;
-								tdRollNumber.innerHTML = lastBet.crashAt.toFixed(4) + "";
+								tdRollNumber.innerHTML = lastBet.Roll.toFixed(4) + "";
 								tdNonce.innerHTML = game;
 								tdBetID.innerHTML = obj.payload.data.slide.event.gameId;
 								tdPayout.innerHTML = obj.payload.data.slide.event.payout.toFixed(8);
