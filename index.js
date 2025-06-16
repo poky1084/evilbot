@@ -604,6 +604,15 @@ hr {
     top: 40px;
     right: 10px;
 }
+a:hover {
+  color: blue;
+  text-decoration: underline;
+}
+a:link {
+  color: blue;
+  text-decoration: underline;
+}
+
 </style>
 <center>
 <div id="wdb">
@@ -930,7 +939,7 @@ Hold top or bottom area to move the bot around</pre>
 	  <div id="wdbFooter">
     <div class="clearfix">
       <div id="infobar" class="float-left" style="padding-left: 5px;color:white"> 
-        github.com/poky1084 | Discord: fisk_992 | Telegram: https://t.me/poky_1084 
+        <a href="https://github.com/poky1084">github.com/poky1084</a> | Discord: fisk_992 | Telegram: <a href="https://t.me/poky_1084 ">https://t.me/poky_1084</a>  
       </div>
       <div id="infospeed" class="float-right" style="color:white">
         <span id="wdbSpeed" style="color:white">0</span>
