@@ -1984,7 +1984,6 @@ var body = {
 
 function outbals(json){
 
-	var balan1 = document.getElementById("wdbBalance");
 	balance = 0
 	var balan1 = document.getElementById("wdbBalance");
 	balan1.innerHTML = balance.toFixed(8);
