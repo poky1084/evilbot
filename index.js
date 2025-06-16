@@ -1654,6 +1654,7 @@ const inputHandler4 = function(e) {
 	var games = document.getElementById('gameselect').value;
 	localStorage.setItem("gameselect", document.getElementById('gameselect').value);
 	game = document.getElementById('gameselect').value;
+	document.getElementById("result").innerHTML = ""
 	//fengari.load('game=undefined')()
 
 }
@@ -1823,6 +1824,7 @@ thememode.addEventListener('change', inputHandler6);
 if (localStorage.getItem("gameselect") != null) {
 	document.getElementById("gameselect").value = localStorage.getItem("gameselect");
 	game = document.getElementById("gameselect").value
+	document.getElementById("result").innerHTML = ""
 }
 
 if (localStorage.getItem("mirror") != null) {
@@ -7180,6 +7182,7 @@ function stop(){
 	cashout_done = false;
 	btnStart.disabled = false;
 	fastmode = false;
+	document.getElementById("result").innerHTML = ""
 	for (var i=0; i<timeouts.length; i++) {
 	  clearTimeout(timeouts[i]);
 	}
@@ -7720,7 +7723,7 @@ function sendLua() {
 function start(){
 		running = true; cashout_done = false; countTime(); 
 		fastmode = document.querySelector('#speedChange').checked;
-		run_clicked = true;
+		run_clicked = true;document.getElementById("result").innerHTML = ""
 		var elem = document.getElementById("wdbMenuMode");
 		var value = elem.options[elem.selectedIndex].value;
 		if(value == "lua"){
@@ -8366,7 +8369,7 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 					}
 				}
 				if(obj.payload.data.hasOwnProperty("crash") && game == "crash" ){
-					previousbet = amount;
+					previousbet = nextbet;
 					
 					if(obj.payload.data.crash.event.status == "in_progress"){
 						
