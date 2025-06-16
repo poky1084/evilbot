@@ -15,10 +15,8 @@ Please favourite the repo in case you liked/used it. Thank you!
 <b>Stake</b>: poky1084 <br />
 <b>Telegram:</b>: https://t.me/poky_1084
 
-![Screenshot-games](https://github.com/user-attachments/assets/dab0b363-f5c2-4c0b-9fa1-70914e391476)
-![Screenshot-mirror](https://github.com/user-attachments/assets/e18aa32c-2190-446a-a86a-607206143805)
-
-
+![Screenshot-game-list](https://github.com/user-attachments/assets/1c1a17af-8d07-493f-927e-c16629f185fd)
+![Screenshot-mirror-list](https://github.com/user-attachments/assets/ad670bbf-70a7-4466-897d-15a1bdac0e09)
 
 # Use: <br />
 
