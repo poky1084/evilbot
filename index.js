@@ -605,11 +605,11 @@ hr {
     right: 10px;
 }
 a:hover {
-  color: blue;
+  color: white;
   text-decoration: underline;
 }
 a:link {
-  color: blue;
+  color: white;
   text-decoration: underline;
 }
 
@@ -1210,6 +1210,14 @@ if (localStorage.getItem("thememod") != null) {
 		infoms.style.background = "black"
 		//buttonCss.style.background = "#5b05f0"
 		chartcolor = "#000"
+		var links = document.getElementsByTagName("a");
+		for(var i=0;i<links.length;i++)
+		{
+			if(links[i].href)
+			{
+				links[i].style.color = "white";  
+			}
+		} 
 		
 	}
 	
@@ -1229,6 +1237,14 @@ if (localStorage.getItem("thememod") != null) {
 		infoms.style.color = "black"
 		infoms.style.background = "white"
 		chartcolor = "#fff"
+		 var links = document.getElementsByTagName("a");
+		for(var i=0;i<links.length;i++)
+		{
+			if(links[i].href)
+			{
+				links[i].style.color = "black";  
+			}
+		} 
 		
 	}
 	
@@ -1248,6 +1264,14 @@ if (localStorage.getItem("thememod") != null) {
 		infoms.style.color = "white"
 		infoms.style.background = "#036ffc"
 		chartcolor = "#036ffc"
+		var links = document.getElementsByTagName("a");
+		for(var i=0;i<links.length;i++)
+		{
+			if(links[i].href)
+			{
+				links[i].style.color = "white";  
+			}
+		} 
 		
 	}
 	
@@ -1539,6 +1563,14 @@ function changeTheme(){
 		infoms.style.background = "black"
 		//buttonCss.style.background = "#5b05f0"
 		chartcolor = "#000"
+		var links = document.getElementsByTagName("a");
+		for(var i=0;i<links.length;i++)
+		{
+			if(links[i].href)
+			{
+				links[i].style.color = "white";  
+			}
+		} 
 		
 	}
 	
@@ -1558,6 +1590,14 @@ function changeTheme(){
 		infoms.style.color = "black"
 		infoms.style.background = "white"
 		chartcolor = "#fff"
+		var links = document.getElementsByTagName("a");
+		for(var i=0;i<links.length;i++)
+		{
+			if(links[i].href)
+			{
+				links[i].style.color = "black";  
+			}
+		} 
 		
 	}
 	
@@ -1577,6 +1617,14 @@ function changeTheme(){
 		infoms.style.color = "white"
 		infoms.style.background = "#036ffc"
 		chartcolor = "#036ffc"
+		var links = document.getElementsByTagName("a");
+		for(var i=0;i<links.length;i++)
+		{
+			if(links[i].href)
+			{
+				links[i].style.color = "white";  
+			}
+		} 
 		
 	}	
 	
