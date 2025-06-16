@@ -1033,7 +1033,7 @@ Hold top or bottom area to move the bot around</pre>
           <button id="wdbStartButton" class="btn-grad btn-control fontbigger" >Start</button>
           <button id="wdbStopButton" class="btn-grad btn-control fontbigger" >Stop</button>
          <div class="button-wrapper">
-			<button id="result" class="btn-grad btn-control fontbigger" disabled="disabled" style="width:250px;height:45px;"></button>
+			<button id="result" class="btn-grad btn-control fontbigger" style="width:250px;height:45px;background-color:#03A8FC;color:white;"></button>
 			<span class="loader"></span>
 		  </div>
           <button id="wdbStopOnWinButton" disabled="disabled" class="btn-grad btn-control fontbigger" >StopOnWin</button>
