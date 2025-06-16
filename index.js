@@ -644,7 +644,7 @@ a:link {
 		<option value="hilo">hilo</option>
 		<option value="wheel">wheel</option>
 		<option value="roulette">roulette</option>
-		<option value="dragontower">dragon</option>
+		<option value="dragontower">dragontower</option>
 		<option value="baccarat">baccarat</option>
 		<option value="pump">pump</option>
 		<option value="flip">flip</option>
