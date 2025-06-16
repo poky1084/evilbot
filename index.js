@@ -1116,6 +1116,8 @@ let ms = 0
 let sleeptime = 0
 let timeoutClear = null
 var timeouts = [];
+var measures = [];
+
 
 function addBot(){
 
@@ -2922,12 +2924,21 @@ function data(json){
 			{
 			const endMS = performance.now();
 			var meter = document.getElementById("wdbSpeed");
-			meter.innerHTML = (1000 / (endMS - startMS)).toFixed(1) + " bet/s"
+			measures.push(endMS - startMS)
+			if(measures.length > 3){
+				measures.shift()
+			}
+			meter.innerHTML = (1000 / (measures.reduce((partialSum, a) => partialSum + a, 0)/3)).toFixed(1) + " bet/s"
 			startMS = performance.now();
 			}
 		} else {
 			const endMS = performance.now();
 			var meter = document.getElementById("wdbSpeed");
+			measures.push(endMS - startMS)
+			if(measures.length > 3){
+				measures.shift()
+			}
+			meter.innerHTML = (1000 / (measures.reduce((partialSum, a) => partialSum + a, 0)/3)).toFixed(1) + " bet/s"
 			meter.innerHTML = (1000 / (endMS - startMS)).toFixed(1) + " bet/s"
 			startMS = performance.now();
 		}
