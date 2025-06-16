@@ -8741,7 +8741,7 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 							slide_bet_placed = false;
 							make_slide_bet = false;
 							if(document.getElementById("thememod").value == "light"){
-								document.getElementById("result").style.color = "black";
+								document.getElementById("result").style.color = "white";
 							} else {
 								document.getElementById("result").style.color = "white";
 							}
@@ -8887,7 +8887,7 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 							betlist = []
 							previousbet = nextbet;
 							if(document.getElementById("thememod").value == "light"){
-								document.getElementById("result").style.color = "black";
+								document.getElementById("result").style.color = "white";
 							} else {
 								document.getElementById("result").style.color = "white";
 							}
