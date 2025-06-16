@@ -1152,6 +1152,21 @@ if (localStorage.getItem("thememod") != null) {
 	var infospeed = document.getElementById('infospeed')
 	var infoms = document.getElementById("wdbSpeed")
 	//var buttonCss = document.getElementsByClassName("btn-grad")[0]
+	var wdbMenuMod = document.getElementById("wdbMenuMode")
+	var wdbMenuC = document.getElementById("wdbMenuCoin")
+	var gameselectVal = document.getElementById("gameselect")
+	var mirrorsVal = document.getElementById("mirrors")
+	var wdbMaxRow = document.getElementById("wdbMaxRows")
+	var thememod2 = document.getElementById("thememod")
+	
+	
+	wdbMenuMod.style.color = "black"
+	wdbMenuC.style.color = "black"
+	gameselectVal.style.color = "black"
+	mirrorsVal.style.color = "black"
+	wdbMaxRow.style.color = "black"
+	thememod2.style.color = "black"
+	
 	
 	themesel.style.color = "white"
 	themesel.style.background = "#036ffc"
@@ -1468,6 +1483,20 @@ function changeTheme(){
 	var infospeed = document.getElementById('infospeed')
 	var infoms = document.getElementById("wdbSpeed")
 	//var buttonCss = document.getElementsByClassName("btn-grad")[0]
+	var wdbMenuMod = document.getElementById("wdbMenuMode")
+	var wdbMenuC = document.getElementById("wdbMenuCoin")
+	var gameselectVal = document.getElementById("gameselect")
+	var mirrorsVal = document.getElementById("mirrors")
+	var wdbMaxRow = document.getElementById("wdbMaxRows")
+	var thememod2 = document.getElementById("thememod")
+	
+	
+	wdbMenuMod.style.color = "black"
+	wdbMenuC.style.color = "black"
+	gameselectVal.style.color = "black"
+	mirrorsVal.style.color = "black"
+	wdbMaxRow.style.color = "black"
+	thememod2.style.color = "black"
 	
 	themesel.style.color = "white"
 	themesel.style.background = "#036ffc"
