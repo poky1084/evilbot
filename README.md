@@ -155,11 +155,7 @@ nextbet = 0
 game = "diamonds"
 nextbet = 0
  ```
-<b>videopoker:</b>
-```javascript
-game = "videopoker"
-nextbet = 0
- ```
+
 <b>bluesamurai:</b>
 ```javascript
 game = "bluesamurai"
