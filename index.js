@@ -2928,7 +2928,7 @@ function data(json){
 			if(measures.length > 3){
 				measures.shift()
 			}
-			meter.innerHTML = (1000 / (measures.reduce((partialSum, a) => partialSum + a, 0)/3)).toFixed(1) + " bet/s"
+			meter.innerHTML = (1000 / (measures.reduce((partialSum, a) => partialSum + a, 0)/measures.length)).toFixed(1) + " bet/s"
 			startMS = performance.now();
 			}
 		} else {
@@ -2938,7 +2938,7 @@ function data(json){
 			if(measures.length > 3){
 				measures.shift()
 			}
-			meter.innerHTML = (1000 / (measures.reduce((partialSum, a) => partialSum + a, 0)/3)).toFixed(1) + " bet/s"
+			meter.innerHTML = (1000 / (measures.reduce((partialSum, a) => partialSum + a, 0)/measures.length)).toFixed(1) + " bet/s"
 			meter.innerHTML = (1000 / (endMS - startMS)).toFixed(1) + " bet/s"
 			startMS = performance.now();
 		}
