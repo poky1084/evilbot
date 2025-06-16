@@ -8489,7 +8489,7 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 
 						balance = current_balance;
 						profit = profit_total;
-						previousbet = amount;
+						previousbet = nextbet;
 						currentprofit = current_profit;
 						
 						
