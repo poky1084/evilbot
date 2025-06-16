@@ -1724,6 +1724,8 @@ const inputHandler4 = function(e) {
 	localStorage.setItem("gameselect", document.getElementById('gameselect').value);
 	game = document.getElementById('gameselect').value;
 	document.getElementById("result").innerHTML = ""
+	const loader1 = document.querySelector('.loader');
+	loader1.style.display = 'none';
 	//fengari.load('game=undefined')()
 
 }
