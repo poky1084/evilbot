@@ -16,7 +16,6 @@ Please favourite the repo in case you liked/used it. Thank you!
 <b>Telegram:</b>: https://t.me/poky_1084
 
 ![Screenshot-game-list](https://github.com/user-attachments/assets/1c1a17af-8d07-493f-927e-c16629f185fd)
-![Screenshot-mirror-list](https://github.com/user-attachments/assets/ad670bbf-70a7-4466-897d-15a1bdac0e09)
 
 # Use: <br />
 
