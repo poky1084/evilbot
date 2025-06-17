@@ -1243,6 +1243,7 @@ var id = {}
 var betidentifier = "identity01"
 var betlist = []
 var finished_round = false
+var mirror = "stake.ac"
 
 function addBot(){
 
@@ -1579,7 +1580,7 @@ var body = {
 		},
 		query:"mutation RotateSeedPair($seed: String!) {\n  rotateSeedPair(seed: $seed) {\n    clientSeed {\n      user {\n        id\n        activeClientSeed {\n          id\n          seed\n          __typename\n        }\n        activeServerSeed {\n          id\n          nonce\n          seedHash\n          nextSeedHash\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"		}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/graphql', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -1708,9 +1709,9 @@ const inputHandler = function(e) {
 }
 
 const inputHandler2 = function(e) {
-	var mirror = document.getElementById('mirrors');
-	var input_mirror = mirror.options[mirror.selectedIndex].value;
+	var input_mirror = document.getElementById('mirrors').value;;
 	localStorage.setItem("mirror", input_mirror);
+	mirror = input_mirror;
 	if (localStorage.getItem("currenc") != null) {
 		document.getElementById("wdbMenuCoin").value = localStorage.getItem("currenc");
 	}
@@ -1910,6 +1911,7 @@ if (localStorage.getItem("gameselect") != null) {
 
 if (localStorage.getItem("mirror") != null) {
 	document.getElementById("mirrors").value = localStorage.getItem("mirror");
+	mirror = localStorage.getItem("mirror");
 }
 
 if (localStorage.getItem("currenc") != null) {
@@ -2066,7 +2068,7 @@ var body = {
 		variables:{},
 		query:"query UserBalances {\n  user {\n    id\n    balances {\n      available {\n        amount\n        currency\n        __typename\n      }\n      vault {\n        amount\n        currency\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"		}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/graphql', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2235,7 +2237,7 @@ var body = {
 		variables:{},
 		query:"query UserBalances {\n  user {\n    id\n    balances {\n      available {\n        amount\n        currency\n        __typename\n      }\n      vault {\n        amount\n        currency\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"		}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/graphql', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2285,7 +2287,7 @@ var body = {
         "amount": e
 		},
 		query:"mutation CreateVaultDeposit($currency: CurrencyEnum!, $amount: Float!) {\n  createVaultDeposit(currency: $currency, amount: $amount) {\n    id\n    amount\n    currency\n    user {\n      id\n      balances {\n        available {\n          amount\n          currency\n          __typename\n        }\n        vault {\n          amount\n          currency\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"		}
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/graphql', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2319,7 +2321,7 @@ function hiloBet(betsize, startcard){
     "startCard": startcard
 }
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/hilo/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2347,7 +2349,7 @@ function hiloNext(guessed){
     "guess": guessed
 	}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/hilo/next', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2376,7 +2378,7 @@ function hiloCash(){
     "identifier": randomString(21)
 	}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/hilo/cashout', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2408,7 +2410,7 @@ function dartsBet(betsize, diff){
     "difficulty": diff
 }
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/darts/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2438,7 +2440,7 @@ function videopokerBet(betsize){
     "amount": betsize
 	}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/video-poker/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2472,7 +2474,7 @@ function samuraiBet(betsize){
     "identifier": randomString(21)
 	}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/slots-samurai/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2501,7 +2503,7 @@ function samuraiNext(){
     "identifier": randomString(21)
 	}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/slots-samurai/next', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2534,7 +2536,7 @@ function scarabBet(betsize, lines){
     "identifier": randomString(21)
 	}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/slots/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2567,7 +2569,7 @@ function tomeBet(betsize, lines){
 		"identifier": randomString(21)
 	}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/slots-tome-of-life/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2599,7 +2601,7 @@ function diamondBet(betsize){
     "identifier": randomString(21)
 	}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/diamonds/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2631,7 +2633,7 @@ function caseBet(betsize, difficulty){
     "difficulty": difficulty
 	}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/cases/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2667,7 +2669,7 @@ function flipBet(betsize, guesses){
     }
 	}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/graphql', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2699,7 +2701,7 @@ function rockpaperBet(betsize, guesses){
     "guesses": guesses
 	}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/rock-paper-scissors/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2732,7 +2734,7 @@ function snakesBet(betsize, snakedifficulty, snakerolls){
     "rollCount": snakerolls
 	}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/snakes/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2766,7 +2768,7 @@ function baccaratbet(baccarattie, baccaratplayer, baccaratbanker){
 		"player": baccaratplayer
 		}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/baccarat/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2799,7 +2801,7 @@ function dragontowerBet(betsize, dragondifficulty, dragoneggs){
         "eggs": dragoneggs
 		}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/dragon-tower/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2858,7 +2860,7 @@ function roulettebet(selection){
 		"parities": roulette_parity
 		}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/roulette/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2891,7 +2893,7 @@ function wheelbet(betsize, wheelsegments, wheelrisk){
         "segments": wheelsegments
 		}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/wheel/spin', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2924,7 +2926,7 @@ function plinkobet(betsize, plinkorows, plinkorisk){
         "rows": plinkorows
 		}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/plinko/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2957,7 +2959,7 @@ function kenobet(betsize, kenoselected, kenorisk){
         "numbers": kenoselected
 		}
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/keno/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -2990,7 +2992,7 @@ function minebet(betsize, fieldcount, minecount){
     "fields": fieldcount
 }
 		
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/mines/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -3023,7 +3025,7 @@ function pumpBet(betsize, rounds, difficulty){
     "round": rounds,
     "difficulty": difficulty
 	}
-	var mirror = document.getElementById("mirrors").value;	
+		
 	fetch('https://' + mirror + '/_api/casino/pump/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -3064,7 +3066,7 @@ function LimboBet(amount, target_multi){
 			"amount": amount,
 			"currency": currency
 		}
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/limbo/bet', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -3087,7 +3089,7 @@ function LimboBet(amount, target_multi){
 
 function DiceBet(amount, chance, bethigh){
 
-	if(document.getElementById("mirrors").value.includes("primedice")){
+	if(mirror.includes("primedice")){
 	
 		var targetdice = 49.5
 		if(bethigh == false){
@@ -3109,7 +3111,7 @@ function DiceBet(amount, chance, bethigh){
 			operationName: "PrimediceRoll",
 			query:"mutation PrimediceRoll($amount: Float!, $target: Float!, $condition: CasinoGamePrimediceConditionEnum!, $currency: CurrencyEnum!) {\n  primediceRoll(amount: $amount, target: $target, condition: $condition, currency: $currency) {\n    ...CasinoBetFragment\n    state {\n      ...PrimediceStateFragment\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment CasinoBetFragment on CasinoBet {\n  id\n  active\n  payoutMultiplier\n  amountMultiplier\n  amount\n  payout\n  updatedAt\n  currency\n  game\n  user {\n    id\n    name\n    __typename\n  }\n  __typename\n}\n\nfragment PrimediceStateFragment on CasinoGamePrimedice {\n  result\n  target\n  condition\n  __typename\n}\n"	}
 			
-		var mirror = document.getElementById("mirrors").value;
+		
 		fetch('https://' + mirror + '/_api/graphql', {
 			method: 'post',
 			body:    JSON.stringify(body),
@@ -3157,7 +3159,7 @@ function DiceBet(amount, chance, bethigh){
     "amount": amount,
     "currency": currency
 		}
-	var mirror = document.getElementById("mirrors").value;
+	
 	fetch('https://' + mirror + '/_api/casino/dice/roll', {
 		method: 'post',
 		body:    JSON.stringify(body),
@@ -7303,7 +7305,7 @@ function resetAll(){
 function payouted(condition, target, edge, maxroll) {
 	var payout = 0;
   if (condition === 'above') {
-  if(document.getElementById("mirrors").value.includes("primedice")){
+  if(mirror.includes("primedice")){
 		payout = parseFloat((99.9999999 - edge) / (99.9999999 - target));
 	} else {
 		payout = parseFloat((maxroll - edge) / (maxroll - target));
@@ -7334,7 +7336,7 @@ function RunSimDice(){
 				clientSeed = document.getElementById('clientseed').value;
 				document.getElementById('nonce').value = nonce;
 				let rolled = 1
-				if(document.getElementById("mirrors").value.includes("primedice")){
+				if(mirror.includes("primedice")){
 					rolled = generatePrimeDiceResult(serverSeed, clientSeed, nonce) 
 				} else {
 					rolled = generateDiceResult(serverSeed, clientSeed, nonce)
@@ -7343,7 +7345,7 @@ function RunSimDice(){
 				nonce += 1;
 				document.getElementById('nonce').value = nonce;
 				if(bethigh){
-					if(document.getElementById("mirrors").value.includes("primedice")){
+					if(mirror.includes("primedice")){
 						target_sim = 100 - chance;
 					} else {
 						target_sim = 100 - chance;			
@@ -7391,7 +7393,7 @@ function RunSimDice(){
 			if(bethigh == false){
 				lastBet.chance = chance;
 			} else {
-				if(document.getElementById("mirrors").value.includes("primedice")){
+				if(mirror.includes("primedice")){
 					lastBet.chance = 100 - 0.01 - chance;
 				} else {
 					lastBet.chance = 100 - chance;
@@ -7441,7 +7443,7 @@ function RunSimDice(){
 				tdRollChance.innerHTML = toFixedNo(rolled, 4);
 			} else {
 				tdTargetChance.innerHTML = (100 - lastBet.chance).toFixed(4)
-				if(document.getElementById("mirrors").value.includes("primedice")){
+				if(mirror.includes("primedice")){
 					tdRollChance.innerHTML = (100 - 0.01 - rolled).toFixed(4)
 				} else {
 					tdRollChance.innerHTML = (100 - rolled).toFixed(4)
@@ -7451,7 +7453,7 @@ function RunSimDice(){
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			
 			if(bethigh){
-				if(document.getElementById("mirrors").value.includes("primedice")){
+				if(mirror.includes("primedice")){
 					lastBet.targetNumber = (99 /  (100 - lastBet.chance - 0.01));
 					tdTargetNumber.innerHTML = ">" + (99 /  (100 - lastBet.chance - 0.01)).toFixed(4)
 				} else {
@@ -8451,7 +8453,7 @@ let opensocket = [];
 const reconnectDelay = 10000;
 
 function startSocket() {
-	let mirror =  document.getElementById("mirrors").value;
+	//let mirror =  document.getElementById("mirrors").value;
   // Clear any previous reconnect timeout
   if (reconnectTimeout) {
     clearTimeout(reconnectTimeout);
