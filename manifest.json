@@ -18,7 +18,7 @@
     },
     "content_scripts": [{
         "js": ["index.js", "js/codemirror.min.js", "js/canvasjs.min.js", "js/javascript.min.js", "js/lua.min.js", "js/ms.js", "js/chart.js", "js/easytimer.js", "js/crypto-js.min.js", "js/axios.min.js", "js/placeholder.js", "js/jquery-3.6.0.min.js"],
-        "matches": ["https://stake.bet/*", "https://stake.com/*", "https://stake.pet/*", "https://stake.kim/*", "https://stake.us/*", "https://stake.games/*", "https://stake.mba/*", "https://stake.ac/*", "https://stake.jp/*", "https://stake.bz/*", "https://stake.ceo/*", "https://stake.krd/*", "https://stake.jp/*", "https://staketr.com/*", "https://primedice.com/*", "https://primedice.games/*"],
+        "matches": ["https://stake.bet/*", "https://stake.com/*", "https://stake.pet/*", "https://stake.kim/*", "https://stake.us/*", "https://stake.games/*", "https://stake.mba/*", "https://stake.ac/*", "https://stake.jp/*", "https://stake.bz/*", "https://stake.krd/*", "https://stake.ceo/*", "https://staketr.com/*", "https://primedice.com/*", "https://primedice.games/*", "https://stake1021.com/*", "https://stake1022.com/*"],
 		"run_at": "document_end"
     }],
 	"web_accessible_resources": [
