@@ -759,8 +759,8 @@ a:link {
       </select>
 	   <select id="mirrors" class="mirrors">
       </select>
-	  <input type="password" id="tokenkey" value="" style="width: 24%; background: black; color: white;" placeholder="Stake or Primedice api key here">
-      <button class="btn-grad" id="getkey">Get API</button>
+	  <span style="font-size: 13px;font-weight: bold;">API:</span> <input type="password" id="tokenkey" value="" style="width: 33%;color: white;border-style: solid;border-radius: 5px;border-width: 1px;" placeholder="Stake or Primedice api key here">
+      
 	  <span>
         Records
         <input type="number" id="wdbMaxRows" value="20" style="width: 40px;">
@@ -1253,6 +1253,22 @@ if (localStorage.getItem("mirror") != null) {
     selectMirror.appendChild(opt1);
 }
 
+if(getCookie("session") != undefined){
+	if(localStorage.getItem("apitoken") != null && localStorage.getItem("apitoken") != ""){
+		document.getElementById("tokenkey").value = localStorage.getItem("apitoken");
+		tokenapi = localStorage.getItem("apitoken");
+	} else {
+	tokenapi = getCookie("session"); 
+	document.getElementById("tokenkey").value = tokenapi;
+	localStorage.setItem("apitoken", tokenapi);
+	}
+} else {
+	if(localStorage.getItem("apitoken") != null && localStorage.getItem("apitoken") != ""){
+		document.getElementById("tokenkey").value = localStorage.getItem("apitoken");
+		tokenapi = localStorage.getItem("apitoken");
+	}
+}
+
 initUser();			
 //loadLua();	
 resetChart();
@@ -1668,10 +1684,7 @@ function showOnChange(e) {
 	document.getElementsByClassName('wdbSim')[0].style.visibility = "hidden";
  }
 
-if(localStorage.getItem("apitoken") != null){
-	document.getElementById("tokenkey").value = localStorage.getItem("apitoken");
-	tokenapi = localStorage.getItem("apitoken");
-} 
+
 
 
 if(localStorage.getItem("clientseed") != null){
@@ -8446,6 +8459,7 @@ btnStart.addEventListener('click', function() {  if(document.getElementById("tok
 var btnStop = document.getElementById("wdbStopButton");
 btnStop.addEventListener('click', function() {  btnStart.disabled = false; stop(); }, false);
 
+/*
 var btnKey= document.getElementById("getkey");
 btnKey.addEventListener('click', function() {  
 	if(getCookie("session") != undefined){
@@ -8455,7 +8469,7 @@ btnKey.addEventListener('click', function() {
 		initUser()
 		startSocket();
 	}
-}, false);
+}, false);*/
 
 
 
