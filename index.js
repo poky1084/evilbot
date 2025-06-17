@@ -1234,8 +1234,8 @@ if(svelt != undefined){
 }*/
 
 if (localStorage.getItem("mirror") != null) {
-	document.getElementById("mirrors").value = localStorage.getItem("mirror");
-	mirror = localStorage.getItem("mirror");
+	mirror = window.location.host
+	localStorage.setItem("mirror", mirror);
 	var selectMirror = document.getElementById('mirrors');
 	selectMirror.innerHTML = "";
 	var opt1 = document.createElement('option');
@@ -1918,8 +1918,8 @@ if (localStorage.getItem("gameselect") != null) {
 }
 
 if (localStorage.getItem("mirror") != null) {
-	document.getElementById("mirrors").value = localStorage.getItem("mirror");
-	mirror = localStorage.getItem("mirror");
+	mirror = window.location.host
+	localStorage.setItem("mirror", mirror);
 	var selectMirror = document.getElementById('mirrors');
 	selectMirror.innerHTML = "";
 	var opt1 = document.createElement('option');
