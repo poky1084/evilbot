@@ -7287,6 +7287,7 @@ function stop(){
 	cashout_done = false;
 	btnStart.disabled = false;
 	fastmode = false;
+	mirror = document.getElementById("mirrors").value;
 	document.getElementById("result").innerHTML = ""
 	for (var i=0; i<timeouts.length; i++) {
 	  clearTimeout(timeouts[i]);
@@ -7828,6 +7829,7 @@ function sendLua() {
 function start(){
 		running = true; cashout_done = false; countTime(); 
 		fastmode = document.querySelector('#speedChange').checked;
+		mirror = document.getElementById("mirrors").value;
 		run_clicked = true;document.getElementById("result").innerHTML = ""
 		var elem = document.getElementById("wdbMenuMode");
 		var value = elem.options[elem.selectedIndex].value;
