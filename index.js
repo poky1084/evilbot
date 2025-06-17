@@ -758,27 +758,8 @@ a:link {
 		<option value="slide">slide</option>
       </select>
 	   <select id="mirrors" class="mirrors">
-        <option value="stake.games" >stake.games</option>
-		<option value="stake.us" >stake.us</option>
-		<option value="stake.bet" >stake.bet</option>
-		<option value="stake.com" >stake.com</option>
-		<option value="staketr.com" selected="selected">staketr.com</option>
-		<option value="stake.ac" >stake.ac</option>
-		<option value="stake.pet" >stake.pet</option>
-		<option value="stake.mba" >stake.mba</option>
-		<option value="stake.jp" >stake.jp</option>
-		<option value="stake.bz" >stake.bz</option>
-		<option value="stake.ceo" >stake.ceo</option>
-		<option value="stake.krd" >stake.krd</option>
-		<option value="stake1001.com" >stake1001.com</option>
-		<option value="stake1002.com" >stake1002.com</option>
-		<option value="stake1003.com" >stake1003.com</option>
-		<option value="stake1022.com" >stake1022.com</option>
-		<option value="stake1021.com" >stake1021.com</option>
-		<option value="primedice.com" >primedice.com</option>
-		<option value="primedice.games" >primedice.games</option>
       </select>
-	  <input type="text" id="tokenkey" value="" style="width: 24%; background: black; color: white;" placeholder="Stake or Primedice api key here">
+	  <input type="password" id="tokenkey" value="" style="width: 24%; background: black; color: white;" placeholder="Stake or Primedice api key here">
       <button class="btn-grad" id="getkey">Get API</button>
 	  <span>
         Records
@@ -1252,6 +1233,26 @@ if(svelt != undefined){
 	//svelt.remove();
 }*/
 
+if (localStorage.getItem("mirror") != null) {
+	document.getElementById("mirrors").value = localStorage.getItem("mirror");
+	mirror = localStorage.getItem("mirror");
+	var selectMirror = document.getElementById('mirrors');
+	selectMirror.innerHTML = "";
+	var opt1 = document.createElement('option');
+	opt1.value = mirror;
+    opt1.innerHTML = mirror;
+    selectMirror.appendChild(opt1);
+} else {
+	mirror = window.location.host
+	localStorage.setItem("mirror", mirror);
+	var selectMirror = document.getElementById('mirrors');
+	selectMirror.innerHTML = "";
+	var opt1 = document.createElement('option');
+	opt1.value = mirror;
+    opt1.innerHTML = mirror;
+    selectMirror.appendChild(opt1);
+}
+
 initUser();			
 //loadLua();	
 resetChart();
@@ -1513,7 +1514,7 @@ function crashbet(betsize, target_multi){
 		},
 		query:"mutation MultiplayerCrashBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!) {\n  multiplayerCrashBet(amount: $amount, currency: $currency, cashoutAt: $cashoutAt) {\n    ...MultiplayerCrashBet\n    user {\n      id\n      activeCrashBet {\n        ...MultiplayerCrashBet\n      }\n    }\n  }\n}\n\nfragment MultiplayerCrashBet on MultiplayerCrashBet {\n  id\n  user {\n    id\n    name\n  }\n  payoutMultiplier\n  gameId\n  amount\n  payout\n  currency\n  result\n  updatedAt\n  cashoutAt\n  btcAmount: amount(currency: btc)\n}\n"		}
 		
-	fetch('https://' +  window.location.host + '/_api/graphql', {
+	fetch('https://' +  mirror + '/_api/graphql', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -1546,7 +1547,7 @@ function slidebet(betsize, slideat, betidentifier){
 		query:"mutation MultiplayerSlideBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!, $identifier: String!) {\n  multiplayerSlideBet(\n    amount: $amount\n    currency: $currency\n    cashoutAt: $cashoutAt\n    identifier: $identifier\n  ) {\n    __typename\n    ...MultiplayerSlideBet\n    user {\n      id\n      activeSlideBet {\n        ...MultiplayerSlideBet\n      }\n    }\n  }\n}\n\nfragment MultiplayerSlideBet on MultiplayerSlideBet {\n  id\n  user {\n    id\n    name\n    preferenceHideBets\n  }\n  payoutMultiplier\n  gameId\n  amount\n  payout\n  currency\n  slideResult: result\n  updatedAt\n  cashoutAt\n  btcAmount: amount(currency: btc)\n  active\n  createdAt\n}\n"		}
 		
 	
-	fetch('https://' +  window.location.host + '/_api/graphql', {
+	fetch('https://' +  mirror + '/_api/graphql', {
 		method: 'post',
 		body:    JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
@@ -1709,6 +1710,12 @@ const inputHandler = function(e) {
 }
 
 const inputHandler2 = function(e) {
+	var selectMirror = document.getElementById('mirrors');
+	selectMirror.innerHTML = "";
+	var opt1 = document.createElement('option');
+	opt1.value = mirror;
+    opt1.innerHTML = mirror;
+    selectMirror.appendChild(opt1);
 	var input_mirror = document.getElementById('mirrors').value;;
 	localStorage.setItem("mirror", input_mirror);
 	mirror = input_mirror;
@@ -1913,6 +1920,12 @@ if (localStorage.getItem("gameselect") != null) {
 if (localStorage.getItem("mirror") != null) {
 	document.getElementById("mirrors").value = localStorage.getItem("mirror");
 	mirror = localStorage.getItem("mirror");
+	var selectMirror = document.getElementById('mirrors');
+	selectMirror.innerHTML = "";
+	var opt1 = document.createElement('option');
+	opt1.value = mirror;
+    opt1.innerHTML = mirror;
+    selectMirror.appendChild(opt1);
 }
 
 if (localStorage.getItem("currenc") != null) {
