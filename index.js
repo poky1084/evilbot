@@ -1103,7 +1103,7 @@ addCss('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.
 addCss('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/darcula.min.css', () => {})
 
 var tokenapi = "";
-var currency = "doge";
+var currency = null;
 var target_multi = 1.01;
 var basebet = 0;
 var amount = basebet;
@@ -2238,11 +2238,10 @@ setTimeout(() => {
 		document.getElementById("wdbMenuCoin").options[indexMatchingText(currency)].selected = 'selected';
 		}
 	} else {
-		document.getElementById("wdbMenuCoin").options[0].selected = 'selected';
 		currency = document.getElementById("wdbMenuCoin").value;
 	}
 	userBalances();	
-}, "1100");
+}, "500");
 
 function userBalances(){
 
