@@ -1728,6 +1728,7 @@ const inputHandler3 = function(e) {
 }
 
 const inputHandler4 = function(e) {
+	finished_round = true
 	var games = document.getElementById('gameselect').value;
 	localStorage.setItem("gameselect", document.getElementById('gameselect').value);
 	game = document.getElementById('gameselect').value;
