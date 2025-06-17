@@ -1723,7 +1723,7 @@ const inputHandler2 = function(e) {
 		document.getElementById("wdbMenuCoin").value = localStorage.getItem("currenc");
 	}
 	initUser()
-	startSocket();
+	//startSocket();
 }
 
 const inputHandler3 = function(e) {
@@ -1731,7 +1731,7 @@ const inputHandler3 = function(e) {
 	localStorage.setItem("currenc", curry);
 	currency = curry;
 	userBalances();
-	startSocket();
+	//startSocket();
 }
 
 const inputHandler4 = function(e) {
