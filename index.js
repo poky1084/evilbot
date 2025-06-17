@@ -1175,7 +1175,7 @@ condition_sim = "above";
 bet_sim = 0
 
 var chartcolor = "#000"
-let opensocket = []
+//let opensocket = []
 
 var sendDate = (new Date()).getTime();
 var errorgame = false
@@ -1221,7 +1221,7 @@ let sleeptime = 0
 let timeoutClear = null
 var timeouts = [];
 var measures = [];
-
+var socketstart = [];
 
 var stopped = true;
 var bet_found = false;
@@ -1253,7 +1253,7 @@ if(svelt != undefined){
 initUser();			
 //loadLua();	
 resetChart();
-startScoket();
+startSocket();
 
 /*(htmlEditor = CodeMirror.fromTextArea(document.getElementById("jscode"), {
 	lineNumbers: true,
@@ -1498,6 +1498,8 @@ function datacrash(json){
 
 function crashbet(betsize, target_multi){
 	
+	//socketstart.push(setTimeout(() => {startSocket()}, 15000))
+	
 	
 	var body = {
 		variables:{
@@ -1528,6 +1530,8 @@ function crashbet(betsize, target_multi){
 }
 
 function slidebet(betsize, slideat, betidentifier){
+	//socketstart.push(setTimeout(() => {startSocket()}, 15000))
+	
 	var body = {
 		variables:{
         "identifier": randomString(21),
@@ -1697,7 +1701,7 @@ const inputHandler = function(e) {
   localStorage.setItem("apitoken", e.target.value);
   tokenapi = e.target.value;
 	initUser()
-	startScoket();
+	startSocket();
 }
 
 const inputHandler2 = function(e) {
@@ -1708,7 +1712,7 @@ const inputHandler2 = function(e) {
 		document.getElementById("wdbMenuCoin").value = localStorage.getItem("currenc");
 	}
 	initUser()
-	startScoket();
+	startSocket();
 }
 
 const inputHandler3 = function(e) {
@@ -1716,7 +1720,7 @@ const inputHandler3 = function(e) {
 	localStorage.setItem("currenc", curry);
 	currency = curry;
 	userBalances();
-	startScoket();
+	startSocket();
 }
 
 const inputHandler4 = function(e) {
@@ -8404,29 +8408,58 @@ btnKey.addEventListener('click', function() {
 		document.getElementById("tokenkey").value = tokenapi;
 		localStorage.setItem("apitoken", tokenapi);
 		initUser()
-		startScoket();
+		startSocket();
 	}
 }, false);
 
-function startScoket(){
-var mirror = document.getElementById("mirrors").value;
-	for(let s in opensocket){
-        opensocket[s].close();
-    }
-opensocket = []
-let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-transport-ws');
-    opensocket.push(websocket)
-  // Event handler for successful WebSocket connection
+
+
+
+let websocket = null;
+let reconnectTimeout = null;
+let isReconnecting = false;
+let opensocket = [];
+
+const reconnectDelay = 10000;
+
+function startSocket() {
+	let mirror =  document.getElementById("mirrors").value;
+  // Clear any previous reconnect timeout
+  if (reconnectTimeout) {
+    clearTimeout(reconnectTimeout);
+    reconnectTimeout = null;
+  }
+
+  // Close any existing sockets
+  for (let s in opensocket) {
+    opensocket[s].close();
+  }
+  opensocket = [];
+
+  websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-transport-ws');
+  opensocket.push(websocket);
+
   websocket.onopen = () => {
-    // Send the GraphQL subscription query as a JSON string
-    websocket.send(JSON.stringify({"type":"connection_init","payload":{"accessToken":tokenapi,"language":"en","lockdownToken":"s5MNWtjTM5TvCMkAzxov"}}));
+    isReconnecting = false;
+
+    websocket.send(JSON.stringify({
+      type: "connection_init",
+      payload: {
+        accessToken: tokenapi,
+        language: "en",
+        lockdownToken: "s5MNWtjTM5TvCMkAzxov"
+      }
+    }));
   };
 
-  // Event handler for incoming messages
   websocket.onmessage = (event) => {
-    //console.log('Received message:', event.data);
-			const obj = JSON.parse(event.data);		
-			if (obj.hasOwnProperty("payload")) {
+    const data = event.data;
+    const obj = JSON.parse(data);
+
+    if (data.includes("connection_ack")) {
+      subscribeToChannels();
+    }
+				if (obj.hasOwnProperty("payload")) {
 				if (obj.payload.hasOwnProperty("data")) {
 				if (obj.payload.data != undefined){
 				if (obj.payload.data.hasOwnProperty("availableBalances")) {
@@ -9333,42 +9366,107 @@ let websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-t
 				}
 				}
 			}
-				
-  if(event.data.includes("connection_ack")){
-  
-		websocket.send(JSON.stringify({"id":"e0f09352-0cc1-4485-8acf-ca53caccb5a8","type":"subscribe","payload":{"query":"subscription AvailableBalances {\n  availableBalances {\n    amount\n    identifier\n    balance {\n      amount\n      currency\n    }\n  }\n}\n"}}));
-		
-		 setTimeout(() => {
-  websocket.send(JSON.stringify({"id":"3c099e10-dd7d-4a93-a86c-f2fe0082a6f3","type":"subscribe","payload":{"query":"subscription Crash {\n  crash {\n    event {\n      ... on MultiplayerCrash {\n        ...MultiplayerCrash\n      }\n      ... on MultiplayerCrashBet {\n        ...MultiplayerCrashBet\n      }\n      __typename\n    }\n  }\n}\n\nfragment MultiplayerCrash on MultiplayerCrash {\n  id\n  status\n  multiplier\n  startTime\n  nextRoundIn\n  crashpoint\n  elapsed\n  timestamp\n  cashedIn {\n    id\n    user {\n      id\n      name\n    }\n    payoutMultiplier\n    gameId\n    amount\n    payout\n    currency\n    result\n    updatedAt\n    cashoutAt\n    btcAmount: amount(currency: btc)\n  }\n  cashedOut {\n    id\n    user {\n      id\n      name\n    }\n    payoutMultiplier\n    gameId\n    amount\n    payout\n    currency\n    result\n    updatedAt\n    cashoutAt\n    btcAmount: amount(currency: btc)\n  }\n}\n\nfragment MultiplayerCrashBet on MultiplayerCrashBet {\n  id\n  user {\n    id\n    name\n  }\n  payoutMultiplier\n  gameId\n  amount\n  payout\n  currency\n  result\n  updatedAt\n  cashoutAt\n  btcAmount: amount(currency: btc)\n}\n"}}));
-  }, "1000");
-  
-	setTimeout(() => {
-  websocket.send(JSON.stringify({"id":"dfd28075-20ec-455b-b652-27a1a9d93e05","type":"subscribe","payload":{"query":"subscription slide {\n  slide {\n    event {\n      __typename\n      ... on MultiplayerSlide {\n        ...MultiplayerSlide\n      }\n      ... on MultiplayerSlideBet {\n        id\n        user {\n          id\n          name\n        }\n        payoutMultiplier\n        gameId\n        amount\n        payout\n        currency\n        result\n        updatedAt\n        cashoutAt\n        btcAmount: amount(currency: btc)\n      }\n    }\n  }\n}\n\nfragment MultiplayerSlide on MultiplayerSlide {\n  __typename\n  id\n  status\n  multiplier\n  startTime\n  nextRoundIn\n  elapsed\n  timestamp\n  cashedIn {\n    id\n    user {\n      id\n      name\n      preferenceHideBets\n    }\n    payoutMultiplier\n    gameId\n    amount\n    payout\n    currency\n    result\n    updatedAt\n    cashoutAt\n    btcAmount: amount(currency: btc)\n  }\n  numbers\n}\n"}}))
-  }, "1000");
-	
   };
-  }
-  // Event handler for WebSocket errors
+
   websocket.onerror = (error) => {
-    //console.error('WebSocket error:', error);
-
-setTimeout(() => {
-		
-  startScoket();
-}, 2000);
-	
-	//window.location.reload(true);
+    //console.warn('WebSocket error:', error);
+    scheduleReconnect();
   };
 
-  // Event handler for WebSocket connection close
   websocket.onclose = (event) => {
- //window.location.reload(true);
-
-	
-	setTimeout(() => {
-		
-  //startScoket();
-}, 2000);
-    //console.log('WebSocket connection closed:', event.code, event.reason);
+    //console.warn('WebSocket closed:', event.code, event.reason);
+    scheduleReconnect();
   };
+}
+
+function scheduleReconnect() {
+  if (!isReconnecting) {
+    isReconnecting = true;
+    reconnectTimeout = setTimeout(() => {
+      //console.log("Reconnecting WebSocket...");
+      startSocket();
+    }, reconnectDelay);
   }
+}
+
+function subscribeToChannels() {
+  websocket.send(JSON.stringify({
+    id: "e0f09352-0cc1-4485-8acf-ca53caccb5a8",
+    type: "subscribe",
+    payload: {
+      query: `subscription AvailableBalances {
+        availableBalances {
+          amount
+          identifier
+          balance {
+            amount
+            currency
+          }
+        }
+      }`
+    }
+  }));
+
+  websocket.send(JSON.stringify({
+    id: "3c099e10-dd7d-4a93-a86c-f2fe0082a6f3",
+    type: "subscribe",
+    payload: {
+      query: `subscription Crash {
+        crash {
+          event {
+            ... on MultiplayerCrash {
+              ...MultiplayerCrash
+            }
+            ... on MultiplayerCrashBet {
+              ...MultiplayerCrashBet
+            }
+            __typename
+          }
+        }
+      }
+
+      fragment MultiplayerCrash on MultiplayerCrash {
+        id status multiplier startTime nextRoundIn crashpoint elapsed timestamp
+        cashedIn { id user { id name } payoutMultiplier gameId amount payout currency result updatedAt cashoutAt btcAmount: amount(currency: btc) }
+        cashedOut { id user { id name } payoutMultiplier gameId amount payout currency result updatedAt cashoutAt btcAmount: amount(currency: btc) }
+      }
+
+      fragment MultiplayerCrashBet on MultiplayerCrashBet {
+        id user { id name } payoutMultiplier gameId amount payout currency result updatedAt cashoutAt btcAmount: amount(currency: btc)
+      }`
+    }
+  }));
+
+  websocket.send(JSON.stringify({
+    id: "dfd28075-20ec-455b-b652-27a1a9d93e05",
+    type: "subscribe",
+    payload: {
+      query: `subscription slide {
+        slide {
+          event {
+            __typename
+            ... on MultiplayerSlide {
+              ...MultiplayerSlide
+            }
+            ... on MultiplayerSlideBet {
+              id user { id name } payoutMultiplier gameId amount payout currency result updatedAt cashoutAt btcAmount: amount(currency: btc)
+            }
+          }
+        }
+      }
+
+      fragment MultiplayerSlide on MultiplayerSlide {
+        __typename id status multiplier startTime nextRoundIn elapsed timestamp
+        cashedIn { id user { id name preferenceHideBets } payoutMultiplier gameId amount payout currency result updatedAt cashoutAt btcAmount: amount(currency: btc) }
+        numbers
+      }`
+    }
+  }));
+}
+
+function handlePayload(obj) {
+  // Your existing parsing logic, e.g., balances, crash, slide, etc.
+  // Keep that as-is or modularize further
+}
+
+// Start the socket initially
