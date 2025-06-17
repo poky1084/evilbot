@@ -1242,6 +1242,7 @@ var makecount = 0
 var id = {}
 var betidentifier = "identity01"
 var betlist = []
+var finished_round = false
 
 function addBot(){
 
@@ -1294,11 +1295,13 @@ if (localStorage.getItem("thememod") != null) {
 	var wdbMaxRow = document.getElementById("wdbMaxRows")
 	var thememod2 = document.getElementById("thememod")
 	var fonter = document.getElementsByClassName("fontbigger")
-
+	var fontResult = document.getElementById("result")
+	
 	
 	for (const element of fonter) {
 		element.style.fontSize = "15px"
 	}
+	fontResult.style.fontSize  = "20px"
 	
 	wdbMenuMod.style.color = "black"
 	wdbMenuC.style.color = "black"
@@ -1763,10 +1766,13 @@ function changeTheme(){
 	var wdbMaxRow = document.getElementById("wdbMaxRows")
 	var thememod2 = document.getElementById("thememod")
 	var fonter = document.getElementsByClassName("fontbigger")
+	var fontResult = document.getElementById("result")
+	
 	
 	for (const element of fonter) {
 		element.style.fontSize = "15px"
 	}
+	fontResult.style.fontSize  = "20px"
 	
 	wdbMenuMod.style.color = "black"
 	wdbMenuC.style.color = "black"
@@ -1957,6 +1963,28 @@ $('#mirrors').on('change', function (e) {
 function downloadFile() {
 
 }
+
+function animateCounter(element, toValue, duration = 1000, decimals = 2) {
+	
+    const fromValue = parseFloat(element.textContent) || 1;
+    const startTime = performance.now();
+
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const currentValue = fromValue + (toValue - fromValue) * progress;
+		if(finished_round == false){
+				element.textContent = currentValue.toFixed(decimals) + "x";
+		}
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+
+    requestAnimationFrame(update);
+	
+}
+
 const checkbox = document.getElementById('speedChange')
 
 checkbox.addEventListener('change', (event) => {
@@ -8477,8 +8505,12 @@ function startSocket() {
 					
 					if(obj.payload.data.crash.event.status == "in_progress"){
 						
+						finished_round = false
 						multiplier_start = obj.payload.data.crash.event.multiplier
-						document.getElementById("result").innerHTML = obj.payload.data.crash.event.multiplier.toFixed(2) + 'x'
+						const counterEl = document.getElementById('result');
+						 const randomValue = Math.random() * 100; // target number
+						animateCounter(counterEl, obj.payload.data.crash.event.multiplier, 400, 2); // 1.5s duration
+						//document.getElementById("result").innerHTML = obj.payload.data.crash.event.multiplier.toFixed(2) + 'x'
 					} 
 					
 					if(obj.payload.data.crash.event.result == "autocashout")
@@ -8773,6 +8805,7 @@ function startSocket() {
 							crash_bet_placed = false;
 							slide_bet_placed = false;
 							make_slide_bet = false;
+							finished_round = true
 							if(document.getElementById("thememod").value == "light"){
 								document.getElementById("result").style.color = "white";
 							} else {
