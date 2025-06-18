@@ -8539,7 +8539,7 @@ function startSocket() {
   opensocket.push(websocket);
 
   websocket.onopen = () => {
-    isReconnecting = true;
+    //isReconnecting = true;
 
     websocket.send(JSON.stringify({
       type: "connection_init",
@@ -8579,8 +8579,13 @@ function startSocket() {
 	}	
 	
 				if (obj.hasOwnProperty("payload")) {
+				if(obj.payload.hasOwnProperty("errors")){
+					
+				} 				
+				
 				if (obj.payload.hasOwnProperty("data")) {
 				if (obj.payload.data != undefined){
+					isReconnecting = true;
 				if (obj.payload.data.hasOwnProperty("availableBalances")) {
 					if(obj.payload.data.availableBalances.balance.currency == currency){
 					if(simrunning == false){
@@ -9516,11 +9521,12 @@ window.addEventListener('offline', () => {
 
 function scheduleReconnect() {
   if (!isReconnecting) {
-    isReconnecting = true;
+    //isReconnecting = true;
     reconnectTimeout = setTimeout(() => {
       //console.log("Reconnecting WebSocket...");
+	  if(!isReconnecting){
 	   startSocket();
-	  
+	  }
     }, reconnectDelay);
   }
 }
