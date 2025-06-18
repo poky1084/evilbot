@@ -1235,7 +1235,7 @@ let pingSent = [];
 let connectObj = [];
 let connectionTimeout = [];
 
-const reconnectDelay = 5000;
+const reconnectDelay = 10000;
 let pingInterval = null;
 
 function addBot(){
