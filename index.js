@@ -1231,6 +1231,7 @@ let websocket = null;
 let reconnectTimeout = null;
 let isReconnecting = false;
 let opensocket = [];
+let pingSent = [];
 
 const reconnectDelay = 5000;
 let pingInterval = null;
@@ -8513,15 +8514,20 @@ function startSocket() {
       }
     }));
 	
-	clearInterval(pingInterval);
-	pingInterval = null;
-	pingInterval = setInterval(() => {
+	//clearInterval(pingInterval);
+	//pingInterval = null;
+	for (var i=0; i<pingSent.length; i++) {
+	  clearTimeout(pingSent[i]);
+	}
+	pingSent = [];
+	
+	pingSent.push(setInterval(() => {
     if (websocket.readyState === WebSocket.OPEN) {
       websocket.send(JSON.stringify({ type: "ping" }));
       // Optional: Log for debugging
       // console.log("Ping sent");
     }
-	}, 20000);
+	}, 20000))
   };
 
   websocket.onmessage = (event) => {
@@ -9452,15 +9458,11 @@ function startSocket() {
 
   websocket.onerror = (error) => {
     //console.warn('WebSocket error:', error);
-	clearInterval(pingInterval);
-	pingInterval = null;
     scheduleReconnect();
   };
 
   websocket.onclose = (event) => {
     //console.warn('WebSocket closed:', event.code, event.reason);
-	clearInterval(pingInterval);
-	pingInterval = null;
     scheduleReconnect();
   };
 }
