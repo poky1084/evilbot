@@ -3393,7 +3393,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -3559,7 +3559,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -3755,7 +3755,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -3930,7 +3930,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -4094,7 +4094,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -4283,7 +4283,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -4446,7 +4446,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -4609,7 +4609,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -4768,7 +4768,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -4929,7 +4929,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -5102,7 +5102,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -5274,7 +5274,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -5435,7 +5435,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -5605,7 +5605,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -5766,7 +5766,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -5927,7 +5927,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -6088,7 +6088,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -6251,7 +6251,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -6419,7 +6419,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -6588,7 +6588,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -6748,7 +6748,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -6929,7 +6929,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -7102,7 +7102,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -7535,7 +7535,7 @@ function RunSimDice(){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > document.getElementById("wdbMaxRows").value)
+			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -8646,7 +8646,7 @@ function startSocket() {
 						var table = document.getElementById("wdbHistory");							
 						table.prepend(row);
 		
-						if (table.rows.length > 50)
+						if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 						{
 							table.deleteRow(table.rows.length - 1);
 						}
@@ -8788,7 +8788,7 @@ function startSocket() {
 						var table = document.getElementById("wdbHistory");							
 						table.prepend(row);
 		
-						if (table.rows.length > 50)
+						if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 						{
 							table.deleteRow(table.rows.length - 1);
 						}
@@ -8932,7 +8932,7 @@ function startSocket() {
 							var table = document.getElementById("wdbHistory");							
 							table.prepend(row);
 			
-							if (table.rows.length > 50)
+							if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 							{
 								table.deleteRow(table.rows.length - 1);
 							}
@@ -9079,7 +9079,7 @@ function startSocket() {
 							var table = document.getElementById("wdbHistory");							
 							table.prepend(row);
 			
-							if (table.rows.length > 50)
+							if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 							{
 								table.deleteRow(table.rows.length - 1);
 							}
@@ -9175,7 +9175,7 @@ function startSocket() {
 								table.prepend(row);
 								
 				
-								if (table.rows.length > 50)
+								if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 								{
 									table.deleteRow(table.rows.length - 1);
 								}
@@ -9314,7 +9314,7 @@ function startSocket() {
 								table.prepend(row);
 								
 				
-								if (table.rows.length > 50)
+								if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
 								{
 									table.deleteRow(table.rows.length - 1);
 								}
