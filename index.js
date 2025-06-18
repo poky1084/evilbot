@@ -8542,6 +8542,9 @@ function startSocket() {
   websocket.onopen = () => {
     //isReconnecting = true;
 
+	isReconnecting = false;
+	scheduleReconnect();
+
     websocket.send(JSON.stringify({
       type: "connection_init",
       payload: {
@@ -8572,8 +8575,6 @@ function startSocket() {
     const obj = JSON.parse(data);
 
     if (data.includes("connection_ack")) {
-	  isReconnecting = false;
-	  scheduleReconnect();
       subscribeToChannels();
     }
 
