@@ -9524,11 +9524,12 @@ function startSocket() {
 
 window.addEventListener('online', () => {
   //console.log("Back online. Reconnecting WebSocket...");
-  //startSocket(); // your reconnect logic
+  isReconnecting = false;
+  scheduleReconnect();
 });
 
 window.addEventListener('offline', () => {
-  //console.warn("Connection lost. Waiting to reconnect...");
+  ///console.warn("Connection lost. Waiting to reconnect...");
 });
 
 function scheduleReconnect() {
