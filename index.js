@@ -9528,8 +9528,6 @@ window.addEventListener('offline', () => {
   //console.warn("Connection lost. Waiting to reconnect...");
 });
 
-reconnectHandle();
-
 function reconnectHandle(){
 	for (var i=0; i<connectionTimeout.length; i++) {
 	  clearTimeout(connectionTimeout[i]);
@@ -9543,6 +9541,8 @@ function reconnectHandle(){
 	  reconnectHandle();
     }, reconnectDelay))
 }
+
+reconnectHandle();
 
 function scheduleReconnect() {
 	for (var i=0; i<connectObj.length; i++) {
