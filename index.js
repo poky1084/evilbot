@@ -900,7 +900,7 @@ a:link {
             <div id="wdbLUAMode">
               <div style="padding: 5px 2px 5px">
                 <button class="btn-grad" id="wdbSaveScriptButton">Save</button>
-                <input style="margin: 0 3px;" type="file" id="wdbOpenLUAScript" accept=".txt, .js">
+                <input style="margin: 0 3px;" type="file" id="wdbOpenScript" accept=".txt, .js">
               </div>
 <div class="code-container">
 
@@ -2037,7 +2037,7 @@ checkbox.addEventListener('change', (event) => {
   }
 })
 
-document.getElementById('wdbOpenLUAScript').addEventListener('change', function(event) {
+document.getElementById('wdbOpenScript').addEventListener('change', function(event) {
   const file = event.target.files[0];
   if (!file) return;
 
