@@ -9508,20 +9508,20 @@ function startSocket() {
   websocket.onerror = (error) => {
     //console.warn('WebSocket error:', error);
 	isReconnecting = false;
-    scheduleReconnect();
+    //scheduleReconnect();
   };
 
   websocket.onclose = (event) => {
     //console.warn('WebSocket closed:', event.code, event.reason);
 	isReconnecting = false;
-    scheduleReconnect();
+    //scheduleReconnect();
   };
 }
 
 window.addEventListener('online', () => {
   //console.log("Back online. Reconnecting WebSocket...");
   isReconnecting = false;
-  scheduleReconnect();
+  //scheduleReconnect();
 });
 
 window.addEventListener('offline', () => {
