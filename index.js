@@ -900,7 +900,7 @@ a:link {
             <div id="wdbLUAMode">
               <div style="padding: 5px 2px 5px">
                 <button class="btn-grad" id="wdbSaveScriptButton">Save</button>
-                <input style="margin: 0 3px;" type="file" id="wdbOpenLUAScript" accept=".txt, .lua, .js">
+                <input style="margin: 0 3px;" type="file" id="wdbOpenLUAScript" accept=".txt, .js">
               </div>
 <div class="code-container">
 
@@ -2037,6 +2037,42 @@ checkbox.addEventListener('change', (event) => {
   }
 })
 
+document.getElementById('wdbOpenLUAScript').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+    htmlEditor2.setValue(e.target.result)
+	localStorage.setItem("jscode", e.target.result);
+  };
+
+  reader.readAsText(file);
+});
+
+function saveToFile() {
+
+}
+
+function promptSave() {
+  const text = htmlEditor2.getValue();
+  const defaultFilename = "myFile.txt";
+
+  const filename = prompt("Enter file name:", defaultFilename);
+  if (!filename) return; // user cancelled
+
+  const blob = new Blob([text], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+
 /*
 var inputcommand = document.getElementById("runinput");
 
@@ -2075,28 +2111,28 @@ function ShowSimulate(){
 
 
 var downloadBtn = document.getElementById("wdbSaveScriptButton");
-downloadBtn.addEventListener('click', function() { downloadFile(); }, false);
-var downloadBtn = document.getElementById("resetstat");
-downloadBtn.addEventListener('click', function() { resetstats(); }, false);
-var downloadBtn = document.getElementById("resetChart");
-downloadBtn.addEventListener('click', function() { resetChart(); }, false);
-var downloadBtn = document.getElementById("deleteTable");
-downloadBtn.addEventListener('click', function() { deleteTable(); }, false);
-var downloadBtn = document.getElementById("deleteLog");
-downloadBtn.addEventListener('click', function() { deleteLogs(); }, false);
-var downloadBtn = document.getElementById("resetsee");
-downloadBtn.addEventListener('click', function() { resetseed(); }, false);
-var downloadBtn = document.getElementById("resetAlles");
-downloadBtn.addEventListener('click', function() { resetAll(); }, false);
-var downloadBtn = document.getElementById("userBal");
-downloadBtn.addEventListener('click', function() { userBalances(); }, false);
+downloadBtn.addEventListener('click', function() { promptSave(); }, false);
+var resetstat1 = document.getElementById("resetstat");
+resetstat1.addEventListener('click', function() { resetstats(); }, false);
+var resetChart1 = document.getElementById("resetChart");
+resetChart1.addEventListener('click', function() { resetChart(); }, false);
+var deleteTable1 = document.getElementById("deleteTable");
+deleteTable1.addEventListener('click', function() { deleteTable(); }, false);
+var deleteLogs1 = document.getElementById("deleteLog");
+deleteLogs1.addEventListener('click', function() { deleteLogs(); }, false);
+var resetseed1 = document.getElementById("resetsee");
+resetseed1.addEventListener('click', function() { resetseed(); }, false);
+var resetAll1 = document.getElementById("resetAlles");
+resetAll1.addEventListener('click', function() { resetAll(); }, false);
+var userBalances1 = document.getElementById("userBal");
+userBalances1.addEventListener('click', function() { userBalances(); }, false);
 
-var downloadBtn = document.getElementById("wdbShowMode");
-downloadBtn.addEventListener('click', function() { showOnChange(this); }, false);
-var downloadBtn = document.getElementById("wdbShowLog");
-downloadBtn.addEventListener('click', function() { ShowConsoleLog(); }, false);
-var downloadBtn = document.getElementById("wdbShowSim");
-downloadBtn.addEventListener('click', function() { ShowSimulate(); }, false);
+var showOnChange1 = document.getElementById("wdbShowMode");
+showOnChange1.addEventListener('click', function() { showOnChange(this); }, false);
+var wdbShowLog1 = document.getElementById("wdbShowLog");
+wdbShowLog1.addEventListener('click', function() { ShowConsoleLog(); }, false);
+var wdbShowSim1 = document.getElementById("wdbShowSim");
+wdbShowSim1.addEventListener('click', function() { ShowSimulate(); }, false);
 
 function initUser(){
 
