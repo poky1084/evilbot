@@ -1226,6 +1226,15 @@ var betlist = []
 var finished_round = false
 var mirror = "stake.ac"
 
+
+let websocket = null;
+let reconnectTimeout = null;
+let isReconnecting = false;
+let opensocket = [];
+
+const reconnectDelay = 5000;
+let pingInterval = null;
+
 function addBot(){
 
 /*var svelt = document.getElementById("svelte");
@@ -7307,6 +7316,7 @@ function data(json){
 
 
 function stop(){
+
 	running = false;
 	run_clicked = false;
 	simrunning = false;
@@ -8474,13 +8484,6 @@ btnKey.addEventListener('click', function() {
 
 
 
-let websocket = null;
-let reconnectTimeout = null;
-let isReconnecting = false;
-let opensocket = [];
-
-const reconnectDelay = 10000;
-
 function startSocket() {
 	//let mirror =  document.getElementById("mirrors").value;
   // Clear any previous reconnect timeout
@@ -8509,6 +8512,14 @@ function startSocket() {
         lockdownToken: "s5MNWtjTM5TvCMkAzxov"
       }
     }));
+	
+	pingInterval = setInterval(() => {
+    if (websocket.readyState === WebSocket.OPEN) {
+      websocket.send(JSON.stringify({ type: "ping" }));
+      // Optional: Log for debugging
+      // console.log("Ping sent");
+    }
+	}, 20000);
   };
 
   websocket.onmessage = (event) => {
@@ -8518,6 +8529,11 @@ function startSocket() {
     if (data.includes("connection_ack")) {
       subscribeToChannels();
     }
+	
+	if (obj.type === "pong") {
+		return;
+	}	
+	
 				if (obj.hasOwnProperty("payload")) {
 				if (obj.payload.hasOwnProperty("data")) {
 				if (obj.payload.data != undefined){
@@ -9434,11 +9450,15 @@ function startSocket() {
 
   websocket.onerror = (error) => {
     //console.warn('WebSocket error:', error);
+	clearInterval(pingInterval);
+	pingInterval = null;
     scheduleReconnect();
   };
 
   websocket.onclose = (event) => {
     //console.warn('WebSocket closed:', event.code, event.reason);
+	clearInterval(pingInterval);
+	pingInterval = null;
     scheduleReconnect();
   };
 }
@@ -9500,7 +9520,7 @@ function subscribeToChannels() {
       }`
     }
   }));
-
+	
   websocket.send(JSON.stringify({
     id: "dfd28075-20ec-455b-b652-27a1a9d93e05",
     type: "subscribe",
