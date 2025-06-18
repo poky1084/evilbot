@@ -8513,6 +8513,8 @@ function startSocket() {
       }
     }));
 	
+	clearInterval(pingInterval);
+	pingInterval = null;
 	pingInterval = setInterval(() => {
     if (websocket.readyState === WebSocket.OPEN) {
       websocket.send(JSON.stringify({ type: "ping" }));
