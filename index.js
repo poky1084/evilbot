@@ -1233,6 +1233,7 @@ let isReconnecting = false;
 let opensocket = [];
 let pingSent = [];
 let connectObj = [];
+let connectionTimeout = [];
 
 const reconnectDelay = 5000;
 let pingInterval = null;
@@ -1279,6 +1280,7 @@ if(getCookie("session") != undefined){
 		tokenapi = localStorage.getItem("apitoken");
 	}
 }
+
 
 initUser();			
 //loadLua();	
@@ -8523,8 +8525,7 @@ btnKey.addEventListener('click', function() {
 
 
 function startSocket() {
-  isReconnecting = false;
- 
+    isReconnecting = false;
   // Close any existing sockets
   for (let s in opensocket) {
     opensocket[s].close();
@@ -9527,11 +9528,21 @@ window.addEventListener('offline', () => {
   //console.warn("Connection lost. Waiting to reconnect...");
 });
 
-setInterval(() => {
+reconnectHandle();
+
+function reconnectHandle(){
+	for (var i=0; i<connectionTimeout.length; i++) {
+	  clearTimeout(connectionTimeout[i]);
+	}
+	connectionTimeout = [];
+	
+	connectionTimeout.push(setTimeout(() => {
 	  if(!isReconnecting){
-			startSocket();
+		  startSocket();
 	  }
-    }, reconnectDelay)
+	  reconnectHandle();
+    }, reconnectDelay))
+}
 
 function scheduleReconnect() {
 	for (var i=0; i<connectObj.length; i++) {
