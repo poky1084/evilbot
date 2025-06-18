@@ -8523,13 +8523,8 @@ btnKey.addEventListener('click', function() {
 
 
 function startSocket() {
-	//let mirror =  document.getElementById("mirrors").value;
-  // Clear any previous reconnect timeout
-  if (reconnectTimeout) {
-    clearTimeout(reconnectTimeout);
-    reconnectTimeout = null;
-  }
-
+  isReconnecting = false;
+ 
   // Close any existing sockets
   for (let s in opensocket) {
     opensocket[s].close();
@@ -8539,11 +8534,11 @@ function startSocket() {
   websocket = new WebSocket('wss://' + mirror + '/_api/websockets', 'graphql-transport-ws');
   opensocket.push(websocket);
 
+	//isReconnecting = false;
+	//scheduleReconnect();
+
   websocket.onopen = () => {
     //isReconnecting = true;
-
-	isReconnecting = false;
-	scheduleReconnect();
 
     websocket.send(JSON.stringify({
       type: "connection_init",
@@ -9529,8 +9524,14 @@ window.addEventListener('online', () => {
 });
 
 window.addEventListener('offline', () => {
-  ///console.warn("Connection lost. Waiting to reconnect...");
+  //console.warn("Connection lost. Waiting to reconnect...");
 });
+
+setInterval(() => {
+	  if(!isReconnecting){
+			startSocket();
+	  }
+    }, reconnectDelay)
 
 function scheduleReconnect() {
 	for (var i=0; i<connectObj.length; i++) {
@@ -9542,7 +9543,7 @@ function scheduleReconnect() {
     connectObj.push(setTimeout(() => {
       //console.log("Reconnecting WebSocket...");
 	  if(!isReconnecting){
-	   startSocket();
+	   //startSocket();
 	  }
     }, reconnectDelay))
   }
