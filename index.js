@@ -1,6 +1,6 @@
- document.body.insertAdjacentHTML("beforebegin", `<body><div id="wdbWrapLicenseBox">
+ document.body.insertAdjacentHTML("beforebegin", `<body><div id="evilWrapLicenseBox">
       <style>
-        .wdb-input {
+        .evil-input {
           all: revert;
           padding: 2px;
           border: 1px solid #ccc;
@@ -34,14 +34,14 @@
           color: #fff;
         }
 
-        #wdbLicenseAlert {
+        #evilLicenseAlert {
           text-align: left!important;
           color: red;
           margin-top: 5px;
         }
       </style>
 
-      </div><div id="wdbWrap"><style>
+      </div><div id="evilWrap"><style>
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -59,7 +59,7 @@
   background: #555;
 }
 
-#wdb {
+#evil {
   all: revert;
   width: 1000px;
   font-family: "Courier New", monospace;
@@ -77,25 +77,25 @@
   transform: translate(-50%, -50%);
 }
 
-#wdbHeader,
-#wdbFooter {
+#evilHeader,
+#evilFooter {
   cursor: move;
   height: 20px;
   padding: 3px 5px;
 }
 
-.wdb-toggle {
+.evil-toggle {
   cursor: pointer;
   padding: 5px;
   z-index: 2147483003;
 }
 
-#wdbMenu {
+#evilMenu {
   padding: 3px;
 }
 
-#wdbMenu select,
-#wdbMenu span input[type=number] {
+#evilMenu select,
+#evilMenu span input[type=number] {
   all: revert;
   background: #fff!important;
   padding: 3px 5px;
@@ -104,7 +104,7 @@
   border-radius: 3px;
 }
 
-#wdbMenu span input[type=number] {
+#evilMenu span input[type=number] {
   width: 86px;
 }
 
@@ -186,42 +186,42 @@ input:checked + .slider:before {
   padding-bottom: 10px!important;
 }
 
-#wdbOpenLUAScript,
-#wdbOpenJSScript {
+#evilOpenLUAScript,
+#evilOpenJSScript {
   all: revert;
 }
 
-#wdbChart,
-#wdbWrapHistory {
+#evilChart,
+#evilWrapHistory {
   height: 200px;
   padding: 3px;
 }
 
-#wdbWrapHistory {
+#evilWrapHistory {
   overflow-x: auto;
 }
 
-#wdbWrapHistory table {
+#evilWrapHistory table {
   border-collapse: collapse;
   font-size: 11px!important;
 }
 
-#wdbWrapHistory table thead tr th {
+#evilWrapHistory table thead tr th {
   text-align: left;
   padding: 1px;
   border: 1px solid #ccc;
 }
 
-#wdbHistory tr {
+#evilHistory tr {
   border-bottom: 1px solid #fff;
   color: #000!important;
 }
 
-#wdbHistory tr:last-child {
+#evilHistory tr:last-child {
   border-bottom: 1px solid #ccc;
 }
 
-#wdbHistory tr td {
+#evilHistory tr td {
   all: revert;
   white-space: nowrap;
   padding: 1.5px;
@@ -229,38 +229,38 @@ input:checked + .slider:before {
   border-left: 1px solid #fff;
 }
 
-#wdbHistory tr td:first-child {
+#evilHistory tr td:first-child {
   border-left: 1px solid #ccc;
 }
 
-#wdbHistory tr td:last-child {
+#evilHistory tr td:last-child {
   border-right: 1px solid #ccc;
 }
 
-#wdbHistory tr td input {
+#evilHistory tr td input {
   all: revert;
 }
 
-#wdbAdvancedMode,
-#wdbWrapMode,
-#wdbWrapLog,
-#wdbWrapVariables,
-#wdbWrapFunctions,
-#wdbWrapTips {
+#evilAdvancedMode,
+#evilWrapMode,
+#evilWrapLog,
+#evilWrapVariables,
+#evilWrapFunctions,
+#evilWrapTips {
   overflow: scroll;
   height: 340px;
 }
 
-#wdbWrapVariables pre,
-#wdbWrapFunctions pre,
-#wdbWrapTips pre {
+#evilWrapVariables pre,
+#evilWrapFunctions pre,
+#evilWrapTips pre {
   all: revert;
   background: #fff;
   color: #000;
   margin: 0;
 }
 
-.wdbSim {
+.evilSim {
 	overflow: auto;
 	visibility : visible;
 	grid-area: 1 / 1;
@@ -282,21 +282,21 @@ input:checked + .slider:before {
 	width: 100%;
 }
 
-#wdbWrapLog {
+#evilWrapLog {
 	visibility : hidden;
 	z-index: 10;
 	grid-area: 1 / 1;
 }
 
-#wdbLog li {
+#evilLog li {
 	font-size: 6px!important;
 }
 
-#wdbSimLog {
+#evilSimLog {
 	font-size: 11px!important;
 }
 
-#wdbOpenScript {
+#evilOpenScript {
   all: revert;
 }
 
@@ -304,8 +304,8 @@ input:checked + .slider:before {
   
 }
 
-.wdb-stats,
-.wdb-flex-container {
+.evil-stats,
+.evil-flex-container {
     display: flex;
     align-items: stretch;
     font-weight: bold;
@@ -325,30 +325,30 @@ input:checked + .slider:before {
     pointer-events: none; /* So it doesn't block clicks */
   }
 
-.wdb-stats div {
+.evil-stats div {
   flex-grow: 1;
   padding: 2px 32px;
 }
 
-.wdb-stats div li {
+.evil-stats div li {
   list-style: none;
 }
 
-.wdb-advanced-item {
+.evil-advanced-item {
   line-height: 2;
   padding: 3px 0;
   border-bottom: 1px solid #e7e7e7;
 }
 
-.wdb-advanced-item:last-child {
+.evil-advanced-item:last-child {
   border: none;
 }
 
-.wdb-advanced-item input {
+.evil-advanced-item input {
   all: revert;
 }
 
-.wdb-advanced-item input[type=number] {
+.evil-advanced-item input[type=number] {
   width: 86px;
 }
 
@@ -366,24 +366,24 @@ input:checked + .slider:before {
   float: right!important;
 }
 
-.wdb-menu2 {
+.evil-menu2 {
   display: flex;
   font-size: 11px!important;
 }
 
-.wdb-menu2 span {
+.evil-menu2 span {
   padding: 3px 6px;
   text-align: center;
 }
 
-#wdbTabMenu,
-#wdbControlMenu {
+#evilTabMenu,
+#evilControlMenu {
   display: flex; flex-wrap: wrap;
   margin-top: 3px;
 }
 
-#wdbTabMenu button,
-#wdbControlMenu button {
+#evilTabMenu button,
+#evilControlMenu button {
   flex-basis: 0;
   flex-grow: 1;
   margin: 3px;
@@ -634,15 +634,15 @@ a:link {
 	font-size: 14px;
 }
 
-#wdbStopOnWinButton {
+#evilStopOnWinButton {
 	font-size: 14px;
 }
 
-#wdbStopButton {
+#evilStopButton {
 	font-size: 14px;
 }
 
-#wdbStartButton {
+#evilStartButton {
 	font-size: 14px;
 }
 
@@ -713,24 +713,24 @@ a:link {
 }
 </style>
 <center>
-<div id="wdb">
-  <div id="wdbHeader">
+<div id="evil">
+  <div id="evilHeader">
     <div class="clearfix">
       <div class="float-left" style="padding-left: 5px;">
         #evilbot | stake.com | stake.us | primedice
       </div>
       <div class="float-right">
-        <span class="wdb-toggle" id="wdbToggleMinimal" >▼</span>
+        <span class="evil-toggle" id="evilToggleMinimal" >▼</span>
       </div>
     </div>
   </div>
 
-  <div id="wdbMain">
-    <div id="wdbMenu">
-      <select id="wdbMenuMode" class="wdb-select">
+  <div id="evilMain">
+    <div id="evilMenu">
+      <select id="evilMenuMode" class="evil-select">
         <option value="js" selected="selected">JsMode</option>
       </select>
-      <select id="wdbMenuCoin" class="wdb-select">
+      <select id="evilMenuCoin" class="evil-select">
 	  <option value="btc" selected="selected">btc</option>
       </select>
 	  <select id="gameselect" class="gameselect">
@@ -763,7 +763,7 @@ a:link {
       
 	  <span>
         Records
-        <input type="number" id="wdbMaxRows" value="20" style="width: 40px;">
+        <input type="number" id="evilMaxRows" value="20" style="width: 40px;">
 		<select id="thememod" class="thememod">
 		<option value="light" >light</option>
 		<option value="blue" >blue</option>
@@ -773,7 +773,7 @@ a:link {
       <span id="scriptName"></span>
     </div>
 
-    <div class="wdb-menu2">
+    <div class="evil-menu2">
     <center>
       <span style="padding-top: 19px;">
         <button class="btn-grad" id="resetstat">ResetStats</button>
@@ -802,71 +802,71 @@ a:link {
 	  </center>
     </div>
 
-    <div class="wdb-stats" id="wdbStats">
+    <div class="evil-stats" id="evilStats">
       <div>
         <li class="clearfix">
           <span class="float-left">Time:</span>
-          <span class="float-right"><span id="wdbTime">0:0:0:0</span></span>
+          <span class="float-right"><span id="evilTime">0:0:0:0</span></span>
         </li>
         <li class="clearfix">
           <span class="float-left">Balance:</span>
-          <span class="float-right"><span id="wdbBalance">0.00000000</span></span>
+          <span class="float-right"><span id="evilBalance">0.00000000</span></span>
         </li>
         <li class="clearfix">
           <span class="float-left">Wagered:</span>
-          <span class="float-right">(<span id="wdbPercentWagered">0.00</span>x) <span id="wdbWagered">0.00000000</span></span>
+          <span class="float-right">(<span id="evilPercentWagered">0.00</span>x) <span id="evilWagered">0.00000000</span></span>
         </li>
         <li class="clearfix">
           <span class="float-left">Profit:</span>
-          <span class="float-right" id="wdbWrapPercentProfit">(<span id="wdbPercentProfit">0.00</span>%) <span id="wdbProfit">0.00000000</span></span>
+          <span class="float-right" id="evilWrapPercentProfit">(<span id="evilPercentProfit">0.00</span>%) <span id="evilProfit">0.00000000</span></span>
         </li>
       </div>
       
       <div>
         <li class="clearfix">
           <span class="float-left">HighBet:</span>
-          <span class="float-right"><span id="wdbHighBet">0.00000000</span></span>
+          <span class="float-right"><span id="evilHighBet">0.00000000</span></span>
         </li>
         <li class="clearfix">
           <span class="float-left">HighLose:</span>
-          <span class="float-right"><span id="wdbHighLose">0.00000000</span></span>
+          <span class="float-right"><span id="evilHighLose">0.00000000</span></span>
         </li>
         <li class="clearfix">
           <span class="float-left">HighProfit:</span>
-          <span class="float-right"><span id="wdbHighProfit">0.00000000</span></span>
+          <span class="float-right"><span id="evilHighProfit">0.00000000</span></span>
         </li>
         <li class="clearfix">
           <span class="float-left">High/Low-Streak:</span>
-          <span class="float-right"><span id="wdbHighLowStreak">0 / 0</span></span>
+          <span class="float-right"><span id="evilHighLowStreak">0 / 0</span></span>
         </li>
       </div>
 
       <div style="flex-grow: 1; padding: 2px 32px;">
         <li class="clearfix">
           <span class="float-left">Bets:</span>
-          <span class="float-right"><span id="wdbBets">0</span></span>
+          <span class="float-right"><span id="evilBets">0</span></span>
         </li>
         <li class="clearfix">
           <span class="float-left">Wins:</span>
-          <span class="float-right"><span id="wdbWins">0</span></span>
+          <span class="float-right"><span id="evilWins">0</span></span>
         </li>
         <li class="clearfix">
           <span class="float-left">Losses:</span>
-          <span class="float-right"><span id="wdbLosses">0</span></span>
+          <span class="float-right"><span id="evilLosses">0</span></span>
         </li>
         <li class="clearfix">
           <span class="float-left">CurrentStreak:</span>
-          <span class="float-right"><span id="wdbCurrentStreak">0</span></span>
+          <span class="float-right"><span id="evilCurrentStreak">0</span></span>
         </li>
       </div>
     </div>
 
-    <div class="wdb-flex-container" id="wdbWrapControl">
+    <div class="evil-flex-container" id="evilWrapControl">
 	  
       <div style="flex-grow: 1; width: 50%;">
         <div id="chartContainer" style="height: 195px; width:100%;"></div>
 
-        <div id="wdbWrapHistory">
+        <div id="evilWrapHistory">
           <table>
             <thead>
               <tr>
@@ -883,24 +883,24 @@ a:link {
                 <th>BetID</th>
               </tr>
             </thead>
-            <tbody id="wdbHistory"></tbody>
+            <tbody id="evilHistory"></tbody>
           </table>
         </div>
       </div>
 
       <div style="flex-grow: 1; width: 50%; padding-left: 5px;">
-        <div id="wdbTabMenu">
-          <button class="btn-grad" id="wdbShowMode"  >Code</button>
-          <button class="btn-grad" id="wdbShowLog" >Log</button>
-		  <button class="btn-grad" id="wdbShowSim" >Sim (dice)</button>
+        <div id="evilTabMenu">
+          <button class="btn-grad" id="evilShowMode"  >Code</button>
+          <button class="btn-grad" id="evilShowLog" >Log</button>
+		  <button class="btn-grad" id="evilShowSim" >Sim (dice)</button>
         </div>
 
         <div>
-          <div id="wdbWrapMode">
-            <div id="wdbLUAMode">
+          <div id="evilWrapMode">
+            <div id="evilLUAMode">
               <div style="padding: 5px 2px 5px">
-                <button class="btn-grad" id="wdbSaveScriptButton">Save</button>
-                <input style="margin: 0 3px;" type="file" id="wdbOpenScript" accept=".txt, .js">
+                <button class="btn-grad" id="evilSaveScriptButton">Save</button>
+                <input style="margin: 0 3px;" type="file" id="evilOpenScript" accept=".txt, .js">
               </div>
 <div class="code-container">
 
@@ -934,18 +934,18 @@ function dobet()
 end</textarea></div>
      
 
-          <div class="wdbSim">
+          <div class="evilSim">
 			ServerSeed:<input id="serverseed" type="text" style="color:black; background:white;"></br>
             ClientSeed:<input id="clientseed" type="text" style="color:black; background:white;"></br>
 			Nonce:<input id="nonce" type="text" value="1" style="color:black; background:white;"></br>
 			<button id="runsim" type="button">Simulate</button>
 			<button id="stopsim" type="button">Stop</button>
-			<textarea id="wdbSimLog" style="width: 100%; height: 80%; color:white; background:black;"></textarea>
+			<textarea id="evilSimLog" style="width: 100%; height: 80%; color:white; background:black;"></textarea>
           </div>
      
 
-          <div id="wdbWrapLog">
-            <textarea id="wdbLog" style="width: 110%; height: 90%; font-size: 11px; color:white; background:black;"></textarea>
+          <div id="evilWrapLog">
+            <textarea id="evilLog" style="width: 110%; height: 90%; font-size: 11px; color:white; background:black;"></textarea>
 			
           </div>
  </div>   
@@ -957,7 +957,7 @@ end</textarea></div>
  
 	</div>
           </div>
-          <div id="wdbWrapVariables" style="display: none;">
+          <div id="evilWrapVariables" style="display: none;">
             <pre>chance : % win chance in next game
 plinkoRow : Plinko rows, only for plinko game, some site not have
 plinkoRisk : risk level for plinko game (low, medium, high)
@@ -986,7 +986,7 @@ partialprofit : partialprofit (same in other dicebot)
 scriptname : Name of script u use</pre>
           </div>
 
-          <div id="wdbWrapFunctions" style="display: none;">
+          <div id="evilWrapFunctions" style="display: none;">
 <pre>dobet() : Main function for betting
 stop() : Stop betting
 resume() : Resume betting with current params
@@ -1003,32 +1003,32 @@ sleep(sec) : Pause betting system with sec
 resetpartialprofit() : Reset partialprofit</pre>
           </div>
 
-          <div id="wdbWrapTips" style="display: none;">
+          <div id="evilWrapTips" style="display: none;">
             <pre>Click ▼ or ▲ on to see something change
 Disable chart, history, log to have best performance
 Hold top or bottom area to move the bot around</pre>
           </div>
         </div>
 
-        <div id="wdbControlMenu">
-          <button id="wdbStartButton" class="btn-grad btn-control fontbigger" >Start</button>
-          <button id="wdbStopButton" class="btn-grad btn-control fontbigger" >Stop</button>
+        <div id="evilControlMenu">
+          <button id="evilStartButton" class="btn-grad btn-control fontbigger" >Start</button>
+          <button id="evilStopButton" class="btn-grad btn-control fontbigger" >Stop</button>
          <div class="button-wrapper">
 			<button id="result" class="btn-grad btn-control fontbigger" style="width:250px;height:45px;background-color:#03A8FC;color:white;"></button>
 			<span class="loader"></span>
 		  </div>
-          <button id="wdbStopOnWinButton" disabled="disabled" class="btn-grad btn-control fontbigger" >StopOnWin</button>
+          <button id="evilStopOnWinButton" disabled="disabled" class="btn-grad btn-control fontbigger" >StopOnWin</button>
           <button class="btn-grad btn-control fontbigger" id="userBal">CheckBalance</button>
         </div>
       </div>
-	  <div id="wdbFooter">
+	  <div id="evilFooter">
     <div class="clearfix">
       <div id="infobar" class="float-left" style="padding-left: 5px;color:white"> 
         <a href="https://github.com/poky1084" target="_blank" rel="noopener noreferrer">github.com/poky1084</a> | Discord: fisk_992 | Telegram: <a href="https://t.me/poky_1084" target="_blank" rel="noopener noreferrer">https://t.me/poky_1084</a>  
       </div>
       <div id="infospeed" class="float-right" style="color:white">
-        <span id="wdbSpeed" style="color:white">0</span>
-        <span class="wdb-toggle" id="wdbToggleHideControlBot" >▲</span>
+        <span id="evilSpeed" style="color:white">0</span>
+        <span class="evil-toggle" id="evilToggleHideControlBot" >▲</span>
       </div>
     </div>
   </div>
@@ -1311,19 +1311,19 @@ if(localStorage.getItem("luacode") != null){
 if (localStorage.getItem("thememod") != null) {
 	document.getElementById("thememod").value = localStorage.getItem("thememod");
 	var themepick = localStorage.getItem("thememod");
-	var themesel = document.getElementById('wdb')
-	var simtheme = document.getElementById('wdbSimLog')
-	var logtheme = document.getElementById('wdbLog')
+	var themesel = document.getElementById('evil')
+	var simtheme = document.getElementById('evilSimLog')
+	var logtheme = document.getElementById('evilLog')
 	var keytheme = document.getElementById('tokenkey')
 	var infobar = document.getElementById('infobar')
 	var infospeed = document.getElementById('infospeed')
-	var infoms = document.getElementById("wdbSpeed")
+	var infoms = document.getElementById("evilSpeed")
 	//var buttonCss = document.getElementsByClassName("btn-grad")[0]
-	var wdbMenuMod = document.getElementById("wdbMenuMode")
-	var wdbMenuC = document.getElementById("wdbMenuCoin")
+	var evilMenuMod = document.getElementById("evilMenuMode")
+	var evilMenuC = document.getElementById("evilMenuCoin")
 	var gameselectVal = document.getElementById("gameselect")
 	var mirrorsVal = document.getElementById("mirrors")
-	var wdbMaxRow = document.getElementById("wdbMaxRows")
+	var evilMaxRow = document.getElementById("evilMaxRows")
 	var thememod2 = document.getElementById("thememod")
 	var fonter = document.getElementsByClassName("fontbigger")
 	var fontResult = document.getElementById("result")
@@ -1334,11 +1334,11 @@ if (localStorage.getItem("thememod") != null) {
 	}
 	fontResult.style.fontSize  = "20px"
 	
-	wdbMenuMod.style.color = "black"
-	wdbMenuC.style.color = "black"
+	evilMenuMod.style.color = "black"
+	evilMenuC.style.color = "black"
 	gameselectVal.style.color = "black"
 	mirrorsVal.style.color = "black"
-	wdbMaxRow.style.color = "black"
+	evilMaxRow.style.color = "black"
 	thememod2.style.color = "black"
 	
 	
@@ -1475,17 +1475,17 @@ function countTime() {
         playHours = Math.floor((playTime % (1e3 * 6e1 * 6e1 * 24)) / (1e3 * 6e1 * 6e1));
         playMinutes = Math.floor((playTime % (1e3 * 6e1 * 6e1)) / (1e3 * 6e1));
         playSeconds = Math.floor((playTime % (1e3 * 6e1)) / 1e3);
-        $('#wdbTime').html(`${playDays}:${playHours}:${playMinutes}:${playSeconds}`);
+        $('#evilTime').html(`${playDays}:${playHours}:${playMinutes}:${playSeconds}`);
 		}
     }, 1e3)
 }
 
 function deleteTable(){
-		document.getElementById("wdbHistory").innerHTML = "";
+		document.getElementById("evilHistory").innerHTML = "";
 }
 
 if(localStorage.getItem("modecode") != null){
-	//document.getElementById("wdbMenuMode").options.selectedIndex = parseInt(localStorage.getItem("modecode"));
+	//document.getElementById("evilMenuMode").options.selectedIndex = parseInt(localStorage.getItem("modecode"));
 	//showOnChange(true);
 } 
 
@@ -1681,7 +1681,7 @@ function isHiLow(lastCard) {
 }
 
 function showOnChange(e) {
-	var elem = document.getElementById("wdbMenuMode");
+	var elem = document.getElementById("evilMenuMode");
 	var value = elem.options[elem.selectedIndex].value;
 	if(value == "lua")
 	{
@@ -1693,8 +1693,8 @@ function showOnChange(e) {
 		document.getElementsByClassName('code-lua')[0].style.visibility  = "hidden";
 		document.getElementsByClassName('code-js')[0].style.visibility  = "visible";
 	}
-	document.getElementById('wdbWrapLog').style.visibility  = "hidden";
-	document.getElementsByClassName('wdbSim')[0].style.visibility = "hidden";
+	document.getElementById('evilWrapLog').style.visibility  = "hidden";
+	document.getElementsByClassName('evilSim')[0].style.visibility = "hidden";
  }
 
 
@@ -1746,14 +1746,14 @@ const inputHandler2 = function(e) {
 	localStorage.setItem("mirror", input_mirror);
 	mirror = input_mirror;
 	if (localStorage.getItem("currenc") != null) {
-		document.getElementById("wdbMenuCoin").value = localStorage.getItem("currenc");
+		document.getElementById("evilMenuCoin").value = localStorage.getItem("currenc");
 	}
 	initUser()
 	//startSocket();
 }
 
 const inputHandler3 = function(e) {
-	var curry = document.getElementById('wdbMenuCoin').value;
+	var curry = document.getElementById('evilMenuCoin').value;
 	localStorage.setItem("currenc", curry);
 	currency = curry;
 	userBalances();
@@ -1773,7 +1773,7 @@ const inputHandler4 = function(e) {
 }
 
 const inputHandler5 = function(e) {
-	var menumode = document.getElementById('wdbMenuMode').value;
+	var menumode = document.getElementById('evilMenuMode').value;
 	localStorage.setItem("menumode", menumode);
 	
 }
@@ -1786,19 +1786,19 @@ const inputHandler6 = function(e) {
 function changeTheme(){
 	var thememod = document.getElementById('thememod').value;
 	localStorage.setItem("thememod", thememod);
-	var themesel = document.getElementById('wdb')
-	var simtheme = document.getElementById('wdbSimLog')
-	var logtheme = document.getElementById('wdbLog')
+	var themesel = document.getElementById('evil')
+	var simtheme = document.getElementById('evilSimLog')
+	var logtheme = document.getElementById('evilLog')
 	var keytheme = document.getElementById('tokenkey')
 	var infobar = document.getElementById('infobar')
 	var infospeed = document.getElementById('infospeed')
-	var infoms = document.getElementById("wdbSpeed")
+	var infoms = document.getElementById("evilSpeed")
 	//var buttonCss = document.getElementsByClassName("btn-grad")[0]
-	var wdbMenuMod = document.getElementById("wdbMenuMode")
-	var wdbMenuC = document.getElementById("wdbMenuCoin")
+	var evilMenuMod = document.getElementById("evilMenuMode")
+	var evilMenuC = document.getElementById("evilMenuCoin")
 	var gameselectVal = document.getElementById("gameselect")
 	var mirrorsVal = document.getElementById("mirrors")
-	var wdbMaxRow = document.getElementById("wdbMaxRows")
+	var evilMaxRow = document.getElementById("evilMaxRows")
 	var thememod2 = document.getElementById("thememod")
 	var fonter = document.getElementsByClassName("fontbigger")
 	var fontResult = document.getElementById("result")
@@ -1809,11 +1809,11 @@ function changeTheme(){
 	}
 	fontResult.style.fontSize  = "20px"
 	
-	wdbMenuMod.style.color = "black"
-	wdbMenuC.style.color = "black"
+	evilMenuMod.style.color = "black"
+	evilMenuC.style.color = "black"
 	gameselectVal.style.color = "black"
 	mirrorsVal.style.color = "black"
-	wdbMaxRow.style.color = "black"
+	evilMaxRow.style.color = "black"
 	thememod2.style.color = "black"
 	
 	themesel.style.color = "white"
@@ -1924,14 +1924,14 @@ apichange.addEventListener('input', inputHandler);
 sitechange = document.getElementById("mirrors");
 sitechange.addEventListener('change', inputHandler2);
 
-sitechange = document.getElementById("wdbMenuCoin");
+sitechange = document.getElementById("evilMenuCoin");
 sitechange.addEventListener('change', inputHandler3);
 
 
 gamechange = document.getElementById("gameselect");
 gamechange.addEventListener('change', inputHandler4);
 
-menumode = document.getElementById("wdbMenuMode");
+menumode = document.getElementById("evilMenuMode");
 menumode.addEventListener('change', inputHandler5);
 
 thememode = document.getElementById("thememod");
@@ -1955,14 +1955,14 @@ if (localStorage.getItem("mirror") != null) {
 }
 
 if (localStorage.getItem("currenc") != null) {
-	document.getElementById("wdbMenuCoin").value = localStorage.getItem("currenc");
+	document.getElementById("evilMenuCoin").value = localStorage.getItem("currenc");
 }
 
 
 
 if (localStorage.getItem("menumode") != null) {
-	document.getElementById("wdbMenuMode").value = localStorage.getItem("menumode");
-	var elem = document.getElementById("wdbMenuMode");
+	document.getElementById("evilMenuMode").value = localStorage.getItem("menumode");
+	var elem = document.getElementById("evilMenuMode");
 	var value = elem.options[elem.selectedIndex].value;
 	if(value == "lua")
 	{
@@ -1974,8 +1974,8 @@ if (localStorage.getItem("menumode") != null) {
 		document.getElementsByClassName('code-lua')[0].style.visibility  = "hidden";
 		document.getElementsByClassName('code-js')[0].style.visibility  = "visible";
 	}
-	document.getElementById('wdbWrapLog').style.visibility  = "hidden";
-	document.getElementsByClassName('wdbSim')[0].style.visibility = "hidden";
+	document.getElementById('evilWrapLog').style.visibility  = "hidden";
+	document.getElementsByClassName('evilSim')[0].style.visibility = "hidden";
 	
 }
 /*
@@ -1986,10 +1986,10 @@ $('#gameselect').on('change', function (e) {
 	//window.location.reload(true);
 });
 
-$('#wdbMenuMode').on('change', function (e) {
-	var codemode = document.getElementById("wdbMenuMode").options.selectedIndex;
+$('#evilMenuMode').on('change', function (e) {
+	var codemode = document.getElementById("evilMenuMode").options.selectedIndex;
 	localStorage.setItem("modecode", codemode);
-	document.getElementById("wdbMenuMode").options.selectedIndex = parseInt(localStorage.getItem("modecode"));
+	document.getElementById("evilMenuMode").options.selectedIndex = parseInt(localStorage.getItem("modecode"));
 	showOnChange(e);
 	//window.location.reload(true);
 });
@@ -2040,7 +2040,7 @@ checkbox.addEventListener('change', (event) => {
   }
 })
 
-document.getElementById('wdbOpenScript').addEventListener('change', function(event) {
+document.getElementById('evilOpenScript').addEventListener('change', function(event) {
   const file = event.target.files[0];
   if (!file) return;
 
@@ -2100,20 +2100,20 @@ function ShowConsoleLog(){
 
 		document.getElementsByClassName('code-lua')[0].style.visibility  = "hidden";
 		document.getElementsByClassName('code-js')[0].style.visibility  = "hidden";
-		document.getElementById('wdbWrapLog').style.visibility  = "visible";
-		document.getElementsByClassName('wdbSim')[0].style.visibility = "hidden";
+		document.getElementById('evilWrapLog').style.visibility  = "visible";
+		document.getElementsByClassName('evilSim')[0].style.visibility = "hidden";
 }
 
 function ShowSimulate(){
 
 		document.getElementsByClassName('code-lua')[0].style.visibility  = "hidden";
 		document.getElementsByClassName('code-js')[0].style.visibility  = "hidden";
-		document.getElementById('wdbWrapLog').style.visibility  = "hidden";
-		document.getElementsByClassName('wdbSim')[0].style.visibility = "visible";
+		document.getElementById('evilWrapLog').style.visibility  = "hidden";
+		document.getElementsByClassName('evilSim')[0].style.visibility = "visible";
 }
 
 
-var downloadBtn = document.getElementById("wdbSaveScriptButton");
+var downloadBtn = document.getElementById("evilSaveScriptButton");
 downloadBtn.addEventListener('click', function() { promptSave(); }, false);
 var resetstat1 = document.getElementById("resetstat");
 resetstat1.addEventListener('click', function() { resetstats(); }, false);
@@ -2130,12 +2130,12 @@ resetAll1.addEventListener('click', function() { resetAll(); }, false);
 var userBalances1 = document.getElementById("userBal");
 userBalances1.addEventListener('click', function() { userBalances(); }, false);
 
-var showOnChange1 = document.getElementById("wdbShowMode");
+var showOnChange1 = document.getElementById("evilShowMode");
 showOnChange1.addEventListener('click', function() { showOnChange(this); }, false);
-var wdbShowLog1 = document.getElementById("wdbShowLog");
-wdbShowLog1.addEventListener('click', function() { ShowConsoleLog(); }, false);
-var wdbShowSim1 = document.getElementById("wdbShowSim");
-wdbShowSim1.addEventListener('click', function() { ShowSimulate(); }, false);
+var evilShowLog1 = document.getElementById("evilShowLog");
+evilShowLog1.addEventListener('click', function() { ShowConsoleLog(); }, false);
+var evilShowSim1 = document.getElementById("evilShowSim");
+evilShowSim1.addEventListener('click', function() { ShowSimulate(); }, false);
 
 function initUser(){
 
@@ -2167,10 +2167,10 @@ function outjson(json){
 	//let nicker = json.data.user.name
 	//localStorage.setItem("nicks", nicker);
 	
-	select = document.getElementById('wdbMenuCoin');
+	select = document.getElementById('evilMenuCoin');
 	select.innerHTML = "";
 	balance = 0
-	var balan1 = document.getElementById("wdbBalance");
+	var balan1 = document.getElementById("evilBalance");
 	balan1.innerHTML = balance.toFixed(8);
 	for (var i = 0; i < json.data.user.balances.length; i++)
 	{
@@ -2178,7 +2178,7 @@ function outjson(json){
 		opt.value = json.data.user.balances[i].available.currency;
 		opt.innerHTML = json.data.user.balances[i].available.currency;
 		select.appendChild(opt);
-		document.getElementById("wdbMenuCoin").options[0].selected = 'selected';
+		document.getElementById("evilMenuCoin").options[0].selected = 'selected';
 	}
 	
 	for (var i = 0; i < json.data.user.balances.length; i++)
@@ -2187,18 +2187,18 @@ function outjson(json){
 		{
 			current_balance = json.data.user.balances[i].available.amount;
 			balance = current_balance;
-			var balan = document.getElementById("wdbBalance");
+			var balan = document.getElementById("evilBalance");
 			balan.innerHTML = balance.toFixed(8);
 
 		}
 	}
 	if (localStorage.getItem("currenc") != null) {
-		document.getElementById("wdbMenuCoin").value = localStorage.getItem("currenc");
+		document.getElementById("evilMenuCoin").value = localStorage.getItem("currenc");
 	}
 }
 /*
-$('#wdbMenuCoin').on('change', function (e) {
-	var curry = document.getElementById('wdbMenuCoin').value;
+$('#evilMenuCoin').on('change', function (e) {
+	var curry = document.getElementById('evilMenuCoin').value;
 	localStorage.setItem("currenc", curry);
 	currency = curry;
 	userBalances();
@@ -2207,7 +2207,7 @@ $('#wdbMenuCoin').on('change', function (e) {
 */
 
 function indexMatchingText(text) {
-    var opts = document.getElementById("wdbMenuCoin").options;
+    var opts = document.getElementById("evilMenuCoin").options;
 	for(var i = 0; i < opts.length; i++) {
 		if(opts[i].innerText == text) {
 			return i;
@@ -2255,33 +2255,33 @@ function resetChart() {
 }
 
 function log(val){
-	document.getElementById("wdbLog").value  += val + "\n"
-	document.getElementById("wdbLog").scrollTop = document.getElementById("wdbLog").scrollHeight 
-	var text = $("#wdbLog").val();   
+	document.getElementById("evilLog").value  += val + "\n"
+	document.getElementById("evilLog").scrollTop = document.getElementById("evilLog").scrollHeight 
+	var text = $("#evilLog").val();   
 	var lines = text.split(/\r|\r\n|\n/);
 	var count = lines.length;
 	if(parseInt(count) > 200){
-		$('#wdbLog').val(function(_, val){    
+		$('#evilLog').val(function(_, val){    
 			return val.split('\n').slice(1).join('\n');
 		});
 	}
 }
 
 function logSim(val){
-	document.getElementById("wdbSimLog").value  += val + "\n"
-	document.getElementById("wdbSimLog").scrollTop = document.getElementById("wdbSimLog").scrollHeight 
-	var text = $("#wdbSimLog").val();   
+	document.getElementById("evilSimLog").value  += val + "\n"
+	document.getElementById("evilSimLog").scrollTop = document.getElementById("evilSimLog").scrollHeight 
+	var text = $("#evilSimLog").val();   
 	var lines = text.split(/\r|\r\n|\n/);
 	var count = lines.length;
 	if(parseInt(count) > 200){
-		$('#wdbSimLog').val(function(_, val){    
+		$('#evilSimLog').val(function(_, val){    
 			return val.split('\n').slice(1).join('\n');
 		});
 	}
 }
 
 function deleteLogs(){
-	document.getElementById("wdbLog").value = "";
+	document.getElementById("evilLog").value = "";
 }
 
 function stopOnWin() {
@@ -2296,11 +2296,11 @@ setTimeout(() => {
 	if (localStorage.getItem("currenc") != null) {
 	//document.getElementById("currenc").value = localStorage.getItem("currenc");
 		currency = localStorage.getItem("currenc");
-		if(document.getElementById("wdbMenuCoin").options[indexMatchingText(currency)] != undefined){
-		document.getElementById("wdbMenuCoin").options[indexMatchingText(currency)].selected = 'selected';
+		if(document.getElementById("evilMenuCoin").options[indexMatchingText(currency)] != undefined){
+		document.getElementById("evilMenuCoin").options[indexMatchingText(currency)].selected = 'selected';
 		}
 	} else {
-		currency = document.getElementById("wdbMenuCoin").value;
+		currency = document.getElementById("evilMenuCoin").value;
 	}
 	userBalances();	
 }, "500");
@@ -2333,20 +2333,20 @@ var body = {
 function outbals(json){
 
 	balance = 0
-	var balan1 = document.getElementById("wdbBalance");
+	var balan1 = document.getElementById("evilBalance");
 	balan1.innerHTML = balance.toFixed(8);
 	for (var i = 0; i < json.data.user.balances.length; i++)
 	{
-		if (json.data.user.balances[i].available.currency == document.getElementById('wdbMenuCoin').value)
+		if (json.data.user.balances[i].available.currency == document.getElementById('evilMenuCoin').value)
 		{
 			current_balance = json.data.user.balances[i].available.amount;
 			balance = current_balance;
-			var balan = document.getElementById("wdbBalance");
+			var balan = document.getElementById("evilBalance");
 			balan.innerHTML = balance.toFixed(8);
 
 		}
 	}
-	//document.getElementById("wdbMenuCoin").options[indexMatchingText(localStorage.getItem("currenc"))].selected = 'selected';
+	//document.getElementById("evilMenuCoin").options[indexMatchingText(localStorage.getItem("currenc"))].selected = 'selected';
 }
 
 function vault(e){
@@ -3131,7 +3131,7 @@ function LimboBet(amount, target_multi){
 		"multiplierTarget": target_multi,
         "identifier": randomString(21),
         "amount": amount,
-        "currency": document.getElementById('wdbMenuCoin').value
+        "currency": document.getElementById('evilMenuCoin').value
 		},
 		query:"mutation LimboBet($amount: Float!, $multiplierTarget: Float!, $currency: CurrencyEnum!, $identifier: String!) {\n  limboBet(\n    amount: $amount\n    currency: $currency\n    multiplierTarget: $multiplierTarget\n    identifier: $identifier\n  ) {\n    ...CasinoBet\n    state {\n      ...CasinoGameLimbo\n    }\n  }\n}\n\nfragment CasinoBet on CasinoBet {\n  id\n  active\n  payoutMultiplier\n  amountMultiplier\n  amount\n  payout\n  updatedAt\n  currency\n  game\n  user {\n    id\n    name\n  }\n}\n\nfragment CasinoGameLimbo on CasinoGameLimbo {\n  result\n  multiplierTarget\n}\n"	}
 		*/
@@ -3223,7 +3223,7 @@ function DiceBet(amount, chance, bethigh){
         "condition": cond,
         "identifier": randomString(21),
         "amount": amount,
-        "currency": document.getElementById('wdbMenuCoin').value
+        "currency": document.getElementById('evilMenuCoin').value
 		},
 		query:"mutation DiceRoll($amount: Float!, $target: Float!, $condition: CasinoGameDiceConditionEnum!, $currency: CurrencyEnum!, $identifier: String!) {\n  diceRoll(\n    amount: $amount\n    target: $target\n    condition: $condition\n    currency: $currency\n    identifier: $identifier\n  ) {\n    ...CasinoBet\n    state {\n      ...CasinoGameDice\n    }\n  }\n}\n\nfragment CasinoBet on CasinoBet {\n  id\n  active\n  payoutMultiplier\n  amountMultiplier\n  amount\n  payout\n  updatedAt\n  currency\n  game\n  user {\n    id\n    name\n  }\n}\n\nfragment CasinoGameDice on CasinoGameDice {\n  result\n  target\n  condition\n}\n"	}
 	*/
@@ -3277,7 +3277,7 @@ function data(json){
 			if(!json.hasOwnProperty("hiloNext") && !json.hasOwnProperty("hiloCashout"))
 			{
 			const endMS = performance.now();
-			var meter = document.getElementById("wdbSpeed");
+			var meter = document.getElementById("evilSpeed");
 			measures.push(endMS - startMS)
 			if(measures.length > 3){
 				measures.shift()
@@ -3287,7 +3287,7 @@ function data(json){
 			}
 		} else {
 			const endMS = performance.now();
-			var meter = document.getElementById("wdbSpeed");
+			var meter = document.getElementById("evilSpeed");
 			measures.push(endMS - startMS)
 			if(measures.length > 3){
 				measures.shift()
@@ -3299,7 +3299,7 @@ function data(json){
 		if(json.data.hasOwnProperty("primediceRoll"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 			var nicname = "";
 			var crpamount = json.data.primediceRoll.amount;
 			var payout = json.data.primediceRoll.payout;
@@ -3432,7 +3432,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -3477,18 +3477,18 @@ function data(json){
 			
 			
 			//document.getElementById("multi").innerHTML = toFixedNo(json.data.limboBet.state.result, 2);
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)
 			lastBet.amount = json.data.primediceRoll.amount;
@@ -3501,7 +3501,7 @@ function data(json){
 		if(json.data.hasOwnProperty("flipBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.data.flipBet.user.name
 			lastBet.amount = json.data.flipBet.amount;
@@ -3598,7 +3598,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -3641,18 +3641,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
@@ -3662,7 +3662,7 @@ function data(json){
 		if(json.hasOwnProperty("diceRoll"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 			var nicname = "";
 			var crpamount = json.diceRoll.amount;
 			var payout = json.diceRoll.payout;
@@ -3794,7 +3794,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -3839,18 +3839,18 @@ function data(json){
 			
 			
 			//document.getElementById("multi").innerHTML = toFixedNo(json.data.limboBet.state.result, 2);
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)
 			lastBet.amount = json.diceRoll.amount;
@@ -3862,7 +3862,7 @@ function data(json){
 		if(json.hasOwnProperty("limboBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 			var nicname = "";
 			var crpamount = json.limboBet.amount;
 			var payout = json.limboBet.payout;
@@ -3969,7 +3969,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -4015,18 +4015,18 @@ function data(json){
 			
 			
 			//document.getElementById("multi").innerHTML = toFixedNo(json.limboBet.state.result, 2);
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)
 			lastBet.amount = json.limboBet.amount;
@@ -4037,7 +4037,7 @@ function data(json){
 		if(json.hasOwnProperty("pumpBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.pumpBet.user.name
 			lastBet.amount = json.pumpBet.amount;
@@ -4133,7 +4133,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -4179,18 +4179,18 @@ function data(json){
 			
 			
 			//document.getElementById("multi").innerHTML = toFixedNo(json.pumpBet.state.result, 2);
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)
 
@@ -4205,12 +4205,12 @@ function data(json){
 		if(json.hasOwnProperty("baccaratBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.baccaratBet.user.name
 			lastBet.amount = json.baccaratBet.amount;
 			lastBet.payoutMultiplier = json.baccaratBet.payoutMultiplier;
-			var elem = document.getElementById("wdbMenuMode");
+			var elem = document.getElementById("evilMenuMode");
 			var value = elem.options[elem.selectedIndex].value;
 			if(value == "lua"){
 				lastBet.Roll = JSON.stringify(json.baccaratBet.state.result);
@@ -4322,7 +4322,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -4365,18 +4365,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)
 
@@ -4388,7 +4388,7 @@ function data(json){
 		if(json.hasOwnProperty("dragonTowerBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.dragonTowerBet.user.name
 			lastBet.amount = json.dragonTowerBet.amount;
@@ -4485,7 +4485,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -4528,18 +4528,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)
 
@@ -4551,7 +4551,7 @@ function data(json){
 		if(json.hasOwnProperty("rouletteBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.rouletteBet.user.name
 			lastBet.amount = json.rouletteBet.amount;
@@ -4648,7 +4648,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -4691,18 +4691,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
@@ -4710,7 +4710,7 @@ function data(json){
 		if(json.hasOwnProperty("wheelSpin"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.wheelSpin.user.name
 			lastBet.amount = json.wheelSpin.amount;
@@ -4807,7 +4807,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -4850,18 +4850,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
@@ -4871,7 +4871,7 @@ function data(json){
 		if(json.hasOwnProperty("plinkoBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.plinkoBet.user.name
 			lastBet.amount = json.plinkoBet.amount;
@@ -4968,7 +4968,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -5011,18 +5011,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
@@ -5030,7 +5030,7 @@ function data(json){
 		if(json.hasOwnProperty("kenoBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.kenoBet.user.name
 			lastBet.amount = json.kenoBet.amount;
@@ -5141,7 +5141,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -5184,18 +5184,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
@@ -5203,7 +5203,7 @@ function data(json){
 		if(json.hasOwnProperty("minesBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.minesBet.user.name
 			lastBet.amount = json.minesBet.amount;
@@ -5313,7 +5313,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -5356,18 +5356,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
@@ -5375,7 +5375,7 @@ function data(json){
 		if(json.hasOwnProperty("casesBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.casesBet.user.name
 			lastBet.amount = json.casesBet.amount;
@@ -5474,7 +5474,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -5517,18 +5517,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
@@ -5536,7 +5536,7 @@ function data(json){
 		if(json.hasOwnProperty("snakesBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.snakesBet.user.name
 			lastBet.amount = json.snakesBet.amount;
@@ -5644,7 +5644,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -5687,18 +5687,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
@@ -5706,7 +5706,7 @@ function data(json){
 		if(json.hasOwnProperty("rockPaperScissorsBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.rockPaperScissorsBet.user.name
 			lastBet.amount = json.rockPaperScissorsBet.amount;
@@ -5805,7 +5805,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -5848,18 +5848,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
@@ -5867,7 +5867,7 @@ function data(json){
 		if(json.hasOwnProperty("slotsTomeOfLifeBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.slotsTomeOfLifeBet.user.name
 			lastBet.amount = json.slotsTomeOfLifeBet.amount;
@@ -5966,7 +5966,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -6009,18 +6009,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
@@ -6028,7 +6028,7 @@ function data(json){
 		if(json.hasOwnProperty("slotsBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.slotsBet.user.name
 			lastBet.amount = json.slotsBet.amount;
@@ -6127,7 +6127,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -6170,18 +6170,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
@@ -6189,7 +6189,7 @@ function data(json){
 		if(json.hasOwnProperty("slotsSamuraiBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			
 	
@@ -6290,7 +6290,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -6333,18 +6333,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 			
@@ -6359,7 +6359,7 @@ function data(json){
 		if(json.hasOwnProperty("slotsSamuraiNext"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.slotsSamuraiNext.user.name
 			lastBet.amount = json.slotsSamuraiNext.amount;
@@ -6458,7 +6458,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -6501,18 +6501,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 			samuraiskip = false
@@ -6528,7 +6528,7 @@ function data(json){
 		if(json.hasOwnProperty("diamondsBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.diamondsBet.user.name
 			lastBet.amount = json.diamondsBet.amount;
@@ -6627,7 +6627,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -6670,25 +6670,25 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
 		if(json.hasOwnProperty("dartsBet"))
 		{
 			
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.dartsBet.user.name
 			lastBet.amount = json.dartsBet.amount;
@@ -6787,7 +6787,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -6830,18 +6830,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 		}
@@ -6863,7 +6863,7 @@ function data(json){
 			} else {
 			cashout_done = true	
 				
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.hiloNext.user.name
 			lastBet.amount = json.hiloNext.amount;
@@ -6968,7 +6968,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -7011,18 +7011,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 			
@@ -7036,7 +7036,7 @@ function data(json){
 		if(json.hasOwnProperty("hiloCashout"))
 		{
 			cashout_done = true
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 	
 			lastBet.name = json.hiloCashout.user.name
 			lastBet.amount = json.hiloCashout.amount;
@@ -7141,7 +7141,7 @@ function data(json){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -7184,18 +7184,18 @@ function data(json){
 			
 			updateChart();
 			
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)	
 			
@@ -7206,7 +7206,7 @@ function data(json){
 		if(game != "hilo"){
 			cashout_done = true
 		}
-		var elem = document.getElementById("wdbMenuMode");
+		var elem = document.getElementById("evilMenuMode");
 		var value = elem.options[elem.selectedIndex].value;
 		if(value == "lua"){
 			sendLua();
@@ -7452,7 +7452,7 @@ function RunSimDice(){
 					multiplier = 0;
 				}
 				
-			var table = document.getElementById("wdbHistory");
+			var table = document.getElementById("evilHistory");
 			
 			
 			lastBet.amount = nextbet;
@@ -7574,7 +7574,7 @@ function RunSimDice(){
 			
 			table.prepend(row);
 			
-			if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+			if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 			{
 				table.deleteRow(table.rows.length - 1);
 			}
@@ -7616,27 +7616,27 @@ function RunSimDice(){
 			
 			updateChart();
 			
-			var balan = document.getElementById("wdbBalance");
+			var balan = document.getElementById("evilBalance");
 			balan.innerHTML = balance_sim.toFixed(8);
 			//document.getElementById("multi").innerHTML = toFixedNo(json.limboBet.state.result, 2);
-			document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("wdbBets").innerHTML = bets;
-			document.getElementById("wdbWins").innerHTML = wins;
-			document.getElementById("wdbLosses").innerHTML = losses;
-			document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("evilBets").innerHTML = bets;
+			document.getElementById("evilWins").innerHTML = wins;
+			document.getElementById("evilLosses").innerHTML = losses;
+			document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)
 				
 				
 
-				var elem = document.getElementById("wdbMenuMode");
+				var elem = document.getElementById("evilMenuMode");
 				var value = elem.options[elem.selectedIndex].value;
 				if(value == "lua"){
 					sendLua();
@@ -7666,7 +7666,7 @@ btnStartSim.addEventListener('click', function() {
 	localStorage.setItem("jscode", htmlEditor2.getValue());
 	//localStorage.setItem("luacode", htmlEditor.getValue());
 	
-	var elem = document.getElementById("wdbMenuMode");
+	var elem = document.getElementById("evilMenuMode");
 	var value = elem.options[elem.selectedIndex].value;
 	if(value == "lua"){
 		var code = htmlEditor.getValue();
@@ -7681,7 +7681,7 @@ btnStartSim.addEventListener('click', function() {
 			chance = fengari.load('return chance')();
 			bethigh = fengari.load('return bethigh')();
 			balance_sim = fengari.load('return balance')();
-			//currency = document.getElementById('wdbMenuCoin').value;
+			//currency = document.getElementById('evilMenuCoin').value;
 	 
 			 btnStart.disabled = true; 
 			 //tokenapi = document.getElementById("tokenkey").value; 
@@ -7702,7 +7702,7 @@ btnStartSim.addEventListener('click', function() {
 		//eval(htmlEditor2.getValue());
 	setTimeout(htmlEditor2.getValue() + `
 		balance_sim = balance;
-		//currency = document.getElementById('wdbMenuCoin').value;
+		//currency = document.getElementById('evilMenuCoin').value;
  
 		 btnStart.disabled = true; 
 		 //tokenapi = document.getElementById("tokenkey").value; 
@@ -7798,22 +7798,22 @@ function resetstats(){
 	profit = profit_total;
 	currentprofit = current_profit;
 	bets = betcount;
-	document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-	document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+	document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+	document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 	
 	
 	resetChart();
 	
-	document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-	document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-	document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-	document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-	document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-	document.getElementById("wdbBets").innerHTML = bets;
-	document.getElementById("wdbWins").innerHTML = wins;
-	document.getElementById("wdbLosses").innerHTML = losses;
-	document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-	document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+	document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+	document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+	document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+	document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+	document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+	document.getElementById("evilBets").innerHTML = bets;
+	document.getElementById("evilWins").innerHTML = wins;
+	document.getElementById("evilLosses").innerHTML = losses;
+	document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+	document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
 }
 
 function username(){
@@ -7848,7 +7848,7 @@ function loadLua() {
 	fengari.load(`function username()
         return js.global:username()
     end`)()
-	var elem = document.getElementById("wdbMenuMode");
+	var elem = document.getElementById("evilMenuMode");
 	var value = elem.options[elem.selectedIndex].value;
 	if(value == "lua"){
 		fengari.load('balance=' + balance)()
@@ -7907,7 +7907,7 @@ function start(){
 		fastmode = document.querySelector('#speedChange').checked;
 		mirror = document.getElementById("mirrors").value;
 		run_clicked = true;document.getElementById("result").innerHTML = ""
-		var elem = document.getElementById("wdbMenuMode");
+		var elem = document.getElementById("evilMenuMode");
 		var value = elem.options[elem.selectedIndex].value;
 		if(value == "lua"){
 			game=undefined
@@ -7957,7 +7957,7 @@ function start(){
 				localStorage.setItem("jscode", htmlEditor2.getValue());
 				//localStorage.setItem("luacode", htmlEditor.getValue());
 			 
-			 //currency = document.getElementById('wdbMenuCoin').value;
+			 //currency = document.getElementById('evilMenuCoin').value;
 			 
 			 btnStart.disabled = true; 
 			 //tokenapi = document.getElementById("tokenkey").value; 
@@ -8230,7 +8230,7 @@ function start(){
 			//localStorage.setItem("luacode", htmlEditor.getValue());
 			 sleeptime = 0
 			 sleep(0)
-			 //currency = document.getElementById('wdbMenuCoin').value;
+			 //currency = document.getElementById('evilMenuCoin').value;
 			 //patternlist = []
 			 //Array.prototype.push.apply(patternlist,pattern)
 			 btnStart.disabled = true; 
@@ -8502,11 +8502,11 @@ function start(){
 	
 
 }
-var btnStart = document.getElementById("wdbStartButton");
+var btnStart = document.getElementById("evilStartButton");
 
 btnStart.addEventListener('click', function() {  if(document.getElementById("tokenkey").value.length < 96){return;}; start();}, false);
 
-var btnStop = document.getElementById("wdbStopButton");
+var btnStop = document.getElementById("evilStopButton");
 btnStop.addEventListener('click', function() {  btnStart.disabled = false; stop(); }, false);
 
 /*
@@ -8597,7 +8597,7 @@ function startSocket() {
 				if (obj.payload.data.hasOwnProperty("availableBalances")) {
 					if(obj.payload.data.availableBalances.balance.currency == currency){
 					if(simrunning == false){
-						var balan = document.getElementById("wdbBalance");
+						var balan = document.getElementById("evilBalance");
 						balan.innerHTML = obj.payload.data.availableBalances.balance.amount.toFixed(8);
 						current_balance = obj.payload.data.availableBalances.balance.amount;
 						balance = current_balance;
@@ -8692,10 +8692,10 @@ function startSocket() {
 						row.appendChild(tdRollNumber);
 						row.appendChild(tdNonce);
 						row.appendChild(tdBetID);
-						var table = document.getElementById("wdbHistory");							
+						var table = document.getElementById("evilHistory");							
 						table.prepend(row);
 		
-						if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+						if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 						{
 							table.deleteRow(table.rows.length - 1);
 						}
@@ -8736,18 +8736,18 @@ function startSocket() {
 						
 						updateChart();
 						
-						document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-						document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-						document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-						document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-						document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-						document.getElementById("wdbBets").innerHTML = bets;
-						document.getElementById("wdbWins").innerHTML = wins;
-						document.getElementById("wdbLosses").innerHTML = losses;
-						document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-						document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-						document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-						document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+						document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+						document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+						document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+						document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+						document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+						document.getElementById("evilBets").innerHTML = bets;
+						document.getElementById("evilWins").innerHTML = wins;
+						document.getElementById("evilLosses").innerHTML = losses;
+						document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+						document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+						document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+						document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 						
 						lastBet.percent = (profit_total / started_bal * 100)
 					
@@ -8834,10 +8834,10 @@ function startSocket() {
 						row.appendChild(tdNonce);
 						row.appendChild(tdBetID);
 						
-						var table = document.getElementById("wdbHistory");							
+						var table = document.getElementById("evilHistory");							
 						table.prepend(row);
 		
-						if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+						if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 						{
 							table.deleteRow(table.rows.length - 1);
 						}
@@ -8878,18 +8878,18 @@ function startSocket() {
 						
 						updateChart();
 						
-						document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-						document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-						document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-						document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-						document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-						document.getElementById("wdbBets").innerHTML = bets;
-						document.getElementById("wdbWins").innerHTML = wins;
-						document.getElementById("wdbLosses").innerHTML = losses;
-						document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-						document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-						document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-						document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+						document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+						document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+						document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+						document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+						document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+						document.getElementById("evilBets").innerHTML = bets;
+						document.getElementById("evilWins").innerHTML = wins;
+						document.getElementById("evilLosses").innerHTML = losses;
+						document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+						document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+						document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+						document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 						
 						lastBet.percent = (profit_total / started_bal * 100)
 						
@@ -8978,10 +8978,10 @@ function startSocket() {
 							row.appendChild(tdNonce);
 							row.appendChild(tdBetID);
 							
-							var table = document.getElementById("wdbHistory");							
+							var table = document.getElementById("evilHistory");							
 							table.prepend(row);
 			
-							if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+							if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 							{
 								table.deleteRow(table.rows.length - 1);
 							}
@@ -9125,10 +9125,10 @@ function startSocket() {
 							row.appendChild(tdNonce);
 							row.appendChild(tdBetID);
 							
-							var table = document.getElementById("wdbHistory");							
+							var table = document.getElementById("evilHistory");							
 							table.prepend(row);
 			
-							if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+							if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 							{
 								table.deleteRow(table.rows.length - 1);
 							}
@@ -9218,13 +9218,13 @@ function startSocket() {
 								row.appendChild(tdRollNumber);
 								row.appendChild(tdNonce);
 								row.appendChild(tdBetID);
-								var table = document.getElementById("wdbHistory");							
+								var table = document.getElementById("evilHistory");							
 								
 								
 								table.prepend(row);
 								
 				
-								if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+								if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 								{
 									table.deleteRow(table.rows.length - 1);
 								}
@@ -9265,18 +9265,18 @@ function startSocket() {
 								
 								updateChart();
 													
-								document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-								document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-								document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-								document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-								document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-								document.getElementById("wdbBets").innerHTML = bets;
-								document.getElementById("wdbWins").innerHTML = wins;
-								document.getElementById("wdbLosses").innerHTML = losses;
-								document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-								document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-								document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-								document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+								document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+								document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+								document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+								document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+								document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+								document.getElementById("evilBets").innerHTML = bets;
+								document.getElementById("evilWins").innerHTML = wins;
+								document.getElementById("evilLosses").innerHTML = losses;
+								document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+								document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+								document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+								document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 								
 								lastBet.percent = (profit_total / started_bal * 100)
 								
@@ -9357,13 +9357,13 @@ function startSocket() {
 								row.appendChild(tdRollNumber);
 								row.appendChild(tdNonce);
 								row.appendChild(tdBetID);
-								var table = document.getElementById("wdbHistory");							
+								var table = document.getElementById("evilHistory");							
 								
 								
 								table.prepend(row);
 								
 				
-								if (table.rows.length > parseInt(document.getElementById("wdbMaxRows").value))
+								if (table.rows.length > parseInt(document.getElementById("evilMaxRows").value))
 								{
 									table.deleteRow(table.rows.length - 1);
 								}
@@ -9404,18 +9404,18 @@ function startSocket() {
 								
 								updateChart();
 								
-								document.getElementById("wdbProfit").innerHTML = profit_total.toFixed(8);
-								document.getElementById("wdbWagered").innerHTML = wagered.toFixed(8);
-								document.getElementById("wdbHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-								document.getElementById("wdbHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-								document.getElementById("wdbHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-								document.getElementById("wdbBets").innerHTML = bets;
-								document.getElementById("wdbWins").innerHTML = wins;
-								document.getElementById("wdbLosses").innerHTML = losses;
-								document.getElementById("wdbCurrentStreak").innerHTML = currentstreak;
-								document.getElementById("wdbHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-								document.getElementById("wdbPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-								document.getElementById("wdbPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+								document.getElementById("evilProfit").innerHTML = profit_total.toFixed(8);
+								document.getElementById("evilWagered").innerHTML = wagered.toFixed(8);
+								document.getElementById("evilHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+								document.getElementById("evilHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+								document.getElementById("evilHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+								document.getElementById("evilBets").innerHTML = bets;
+								document.getElementById("evilWins").innerHTML = wins;
+								document.getElementById("evilLosses").innerHTML = losses;
+								document.getElementById("evilCurrentStreak").innerHTML = currentstreak;
+								document.getElementById("evilHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+								document.getElementById("evilPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+								document.getElementById("evilPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 								
 								lastBet.percent = (profit_total / started_bal * 100)
 													
