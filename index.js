@@ -8572,12 +8572,14 @@ function startSocket() {
     const obj = JSON.parse(data);
 
     if (data.includes("connection_ack")) {
+	  isReconnecting = false;
+	  scheduleReconnect();
       subscribeToChannels();
     }
 
 	if(obj.type === "complete"){
-		isReconnecting = false;
-		scheduleReconnect();
+		//isReconnecting = false;
+		//scheduleReconnect();
 		return;
 	} 
 
@@ -8587,9 +8589,9 @@ function startSocket() {
 	
 				if (obj.hasOwnProperty("payload")) {
 				if(obj.payload.hasOwnProperty("errors")){
-					isReconnecting = false;
-					scheduleReconnect();
-					return;
+					//isReconnecting = false;
+					//scheduleReconnect();
+					//return;
 				}				
 				
 				if (obj.payload.hasOwnProperty("data")) {
@@ -9617,6 +9619,7 @@ function subscribeToChannels() {
       }`
     }
   }));
+  
 }
 
 function handlePayload(obj) {
