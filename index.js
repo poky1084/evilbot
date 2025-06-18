@@ -1232,6 +1232,7 @@ let reconnectTimeout = null;
 let isReconnecting = false;
 let opensocket = [];
 let pingSent = [];
+let connectObj = [];
 
 const reconnectDelay = 5000;
 let pingInterval = null;
@@ -8573,12 +8574,12 @@ function startSocket() {
     if (data.includes("connection_ack")) {
       subscribeToChannels();
     }
-	{
-		
+
 	if(obj.type === "complete"){
 		isReconnecting = false;
+		scheduleReconnect();
+		return;
 	} 
-
 
 	if (obj.type === "pong") {
 		return;
@@ -8586,8 +8587,10 @@ function startSocket() {
 	
 				if (obj.hasOwnProperty("payload")) {
 				if(obj.payload.hasOwnProperty("errors")){
-					
-				} 				
+					isReconnecting = false;
+					scheduleReconnect();
+					return;
+				}				
 				
 				if (obj.payload.hasOwnProperty("data")) {
 				if (obj.payload.data != undefined){
@@ -9526,14 +9529,18 @@ window.addEventListener('offline', () => {
 });
 
 function scheduleReconnect() {
-  if (!isReconnecting) {
+	for (var i=0; i<connectObj.length; i++) {
+	  clearTimeout(connectObj[i]);
+	}
+	connectObj = [];
+	if (!isReconnecting) {
     //isReconnecting = true;
-    reconnectTimeout = setTimeout(() => {
+    connectObj.push(setTimeout(() => {
       //console.log("Reconnecting WebSocket...");
 	  if(!isReconnecting){
 	   startSocket();
 	  }
-    }, reconnectDelay);
+    }, reconnectDelay))
   }
 }
 
