@@ -8539,7 +8539,7 @@ function startSocket() {
   opensocket.push(websocket);
 
   websocket.onopen = () => {
-    isReconnecting = false;
+    isReconnecting = true;
 
     websocket.send(JSON.stringify({
       type: "connection_init",
@@ -9494,21 +9494,33 @@ function startSocket() {
 
   websocket.onerror = (error) => {
     //console.warn('WebSocket error:', error);
+	isReconnecting = false;
     scheduleReconnect();
   };
 
   websocket.onclose = (event) => {
     //console.warn('WebSocket closed:', event.code, event.reason);
+	isReconnecting = false;
     scheduleReconnect();
   };
 }
+
+window.addEventListener('online', () => {
+  //console.log("Back online. Reconnecting WebSocket...");
+  //startSocket(); // your reconnect logic
+});
+
+window.addEventListener('offline', () => {
+  //console.warn("Connection lost. Waiting to reconnect...");
+});
 
 function scheduleReconnect() {
   if (!isReconnecting) {
     isReconnecting = true;
     reconnectTimeout = setTimeout(() => {
       //console.log("Reconnecting WebSocket...");
-      startSocket();
+	   startSocket();
+	  
     }, reconnectDelay);
   }
 }
