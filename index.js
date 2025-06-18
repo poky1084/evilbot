@@ -946,7 +946,7 @@ end</textarea></div>
 
           <div id="wdbWrapLog">
             <textarea id="wdbLog" style="width: 110%; height: 90%; font-size: 11px; color:white; background:black;"></textarea>
-			<button id="runcmd" type="button">Command</button><input id="runinput" type="text">
+			
           </div>
  </div>   
 	</div>
@@ -2037,7 +2037,7 @@ checkbox.addEventListener('change', (event) => {
   }
 })
 
-
+/*
 var inputcommand = document.getElementById("runinput");
 
 inputcommand.addEventListener("keyup", function(event) {
@@ -2055,7 +2055,7 @@ inputcommand.addEventListener("keyup", function(event) {
 var inputcmd = document.getElementById("runinput").innerHTML;
 var cmdrunn = document.getElementById("runcmd");
 cmdrunn.addEventListener('click', function() {  setTimeout("function exec(){" + inputcmd + "} exec()", 0); }, false);
-
+*/
 
 function ShowConsoleLog(){
 
