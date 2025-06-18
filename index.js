@@ -8573,7 +8573,13 @@ function startSocket() {
     if (data.includes("connection_ack")) {
       subscribeToChannels();
     }
-	
+	{
+		
+	if(obj.type === "complete"){
+		isReconnecting = false;
+	} 
+
+
 	if (obj.type === "pong") {
 		return;
 	}	
