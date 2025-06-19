@@ -6,8 +6,7 @@ the strategy script must be coded in javascript, and not Lua script.
 
 # Videos: <br /> 
 install extension: [https://vimeo.com/1092943750](https://vimeo.com/1092943750) <br />
-demo: https://www.youtube.com/watch?v=Zy-j74qS2ew
-
+demo: https://www.youtube.com/watch?v=mtVi5s4OnkY
 # Info: <br />
 Please favourite the repo in case you liked/used it. Thank you!
 
