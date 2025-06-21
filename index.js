@@ -916,7 +916,7 @@ a:link {
             <div id="botLUAMode">
               <div style="padding: 5px 2px 5px">
                 <button class="btn-grad" id="botSaveScriptButton">Save</button>
-                <input style="margin: 0 3px;" type="file" id="botOpenScript" accept=".txt, .js">
+                <input style="margin: 0 3px;" type="file" id="botOpenScript" accept=".txt, .js, .lua">
               </div>
 <div class="code-container">
 
@@ -2231,8 +2231,17 @@ document.getElementById('botOpenScript').addEventListener('change', function(eve
   const reader = new FileReader();
 
   reader.onload = function(e) {
-    htmlEditor2.setValue(e.target.result)
-	localStorage.setItem("jscode", e.target.result);
+	let value = document.getElementById("botMenuMode").value;
+	if(value === "lua")
+	{
+		 htmlEditor.setValue(e.target.result)
+		 localStorage.setItem("luacode", e.target.result);
+	} else {
+		 htmlEditor2.setValue(e.target.result)
+		 localStorage.setItem("jscode", e.target.result);
+	}
+	  
+   
   };
 
   reader.readAsText(file);
@@ -2243,7 +2252,15 @@ function saveToFile() {
 }
 
 function promptSave() {
-  const text = htmlEditor2.getValue();
+	let text = htmlEditor2.getValue();
+	var value = document.getElementById("botMenuMode").value;
+	if(value === "lua")
+	{
+		text = htmlEditor.getValue();
+	} else {
+		text = htmlEditor2.getValue();
+	}
+  
   const defaultFilename = "myFile.txt";
 
   const filename = prompt("Enter file name:", defaultFilename);
