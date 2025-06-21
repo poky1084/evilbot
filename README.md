@@ -14,7 +14,8 @@ Please give a Star on the repo in case you liked/used it. Thank you!
 <b>Stake</b>: poky1084 <br />
 <b>Telegram:</b>: https://t.me/poky_1084
 
-![Screenshot 2025-06-21 164601](https://github.com/user-attachments/assets/9c4573cd-32d2-4c8a-ae67-9206a9f1044a)
+![Screenshot 2025-06-21 191559](https://github.com/user-attachments/assets/2f7229be-e874-4ea9-b459-415c0adcf44b)
+
 
 
 # Use: <br />
