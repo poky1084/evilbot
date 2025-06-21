@@ -16,7 +16,7 @@ const targetSites = [
 chrome.webNavigation.onCompleted.addListener((details) => {
   chrome.scripting.executeScript({
     target: { tabId: details.tabId },
-    files: ['loader.js']
+    files: ['inject.js']
   });
 }, {
   url: targetSites.map(host => ({ hostEquals: host }))

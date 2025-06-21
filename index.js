@@ -743,6 +743,7 @@ a:link {
     <div id="botMenu">
       <select id="botMenuMode" class="bot-select">
         <option value="js" selected="selected">JsMode</option>
+		<option value="lua">LuaMode</option>
       </select>
       <select id="botMenuCoin" class="bot-select">
 	  <option value="btc" selected="selected">btc</option>
@@ -935,7 +936,7 @@ dobet = function() {
   }
 }</textarea></div>
 <div class="code-lua">
-	<textarea id="code">chance=49.5
+	<textarea id="luacode">chance=49.5
 bethigh=true
 basebet=0.00000000
 nextbet=basebet
@@ -1076,42 +1077,6 @@ function addJs(src, cb) {
     document.head.appendChild(s);
 }
 
-function getMyJS(url, callback){
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', url, true);
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState !== 4) {
-			return
-		}
-		if (xhr.status === 200) { 
-			//console.log(xhr.responseText);
-			var s = document.createElement('script');
-			//s.type = 'text/javascript';
-			//s.src = url;
-			s.text = xhr.responseText;
-			//document.head.appendChild(s); // в head таким способом не подгрузишь
-			document.body.appendChild(s); // Таким способом можно подгрузить только в body
-		} else {
-			console.log('Error', xhr.responseText);
-		}
-	};
-	xhr.onload = callback;
-	xhr.send();
-}
-/*
-addJs(chrome.runtime.getURL('js/jquery-3.6.0.min.js'), () => {
-addJs(chrome.runtime.getURL('js/codemirror.min.js'), () => {
-addJs(chrome.runtime.getURL('js/javascript.min.js'), () => {
-addJs(chrome.runtime.getURL('js/canvasjs.min.js'), () => {
-//addJs(chrome.runtime.getURL('js/fengari.js'), () => {
-//addJs(chrome.runtime.getURL('js/fengari-web.js'), () => {
-addJs(chrome.runtime.getURL('js/lua.min.js'), () => {
-addJs(chrome.runtime.getURL('js/ms.js'), () => {
-addJs(chrome.runtime.getURL('js/chart.js'), () => { 
-addJs(chrome.runtime.getURL('js/easytimer.js'), () => { 
-addJs(chrome.runtime.getURL('js/crypto-js.min.js'), () => { 
-addJs(chrome.runtime.getURL('js/axios.min.js'), () => { addBot() })}) })})}) })   })})})})
-*/
 
 addCss('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css', () => {})
 addCss('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/darcula.min.css', () => {})
@@ -1303,11 +1268,11 @@ initUser();
 resetChart();
 startSocket();
 
-/*(htmlEditor = CodeMirror.fromTextArea(document.getElementById("jscode"), {
+htmlEditor = CodeMirror.fromTextArea(document.getElementById("luacode"), {
 	lineNumbers: true,
-	mode: 'javascript',
+	mode: 'lua',
 	// theme: 'default',
-});*/
+});
 
 htmlEditor2 = CodeMirror.fromTextArea(document.getElementById("jscode"), {
 	lineNumbers: true,
@@ -1334,9 +1299,10 @@ dobet = function() {
 }
 
 setTimeout(() => htmlEditor2.refresh(), 300);
+setTimeout(() => htmlEditor.refresh(), 300);
 
 if(localStorage.getItem("luacode") != null){
-	//htmlEditor.setValue(localStorage.getItem("luacode"));
+	htmlEditor.setValue(localStorage.getItem("luacode"));
 } 
 
 
@@ -1526,9 +1492,9 @@ if (localStorage.getItem("thememod") != null) {
 	changeTheme();
 }
 
-/*htmlEditor.on("change", function (e) {
+htmlEditor.on("change", function (e) {
 	localStorage.setItem("luacode", e.getValue());
-});*/
+});
 htmlEditor2.on("change", function (e) {
 	localStorage.setItem("jscode", e.getValue());
 });
@@ -1805,13 +1771,13 @@ function isHiLow(lastCard) {
 
 function showOnChange(e) {
 	var elem = document.getElementById("botMenuMode");
-	var value = elem.options[elem.selectedIndex].value;
-	if(value == "lua")
+	var value = document.getElementById("botMenuMode").value;
+	if(value === "lua")
 	{
-		document.getElementsByClassName('code-lua')[0].style.visibility  = "hidden";
-		document.getElementsByClassName('code-js')[0].style.visibility  = "visible";
+		document.getElementsByClassName('code-lua')[0].style.visibility  = "visible";
+		document.getElementsByClassName('code-js')[0].style.visibility  = "hidden";
 	}
-	else if(value == "js")
+	else if(value === "js")
 	{
 		document.getElementsByClassName('code-lua')[0].style.visibility  = "hidden";
 		document.getElementsByClassName('code-js')[0].style.visibility  = "visible";
@@ -1896,8 +1862,22 @@ const inputHandler4 = function(e) {
 }
 
 const inputHandler5 = function(e) {
-	var menumode = document.getElementById('botMenuMode').value;
-	localStorage.setItem("menumode", menumode);
+	//var menumode = document.getElementById('botMenuMode').value;
+	localStorage.setItem("menumode", document.getElementById('botMenuMode').value);
+	var elem = document.getElementById("botMenuMode");
+	var value = document.getElementById("botMenuMode").value;
+	if(value === "lua")
+	{
+		document.getElementsByClassName('code-lua')[0].style.visibility  = "visible";
+		document.getElementsByClassName('code-js')[0].style.visibility  = "hidden";
+	}
+	else if(value === "js")
+	{
+		document.getElementsByClassName('code-lua')[0].style.visibility  = "hidden";
+		document.getElementsByClassName('code-js')[0].style.visibility  = "visible";
+	}
+	document.getElementById('botWrapLog').style.visibility  = "hidden";
+	document.getElementsByClassName('botSim')[0].style.visibility = "hidden";
 	
 }
 
@@ -2138,13 +2118,13 @@ if (localStorage.getItem("currenc") != null) {
 if (localStorage.getItem("menumode") != null) {
 	document.getElementById("botMenuMode").value = localStorage.getItem("menumode");
 	var elem = document.getElementById("botMenuMode");
-	var value = elem.options[elem.selectedIndex].value;
-	if(value == "lua")
+	var value = document.getElementById("botMenuMode").value;
+	if(value === "lua")
 	{
-		document.getElementsByClassName('code-lua')[0].style.visibility  = "hidden";
-		document.getElementsByClassName('code-js')[0].style.visibility  = "visible";
+		document.getElementsByClassName('code-lua')[0].style.visibility  = "visible";
+		document.getElementsByClassName('code-js')[0].style.visibility  = "hidden";
 	}
-	else if(value == "js")
+	else if(value === "js")
 	{
 		document.getElementsByClassName('code-lua')[0].style.visibility  = "hidden";
 		document.getElementsByClassName('code-js')[0].style.visibility  = "visible";
@@ -7889,7 +7869,7 @@ btnStartSim.addEventListener('click', function() {
 	simrunning = true; 
 	nonce = parseInt(document.getElementById('nonce').value);
 	localStorage.setItem("jscode", htmlEditor2.getValue());
-	//localStorage.setItem("luacode", htmlEditor.getValue());
+	localStorage.setItem("luacode", htmlEditor.getValue());
 	
 	var elem = document.getElementById("botMenuMode");
 	var value = elem.options[elem.selectedIndex].value;
@@ -8179,8 +8159,8 @@ function start(){
 				numbers = JSON.parse(numbers)
 				guesses = guesses.split(',')
 				
-				localStorage.setItem("jscode", htmlEditor2.getValue());
-				//localStorage.setItem("luacode", htmlEditor.getValue());
+				//localStorage.setItem("jscode", htmlEditor2.getValue());
+				localStorage.setItem("luacode", htmlEditor.getValue());
 			 
 			 //currency = document.getElementById('botMenuCoin').value;
 			 
@@ -8260,19 +8240,6 @@ function start(){
 						}, 50);
 					}  else {
 						caseBet(nextbet, difficulty)
-					}
-				
-				} 
-				if(game == "videopoker"){
-					if(fastmode){
-						setTimeout(function () {
-							videopokerBet(nextbet)
-						}, 5);
-						setTimeout(function () {
-							videopokerBet(nextbet)
-						}, 50);
-					}  else {
-						videopokerBet(nextbet)
 					}
 				
 				} 
