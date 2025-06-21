@@ -1421,10 +1421,10 @@ if (localStorage.getItem("thememod") != null) {
 		infoms.style.color = "white"
 		infoms.style.background = "black"
 		for (const element1 of btnColor) {
-		element1.style.background = "#7d05e6"
+		element1.style.background = "#345beb"
 		}
 		for (const element2 of swColor) {
-		element2.style.background = "#7d05e6"
+		element2.style.background = "#345beb"
 		}
 		chartcolor = "#000"
 		var links = document.getElementsByTagName("a");
@@ -1946,10 +1946,10 @@ function changeTheme(){
 		infoms.style.color = "white"
 		infoms.style.background = "black"
 		for (const element1 of btnColor) {
-		element1.style.background = "#7d05e6"
+		element1.style.background = "#345beb"
 		}
 		for (const element2 of swColor) {
-		element2.style.background = "#7d05e6"
+		element2.style.background = "#345beb"
 		}
 		chartcolor = "#000"
 		var links = document.getElementsByTagName("a");
