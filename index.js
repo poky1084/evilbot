@@ -244,7 +244,6 @@ input:checked + .slider:before {
 
 #botAdvancedMode,
 #botWrapMode,
-#botWrapLog,
 #botWrapVariables,
 #botWrapFunctions,
 #botWrapTips {
@@ -287,6 +286,7 @@ input:checked + .slider:before {
 	visibility : hidden;
 	z-index: 10;
 	grid-area: 1 / 1;
+	overflow: scroll;
 }
 
 #botLog li {
@@ -302,7 +302,8 @@ input:checked + .slider:before {
 }
 
 .CodeMirror {
-  
+   height: 299px;
+  min-height: 299px;
 }
 
 .bot-stats,
@@ -604,7 +605,7 @@ hr {
 }
 
 #runinput {
-	width: 70%
+	width: 60%
 }
 
 .fastmode{
@@ -959,8 +960,8 @@ end</textarea></div>
      
 
           <div id="botWrapLog">
-            <textarea id="botLog" style="width: 110%; height: 90%; font-size: 11px; color:white; background:black;"></textarea>
-			
+            <textarea id="botLog" style="width: 100%; height: 262px; font-size: 11px; color:white; background:black;"></textarea>
+			<button class="btn-grad" id="runcmd" type="button">Command</button><input id="runinput" type="text" style="background:white;color:black">
           </div>
  </div>   
 	</div>
@@ -1097,6 +1098,7 @@ function getMyJS(url, callback){
 	xhr.onload = callback;
 	xhr.send();
 }
+/*
 addJs(chrome.runtime.getURL('js/jquery-3.6.0.min.js'), () => {
 addJs(chrome.runtime.getURL('js/codemirror.min.js'), () => {
 addJs(chrome.runtime.getURL('js/javascript.min.js'), () => {
@@ -1109,10 +1111,12 @@ addJs(chrome.runtime.getURL('js/chart.js'), () => {
 addJs(chrome.runtime.getURL('js/easytimer.js'), () => { 
 addJs(chrome.runtime.getURL('js/crypto-js.min.js'), () => { 
 addJs(chrome.runtime.getURL('js/axios.min.js'), () => { addBot() })}) })})}) })   })})})})
-
+*/
 
 addCss('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css', () => {})
 addCss('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/darcula.min.css', () => {})
+
+
 
 var tokenapi = "";
 var currency = null;
@@ -1313,7 +1317,23 @@ htmlEditor2 = CodeMirror.fromTextArea(document.getElementById("jscode"), {
 
 if(localStorage.getItem("jscode") != null){
 	htmlEditor2.setValue(localStorage.getItem("jscode"));
-} 
+} else {
+	htmlEditor2.setValue(`chance=49.5
+bethigh=true
+nextbet=0.00000000
+basebet=nextbet
+
+dobet = function() {
+  if (win) {
+    nextbet=basebet
+  } else {
+    nextbet=previousbet*2
+  }
+}`);
+	localStorage.setItem("jscode", htmlEditor2.getValue());
+}
+
+setTimeout(() => htmlEditor2.refresh(), 300);
 
 if(localStorage.getItem("luacode") != null){
 	//htmlEditor.setValue(localStorage.getItem("luacode"));
@@ -2260,7 +2280,7 @@ function promptSave() {
 }
 
 
-/*
+
 var inputcommand = document.getElementById("runinput");
 
 inputcommand.addEventListener("keyup", function(event) {
@@ -2275,10 +2295,30 @@ inputcommand.addEventListener("keyup", function(event) {
 });
 
 
+function safeExecute(jsCode) {
+  try {
+    // Try Function (most CSPs block it)
+    return new Function(jsCode)();
+  } catch (e1) {
+    try {
+      // Try creating a script tag with blob (often blocked too)
+      const blob = new Blob([jsCode], { type: 'application/javascript' });
+      const url = URL.createObjectURL(blob);
+      const script = document.createElement('script');
+      script.src = url;
+      document.head.appendChild(script);
+    } catch (e2) {
+      console.warn("All dynamic execution methods blocked by CSP.");
+    }
+  }
+}
+
 var inputcmd = document.getElementById("runinput").innerHTML;
 var cmdrunn = document.getElementById("runcmd");
-cmdrunn.addEventListener('click', function() {  setTimeout("function exec(){" + inputcmd + "} exec()", 0); }, false);
-*/
+cmdrunn.addEventListener('click', function() {  
+$('#loop').text().length?$('#loop').replaceWith(`\x3Cscript id="loop"\x3E${$('#runinput').val().trim()}\x3C/script\x3E`):$('head').append(`\x3Cscript id="loop"\x3E${$('#runinput').val().trim()}\x3C/script\x3E`)
+ }, false);
+
 
 function ShowConsoleLog(){
 
@@ -9813,9 +9853,4 @@ function subscribeToChannels() {
   
 }
 
-function handlePayload(obj) {
-  // Your existing parsing logic, e.g., balances, crash, slide, etc.
-  // Keep that as-is or modularize further
-}
-
-// Start the socket initially
+addBot();
