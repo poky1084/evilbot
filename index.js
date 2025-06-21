@@ -8064,7 +8064,7 @@ function sendLua() {
 
     fengari.load('previousbet=' + previousbet + '\nwin=' + win + '\nbalance=' + balance + '\nprofit=' + profit_total + '\ncurrentprofit=' + currentprofit + '\ncurrency=' + currency)()
     fengari.load('bets=' + betcount + '\wins=' + wins + '\nlosses=' + losses + '\nwinstreak=' + winstreak + '\nlosestreak=' + losestreak + '\ncurrentstreak=' + currentstreak)()
-	fengari.load('lastBet={\nchance=' + lastBet.chance + ',\nRoll=' + lastBet.Roll + ',\ntarget=' + lastBet.target + ',\npayout=' + lastBet.payout + ',\namount=' + lastBet.amount + ',\nprofit=' + profit_total + '\n}')()
+	fengari.load('lastBet={\nchance=' + lastBet.chance + ',\nroll=' + lastBet.Roll + ',\ntarget=' + lastBet.target + ',\npayout=' + lastBet.payout + ',\namount=' + lastBet.amount + ',\nprofit=' + profit_total + '\n}')()
 	
     fengari.load('dobet()')()
 	game = fengari.load('return game')();
