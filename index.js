@@ -75,6 +75,7 @@
   top: 50%; 
   left: 50%;
   transform: translate(-50%, -50%);
+  opacity: 1;
 }
 
 #botHeader,
@@ -732,11 +733,11 @@ a:link {
         #evilbot | stake.com | stake.us | primedice
       </div>
       <div class="float-right">
-        <span class="bot-toggle" id="botToggleMinimal" >▼</span>
+        <span class="bot-toggle" id="botToggleMinimal">▼</span>
       </div>
     </div>
   </div>
-
+<div id="botBody"> 
   <div id="botMain">
     <div id="botMenu">
       <select id="botMenuMode" class="bot-select">
@@ -1035,7 +1036,8 @@ Hold top or bottom area to move the bot around</pre>
           <button class="btn-grad btn-control fontbigger" id="userBal">CheckBalance</button>
         </div>
       </div>
-	  <div id="botFooter">
+	  </div>
+	   <div id="botFooter">
     <div class="clearfix">
       <div id="infobar" class="float-left" style="padding-left: 5px;color:white"> 
         <a href="https://github.com/poky1084" target="_blank" rel="noopener noreferrer">github.com/poky1084</a> | Discord: fisk_992 | Telegram: <a href="https://t.me/poky_1084" target="_blank" rel="noopener noreferrer">https://t.me/poky_1084</a>  
@@ -1047,10 +1049,6 @@ Hold top or bottom area to move the bot around</pre>
     </div>
   </div>
     </div>
-  </div>
-
-  
-</div></div>
 </center>
 </body>`)
  function getCookie(name) {
@@ -1518,8 +1516,49 @@ htmlEditor2.on("change", function (e) {
 
 
 }
+const toggleBtn = document.getElementById("botToggleHideControlBot");
+const toggleBtn1 = document.getElementById("botToggleMinimal");
+const botBody = document.getElementById("botBody");
 
 
+toggleBtn.addEventListener("click", () => {
+  const isHidden = botBody.style.display === "none";
+  botBody.style.display = isHidden ? "block" : "none";
+  toggleBtn.textContent = isHidden ? "▼" : "▲";
+});
+
+toggleBtn1.addEventListener("click", () => {
+  const isHidden = botBody.style.display === "none";
+  botBody.style.display = isHidden ? "block" : "none";
+  toggleBtn1.textContent = isHidden ? "▼" : "▲";
+});
+
+/*
+const bot1 = document.getElementById("bot");
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+bot1.style.position = "absolute"; // Make sure it's positionable
+
+bot1.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  offsetX = e.clientX - bot.offsetLeft;
+  offsetY = e.clientY - bot.offsetTop;
+  bot.style.zIndex = 9999; // bring to front
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (isDragging) {
+    bot1.style.left = e.clientX - offsetX + "px";
+    bot1.style.top = e.clientY - offsetY + "px";
+  }
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+});
+*/
 
 function sleep(ms){
 	sleeptime = ms || 0
