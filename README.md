@@ -2,7 +2,7 @@
 stake.com, stake.us, primedice bot by me with ❤
 
 a javascript coded bot for Stake, Primedice<br />
-the strategy script must be coded in javascript, and not Lua script. 
+the strategy script must be coded in javascript (JsMode), or can run Lua script too. (LuaMode) 
 
 # Videos: <br /> 
 install extension: [https://vimeo.com/1092943750](https://vimeo.com/1092943750) <br />
