@@ -2313,10 +2313,11 @@ function safeExecute(jsCode) {
   }
 }
 
-var inputcmd = document.getElementById("runinput").innerHTML;
+var inputcmd = document.getElementById("runinput").value;
 var cmdrunn = document.getElementById("runcmd");
 cmdrunn.addEventListener('click', function() {  
-$('#loop').text().length?$('#loop').replaceWith(`\x3Cscript id="loop"\x3E${$('#runinput').val().trim()}\x3C/script\x3E`):$('head').append(`\x3Cscript id="loop"\x3E${$('#runinput').val().trim()}\x3C/script\x3E`)
+eval(document.getElementById("runinput").value)
+
  }, false);
 
 
