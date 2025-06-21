@@ -4416,7 +4416,7 @@ function data(json){
 			lastBet.amount = json.baccaratBet.amount;
 			lastBet.payoutMultiplier = json.baccaratBet.payoutMultiplier;
 			var elem = document.getElementById("botMenuMode");
-			var value = elem.options[elem.selectedIndex].value;
+			var value = document.getElementById("botMenuMode").value;
 			if(value == "lua"){
 				lastBet.Roll = JSON.stringify(json.baccaratBet.state.result);
 			} else if(value == "js"){
@@ -7412,7 +7412,7 @@ function data(json){
 			cashout_done = true
 		}
 		var elem = document.getElementById("botMenuMode");
-		var value = elem.options[elem.selectedIndex].value;
+		var value = document.getElementById("botMenuMode").value;
 		if(value == "lua"){
 			sendLua();
 		} else if(value == "js"){
@@ -7842,7 +7842,7 @@ function RunSimDice(){
 				
 
 				var elem = document.getElementById("botMenuMode");
-				var value = elem.options[elem.selectedIndex].value;
+				var value = document.getElementById("botMenuMode").value;
 				if(value == "lua"){
 					sendLua();
 				} else if(value == "js"){
@@ -7872,7 +7872,7 @@ btnStartSim.addEventListener('click', function() {
 	localStorage.setItem("luacode", htmlEditor.getValue());
 	
 	var elem = document.getElementById("botMenuMode");
-	var value = elem.options[elem.selectedIndex].value;
+	var value = document.getElementById("botMenuMode").value;
 	if(value == "lua"){
 		var code = htmlEditor.getValue();
 			code = code.replace(/!=/g, "~=");
@@ -8054,7 +8054,7 @@ function loadLua() {
         return js.global:username()
     end`)()
 	var elem = document.getElementById("botMenuMode");
-	var value = elem.options[elem.selectedIndex].value;
+	var value = document.getElementById("botMenuMode").value;
 	if(value == "lua"){
 		fengari.load('balance=' + balance)()
 	}
@@ -8113,7 +8113,7 @@ function start(){
 		mirror = document.getElementById("mirrors").value;
 		run_clicked = true;document.getElementById("result").innerHTML = ""
 		var elem = document.getElementById("botMenuMode");
-		var value = elem.options[elem.selectedIndex].value;
+		var value = document.getElementById("botMenuMode").value;
 		if(value == "lua"){
 			game=undefined
 			fengari.load('game=undefined')()
