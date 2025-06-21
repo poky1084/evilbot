@@ -1386,10 +1386,10 @@ if (localStorage.getItem("thememod") != null) {
 		infoms.style.color = "white"
 		infoms.style.background = "#707371"
 		for (const element1 of btnColor) {
-		element1.style.background = "#02c937"
+		element1.style.background = "#4f4e4e"
 		}
 		for (const element2 of swColor) {
-		element2.style.background = "#02c937"
+		element2.style.background = "#4f4e4e"
 		}
 		chartcolor = "#000"
 		var links = document.getElementsByTagName("a");
@@ -1419,10 +1419,10 @@ if (localStorage.getItem("thememod") != null) {
 		infoms.style.color = "white"
 		infoms.style.background = "black"
 		for (const element1 of btnColor) {
-		element1.style.background = "#345beb"
+		element1.style.background = "#696868"
 		}
 		for (const element2 of swColor) {
-		element2.style.background = "#345beb"
+		element2.style.background = "#696868"
 		}
 		chartcolor = "#000"
 		var links = document.getElementsByTagName("a");
@@ -1952,10 +1952,10 @@ function changeTheme(){
 		infoms.style.color = "white"
 		infoms.style.background = "#707371"
 		for (const element1 of btnColor) {
-		element1.style.background = "#02c937"
+		element1.style.background = "#4f4e4e"
 		}
 		for (const element2 of swColor) {
-		element2.style.background = "#02c937"
+		element2.style.background = "#4f4e4e"
 		}
 		chartcolor = "#000"
 		var links = document.getElementsByTagName("a");
@@ -1985,10 +1985,10 @@ function changeTheme(){
 		infoms.style.color = "white"
 		infoms.style.background = "black"
 		for (const element1 of btnColor) {
-		element1.style.background = "#345beb"
+		element1.style.background = "#696868"
 		}
 		for (const element2 of swColor) {
-		element2.style.background = "#345beb"
+		element2.style.background = "#696868"
 		}
 		chartcolor = "#000"
 		var links = document.getElementsByTagName("a");
