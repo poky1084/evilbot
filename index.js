@@ -711,6 +711,18 @@ a:link {
   z-index: 2;
   pointer-events: none; /* so the button is still clickable if needed */
 }
+
+#timerDown {
+  display: inline-block;
+  color: #ffffff;
+  font-size: 14px;
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  top: 30%;
+  left: 46%;
+  z-index: 2;
+}
 </style>
 <center>
 <div id="bot">
@@ -768,6 +780,7 @@ a:link {
 		<option value="light" >light</option>
 		<option value="blue" >blue</option>
 		<option value="dark" >dark</option>
+		<option value="grey" >grey</option>
       </select>
       </span>
       <span id="scriptName"></span>
@@ -1016,6 +1029,7 @@ Hold top or bottom area to move the bot around</pre>
          <div class="button-wrapper">
 			<button id="result" class="btn-grad btn-control fontbigger" style="width:250px;height:45px;background-color:#03A8FC;color:white;"></button>
 			<span class="loader"></span>
+			<span id="timerDown"></span>
 		  </div>
           <button id="botStopOnWinButton" disabled="disabled" class="btn-grad btn-control fontbigger" >StopOnWin</button>
           <button class="btn-grad btn-control fontbigger" id="userBal">CheckBalance</button>
@@ -1310,7 +1324,7 @@ if(localStorage.getItem("luacode") != null){
 
 if (localStorage.getItem("thememod") != null) {
 	document.getElementById("thememod").value = localStorage.getItem("thememod");
-	var themepick = localStorage.getItem("thememod");
+	var thememod = localStorage.getItem("thememod");
 	var themesel = document.getElementById('bot')
 	var simtheme = document.getElementById('botSimLog')
 	var logtheme = document.getElementById('botLog')
@@ -1327,12 +1341,14 @@ if (localStorage.getItem("thememod") != null) {
 	var thememod2 = document.getElementById("thememod")
 	var fonter = document.getElementsByClassName("fontbigger")
 	var fontResult = document.getElementById("result")
-	
+	var btnColor = document.getElementsByClassName("btn-grad")
+	var swColor = document.getElementsByClassName("switch")
 	
 	for (const element of fonter) {
 		element.style.fontSize = "15px"
 	}
 	fontResult.style.fontSize  = "20px"
+
 	
 	botMenuMod.style.color = "black"
 	botMenuC.style.color = "black"
@@ -1340,7 +1356,6 @@ if (localStorage.getItem("thememod") != null) {
 	mirrorsVal.style.color = "black"
 	botMaxRow.style.color = "black"
 	thememod2.style.color = "black"
-	
 	
 	themesel.style.color = "white"
 	themesel.style.background = "#036ffc"
@@ -1356,9 +1371,41 @@ if (localStorage.getItem("thememod") != null) {
 	infobar.style.background = "#036ffc"
 	infoms.style.color = "white"
 	infoms.style.background = "#036ffc"
-	//buttonCss.style.background = "#036ffc"
 	
-	if(themepick == 'dark'){
+	if(thememod == 'grey'){
+		themesel.style.color = "white"
+		themesel.style.background = "#707371"
+		simtheme.style.color = "white"
+		simtheme.style.background = "#707371"
+		logtheme.style.color = "white"
+		logtheme.style.background = "#707371"
+		keytheme.style.color = "white"
+		keytheme.style.background = "#707371"
+		infospeed.style.color = "white"
+		infospeed.style.background = "#707371"
+		infobar.style.color = "white"
+		infobar.style.background = "#707371"
+		infoms.style.color = "white"
+		infoms.style.background = "#707371"
+		for (const element1 of btnColor) {
+		element1.style.background = "#02c937"
+		}
+		for (const element2 of swColor) {
+		element2.style.background = "#02c937"
+		}
+		chartcolor = "#000"
+		var links = document.getElementsByTagName("a");
+		for(var i=0;i<links.length;i++)
+		{
+			if(links[i].href)
+			{
+				links[i].style.color = "white";  
+			}
+		} 
+		
+	}
+	
+	if(thememod == 'dark'){
 		themesel.style.color = "white"
 		themesel.style.background = "black"
 		simtheme.style.color = "white"
@@ -1373,7 +1420,12 @@ if (localStorage.getItem("thememod") != null) {
 		infobar.style.background = "black"
 		infoms.style.color = "white"
 		infoms.style.background = "black"
-		//buttonCss.style.background = "#5b05f0"
+		for (const element1 of btnColor) {
+		element1.style.background = "#7d05e6"
+		}
+		for (const element2 of swColor) {
+		element2.style.background = "#7d05e6"
+		}
 		chartcolor = "#000"
 		var links = document.getElementsByTagName("a");
 		for(var i=0;i<links.length;i++)
@@ -1386,7 +1438,7 @@ if (localStorage.getItem("thememod") != null) {
 		
 	}
 	
-	if(themepick == 'light'){
+	if(thememod == 'light'){
 		themesel.style.color = "black"
 		themesel.style.background = "white"
 		simtheme.style.color = "black"
@@ -1402,7 +1454,13 @@ if (localStorage.getItem("thememod") != null) {
 		infoms.style.color = "black"
 		infoms.style.background = "white"
 		chartcolor = "#fff"
-		 var links = document.getElementsByTagName("a");
+		for (const element1 of btnColor) {
+		element1.style.background = "#03c6fc"
+		}
+		for (const element2 of swColor) {
+		element2.style.background = "#03c6fc"
+		}
+		var links = document.getElementsByTagName("a");
 		for(var i=0;i<links.length;i++)
 		{
 			if(links[i].href)
@@ -1413,7 +1471,7 @@ if (localStorage.getItem("thememod") != null) {
 		
 	}
 	
-	if(themepick == 'blue'){
+	if(thememod == 'blue'){
 		themesel.style.color = "white"
 		themesel.style.background = "#036ffc"
 		simtheme.style.color = "white"
@@ -1429,6 +1487,12 @@ if (localStorage.getItem("thememod") != null) {
 		infoms.style.color = "white"
 		infoms.style.background = "#036ffc"
 		chartcolor = "#036ffc"
+		for (const element1 of btnColor) {
+		element1.style.background = "#03c6fc"
+		}
+		for (const element2 of swColor) {
+		element2.style.background = "#03c6fc"
+		}
 		var links = document.getElementsByTagName("a");
 		for(var i=0;i<links.length;i++)
 		{
@@ -1438,7 +1502,7 @@ if (localStorage.getItem("thememod") != null) {
 			}
 		} 
 		
-	}
+	}	
 	
 } else {
 	changeTheme();
@@ -1802,12 +1866,14 @@ function changeTheme(){
 	var thememod2 = document.getElementById("thememod")
 	var fonter = document.getElementsByClassName("fontbigger")
 	var fontResult = document.getElementById("result")
-	
+	var btnColor = document.getElementsByClassName("btn-grad")
+	var swColor = document.getElementsByClassName("switch")
 	
 	for (const element of fonter) {
 		element.style.fontSize = "15px"
 	}
 	fontResult.style.fontSize  = "20px"
+
 	
 	botMenuMod.style.color = "black"
 	botMenuC.style.color = "black"
@@ -1831,6 +1897,39 @@ function changeTheme(){
 	infoms.style.color = "white"
 	infoms.style.background = "#036ffc"
 	
+	if(thememod == 'grey'){
+		themesel.style.color = "white"
+		themesel.style.background = "#707371"
+		simtheme.style.color = "white"
+		simtheme.style.background = "#707371"
+		logtheme.style.color = "white"
+		logtheme.style.background = "#707371"
+		keytheme.style.color = "white"
+		keytheme.style.background = "#707371"
+		infospeed.style.color = "white"
+		infospeed.style.background = "#707371"
+		infobar.style.color = "white"
+		infobar.style.background = "#707371"
+		infoms.style.color = "white"
+		infoms.style.background = "#707371"
+		for (const element1 of btnColor) {
+		element1.style.background = "#02c937"
+		}
+		for (const element2 of swColor) {
+		element2.style.background = "#02c937"
+		}
+		chartcolor = "#000"
+		var links = document.getElementsByTagName("a");
+		for(var i=0;i<links.length;i++)
+		{
+			if(links[i].href)
+			{
+				links[i].style.color = "white";  
+			}
+		} 
+		
+	}
+	
 	if(thememod == 'dark'){
 		themesel.style.color = "white"
 		themesel.style.background = "black"
@@ -1846,7 +1945,12 @@ function changeTheme(){
 		infobar.style.background = "black"
 		infoms.style.color = "white"
 		infoms.style.background = "black"
-		//buttonCss.style.background = "#5b05f0"
+		for (const element1 of btnColor) {
+		element1.style.background = "#7d05e6"
+		}
+		for (const element2 of swColor) {
+		element2.style.background = "#7d05e6"
+		}
 		chartcolor = "#000"
 		var links = document.getElementsByTagName("a");
 		for(var i=0;i<links.length;i++)
@@ -1875,6 +1979,12 @@ function changeTheme(){
 		infoms.style.color = "black"
 		infoms.style.background = "white"
 		chartcolor = "#fff"
+		for (const element1 of btnColor) {
+		element1.style.background = "#03c6fc"
+		}
+		for (const element2 of swColor) {
+		element2.style.background = "#03c6fc"
+		}
 		var links = document.getElementsByTagName("a");
 		for(var i=0;i<links.length;i++)
 		{
@@ -1902,6 +2012,12 @@ function changeTheme(){
 		infoms.style.color = "white"
 		infoms.style.background = "#036ffc"
 		chartcolor = "#036ffc"
+		for (const element1 of btnColor) {
+		element1.style.background = "#03c6fc"
+		}
+		for (const element2 of swColor) {
+		element2.style.background = "#03c6fc"
+		}
 		var links = document.getElementsByTagName("a");
 		for(var i=0;i<links.length;i++)
 		{
@@ -1911,7 +2027,7 @@ function changeTheme(){
 			}
 		} 
 		
-	}	
+	}
 	
 }
 
@@ -2004,6 +2120,35 @@ $('#mirrors').on('change', function (e) {
 */
 function downloadFile() {
 
+}
+
+let currentAnimationId = null;
+let lastDisplayValue = 0;
+
+function updateCountdown(element, newMs, duration = 30) {
+    // Cancel ongoing animation if too frequent
+    if (currentAnimationId) {
+        cancelAnimationFrame(currentAnimationId);
+    }
+
+    const startValue = lastDisplayValue;
+    const endValue = newMs;
+    const startTime = performance.now();
+
+    function animate(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const interpolatedValue = startValue + (endValue - startValue) * progress;
+
+        lastDisplayValue = interpolatedValue;
+        element.textContent = (interpolatedValue / 1000).toFixed(2);
+
+        if (progress < 1) {
+            currentAnimationId = requestAnimationFrame(animate);
+        }
+    }
+
+    requestAnimationFrame(animate);
 }
 
 function animateCounter(element, toValue, duration = 1000, decimals = 2) {
@@ -8910,11 +9055,7 @@ function startSocket() {
 							slide_bet_placed = false;
 							make_slide_bet = false;
 							finished_round = true
-							if(document.getElementById("thememod").value == "light"){
-								document.getElementById("result").style.color = "white";
-							} else {
-								document.getElementById("result").style.color = "white";
-							}
+							
 							document.getElementById("result").innerHTML = "Crash at " + obj.payload.data.crash.event.multiplier.toFixed(2);
 							const loader1 = document.querySelector('.loader');
 							loader1.style.display = 'inline-block';
@@ -9056,11 +9197,7 @@ function startSocket() {
 							make_slide_bet = false;
 							betlist = []
 							previousbet = nextbet;
-							if(document.getElementById("thememod").value == "light"){
-								document.getElementById("result").style.color = "white";
-							} else {
-								document.getElementById("result").style.color = "white";
-							}
+							
 							document.getElementById("result").innerHTML = "Slide at " + obj.payload.data.slide.event.multiplier.toFixed(2);
 							const loader1 = document.querySelector('.loader');
 							loader1.style.display = 'none';
@@ -9445,8 +9582,9 @@ function startSocket() {
 							document.getElementById("result").innerHTML = ""
 							const loader1 = document.querySelector('.loader');
 							loader1.style.display = 'inline-block';
-
-								
+							
+							//const timerElement = document.getElementById("timerDown");	
+							//updateCountdown(timerElement, obj.payload.data.slide.event.nextRoundIn, 30);
 								/*if(win == null){
 									win = true;
 									lastBet.win = true;
