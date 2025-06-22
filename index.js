@@ -8301,7 +8301,9 @@ function sendLua() {
 
 function start(){
 		running = true; cashout_done = false; countTime(); 
-		fastmode = document.querySelector('#speedChange').checked;
+		fastmode = document.getElementById('speedChange').checked;
+		
+		
 		mirror = document.getElementById("mirrors").value;
 		run_clicked = true;document.getElementById("result").innerHTML = ""
 		var elem = document.getElementById("botMenuMode");
@@ -8309,6 +8311,8 @@ function start(){
 		if(value == "lua"){
 			game=undefined
 			fengari.load('game=undefined')()
+			fastmode = document.getElementById('speedChange').checked;
+			fengari.load(`fastmode = ${fastmode}`)();
 			loadLua();	
 			var code = htmlEditor.getValue();
 				code = code.replace(/!=/g, "~=");
@@ -8356,7 +8360,8 @@ function start(){
 				if (tokenapi === undefined || tokenapi === null) {
 					tokenapi = document.getElementById("tokenkey").value;
 				}
-							
+				
+				
 				if (fastmode === undefined || fastmode === null) {
 					fastmode = document.getElementById('speedChange').checked
 				}
