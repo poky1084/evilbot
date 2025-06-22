@@ -784,6 +784,8 @@ a:link {
 		<option value="blue" >blue</option>
 		<option value="dark" >dark</option>
 		<option value="grey" >grey</option>
+		<option value="green" >green</option>
+		<option value="brown" >brown</option>
       </select>
       </span>
       <span id="scriptName"></span>
@@ -1355,6 +1357,72 @@ if (localStorage.getItem("thememod") != null) {
 	infobar.style.background = "#036ffc"
 	infoms.style.color = "white"
 	infoms.style.background = "#036ffc"
+	
+	if(thememod == 'brown'){
+		themesel.style.color = "white"
+		themesel.style.background = "#663e0d"
+		simtheme.style.color = "white"
+		simtheme.style.background = "#663e0d"
+		logtheme.style.color = "white"
+		logtheme.style.background = "#663e0d"
+		keytheme.style.color = "white"
+		keytheme.style.background = "#663e0d"
+		infospeed.style.color = "white"
+		infospeed.style.background = "#663e0d"
+		infobar.style.color = "white"
+		infobar.style.background = "#663e0d"
+		infoms.style.color = "white"
+		infoms.style.background = "#663e0d"
+		for (const element1 of btnColor) {
+		element1.style.background = "#b87407"
+		}
+		for (const element2 of swColor) {
+		element2.style.background = "#b87407"
+		}
+		chartcolor = "#000"
+		var links = document.getElementsByTagName("a");
+		for(var i=0;i<links.length;i++)
+		{
+			if(links[i].href)
+			{
+				links[i].style.color = "white";  
+			}
+		} 
+		
+	}
+	
+	if(thememod == 'green'){
+		themesel.style.color = "white"
+		themesel.style.background = "#0e6602"
+		simtheme.style.color = "white"
+		simtheme.style.background = "#0e6602"
+		logtheme.style.color = "white"
+		logtheme.style.background = "#0e6602"
+		keytheme.style.color = "white"
+		keytheme.style.background = "#0e6602"
+		infospeed.style.color = "white"
+		infospeed.style.background = "#0e6602"
+		infobar.style.color = "white"
+		infobar.style.background = "#0e6602"
+		infoms.style.color = "white"
+		infoms.style.background = "#0e6602"
+		for (const element1 of btnColor) {
+		element1.style.background = "#18a805"
+		}
+		for (const element2 of swColor) {
+		element2.style.background = "#18a805"
+		}
+		chartcolor = "#000"
+		var links = document.getElementsByTagName("a");
+		for(var i=0;i<links.length;i++)
+		{
+			if(links[i].href)
+			{
+				links[i].style.color = "white";  
+			}
+		} 
+		
+	}
 	
 	if(thememod == 'grey'){
 		themesel.style.color = "white"
@@ -1935,6 +2003,72 @@ function changeTheme(){
 	infobar.style.background = "#036ffc"
 	infoms.style.color = "white"
 	infoms.style.background = "#036ffc"
+	
+	if(thememod == 'brown'){
+		themesel.style.color = "white"
+		themesel.style.background = "#663e0d"
+		simtheme.style.color = "white"
+		simtheme.style.background = "#663e0d"
+		logtheme.style.color = "white"
+		logtheme.style.background = "#663e0d"
+		keytheme.style.color = "white"
+		keytheme.style.background = "#663e0d"
+		infospeed.style.color = "white"
+		infospeed.style.background = "#663e0d"
+		infobar.style.color = "white"
+		infobar.style.background = "#663e0d"
+		infoms.style.color = "white"
+		infoms.style.background = "#663e0d"
+		for (const element1 of btnColor) {
+		element1.style.background = "#b87407"
+		}
+		for (const element2 of swColor) {
+		element2.style.background = "#b87407"
+		}
+		chartcolor = "#000"
+		var links = document.getElementsByTagName("a");
+		for(var i=0;i<links.length;i++)
+		{
+			if(links[i].href)
+			{
+				links[i].style.color = "white";  
+			}
+		} 
+		
+	}
+	
+	if(thememod == 'green'){
+		themesel.style.color = "white"
+		themesel.style.background = "#0e6602"
+		simtheme.style.color = "white"
+		simtheme.style.background = "#0e6602"
+		logtheme.style.color = "white"
+		logtheme.style.background = "#0e6602"
+		keytheme.style.color = "white"
+		keytheme.style.background = "#0e6602"
+		infospeed.style.color = "white"
+		infospeed.style.background = "#0e6602"
+		infobar.style.color = "white"
+		infobar.style.background = "#0e6602"
+		infoms.style.color = "white"
+		infoms.style.background = "#0e6602"
+		for (const element1 of btnColor) {
+		element1.style.background = "#18a805"
+		}
+		for (const element2 of swColor) {
+		element2.style.background = "#18a805"
+		}
+		chartcolor = "#000"
+		var links = document.getElementsByTagName("a");
+		for(var i=0;i<links.length;i++)
+		{
+			if(links[i].href)
+			{
+				links[i].style.color = "white";  
+			}
+		} 
+		
+	}
 	
 	if(thememod == 'grey'){
 		themesel.style.color = "white"
