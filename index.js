@@ -8107,6 +8107,7 @@ function sendLua() {
                 target = ${lastBet.target},
                 payout = ${lastBet.payout},
                 amount = ${lastBet.amount},
+				payoutMultiplier = ${lastBet.payoutMultiplier},
                 profit = ${profit_total}
             }
         `)();
