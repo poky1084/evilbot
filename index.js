@@ -8102,6 +8102,7 @@ function sendLua() {
     if (lastBet) {
         fengari.load(`
             lastBet = {
+				win = ${win},
                 chance = ${lastBet.chance},
                 roll = ${lastBet.Roll},
                 target = ${lastBet.target},
