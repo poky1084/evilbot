@@ -8352,9 +8352,16 @@ function start(){
 				numbers = JSON.parse(numbers)
 				guesses = guesses.split(',')
 				
+				tokenapi = fengari.load(`return tokenapi`)();
+				if (tokenapi === undefined || tokenapi === null) {
+					tokenapi = document.getElementById("tokenkey").value;
+				}
+							
 				if (fastmode === undefined || fastmode === null) {
 					fastmode = document.getElementById('speedChange').checked
 				}
+				
+				
 				
 				//localStorage.setItem("jscode", htmlEditor2.getValue());
 				localStorage.setItem("luacode", htmlEditor.getValue());
