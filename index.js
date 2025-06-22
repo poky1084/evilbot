@@ -8078,51 +8078,85 @@ function loadLua() {
 }
 
 function sendLua() {
+    // Basic stats
+    fengari.load(`
+        previousbet = ${previousbet}
+        win = ${win}
+        balance = ${balance}
+        profit = ${profit_total}
+        currentprofit = ${currentprofit}
+        currency = ${JSON.stringify(currency)}
+    `)();
 
-    fengari.load('previousbet=' + previousbet + '\nwin=' + win + '\nbalance=' + balance + '\nprofit=' + profit_total + '\ncurrentprofit=' + currentprofit + '\ncurrency=' + currency)()
-    fengari.load('bets=' + betcount + '\wins=' + wins + '\nlosses=' + losses + '\nwinstreak=' + winstreak + '\nlosestreak=' + losestreak + '\ncurrentstreak=' + currentstreak)()
-	fengari.load('lastBet={\nchance=' + lastBet.chance + ',\nroll=' + lastBet.Roll + ',\ntarget=' + lastBet.target + ',\npayout=' + lastBet.payout + ',\namount=' + lastBet.amount + ',\nprofit=' + profit_total + '\n}')()
-	
-    fengari.load('dobet()')()
-	game = fengari.load('return game')();
-	nextbet = fengari.load('return nextbet')();
-	chance = fengari.load('return chance')();
-	bethigh = fengari.load('return bethigh')();
-	target = fengari.load('return target')();
-	pumps = fengari.load('return pumps')();
-	difficulty = fengari.load('return difficulty')();
-	tie = fengari.load('return tie')();
-	player = fengari.load('return player')();
-	banker = fengari.load('return banker')();
-	eggs = fengari.load('return "[" .. table.concat(eggs or {1}, ",") .. "]"')();
-	chips = fengari.load('return chips')();
-	fields = fengari.load('return "[" .. table.concat(fields or {1}, ",") .. "]"')();
-	numbers = fengari.load('return "[" .. table.concat(numbers or {1}, ",") .. "]"')();
-	mines = fengari.load('return mines')();
-	rows = fengari.load('return rows')();
-	lines = fengari.load('return lines')();
-	segments = fengari.load('return segments')();
-	guesses = fengari.load('return table.concat(guesses or {1}, ",")')();
-	rolls = fengari.load('return rolls')();
-	startcard = fengari.load('return startcard')();
-	
-	if (chips != undefined){
-	chips = JSON.parse(chips);
-	}
-	
-	eggs = JSON.parse(eggs)
-	fields = JSON.parse(fields)
-	numbers = JSON.parse(numbers)
-	guesses = guesses.split(',')
-	
-	if (game == undefined){
-		game = document.getElementById("gameselect").value;
-	}	
-	tokenapi = fengari.load('return tokenapi')();
-	if (tokenapi == undefined){
-		tokenapi = document.getElementById("tokenkey").value;
-	}
+    // Counters
+    fengari.load(`
+        bets = ${betcount}
+        wins = ${wins}
+        losses = ${losses}
+        winstreak = ${winstreak}
+        losestreak = ${losestreak}
+        currentstreak = ${currentstreak}
+    `)();
+
+    // Last bet info
+    if (lastBet) {
+        fengari.load(`
+            lastBet = {
+                chance = ${lastBet.chance},
+                roll = ${lastBet.Roll},
+                target = ${lastBet.target},
+                payout = ${lastBet.payout},
+                amount = ${lastBet.amount},
+                profit = ${profit_total}
+            }
+        `)();
+    }
+
+    // Set game before calling dobet
+    if (!game) {
+        game = document.getElementById("gameselect").value;
+    }
+    fengari.load(`game = ${JSON.stringify(game)}`)();
+
+    // Call Lua logic
+    fengari.load(`dobet()`)();
+
+    // Fetch updated Lua values
+    game = fengari.load(`return game`)();
+    nextbet = fengari.load(`return nextbet`)();
+    chance = fengari.load(`return chance`)();
+    bethigh = fengari.load(`return bethigh`)();
+    target = fengari.load(`return target`)();
+    pumps = fengari.load(`return pumps`)();
+    difficulty = fengari.load(`return difficulty`)();
+    tie = fengari.load(`return tie`)();
+    player = fengari.load(`return player`)();
+    banker = fengari.load(`return banker`)();
+
+    // Arrays (safely stringify and parse)
+    eggs = JSON.parse(fengari.load(`return "[" .. table.concat(eggs or {1}, ",") .. "]"`)());
+    fields = JSON.parse(fengari.load(`return "[" .. table.concat(fields or {1}, ",") .. "]"`)());
+    numbers = JSON.parse(fengari.load(`return "[" .. table.concat(numbers or {1}, ",") .. "]"`)());
+    guesses = fengari.load(`return table.concat(guesses or {1}, ",")`)().split(",");
+
+    // Direct values
+    chips = fengari.load(`return chips`)();
+    if (chips !== undefined) chips = JSON.parse(chips);
+
+    mines = fengari.load(`return mines`)();
+    rows = fengari.load(`return rows`)();
+    lines = fengari.load(`return lines`)();
+    segments = fengari.load(`return segments`)();
+    rolls = fengari.load(`return rolls`)();
+    startcard = fengari.load(`return startcard`)();
+
+    // Token key
+    tokenapi = fengari.load(`return tokenapi`)();
+    if (tokenapi === undefined || tokenapi === null) {
+        tokenapi = document.getElementById("tokenkey").value;
+    }
 }
+
 
 function start(){
 		running = true; cashout_done = false; countTime(); 
