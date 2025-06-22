@@ -4,6 +4,8 @@ stake.com, stake.us, primedice bot by me with ❤
 a javascript coded bot for Stake, Primedice<br />
 the strategy script must be coded in javascript (JsMode), or can run Lua script too. (LuaMode) 
 
+The last version works on mobile (Orion): https://github.com/poky1084/evilbot/tree/c158ddd9c264301bef9bad91595f4c35b3ef0fbf
+
 # Videos: <br /> 
 install extension: [https://vimeo.com/1092943750](https://vimeo.com/1092943750) <br />
 demo: https://www.youtube.com/watch?v=mtVi5s4OnkY
