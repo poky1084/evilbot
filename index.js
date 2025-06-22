@@ -8125,6 +8125,7 @@ function sendLua() {
 
     // Fetch updated Lua values
     game = fengari.load(`return game`)();
+	fastmode = fengari.load(`return fastmode`)();
     nextbet = fengari.load(`return nextbet`)();
     chance = fengari.load(`return chance`)();
     bethigh = fengari.load(`return bethigh`)();
@@ -8157,6 +8158,10 @@ function sendLua() {
     if (tokenapi === undefined || tokenapi === null) {
         tokenapi = document.getElementById("tokenkey").value;
     }
+	
+	if (fastmode === undefined || fastmode === null) {
+        fastmode = document.getElementById('speedChange').checked
+    }
 }
 
 
@@ -8180,6 +8185,7 @@ function start(){
 				code = code.replace(/([a-zA-Z]*[0-9]*\s*)\/\=(\s*[a-zA-Z]*[0-9]*)/g, '$1=$1/$2 ');
 				fengari.load(code)();
 				game = fengari.load('return game')();
+				fastmode = fengari.load(`return fastmode`)();
 				nextbet = fengari.load('return nextbet')();
 				chance = fengari.load('return chance')();
 				bethigh = fengari.load('return bethigh')();
@@ -8211,6 +8217,10 @@ function start(){
 				fields = JSON.parse(fields)
 				numbers = JSON.parse(numbers)
 				guesses = guesses.split(',')
+				
+				if (fastmode === undefined || fastmode === null) {
+					fastmode = document.getElementById('speedChange').checked
+				}
 				
 				//localStorage.setItem("jscode", htmlEditor2.getValue());
 				localStorage.setItem("luacode", htmlEditor.getValue());
