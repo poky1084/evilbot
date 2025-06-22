@@ -1360,24 +1360,24 @@ if (localStorage.getItem("thememod") != null) {
 	
 	if(thememod == 'brown'){
 		themesel.style.color = "white"
-		themesel.style.background = "#663e0d"
+		themesel.style.background = "#452a06"
 		simtheme.style.color = "white"
-		simtheme.style.background = "#663e0d"
+		simtheme.style.background = "#452a06"
 		logtheme.style.color = "white"
-		logtheme.style.background = "#663e0d"
+		logtheme.style.background = "#452a06"
 		keytheme.style.color = "white"
-		keytheme.style.background = "#663e0d"
+		keytheme.style.background = "#452a06"
 		infospeed.style.color = "white"
-		infospeed.style.background = "#663e0d"
+		infospeed.style.background = "#452a06"
 		infobar.style.color = "white"
-		infobar.style.background = "#663e0d"
+		infobar.style.background = "#452a06"
 		infoms.style.color = "white"
-		infoms.style.background = "#663e0d"
+		infoms.style.background = "#452a06"
 		for (const element1 of btnColor) {
-		element1.style.background = "#b87407"
+		element1.style.background = "#693f04"
 		}
 		for (const element2 of swColor) {
-		element2.style.background = "#b87407"
+		element2.style.background = "#693f04"
 		}
 		chartcolor = "#000"
 		var links = document.getElementsByTagName("a");
@@ -2006,24 +2006,24 @@ function changeTheme(){
 	
 	if(thememod == 'brown'){
 		themesel.style.color = "white"
-		themesel.style.background = "#663e0d"
+		themesel.style.background = "#452a06"
 		simtheme.style.color = "white"
-		simtheme.style.background = "#663e0d"
+		simtheme.style.background = "#452a06"
 		logtheme.style.color = "white"
-		logtheme.style.background = "#663e0d"
+		logtheme.style.background = "#452a06"
 		keytheme.style.color = "white"
-		keytheme.style.background = "#663e0d"
+		keytheme.style.background = "#452a06"
 		infospeed.style.color = "white"
-		infospeed.style.background = "#663e0d"
+		infospeed.style.background = "#452a06"
 		infobar.style.color = "white"
-		infobar.style.background = "#663e0d"
+		infobar.style.background = "#452a06"
 		infoms.style.color = "white"
-		infoms.style.background = "#663e0d"
+		infoms.style.background = "#452a06"
 		for (const element1 of btnColor) {
-		element1.style.background = "#b87407"
+		element1.style.background = "#693f04"
 		}
 		for (const element2 of swColor) {
-		element2.style.background = "#b87407"
+		element2.style.background = "#693f04"
 		}
 		chartcolor = "#000"
 		var links = document.getElementsByTagName("a");
