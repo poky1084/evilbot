@@ -8404,60 +8404,63 @@ function start(){
 
 			drawChart();
 		} else if (document.getElementById("botMenuMode").value === "js") {
-			game = undefined;
+		game = undefined;
 
-			setTimeout(() => {
-				const code = htmlEditor2.getValue();
-				eval(code);
+		const userCode = htmlEditor2.getValue();
 
-				localStorage.setItem("jscode", code);
-				sleeptime = 0;
-				sleep(0);
+		// Run user JS code in global scope asynchronously
+		setTimeout(userCode, 0);
 
-				btnStart.disabled = true;
-				userBalances();
-				started_bal = balance;
+		// Continue bot setup shortly after user code runs
+		setTimeout(() => {
+			localStorage.setItem("jscode", userCode);
+			sleeptime = 0;
+			sleep(0);
 
-				const selectedGame = document.getElementById("gameselect").value;
-				if (game === undefined) game = selectedGame;
+			btnStart.disabled = true;
+			userBalances();
+			started_bal = balance;
 
-				const runBet = (fn, args = []) => {
-					if (fastmode) {
-						setTimeout(() => fn(...args), 5);
-						setTimeout(() => fn(...args), 50);
-					} else {
-						fn(...args);
-					}
-				};
+			const selectedGame = document.getElementById("gameselect").value;
+			if (game === undefined) game = selectedGame;
 
-				const gameFunctions = {
-					hilo:        () => runBet(hiloBet, [nextbet, startcard]),
-					bluesamurai: () => runBet(samuraiBet, [nextbet]),
-					darts:       () => runBet(dartsBet, [nextbet, difficulty]),
-					tomeoflife:  () => runBet(tomeBet, [nextbet, lines]),
-					scarabspin:  () => runBet(scarabBet, [nextbet, lines]),
-					diamonds:    () => runBet(diamondBet, [nextbet]),
-					cases:       () => runBet(caseBet, [nextbet, difficulty]),
-					videopoker:  () => runBet(videopokerBet, [nextbet]),
-					rps:         () => runBet(rockpaperBet, [nextbet, guesses]),
-					flip:        () => runBet(flipBet, [nextbet, guesses]),
-					snakes:      () => runBet(snakesBet, [nextbet, difficulty, rolls]),
-					pump:        () => runBet(pumpBet, [nextbet, pumps, difficulty]),
-					baccarat:    () => runBet(baccaratbet, [tie, player, banker]),
-					dragontower: () => runBet(dragontowerBet, [nextbet, difficulty, eggs]),
-					roulette:    () => runBet(roulettebet, [chips]),
-					wheel:       () => runBet(wheelbet, [nextbet, segments, risk]),
-					plinko:      () => runBet(plinkobet, [nextbet, rows, risk]),
-					mines:       () => runBet(minebet, [nextbet, fields, mines]),
-					keno:        () => runBet(kenobet, [nextbet, numbers, risk]),
-					dice:        () => runBet(DiceBet, [nextbet, chance, bethigh]),
-					limbo:       () => runBet(LimboBet, [nextbet, target])
-				};
+			const runBet = (fn, args = []) => {
+				if (fastmode) {
+					setTimeout(() => fn(...args), 5);
+					setTimeout(() => fn(...args), 50);
+				} else {
+					fn(...args);
+				}
+			};
 
-				if (game in gameFunctions) gameFunctions[game]();
-				drawChart();
-			}, 0);
-		}
+			const gameFunctions = {
+				hilo:        () => runBet(hiloBet, [nextbet, startcard]),
+				bluesamurai: () => runBet(samuraiBet, [nextbet]),
+				darts:       () => runBet(dartsBet, [nextbet, difficulty]),
+				tomeoflife:  () => runBet(tomeBet, [nextbet, lines]),
+				scarabspin:  () => runBet(scarabBet, [nextbet, lines]),
+				diamonds:    () => runBet(diamondBet, [nextbet]),
+				cases:       () => runBet(caseBet, [nextbet, difficulty]),
+				videopoker:  () => runBet(videopokerBet, [nextbet]),
+				rps:         () => runBet(rockpaperBet, [nextbet, guesses]),
+				flip:        () => runBet(flipBet, [nextbet, guesses]),
+				snakes:      () => runBet(snakesBet, [nextbet, difficulty, rolls]),
+				pump:        () => runBet(pumpBet, [nextbet, pumps, difficulty]),
+				baccarat:    () => runBet(baccaratbet, [tie, player, banker]),
+				dragontower: () => runBet(dragontowerBet, [nextbet, difficulty, eggs]),
+				roulette:    () => runBet(roulettebet, [chips]),
+				wheel:       () => runBet(wheelbet, [nextbet, segments, risk]),
+				plinko:      () => runBet(plinkobet, [nextbet, rows, risk]),
+				mines:       () => runBet(minebet, [nextbet, fields, mines]),
+				keno:        () => runBet(kenobet, [nextbet, numbers, risk]),
+				dice:        () => runBet(DiceBet, [nextbet, chance, bethigh]),
+				limbo:       () => runBet(LimboBet, [nextbet, target])
+			};
+
+			if (game in gameFunctions) gameFunctions[game]();
+			drawChart();
+		}, 10); // delay allows user script to set variables first
+	}
 }
 var btnStart = document.getElementById("botStartButton");
 
