@@ -8302,11 +8302,10 @@ function sendLua() {
 function start(){
 		running = true; cashout_done = false; countTime(); 
 		fastmode = document.getElementById('speedChange').checked;
-		
-		
 		mirror = document.getElementById("mirrors").value;
-		run_clicked = true;document.getElementById("result").innerHTML = ""
-		var elem = document.getElementById("botMenuMode");
+		run_clicked = true;
+		document.getElementById("result").innerHTML = ""
+		
 		if (document.getElementById("botMenuMode").value === "lua") {
 			game = undefined;
 			fengari.load('game=undefined')();
@@ -8406,14 +8405,9 @@ function start(){
 		} else if (document.getElementById("botMenuMode").value === "js") {
 		game = undefined;
 
-		const userCode = htmlEditor2.getValue();
-
-		// Run user JS code in global scope asynchronously
-		setTimeout(userCode, 0);
-
-		// Continue bot setup shortly after user code runs
-		setTimeout(() => {
-			localStorage.setItem("jscode", userCode);
+		setTimeout(htmlEditor2.getValue() + `
+		
+		localStorage.setItem("jscode", htmlEditor2.getValue());
 			sleeptime = 0;
 			sleep(0);
 
@@ -8421,10 +8415,9 @@ function start(){
 			userBalances();
 			started_bal = balance;
 
-			const selectedGame = document.getElementById("gameselect").value;
-			if (game === undefined) game = selectedGame;
+			if (game === undefined) game = document.getElementById("gameselect").value;
 
-			const runBet = (fn, args = []) => {
+			runBet = (fn, args = []) => {
 				if (fastmode) {
 					setTimeout(() => fn(...args), 5);
 					setTimeout(() => fn(...args), 50);
@@ -8433,7 +8426,7 @@ function start(){
 				}
 			};
 
-			const gameFunctions = {
+			gameFunctions = {
 				hilo:        () => runBet(hiloBet, [nextbet, startcard]),
 				bluesamurai: () => runBet(samuraiBet, [nextbet]),
 				darts:       () => runBet(dartsBet, [nextbet, difficulty]),
@@ -8459,7 +8452,7 @@ function start(){
 
 			if (game in gameFunctions) gameFunctions[game]();
 			drawChart();
-		}, 10); // delay allows user script to set variables first
+			`, 0);	
 	}
 }
 var btnStart = document.getElementById("botStartButton");
