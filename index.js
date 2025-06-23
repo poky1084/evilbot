@@ -2756,6 +2756,31 @@ function data(json){
 			//return;
 		} else {
 		errorgame = false
+		var table = document.getElementById("botHistory");
+		var row = document.createElement("tr");
+		
+		var tdbets = document.createElement("td");
+		var tdamount = document.createElement("td");
+		var tdhigh = document.createElement("td");
+		var tdTargetChance = document.createElement("td");
+		var tdRollChance= document.createElement("td");
+		var tdProfit = document.createElement("td");
+		var tdPayout = document.createElement("td");
+		var tdTargetNumber = document.createElement("td");
+		var tdRollNumber = document.createElement("td");
+		var tdNonce = document.createElement("td");
+		var tdBetID = document.createElement("td");
+		
+		var tdcheck = document.createElement("input");
+		tdcheck.type = "checkbox";
+		tdcheck.name = "checked";
+		if(bethigh){
+			tdcheck.checked = true;
+		} else {
+			tdcheck.checked = false;
+		}
+		tdcheck.id = "checked";
+		
 		if(!json.hasOwnProperty("data")){
 			if(!json.hasOwnProperty("hiloNext") && !json.hasOwnProperty("hiloCashout"))
 			{
@@ -2782,19 +2807,7 @@ function data(json){
 		if(json.data.hasOwnProperty("primediceRoll"))
 		{
 			
-			var table = document.getElementById("botHistory");
-			var nicname = "";
-			var crpamount = json.data.primediceRoll.amount;
-			var payout = json.data.primediceRoll.payout;
 			
-			var str_amount = crpamount;
-			var str_payout = payout.toFixed(8);
-			var str_currency = currency;
-			var str_game = "limbo";
-			var str_user = "poky1084";
-			var str_updatedAt = "2023"
-			var current_result = json.data.primediceRoll.state.result.toFixed(2);
-			var multiplierTarget = json.data.primediceRoll.state.target.toFixed(2);
 			
 			lastBet.name = json.data.primediceRoll.user.name
 			lastBet.amount = json.data.primediceRoll.amount;
@@ -2816,7 +2829,7 @@ function data(json){
 			}
 			
 			
-			if(json.data.primediceRoll.payoutMultiplier > 0){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "green"
@@ -2841,32 +2854,12 @@ function data(json){
 			profit_total += parseFloat(json.data.primediceRoll.payout) - parseFloat(json.data.primediceRoll.amount);
 			wagered += parseFloat(json.data.primediceRoll.amount);
 			
-			var row = document.createElement("tr");
 			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.data.primediceRoll.amount.toFixed(8)
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			if(bethigh){
-				tdcheck.checked = true;
-			} else {
-				tdcheck.checked = false;
-			}
-			tdcheck.id = "checked";
+			
 			
 			tdhigh.appendChild(tdcheck);
 			tdTargetChance.innerHTML = lastBet.chance.toFixed(4)
@@ -2889,17 +2882,7 @@ function data(json){
 			tdBetID.innerHTML = json.data.primediceRoll.id;
 			tdPayout.innerHTML = json.data.primediceRoll.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);
+			
 					
 			
 
@@ -2907,73 +2890,7 @@ function data(json){
 			
 			
 			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
 
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-		
-			
-			updateChart();
-			
-			
-			//document.getElementById("multi").innerHTML = toFixedNo(json.data.limboBet.state.result, 2);
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)
 			
 			
 			
@@ -2982,7 +2899,7 @@ function data(json){
 		if(json.data.hasOwnProperty("flipBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.data.flipBet.user.name
 			lastBet.amount = json.data.flipBet.amount;
@@ -2992,7 +2909,7 @@ function data(json){
 			
 			
 
-			if(json.data.flipBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -3017,29 +2934,13 @@ function data(json){
 			profit_total += parseFloat(json.data.flipBet.payout) - parseFloat(json.data.flipBet.amount);
 			wagered += parseFloat(json.data.flipBet.amount);
 			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+		
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.data.flipBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			lastBet.target = guesses.length
 			
@@ -3053,17 +2954,7 @@ function data(json){
 			tdBetID.innerHTML = json.data.flipBet.id;
 			tdPayout.innerHTML = json.data.flipBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+			
 					
 			
 
@@ -3071,71 +2962,7 @@ function data(json){
 			
 			
 			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
 		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
 		}
 		
 		} else {
@@ -3143,19 +2970,8 @@ function data(json){
 		if(json.hasOwnProperty("diceRoll"))
 		{
 			
-			var table = document.getElementById("botHistory");
-			var nicname = "";
-			var crpamount = json.diceRoll.amount;
-			var payout = json.diceRoll.payout;
 			
-			var str_amount = crpamount;
-			var str_payout = payout.toFixed(8);
-			var str_currency = currency;
-			var str_game = "limbo";
-			var str_user = "poky1084";
-			var str_updatedAt = "2023"
-			var current_result = json.diceRoll.state.result.toFixed(2);
-			var multiplierTarget = json.diceRoll.state.target.toFixed(2);
+	
 			
 			lastBet.name = json.diceRoll.user.name
 			lastBet.amount = json.diceRoll.amount;
@@ -3176,7 +2992,7 @@ function data(json){
 			}
 			
 			
-			if(json.diceRoll.payoutMultiplier > 0){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "green"
@@ -3201,32 +3017,12 @@ function data(json){
 			profit_total += parseFloat(json.diceRoll.payout) - parseFloat(json.diceRoll.amount);
 			wagered += parseFloat(json.diceRoll.amount);
 			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+		
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.diceRoll.amount.toFixed(8)
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			if(bethigh){
-				tdcheck.checked = true;
-			} else {
-				tdcheck.checked = false;
-			}
-			tdcheck.id = "checked";
+			
 			
 			tdhigh.appendChild(tdcheck);
 			tdTargetChance.innerHTML = lastBet.chance.toFixed(4)
@@ -3249,17 +3045,7 @@ function data(json){
 			tdBetID.innerHTML = json.diceRoll.id;
 			tdPayout.innerHTML = json.diceRoll.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);			
+						
 					
 			
 
@@ -3267,73 +3053,7 @@ function data(json){
 			
 			
 			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
 			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-		
-			
-			updateChart();
-			
-			
-			//document.getElementById("multi").innerHTML = toFixedNo(json.data.limboBet.state.result, 2);
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)
 			
 			
 			
@@ -3341,19 +3061,8 @@ function data(json){
 		if(json.hasOwnProperty("limboBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
-			var nicname = "";
-			var crpamount = json.limboBet.amount;
-			var payout = json.limboBet.payout;
-			
-			var str_amount = crpamount;
-			var str_payout = payout.toFixed(8);
-			var str_currency = currency;
-			var str_game = "limbo";
-			var str_user = "poky1084";
-			var str_updatedAt = "2023"
-			var current_result = json.limboBet.state.result.toFixed(2);
-			var multiplierTarget = json.limboBet.state.multiplierTarget.toFixed(2);
+		
+	
 			
 			lastBet.name = json.limboBet.user.name
 			lastBet.amount = json.limboBet.amount;
@@ -3363,7 +3072,7 @@ function data(json){
 			lastBet.payout = json.limboBet.payout;
 			lastBet.target = json.limboBet.state.multiplierTarget;
 			
-			if(json.limboBet.payoutMultiplier > 0){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "green"
@@ -3388,28 +3097,11 @@ function data(json){
 			profit_total += parseFloat(json.limboBet.payout) - parseFloat(json.limboBet.amount);
 			wagered += parseFloat(json.limboBet.amount);
 			
-			var row = document.createElement("tr");
 			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.limboBet.amount.toFixed(8)
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
 			
 			tdhigh.appendChild(tdcheck);
 			tdTargetChance.innerHTML = (99 / json.limboBet.state.multiplierTarget).toFixed(4)
@@ -3422,99 +3114,21 @@ function data(json){
 			tdBetID.innerHTML = json.limboBet.id;
 			tdPayout.innerHTML = json.limboBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+			
 					
 			
 
 				
 			
 			
-			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-			
-
-			
-			updateChart();
-			
-			
-			//document.getElementById("multi").innerHTML = toFixedNo(json.limboBet.state.result, 2);
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)
+	
 
 			
 		}
 		if(json.hasOwnProperty("pumpBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.pumpBet.user.name
 			lastBet.amount = json.pumpBet.amount;
@@ -3525,7 +3139,7 @@ function data(json){
 			
 			
 			
-			if(json.pumpBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -3550,28 +3164,12 @@ function data(json){
 			profit_total += parseFloat(json.pumpBet.payout) - parseFloat(json.pumpBet.amount);
 			wagered += parseFloat(json.pumpBet.amount);
 			
-			var row = document.createElement("tr");
 			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.pumpBet.amount.toFixed(8)
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			tdhigh.appendChild(tdcheck);
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
@@ -3584,17 +3182,7 @@ function data(json){
 			tdBetID.innerHTML = json.pumpBet.id;
 			tdPayout.innerHTML = json.pumpBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+			
 					
 			
 
@@ -3602,74 +3190,6 @@ function data(json){
 			
 			
 			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-			//chance = 99 / json.pumpBet.state.multiplierTarget;
-
-			
-			updateChart();
-			
-			
-			//document.getElementById("multi").innerHTML = toFixedNo(json.pumpBet.state.result, 2);
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)
 
 			
 
@@ -3679,7 +3199,7 @@ function data(json){
 		if(json.hasOwnProperty("baccaratBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.baccaratBet.user.name
 			lastBet.amount = json.baccaratBet.amount;
@@ -3696,7 +3216,7 @@ function data(json){
 			
 			
 
-			if(json.baccaratBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -3721,29 +3241,13 @@ function data(json){
 			profit_total += parseFloat(json.baccaratBet.payout) - parseFloat(json.baccaratBet.amount);
 			wagered += parseFloat(json.baccaratBet.amount);
 			
-			var row = document.createElement("tr");
 			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.baccaratBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			let bettext = ""
 			let bettie = json.baccaratBet.state.tie
@@ -3770,89 +3274,13 @@ function data(json){
 			tdBetID.innerHTML = json.baccaratBet.id;
 			tdPayout.innerHTML = json.baccaratBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+			
 					
 			
 
 				
 			
-			
-			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)
+	
 
 			
 
@@ -3862,7 +3290,7 @@ function data(json){
 		if(json.hasOwnProperty("dragonTowerBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.dragonTowerBet.user.name
 			lastBet.amount = json.dragonTowerBet.amount;
@@ -3872,7 +3300,7 @@ function data(json){
 			
 			
 
-			if(json.dragonTowerBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -3896,30 +3324,13 @@ function data(json){
 			current_profit = parseFloat(json.dragonTowerBet.payout) - parseFloat(json.dragonTowerBet.amount);
 			profit_total += parseFloat(json.dragonTowerBet.payout) - parseFloat(json.dragonTowerBet.amount);
 			wagered += parseFloat(json.dragonTowerBet.amount);
-			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+		
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.dragonTowerBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			lastBet.target = eggs.length
 			
@@ -3933,89 +3344,13 @@ function data(json){
 			tdBetID.innerHTML = json.dragonTowerBet.id;
 			tdPayout.innerHTML = json.dragonTowerBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+			
 					
 			
 
 				
 			
 			
-			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)
 
 			
 
@@ -4025,7 +3360,7 @@ function data(json){
 		if(json.hasOwnProperty("rouletteBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.rouletteBet.user.name
 			lastBet.amount = json.rouletteBet.amount;
@@ -4035,7 +3370,7 @@ function data(json){
 			
 			
 
-			if(json.rouletteBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -4060,29 +3395,13 @@ function data(json){
 			profit_total += parseFloat(json.rouletteBet.payout) - parseFloat(json.rouletteBet.amount);
 			wagered += parseFloat(json.rouletteBet.amount);
 			
-			var row = document.createElement("tr");
 			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.rouletteBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			lastBet.target = json.rouletteBet.state.numbers.length
 			
@@ -4096,95 +3415,20 @@ function data(json){
 			tdBetID.innerHTML = json.rouletteBet.id;
 			tdPayout.innerHTML = json.rouletteBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+			
 					
 			
 
 				
 			
 			
-			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
+	
 		}
 
 		if(json.hasOwnProperty("wheelSpin"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.wheelSpin.user.name
 			lastBet.amount = json.wheelSpin.amount;
@@ -4194,7 +3438,7 @@ function data(json){
 			
 			
 
-			if(json.wheelSpin.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -4219,29 +3463,13 @@ function data(json){
 			profit_total += parseFloat(json.wheelSpin.payout) - parseFloat(json.wheelSpin.amount);
 			wagered += parseFloat(json.wheelSpin.amount);
 			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+		
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.wheelSpin.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			lastBet.target = json.wheelSpin.state.segments
 			
@@ -4255,89 +3483,13 @@ function data(json){
 			tdBetID.innerHTML = json.wheelSpin.id;
 			tdPayout.innerHTML = json.wheelSpin.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+				
 					
 			
 
 				
 			
-			
-			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
+	
 		}
 
 		
@@ -4345,7 +3497,7 @@ function data(json){
 		if(json.hasOwnProperty("plinkoBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.plinkoBet.user.name
 			lastBet.amount = json.plinkoBet.amount;
@@ -4355,7 +3507,7 @@ function data(json){
 			
 			
 
-			if(json.plinkoBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -4380,29 +3532,13 @@ function data(json){
 			profit_total += parseFloat(json.plinkoBet.payout) - parseFloat(json.plinkoBet.amount);
 			wagered += parseFloat(json.plinkoBet.amount);
 			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+		
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.plinkoBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			lastBet.target = json.plinkoBet.state.rows
 			
@@ -4416,17 +3552,7 @@ function data(json){
 			tdBetID.innerHTML = json.plinkoBet.id;
 			tdPayout.innerHTML = json.plinkoBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+				
 					
 			
 
@@ -4434,77 +3560,13 @@ function data(json){
 			
 			
 			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
 
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
 		}
 
 		if(json.hasOwnProperty("kenoBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.kenoBet.user.name
 			lastBet.amount = json.kenoBet.amount;
@@ -4521,7 +3583,7 @@ function data(json){
 			});
 			
 
-			if(json.kenoBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -4546,29 +3608,13 @@ function data(json){
 			profit_total += parseFloat(json.kenoBet.payout) - parseFloat(json.kenoBet.amount);
 			wagered += parseFloat(json.kenoBet.amount);
 			
-			var row = document.createElement("tr");
 			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.kenoBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			let hitnumbers = hitkeno
 			if(hitnumbers == "undefined") {
@@ -4589,95 +3635,17 @@ function data(json){
 			tdBetID.innerHTML = json.kenoBet.id;
 			tdPayout.innerHTML = json.kenoBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+			
 					
 			
 
-				
-			
-			
-			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
 
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
 		}
 
 		if(json.hasOwnProperty("minesBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.minesBet.user.name
 			lastBet.amount = json.minesBet.amount;
@@ -4699,7 +3667,7 @@ function data(json){
 			});
 			
 
-			if(json.minesBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -4723,30 +3691,13 @@ function data(json){
 			current_profit = parseFloat(json.minesBet.payout) - parseFloat(json.minesBet.amount);
 			profit_total += parseFloat(json.minesBet.payout) - parseFloat(json.minesBet.amount);
 			wagered += parseFloat(json.minesBet.amount);
-			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+		
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.minesBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+		
 			
 			
 			lastBet.target = str_field.length
@@ -4761,17 +3712,7 @@ function data(json){
 			tdBetID.innerHTML = json.minesBet.id;
 			tdPayout.innerHTML = json.minesBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+				
 					
 			
 
@@ -4779,77 +3720,13 @@ function data(json){
 			
 			
 			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
+	
 		}
 
 		if(json.hasOwnProperty("casesBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.casesBet.user.name
 			lastBet.amount = json.casesBet.amount;
@@ -4860,7 +3737,7 @@ function data(json){
 			
 			
 
-			if(json.casesBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -4885,29 +3762,13 @@ function data(json){
 			profit_total += parseFloat(json.casesBet.payout) - parseFloat(json.casesBet.amount);
 			wagered += parseFloat(json.casesBet.amount);
 			
-			var row = document.createElement("tr");
 			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.casesBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			
 			lastBet.target = json.casesBet.state.difficulty
@@ -4922,95 +3783,18 @@ function data(json){
 			tdBetID.innerHTML = json.casesBet.id;
 			tdPayout.innerHTML = json.casesBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+			
 					
 			
 
 				
 			
-			
-			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
 		}
 
 		if(json.hasOwnProperty("snakesBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.snakesBet.user.name
 			lastBet.amount = json.snakesBet.amount;
@@ -5021,7 +3805,7 @@ function data(json){
 			
 			
 
-			if(json.snakesBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -5046,29 +3830,13 @@ function data(json){
 			profit_total += parseFloat(json.snakesBet.payout) - parseFloat(json.snakesBet.amount);
 			wagered += parseFloat(json.snakesBet.amount);
 			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+		
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.snakesBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			
 			lastBet.target = rolls
@@ -5082,7 +3850,7 @@ function data(json){
 			
 			let snakecount = 0
 			Object.keys(json.snakesBet.state.rounds).forEach(function (key) {
-			   if(json.snakesBet.state.rounds[key].payoutMultiplier > 0){
+			   if(json.snakesBet.state.rounds[key].payoutMultiplier >= 1){
 				   snakecount++;
 			   }
 			});
@@ -5092,17 +3860,7 @@ function data(json){
 			tdBetID.innerHTML = json.snakesBet.id;
 			tdPayout.innerHTML = json.snakesBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+			
 					
 			
 
@@ -5110,77 +3868,13 @@ function data(json){
 			
 			
 			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
 			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
 		}
 
 		if(json.hasOwnProperty("rockPaperScissorsBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.rockPaperScissorsBet.user.name
 			lastBet.amount = json.rockPaperScissorsBet.amount;
@@ -5191,7 +3885,7 @@ function data(json){
 			
 			
 
-			if(json.rockPaperScissorsBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -5216,29 +3910,13 @@ function data(json){
 			profit_total += parseFloat(json.rockPaperScissorsBet.payout) - parseFloat(json.rockPaperScissorsBet.amount);
 			wagered += parseFloat(json.rockPaperScissorsBet.amount);
 			
-			var row = document.createElement("tr");
 			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.rockPaperScissorsBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			
 			lastBet.target = json.rockPaperScissorsBet.state.difficulty
@@ -5253,95 +3931,16 @@ function data(json){
 			tdBetID.innerHTML = json.rockPaperScissorsBet.id;
 			tdPayout.innerHTML = json.rockPaperScissorsBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+				
 					
 			
 
-				
-			
-			
-			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
 		}
 
 		if(json.hasOwnProperty("slotsTomeOfLifeBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.slotsTomeOfLifeBet.user.name
 			lastBet.amount = json.slotsTomeOfLifeBet.amount;
@@ -5352,7 +3951,7 @@ function data(json){
 			
 			
 
-			if(json.slotsTomeOfLifeBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -5377,29 +3976,12 @@ function data(json){
 			profit_total += parseFloat(json.slotsTomeOfLifeBet.payout) - parseFloat(json.slotsTomeOfLifeBet.amount);
 			wagered += parseFloat(json.slotsTomeOfLifeBet.amount);
 			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
-			
+	
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.slotsTomeOfLifeBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			
 			lastBet.target = lines
@@ -5414,17 +3996,7 @@ function data(json){
 			tdBetID.innerHTML = json.slotsTomeOfLifeBet.id;
 			tdPayout.innerHTML = json.slotsTomeOfLifeBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+		
 					
 			
 
@@ -5432,77 +4004,13 @@ function data(json){
 			
 			
 			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
+	
 		}
 
 		if(json.hasOwnProperty("slotsBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.slotsBet.user.name
 			lastBet.amount = json.slotsBet.amount;
@@ -5513,7 +4021,7 @@ function data(json){
 			
 			
 
-			if(json.slotsBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -5538,29 +4046,13 @@ function data(json){
 			profit_total += parseFloat(json.slotsBet.payout) - parseFloat(json.slotsBet.amount);
 			wagered += parseFloat(json.slotsBet.amount);
 			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+	
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.slotsBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			
 			lastBet.target = lines
@@ -5575,95 +4067,19 @@ function data(json){
 			tdBetID.innerHTML = json.slotsBet.id;
 			tdPayout.innerHTML = json.slotsBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+				
 					
 			
 
 				
 			
-			
-			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
 		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
 		}
 
 		if(json.hasOwnProperty("slotsSamuraiBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			
 	
@@ -5676,7 +4092,7 @@ function data(json){
 			
 			
 
-			if(json.slotsSamuraiBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -5701,29 +4117,13 @@ function data(json){
 			profit_total += parseFloat(json.slotsSamuraiBet.payout) - parseFloat(json.slotsSamuraiBet.amount);
 			wagered += parseFloat(json.slotsSamuraiBet.amount);
 			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+	
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.slotsSamuraiBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			
 			lastBet.target = 0
@@ -5738,89 +4138,12 @@ function data(json){
 			tdBetID.innerHTML = json.slotsSamuraiBet.id;
 			tdPayout.innerHTML = json.slotsSamuraiBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+			
 					
 			
 
 				
-			
-			
-			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
+	
 			
 			if(json.slotsSamuraiBet.state.nextSpinType === "special" || json.slotsSamuraiBet.state.nextSpinType === "bonus"){
 				samuraiNext()
@@ -5833,7 +4156,7 @@ function data(json){
 		if(json.hasOwnProperty("slotsSamuraiNext"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.slotsSamuraiNext.user.name
 			lastBet.amount = json.slotsSamuraiNext.amount;
@@ -5844,7 +4167,7 @@ function data(json){
 			
 			
 
-			if(json.slotsSamuraiNext.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -5869,29 +4192,13 @@ function data(json){
 			profit_total += parseFloat(json.slotsSamuraiNext.payout) - parseFloat(json.slotsSamuraiNext.amount);
 			wagered += parseFloat(json.slotsSamuraiNext.amount);
 			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.slotsSamuraiNext.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			
 			lastBet.target = 0
@@ -5906,89 +4213,14 @@ function data(json){
 			tdBetID.innerHTML = json.slotsSamuraiNext.id;
 			tdPayout.innerHTML = json.slotsSamuraiNext.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+			
 					
 			
 
 				
 			
 			
-			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
+	
 			samuraiskip = false
 			
 			if(json.slotsSamuraiNext.state.nextSpinType === "special" || json.slotsSamuraiNext.state.nextSpinType === "bonus"){
@@ -6002,7 +4234,7 @@ function data(json){
 		if(json.hasOwnProperty("diamondsBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.diamondsBet.user.name
 			lastBet.amount = json.diamondsBet.amount;
@@ -6013,7 +4245,7 @@ function data(json){
 			
 			
 
-			if(json.diamondsBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -6038,29 +4270,13 @@ function data(json){
 			profit_total += parseFloat(json.diamondsBet.payout) - parseFloat(json.diamondsBet.amount);
 			wagered += parseFloat(json.diamondsBet.amount);
 			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+		
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.diamondsBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			
 			lastBet.target = 0
@@ -6075,17 +4291,7 @@ function data(json){
 			tdBetID.innerHTML = json.diamondsBet.id;
 			tdPayout.innerHTML = json.diamondsBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+				
 					
 			
 
@@ -6093,76 +4299,12 @@ function data(json){
 			
 			
 			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
 		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
 		}
 		if(json.hasOwnProperty("dartsBet"))
 		{
 			
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.dartsBet.user.name
 			lastBet.amount = json.dartsBet.amount;
@@ -6173,7 +4315,7 @@ function data(json){
 			
 			
 
-			if(json.dartsBet.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -6197,30 +4339,13 @@ function data(json){
 			current_profit = parseFloat(json.dartsBet.payout) - parseFloat(json.dartsBet.amount);
 			profit_total += parseFloat(json.dartsBet.payout) - parseFloat(json.dartsBet.amount);
 			wagered += parseFloat(json.dartsBet.amount);
-			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.dartsBet.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			
 			lastBet.target = 0
@@ -6235,17 +4360,7 @@ function data(json){
 			tdBetID.innerHTML = json.dartsBet.id;
 			tdPayout.innerHTML = json.dartsBet.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+			
 					
 			
 
@@ -6253,71 +4368,7 @@ function data(json){
 			
 			
 			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
-		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
+				
 		}
 		if(json.hasOwnProperty("hiloBet"))
 		{
@@ -6337,7 +4388,7 @@ function data(json){
 			} else {
 			cashout_done = true	
 				
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.hiloNext.user.name
 			lastBet.amount = json.hiloNext.amount;
@@ -6348,7 +4399,7 @@ function data(json){
 			
 			
 
-			if(json.hiloNext.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -6373,29 +4424,13 @@ function data(json){
 			profit_total += parseFloat(json.hiloNext.payout) - parseFloat(json.hiloNext.amount);
 			wagered += parseFloat(json.hiloNext.amount);
 			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.hiloNext.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			
 			lastBet.target = 0
@@ -6416,17 +4451,7 @@ function data(json){
 			tdBetID.innerHTML = json.hiloNext.id;
 			tdPayout.innerHTML = json.hiloNext.payout.toFixed(8);
 			
-			row.appendChild(tdbets);
-			row.appendChild(tdamount);
-			row.appendChild(tdhigh);
-			row.appendChild(tdTargetChance);
-			row.appendChild(tdRollChance);
-			row.appendChild(tdProfit);
-			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
-			row.appendChild(tdBetID);	
+	
 					
 			
 
@@ -6434,71 +4459,7 @@ function data(json){
 			
 			
 			
-			if(win){
-				row.style.background = "#91F190";
-			} else {
-				row.style.background = "#FFC0CB";
-			}
-			
-			table.prepend(row);
-			
-			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-			{
-				table.deleteRow(table.rows.length - 1);
-			}
 		
-			
-			if(winstreak > losestreak){
-				currentstreak = winstreak;
-			} else {
-				currentstreak = -losestreak;
-			}
-		
-			if(highest_bet[highest_bet.length-1] < lastBet.amount){
-				highest_bet.pop();
-				highest_bet.push(lastBet.amount);
-			}
-			if(highest_profit[highest_profit.length-1] < profit_total){
-				highest_profit.pop();
-				highest_profit.push(profit_total);
-			}
-			if(lowest_profit[lowest_profit.length-1] > profit_total){
-				lowest_profit.pop();
-				lowest_profit.push(profit_total);
-			}
-			if(highest_streak[highest_streak.length-1] < currentstreak){
-				highest_streak.pop();
-				highest_streak.push(currentstreak);
-			}
-			if(lowest_streak[lowest_streak.length-1] > currentstreak){
-				lowest_streak.pop();
-				lowest_streak.push(currentstreak);
-			}
-
-			balance = current_balance;
-			profit = profit_total;
-			previousbet = lastBet.amount;
-			currentprofit = current_profit;
-			betcount++;
-			bets = betcount;
-
-			
-			updateChart();
-			
-			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
-			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
-			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
-			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
-			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
-			document.getElementById("botBets").innerHTML = bets;
-			document.getElementById("botWins").innerHTML = wins;
-			document.getElementById("botLosses").innerHTML = losses;
-			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
-			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
-			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
-			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
-			
-			lastBet.percent = (profit_total / started_bal * 100)	
 			
 			
 			}
@@ -6510,7 +4471,7 @@ function data(json){
 		if(json.hasOwnProperty("hiloCashout"))
 		{
 			cashout_done = true
-			var table = document.getElementById("botHistory");
+			
 	
 			lastBet.name = json.hiloCashout.user.name
 			lastBet.amount = json.hiloCashout.amount;
@@ -6521,7 +4482,7 @@ function data(json){
 			
 			
 
-			if(json.hiloCashout.payoutMultiplier >= 1){
+			if(lastBet.payoutMultiplier >= 1){
 				win = true;
 				lastBet.win = true;
 				color = "#05f711"
@@ -6546,29 +4507,13 @@ function data(json){
 			profit_total += parseFloat(json.hiloCashout.payout) - parseFloat(json.hiloCashout.amount);
 			wagered += parseFloat(json.hiloCashout.amount);
 			
-			var row = document.createElement("tr");
-			
-			var tdbets = document.createElement("td");
-			var tdamount = document.createElement("td");
-			var tdhigh = document.createElement("td");
-			var tdTargetChance = document.createElement("td");
-			var tdRollChance= document.createElement("td");
-			var tdProfit = document.createElement("td");
-			var tdPayout = document.createElement("td");
-			var tdTargetNumber = document.createElement("td");
-			var tdRollNumber = document.createElement("td");
-			var tdNonce = document.createElement("td");
-			var tdBetID = document.createElement("td");
+	
 			
 			tdbets.innerHTML = wins + losses;
 			tdamount.innerHTML = json.hiloCashout.amount.toFixed(8)
 			
 			
-			var tdcheck = document.createElement("input");
-			tdcheck.type = "checkbox";
-			tdcheck.name = "checked";
-			tdcheck.checked = "checked";
-			tdcheck.id = "checked";
+			
 			
 			
 			lastBet.target = 0
@@ -6589,6 +4534,15 @@ function data(json){
 			tdBetID.innerHTML = json.hiloCashout.id;
 			tdPayout.innerHTML = json.hiloCashout.payout.toFixed(8);
 			
+		
+			
+
+		
+		}
+		if(cashout_done || game != "hilo"){
+			
+			
+			
 			row.appendChild(tdbets);
 			row.appendChild(tdamount);
 			row.appendChild(tdhigh);
@@ -6600,12 +4554,6 @@ function data(json){
 			row.appendChild(tdRollNumber);
 			row.appendChild(tdNonce);
 			row.appendChild(tdBetID);	
-					
-			
-
-				
-			
-			
 			
 			if(win){
 				row.style.background = "#91F190";
@@ -6654,10 +4602,12 @@ function data(json){
 			currentprofit = current_profit;
 			betcount++;
 			bets = betcount;
-
+		
 			
 			updateChart();
 			
+			
+			//document.getElementById("multi").innerHTML = toFixedNo(json.data.limboBet.state.result, 2);
 			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
 			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
 			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
@@ -6671,10 +4621,7 @@ function data(json){
 			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
 			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
-			lastBet.percent = (profit_total / started_bal * 100)	
-			
-			
-		
+			lastBet.percent = (profit_total / started_bal * 100)
 		}
 		}
 		if(game != "hilo"){
