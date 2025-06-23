@@ -8307,601 +8307,157 @@ function start(){
 		mirror = document.getElementById("mirrors").value;
 		run_clicked = true;document.getElementById("result").innerHTML = ""
 		var elem = document.getElementById("botMenuMode");
-		var value = document.getElementById("botMenuMode").value;
-		if(value == "lua"){
-			game=undefined
-			fengari.load('game=undefined')()
-			fastmode = document.getElementById('speedChange').checked;
+		if (document.getElementById("botMenuMode").value === "lua") {
+			game = undefined;
+			fengari.load('game=undefined')();
+
+			const getEl = id => document.getElementById(id);
+			const getLua = expr => fengari.load(`return ${expr}`)();
+			const setFastMode = () => getEl('speedChange').checked;
+
+			fastmode = setFastMode();
 			fengari.load(`fastmode = ${fastmode}`)();
-			loadLua();	
-			var code = htmlEditor.getValue();
-				code = code.replace(/!=/g, "~=");
-				code = code.replace(/!/g, "not ");
-				code = code.replace(/([a-zA-Z]*[0-9]*\s*)\+\=(\s*[a-zA-Z]*[0-9]*)/g, '$1=$1+$2 ');
-				code = code.replace(/([a-zA-Z]*[0-9]*\s*)\-\=(\s*[a-zA-Z]*[0-9]*)/g, '$1=$1-$2 ');
-				code = code.replace(/([a-zA-Z]*[0-9]*\s*)\*\=(\s*[a-zA-Z]*[0-9]*)/g, '$1=$1*$2 ');
-				code = code.replace(/([a-zA-Z]*[0-9]*\s*)\/\=(\s*[a-zA-Z]*[0-9]*)/g, '$1=$1/$2 ');
-				fengari.load(code)();
-				game = fengari.load('return game')();
-				fastmode = fengari.load(`return fastmode`)();
-				nextbet = fengari.load('return nextbet')();
-				chance = fengari.load('return chance')();
-				bethigh = fengari.load('return bethigh')();
-				target = fengari.load('return target')();
-				pumps = fengari.load('return pumps')();
-				difficulty = fengari.load('return difficulty')();
-				tie = fengari.load('return tie')();
-				player = fengari.load('return player')();
-				banker = fengari.load('return banker')();
-				eggs = fengari.load('return "[" .. table.concat(eggs or {1}, ",") .. "]"')();
-				chips = fengari.load('return chips')();
-				fields = fengari.load('return "[" .. table.concat(fields or {1}, ",") .. "]"')();
-				numbers = fengari.load('return "[" .. table.concat(numbers or {1}, ",") .. "]"')();
-				mines = fengari.load('return mines')();
-				rows = fengari.load('return rows')();
-				lines = fengari.load('return lines')();
-				segments = fengari.load('return segments')();
-				guesses = fengari.load('return table.concat(guesses or {1}, ",")')();
-				rolls = fengari.load('return rolls')();
-				startcard = fengari.load('return startcard')();
-				
-				
-		
-				if (chips != undefined){
-				chips = JSON.parse(chips);
-				}
-				
-				eggs = JSON.parse(eggs)
-				fields = JSON.parse(fields)
-				numbers = JSON.parse(numbers)
-				guesses = guesses.split(',')
-				
-				tokenapi = fengari.load(`return tokenapi`)();
-				if (tokenapi === undefined || tokenapi === null) {
-					tokenapi = document.getElementById("tokenkey").value;
-				}
-				
-				
-				if (fastmode === undefined || fastmode === null) {
-					fastmode = document.getElementById('speedChange').checked
-				}
-				
-				
-				
-				//localStorage.setItem("jscode", htmlEditor2.getValue());
-				localStorage.setItem("luacode", htmlEditor.getValue());
-			 
-			 //currency = document.getElementById('botMenuCoin').value;
-			 
-			 btnStart.disabled = true; 
-			 //tokenapi = document.getElementById("tokenkey").value; 
-			 userBalances(); 
-			 started_bal = balance; 
-			 amount = nextbet;
-				var selectedGame = document.getElementById("gameselect").value;
-				if(game === undefined){
-					game = selectedGame
-				}
-				if(game == "hilo"){
-				hiloBet(nextbet, startcard)
-				} 
-				if(game == "bluesamurai"){
-				 samuraiBet(nextbet)
-				} 
-				if(game == "darts"){
-					if(fastmode){
-						setTimeout(function () {
-							dartsBet(nextbet, difficulty)
-						}, 5);
-						setTimeout(function () {
-							dartsBet(nextbet, difficulty)
-						}, 50);
-					}  else {
-						dartsBet(nextbet, difficulty)
-					}
-				}
-				if(game == "tomeoflife"){
-					if(fastmode){
-						setTimeout(function () {
-							tomeBet(nextbet, lines)
-						}, 5);
-						setTimeout(function () {
-							tomeBet(nextbet, lines)
-						}, 50);
-					}  else {
-						tomeBet(nextbet, lines)
-					}
-				
-				} 
-				if(game == "scarabspin"){
-					if(fastmode){
-						setTimeout(function () {
-							scarabBet(nextbet, lines)
-						}, 5);
-						setTimeout(function () {
-							scarabBet(nextbet, lines)
-						}, 50);
-					}  else {
-						scarabBet(nextbet, lines)
-					}
-				
-				} 
-				if(game == "diamonds"){
-					if(fastmode){
-						setTimeout(function () {
-							diamondBet(nextbet)
-						}, 5);
-						setTimeout(function () {
-							diamondBet(nextbet)
-						}, 50);
-					}  else {
-						diamondBet(nextbet)
-					}
-				
-				} 
-				if(game == "cases"){
-					if(fastmode){
-						setTimeout(function () {
-							caseBet(nextbet, difficulty)
-						}, 5);
-						setTimeout(function () {
-							caseBet(nextbet, difficulty)
-						}, 50);
-					}  else {
-						caseBet(nextbet, difficulty)
-					}
-				
-				} 
-				if(game == "rps"){
-					if(fastmode){
-						setTimeout(function () {
-							rockpaperBet(nextbet, guesses)
-						}, 5);
-						setTimeout(function () {
-							rockpaperBet(nextbet, guesses)
-						}, 50);
-					}  else {
-						rockpaperBet(nextbet, guesses)
-					}
-				
-				} 
-				if(game == "flip"){
-					if(fastmode){
-						setTimeout(function () {
-							flipBet(nextbet, guesses)
-						}, 5);
-						setTimeout(function () {
-							flipBet(nextbet, guesses)
-						}, 50);
-					}  else {
-						flipBet(nextbet, guesses)
-					}
-				
-				} 
-				if(game == "snakes"){
-					if(fastmode){
-						setTimeout(function () {
-							snakesBet(nextbet, difficulty, rolls)
-						}, 5);
-						setTimeout(function () {
-							snakesBet(nextbet, difficulty, rolls)
-						}, 50);
-					}  else {
-						snakesBet(nextbet, difficulty, rolls)
-					}
-				
-				} 
-				if(game == "pump"){
-					if(fastmode){
-						setTimeout(function () {
-							pumpBet(nextbet, pumps, difficulty)
-						}, 5);
-						setTimeout(function () {
-							pumpBet(nextbet, pumps, difficulty)
-						}, 50);
-					}  else {
-						pumpBet(nextbet, pumps, difficulty)
-					}
-				
-				} 
-				if(game == "baccarat"){
-					if(fastmode){
-						setTimeout(function () {
-							baccaratbet(tie, player, banker)
-						}, 5);
-						setTimeout(function () {
-							baccaratbet(tie, player, banker)
-						}, 50);
-					}  else {
-						baccaratbet(tie, player, banker)
-					}
-				
-				} 
-				if(game == "dragontower"){
-					if(fastmode){
-						setTimeout(function () {
-							dragontowerBet(nextbet, difficulty, eggs)
-						}, 5);
-						setTimeout(function () {
-							dragontowerBet(nextbet, difficulty, eggs)
-						}, 50);
-					}  else {
-						dragontowerBet(nextbet, difficulty, eggs)
-					}
-				
-				} 			
-				if(game == "roulette"){
-					if(fastmode){
-						setTimeout(function () {
-							roulettebet(chips)
-						}, 5);
-						setTimeout(function () {
-							roulettebet(chips)
-						}, 50);
-					}  else {
-						roulettebet(chips)
-					}
-				
-				} 
-				if(game == "wheel"){
-					if(fastmode){
-						setTimeout(function () {
-							wheelbet(nextbet, segments, risk)
-						}, 5);
-						setTimeout(function () {
-							wheelbet(nextbet, segments, risk)
-						}, 50);
-					}  else {
-						wheelbet(nextbet, segments, risk)
-					}
-				
-				} 		
-				if(game == "plinko"){
-					if(fastmode){
-						setTimeout(function () {
-							plinkobet(nextbet, rows, risk)
-						}, 5);
-						setTimeout(function () {
-							plinkobet(nextbet, rows, risk)
-						}, 50);
-					}  else {
-						plinkobet(nextbet, rows, risk)
-					}
-				
-				} 
-				if(game == "mines"){
-					if(fastmode){
-						setTimeout(function () {
-							minebet(nextbet, fields, mines)
-						}, 5);
-						setTimeout(function () {
-							minebet(nextbet, fields, mines)
-						}, 50);
-					}  else {
-						minebet(nextbet, fields, mines)
-					}
-				
-				}
-				if(game == "keno"){
-					if(fastmode){
-						setTimeout(function () {
-							kenobet(nextbet, numbers, risk)
-						}, 5);
-						setTimeout(function () {
-							kenobet(nextbet, numbers, risk)
-						}, 50);
-					}  else {
-						kenobet(nextbet, numbers, risk)
-					}
-				
-				}
-				if(game == "dice"){
-					if(fastmode){
-						setTimeout(function () {
-							DiceBet(nextbet, chance, bethigh)
-						}, 5);
-						setTimeout(function () {
-							DiceBet(nextbet, chance, bethigh)
-						}, 50);
-					}  else {
-						DiceBet(nextbet, chance, bethigh)
-					}
-				
-				}
-				if(game == "limbo"){
-					if(fastmode){
-						setTimeout(function () {
-							LimboBet(nextbet, target);
-						}, 5);
-						setTimeout(function () {
-							LimboBet(nextbet, target);
-						}, 50);
-					}  else {
-						LimboBet(nextbet, target);
-					}
-				
-				}
-			 
-			 drawChart();
-		} else if(value == "js"){
-			//eval(htmlEditor2.getValue());
-			game=undefined
-			setTimeout(htmlEditor2.getValue() + `
-			localStorage.setItem("jscode", htmlEditor2.getValue());
-			//localStorage.setItem("luacode", htmlEditor.getValue());
-			 sleeptime = 0
-			 sleep(0)
-			 //currency = document.getElementById('botMenuCoin').value;
-			 //patternlist = []
-			 //Array.prototype.push.apply(patternlist,pattern)
-			 btnStart.disabled = true; 
-			 //tokenapi = document.getElementById("tokenkey").value; 
-			 userBalances(); 
-			 started_bal = balance; 
-			 //amount = nextbet;
-				var selectedGame = document.getElementById("gameselect").value;
-				if(game === undefined){
-					game = selectedGame
-				}
-				if(game == "hilo"){
-				hiloBet(nextbet, startcard)
-				} 
-				if(game == "bluesamurai"){
-				 samuraiBet(nextbet)
-				}
-				if(game == "darts"){
-					if(fastmode){
-						setTimeout(function () {
-							dartsBet(nextbet, difficulty)
-						}, 5);
-						setTimeout(function () {
-							dartsBet(nextbet, difficulty)
-						}, 50);
-					}  else {
-						dartsBet(nextbet, difficulty)
-					}
-				}
-				if(game == "tomeoflife"){
-					if(fastmode){
-						setTimeout(function () {
-							tomeBet(nextbet, lines)
-						}, 5);
-						setTimeout(function () {
-							tomeBet(nextbet, lines)
-						}, 50);
-					}  else {
-						tomeBet(nextbet, lines)
-					}
-				
-				} 
-				if(game == "scarabspin"){
-					if(fastmode){
-						setTimeout(function () {
-							scarabBet(nextbet, lines)
-						}, 5);
-						setTimeout(function () {
-							scarabBet(nextbet, lines)
-						}, 50);
-					}  else {
-						scarabBet(nextbet, lines)
-					}
-				
-				} 
-				if(game == "diamonds"){
-					if(fastmode){
-						setTimeout(function () {
-							diamondBet(nextbet)
-						}, 5);
-						setTimeout(function () {
-							diamondBet(nextbet)
-						}, 50);
-					}  else {
-						diamondBet(nextbet)
-					}
-				
-				} 
-				if(game == "cases"){
-					if(fastmode){
-						setTimeout(function () {
-							caseBet(nextbet, difficulty)
-						}, 5);
-						setTimeout(function () {
-							caseBet(nextbet, difficulty)
-						}, 50);
-					}  else {
-						caseBet(nextbet, difficulty)
-					}
-				
-				} 
-				if(game == "videopoker"){
-					if(fastmode){
-						setTimeout(function () {
-							videopokerBet(nextbet)
-						}, 5);
-						setTimeout(function () {
-							videopokerBet(nextbet)
-						}, 50);
-					}  else {
-						videopokerBet(nextbet)
-					}
-				
-				} 
-				if(game == "rps"){
-					if(fastmode){
-						setTimeout(function () {
-							rockpaperBet(nextbet, guesses)
-						}, 5);
-						setTimeout(function () {
-							rockpaperBet(nextbet, guesses)
-						}, 50);
-					}  else {
-						rockpaperBet(nextbet, guesses)
-					}
-				
-				} 
-				if(game == "flip"){
-					if(fastmode){
-						setTimeout(function () {
-							flipBet(nextbet, guesses)
-						}, 5);
-						setTimeout(function () {
-							flipBet(nextbet, guesses)
-						}, 50);
-					}  else {
-						flipBet(nextbet, guesses)
-					}
-				
-				} 
-				if(game == "snakes"){
-					if(fastmode){
-						setTimeout(function () {
-							snakesBet(nextbet, difficulty, rolls)
-						}, 5);
-						setTimeout(function () {
-							snakesBet(nextbet, difficulty, rolls)
-						}, 50);
-					}  else {
-						snakesBet(nextbet, difficulty, rolls)
-					}
-				
-				} 
-				if(game == "pump"){
-					if(fastmode){
-						setTimeout(function () {
-							pumpBet(nextbet, pumps, difficulty)
-						}, 5);
-						setTimeout(function () {
-							pumpBet(nextbet, pumps, difficulty)
-						}, 50);
-					}  else {
-						pumpBet(nextbet, pumps, difficulty)
-					}
-				
-				} 
-				if(game == "baccarat"){
-					if(fastmode){
-						setTimeout(function () {
-							baccaratbet(tie, player, banker)
-						}, 5);
-						setTimeout(function () {
-							baccaratbet(tie, player, banker)
-						}, 50);
-					}  else {
-						baccaratbet(tie, player, banker)
-					}
-				
-				} 
-				if(game == "dragontower"){
-					if(fastmode){
-						setTimeout(function () {
-							dragontowerBet(nextbet, difficulty, eggs)
-						}, 5);
-						setTimeout(function () {
-							dragontowerBet(nextbet, difficulty, eggs)
-						}, 50);
-					}  else {
-						dragontowerBet(nextbet, difficulty, eggs)
-					}
-				
-				} 			
-				if(game == "roulette"){
-					if(fastmode){
-						setTimeout(function () {
-							roulettebet(chips)
-						}, 5);
-						setTimeout(function () {
-							roulettebet(chips)
-						}, 50);
-					}  else {
-						roulettebet(chips)
-					}
-				
-				} 
-				if(game == "wheel"){
-					if(fastmode){
-						setTimeout(function () {
-							wheelbet(nextbet, segments, risk)
-						}, 5);
-						setTimeout(function () {
-							wheelbet(nextbet, segments, risk)
-						}, 50);
-					}  else {
-						wheelbet(nextbet, segments, risk)
-					}
-				
-				} 		
-				if(game == "plinko"){
-					if(fastmode){
-						setTimeout(function () {
-							plinkobet(nextbet, rows, risk)
-						}, 5);
-						setTimeout(function () {
-							plinkobet(nextbet, rows, risk)
-						}, 50);
-					}  else {
-						plinkobet(nextbet, rows, risk)
-					}
-				
-				} 
-				if(game == "mines"){
-					if(fastmode){
-						setTimeout(function () {
-							minebet(nextbet, fields, mines)
-						}, 5);
-						setTimeout(function () {
-							minebet(nextbet, fields, mines)
-						}, 50);
-					}  else {
-						minebet(nextbet, fields, mines)
-					}
-				
-				}
-				if(game == "keno"){
-					if(fastmode){
-						setTimeout(function () {
-							kenobet(nextbet, numbers, risk)
-						}, 5);
-						setTimeout(function () {
-							kenobet(nextbet, numbers, risk)
-						}, 50);
-					}  else {
-						kenobet(nextbet, numbers, risk)
-					}
-				
-				}
-				if(game == "dice"){
-					if(fastmode){
-						setTimeout(function () {
-							DiceBet(nextbet, chance, bethigh)
-						}, 5);
-						setTimeout(function () {
-							DiceBet(nextbet, chance, bethigh)
-						}, 50);
-					}  else {
-						DiceBet(nextbet, chance, bethigh)
-					}
-				
-				}
-				if(game == "limbo"){
-					if(fastmode){
-						setTimeout(function () {
-							LimboBet(nextbet, target);
-						}, 5);
-						setTimeout(function () {
-							LimboBet(nextbet, target);
-						}, 50);
-					}  else {
-						LimboBet(nextbet, target);
-					}
-				
-				}
-			 
-			 drawChart();
-			`, 0);
-		}		
 
-	
+			loadLua();
 
+			let code = htmlEditor.getValue()
+				.replace(/!=/g, "~=")
+				.replace(/!/g, "not ")
+				.replace(/(\w+\s*)\+=\s*(\w+)/g, '$1=$1+$2 ')
+				.replace(/(\w+\s*)-\=\s*(\w+)/g, '$1=$1-$2 ')
+				.replace(/(\w+\s*)\*=\s*(\w+)/g, '$1=$1*$2 ')
+				.replace(/(\w+\s*)\/=\s*(\w+)/g, '$1=$1/$2 ');
+
+			fengari.load(code)();
+
+			// Direct Lua variable retrieval
+			game = getLua("game");
+			fastmode = getLua("fastmode");
+			nextbet = getLua("nextbet");
+			chance = getLua("chance");
+			bethigh = getLua("bethigh");
+			target = getLua("target");
+			pumps = getLua("pumps");
+			difficulty = getLua("difficulty");
+			tie = getLua("tie");
+			player = getLua("player");
+			banker = getLua("banker");
+			chips = getLua("chips");
+			mines = getLua("mines");
+			rows = getLua("rows");
+			lines = getLua("lines");
+			segments = getLua("segments");
+			rolls = getLua("rolls");
+			startcard = getLua("startcard");
+			tokenapi = getLua("tokenapi");
+
+			let eggs = JSON.parse(getLua('"[" .. table.concat(eggs or {1}, ",") .. "]"'));
+			let fields = JSON.parse(getLua('"[" .. table.concat(fields or {1}, ",") .. "]"'));
+			let numbers = JSON.parse(getLua('"[" .. table.concat(numbers or {1}, ",") .. "]"'));
+			let guesses = getLua('table.concat(guesses or {1}, ",")').split(',');
+
+			// Fallbacks
+			if (!tokenapi) tokenapi = getEl("tokenkey").value;
+			if (fastmode === undefined || fastmode === null) fastmode = setFastMode();
+			if (!chips && chips !== 0) chips = [];
+
+			localStorage.setItem("luacode", htmlEditor.getValue());
+
+			btnStart.disabled = true;
+			userBalances();
+			started_bal = balance;
+
+			if (!game) game = getEl("gameselect").value;
+
+			const betFunctions = {
+				hilo: () => hiloBet(nextbet, startcard),
+				bluesamurai: () => samuraiBet(nextbet),
+				darts: () => dartsBet(nextbet, difficulty),
+				tomeoflife: () => tomeBet(nextbet, lines),
+				scarabspin: () => scarabBet(nextbet, lines),
+				diamonds: () => diamondBet(nextbet),
+				cases: () => caseBet(nextbet, difficulty),
+				rps: () => rockpaperBet(nextbet, guesses),
+				flip: () => flipBet(nextbet, guesses),
+				snakes: () => snakesBet(nextbet, difficulty, rolls),
+				pump: () => pumpBet(nextbet, pumps, difficulty),
+				baccarat: () => baccaratbet(tie, player, banker),
+				dragontower: () => dragontowerBet(nextbet, difficulty, eggs),
+				roulette: () => roulettebet(chips),
+				wheel: () => wheelbet(nextbet, segments, risk),
+				plinko: () => plinkobet(nextbet, rows, risk),
+				mines: () => minebet(nextbet, fields, mines),
+				keno: () => kenobet(nextbet, numbers, risk),
+				dice: () => DiceBet(nextbet, chance, bethigh),
+				limbo: () => LimboBet(nextbet, target)
+			};
+
+			const runBet = betFunctions[game];
+			if (runBet) {
+				if (fastmode) {
+					setTimeout(runBet, 5);
+					setTimeout(runBet, 50);
+				} else {
+					runBet();
+				}
+			}
+
+			drawChart();
+		} else if (document.getElementById("botMenuMode").value === "js") {
+			game = undefined;
+
+			setTimeout(() => {
+				const code = htmlEditor2.getValue();
+				eval(code);
+
+				localStorage.setItem("jscode", code);
+				sleeptime = 0;
+				sleep(0);
+
+				btnStart.disabled = true;
+				userBalances();
+				started_bal = balance;
+
+				const selectedGame = document.getElementById("gameselect").value;
+				if (game === undefined) game = selectedGame;
+
+				const runBet = (fn, args = []) => {
+					if (fastmode) {
+						setTimeout(() => fn(...args), 5);
+						setTimeout(() => fn(...args), 50);
+					} else {
+						fn(...args);
+					}
+				};
+
+				const gameFunctions = {
+					hilo:        () => runBet(hiloBet, [nextbet, startcard]),
+					bluesamurai: () => runBet(samuraiBet, [nextbet]),
+					darts:       () => runBet(dartsBet, [nextbet, difficulty]),
+					tomeoflife:  () => runBet(tomeBet, [nextbet, lines]),
+					scarabspin:  () => runBet(scarabBet, [nextbet, lines]),
+					diamonds:    () => runBet(diamondBet, [nextbet]),
+					cases:       () => runBet(caseBet, [nextbet, difficulty]),
+					videopoker:  () => runBet(videopokerBet, [nextbet]),
+					rps:         () => runBet(rockpaperBet, [nextbet, guesses]),
+					flip:        () => runBet(flipBet, [nextbet, guesses]),
+					snakes:      () => runBet(snakesBet, [nextbet, difficulty, rolls]),
+					pump:        () => runBet(pumpBet, [nextbet, pumps, difficulty]),
+					baccarat:    () => runBet(baccaratbet, [tie, player, banker]),
+					dragontower: () => runBet(dragontowerBet, [nextbet, difficulty, eggs]),
+					roulette:    () => runBet(roulettebet, [chips]),
+					wheel:       () => runBet(wheelbet, [nextbet, segments, risk]),
+					plinko:      () => runBet(plinkobet, [nextbet, rows, risk]),
+					mines:       () => runBet(minebet, [nextbet, fields, mines]),
+					keno:        () => runBet(kenobet, [nextbet, numbers, risk]),
+					dice:        () => runBet(DiceBet, [nextbet, chance, bethigh]),
+					limbo:       () => runBet(LimboBet, [nextbet, target])
+				};
+
+				if (game in gameFunctions) gameFunctions[game]();
+				drawChart();
+			}, 0);
+		}
 }
 var btnStart = document.getElementById("botStartButton");
 
