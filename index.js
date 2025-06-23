@@ -2965,6 +2965,86 @@ function data(json){
 		
 		}
 		
+			row.appendChild(tdbets);
+			row.appendChild(tdamount);
+			row.appendChild(tdhigh);
+			row.appendChild(tdTargetChance);
+			row.appendChild(tdRollChance);
+			row.appendChild(tdProfit);
+			row.appendChild(tdPayout);
+			row.appendChild(tdTargetNumber);
+			row.appendChild(tdRollNumber);
+			row.appendChild(tdNonce);
+			row.appendChild(tdBetID);	
+			
+			if(win){
+				row.style.background = "#91F190";
+			} else {
+				row.style.background = "#FFC0CB";
+			}
+			
+			table.prepend(row);
+			
+			if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
+			{
+				table.deleteRow(table.rows.length - 1);
+			}
+		
+			
+			if(winstreak > losestreak){
+				currentstreak = winstreak;
+			} else {
+				currentstreak = -losestreak;
+			}
+		
+			if(highest_bet[highest_bet.length-1] < lastBet.amount){
+				highest_bet.pop();
+				highest_bet.push(lastBet.amount);
+			}
+			if(highest_profit[highest_profit.length-1] < profit_total){
+				highest_profit.pop();
+				highest_profit.push(profit_total);
+			}
+			if(lowest_profit[lowest_profit.length-1] > profit_total){
+				lowest_profit.pop();
+				lowest_profit.push(profit_total);
+			}
+			if(highest_streak[highest_streak.length-1] < currentstreak){
+				highest_streak.pop();
+				highest_streak.push(currentstreak);
+			}
+			if(lowest_streak[lowest_streak.length-1] > currentstreak){
+				lowest_streak.pop();
+				lowest_streak.push(currentstreak);
+			}
+
+			balance = current_balance;
+			profit = profit_total;
+			previousbet = lastBet.amount;
+			currentprofit = current_profit;
+			betcount++;
+			bets = betcount;
+		
+			
+			updateChart();
+			
+			
+			//document.getElementById("multi").innerHTML = toFixedNo(json.data.limboBet.state.result, 2);
+			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
+			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
+			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+			document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+			document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+			document.getElementById("botBets").innerHTML = bets;
+			document.getElementById("botWins").innerHTML = wins;
+			document.getElementById("botLosses").innerHTML = losses;
+			document.getElementById("botCurrentStreak").innerHTML = currentstreak;
+			document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+			document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+			
+			lastBet.percent = (profit_total / started_bal * 100)
+		
 		} else {
 		
 		if(json.hasOwnProperty("diceRoll"))
