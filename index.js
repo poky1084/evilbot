@@ -8403,7 +8403,7 @@ function start(){
 
 			drawChart();
 		} else if (document.getElementById("botMenuMode").value === "js") {
-		game = undefined;
+		game = document.getElementById("gameselect").value;
 
 		setTimeout(htmlEditor2.getValue() + `
 		
