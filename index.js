@@ -3800,9 +3800,9 @@ function data(json){
 				currentstreak = -losestreak;
 			}
 		
-			if(highest_bet[highest_bet.length-1] < json.data.primediceRoll.amount){
+			if(highest_bet[highest_bet.length-1] < lastBet.amount){
 				highest_bet.pop();
-				highest_bet.push(json.data.primediceRoll.amount);
+				highest_bet.push(lastBet.amount);
 			}
 			if(highest_profit[highest_profit.length-1] < profit_total){
 				highest_profit.pop();
@@ -3823,7 +3823,7 @@ function data(json){
 
 			balance = current_balance;
 			profit = profit_total;
-			previousbet = json.data.primediceRoll.amount;
+			previousbet = lastBet.amount;
 			currentprofit = current_profit;
 			betcount++;
 			bets = betcount;
@@ -3847,8 +3847,6 @@ function data(json){
 			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)
-			lastBet.amount = json.data.primediceRoll.amount;
-			lastBet.target = json.data.primediceRoll.state.target;
 			
 			
 			
@@ -4162,9 +4160,9 @@ function data(json){
 				currentstreak = -losestreak;
 			}
 		
-			if(highest_bet[highest_bet.length-1] < json.diceRoll.amount){
+			if(highest_bet[highest_bet.length-1] < lastBet.amount){
 				highest_bet.pop();
-				highest_bet.push(json.diceRoll.amount);
+				highest_bet.push(lastBet.amount);
 			}
 			if(highest_profit[highest_profit.length-1] < profit_total){
 				highest_profit.pop();
@@ -4185,7 +4183,7 @@ function data(json){
 
 			balance = current_balance;
 			profit = profit_total;
-			previousbet = json.diceRoll.amount;
+			previousbet = lastBet.amount;
 			currentprofit = current_profit;
 			betcount++;
 			bets = betcount;
@@ -4209,8 +4207,6 @@ function data(json){
 			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)
-			lastBet.amount = json.diceRoll.amount;
-			lastBet.target = json.diceRoll.state.target;
 			
 			
 			
@@ -4337,9 +4333,9 @@ function data(json){
 				currentstreak = -losestreak;
 			}
 		
-			if(highest_bet[highest_bet.length-1] < json.limboBet.amount){
+			if(highest_bet[highest_bet.length-1] < lastBet.amount){
 				highest_bet.pop();
-				highest_bet.push(json.limboBet.amount);
+				highest_bet.push(lastBet.amount);
 			}
 			if(highest_profit[highest_profit.length-1] < profit_total){
 				highest_profit.pop();
@@ -4360,7 +4356,7 @@ function data(json){
 
 			balance = current_balance;
 			profit = profit_total;
-			previousbet = json.limboBet.amount;
+			previousbet = lastBet.amount;
 			currentprofit = current_profit;
 			betcount++;
 			bets = betcount;
@@ -4385,8 +4381,6 @@ function data(json){
 			document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 			
 			lastBet.percent = (profit_total / started_bal * 100)
-			lastBet.amount = json.limboBet.amount;
-			lastBet.target = json.limboBet.state.multiplierTarget;
 
 			
 		}
@@ -4501,9 +4495,9 @@ function data(json){
 				currentstreak = -losestreak;
 			}
 		
-			if(highest_bet[highest_bet.length-1] < json.pumpBet.amount){
+			if(highest_bet[highest_bet.length-1] < lastBet.amount){
 				highest_bet.pop();
-				highest_bet.push(json.pumpBet.amount);
+				highest_bet.push(lastBet.amount);
 			}
 			if(highest_profit[highest_profit.length-1] < profit_total){
 				highest_profit.pop();
@@ -4524,7 +4518,7 @@ function data(json){
 
 			balance = current_balance;
 			profit = profit_total;
-			previousbet = json.pumpBet.amount;
+			previousbet = lastBet.amount;
 			currentprofit = current_profit;
 			betcount++;
 			bets = betcount;
@@ -4550,9 +4544,6 @@ function data(json){
 			
 			lastBet.percent = (profit_total / started_bal * 100)
 
-			
-			lastBet.amount = json.pumpBet.amount;
-			lastBet.target = json.pumpBet.state.round
 			
 
 			
@@ -4690,9 +4681,9 @@ function data(json){
 				currentstreak = -losestreak;
 			}
 		
-			if(highest_bet[highest_bet.length-1] < json.baccaratBet.amount){
+			if(highest_bet[highest_bet.length-1] < lastBet.amount){
 				highest_bet.pop();
-				highest_bet.push(json.baccaratBet.amount);
+				highest_bet.push(lastBet.amount);
 			}
 			if(highest_profit[highest_profit.length-1] < profit_total){
 				highest_profit.pop();
@@ -4713,7 +4704,7 @@ function data(json){
 
 			balance = current_balance;
 			profit = profit_total;
-			previousbet = json.baccaratBet.amount;
+			previousbet = lastBet.amount;
 			currentprofit = current_profit;
 			betcount++;
 			bets = betcount;
