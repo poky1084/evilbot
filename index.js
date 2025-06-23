@@ -1307,10 +1307,9 @@ if(localStorage.getItem("luacode") != null){
 	htmlEditor.setValue(localStorage.getItem("luacode"));
 } 
 
-
-if (localStorage.getItem("thememod") != null) {
-	document.getElementById("thememod").value = localStorage.getItem("thememod");
-	var thememod = localStorage.getItem("thememod");
+function changeTheme(){
+	var thememod = document.getElementById('thememod').value;
+	localStorage.setItem("thememod", thememod);
 	var themesel = document.getElementById('bot')
 	var simtheme = document.getElementById('botSimLog')
 	var logtheme = document.getElementById('botLog')
@@ -1554,11 +1553,25 @@ if (localStorage.getItem("thememod") != null) {
 			}
 		} 
 		
-	}	
+	}
 	
+}
+
+
+if (localStorage.getItem("thememod") != null) {
+	document.getElementById("thememod").value = localStorage.getItem("thememod");
+	changeTheme()
 } else {
 	changeTheme();
 }
+
+const inputHandler6 = function(e) {
+	changeTheme();
+
+}
+
+thememode = document.getElementById("thememod");
+thememode.addEventListener('change', inputHandler6);
 
 htmlEditor.on("change", function (e) {
 	localStorage.setItem("luacode", e.getValue());
@@ -1949,260 +1962,9 @@ const inputHandler5 = function(e) {
 	
 }
 
-const inputHandler6 = function(e) {
-	changeTheme();
 
-}
 
-function changeTheme(){
-	var thememod = document.getElementById('thememod').value;
-	localStorage.setItem("thememod", thememod);
-	var themesel = document.getElementById('bot')
-	var simtheme = document.getElementById('botSimLog')
-	var logtheme = document.getElementById('botLog')
-	var keytheme = document.getElementById('tokenkey')
-	var infobar = document.getElementById('infobar')
-	var infospeed = document.getElementById('infospeed')
-	var infoms = document.getElementById("botSpeed")
-	//var buttonCss = document.getElementsByClassName("btn-grad")[0]
-	var botMenuMod = document.getElementById("botMenuMode")
-	var botMenuC = document.getElementById("botMenuCoin")
-	var gameselectVal = document.getElementById("gameselect")
-	var mirrorsVal = document.getElementById("mirrors")
-	var botMaxRow = document.getElementById("botMaxRows")
-	var thememod2 = document.getElementById("thememod")
-	var fonter = document.getElementsByClassName("fontbigger")
-	var fontResult = document.getElementById("result")
-	var btnColor = document.getElementsByClassName("btn-grad")
-	var swColor = document.getElementsByClassName("switch")
-	
-	for (const element of fonter) {
-		element.style.fontSize = "15px"
-	}
-	fontResult.style.fontSize  = "20px"
 
-	
-	botMenuMod.style.color = "black"
-	botMenuC.style.color = "black"
-	gameselectVal.style.color = "black"
-	mirrorsVal.style.color = "black"
-	botMaxRow.style.color = "black"
-	thememod2.style.color = "black"
-	
-	themesel.style.color = "white"
-	themesel.style.background = "#036ffc"
-	simtheme.style.color = "white"
-	simtheme.style.background = "#036ffc"
-	logtheme.style.color = "white"
-	logtheme.style.background = "#036ffc"
-	keytheme.style.color = "white"
-	keytheme.style.background = "#036ffc"
-	infospeed.style.color = "white"
-	infospeed.style.background = "#036ffc"
-	infobar.style.color = "white"
-	infobar.style.background = "#036ffc"
-	infoms.style.color = "white"
-	infoms.style.background = "#036ffc"
-	
-	if(thememod == 'brown'){
-		themesel.style.color = "white"
-		themesel.style.background = "#452a06"
-		simtheme.style.color = "white"
-		simtheme.style.background = "#452a06"
-		logtheme.style.color = "white"
-		logtheme.style.background = "#452a06"
-		keytheme.style.color = "white"
-		keytheme.style.background = "#452a06"
-		infospeed.style.color = "white"
-		infospeed.style.background = "#452a06"
-		infobar.style.color = "white"
-		infobar.style.background = "#452a06"
-		infoms.style.color = "white"
-		infoms.style.background = "#452a06"
-		for (const element1 of btnColor) {
-		element1.style.background = "#693f04"
-		}
-		for (const element2 of swColor) {
-		element2.style.background = "#693f04"
-		}
-		chartcolor = "#000"
-		var links = document.getElementsByTagName("a");
-		for(var i=0;i<links.length;i++)
-		{
-			if(links[i].href)
-			{
-				links[i].style.color = "white";  
-			}
-		} 
-		
-	}
-	
-	if(thememod == 'green'){
-		themesel.style.color = "white"
-		themesel.style.background = "#0e6602"
-		simtheme.style.color = "white"
-		simtheme.style.background = "#0e6602"
-		logtheme.style.color = "white"
-		logtheme.style.background = "#0e6602"
-		keytheme.style.color = "white"
-		keytheme.style.background = "#0e6602"
-		infospeed.style.color = "white"
-		infospeed.style.background = "#0e6602"
-		infobar.style.color = "white"
-		infobar.style.background = "#0e6602"
-		infoms.style.color = "white"
-		infoms.style.background = "#0e6602"
-		for (const element1 of btnColor) {
-		element1.style.background = "#18a805"
-		}
-		for (const element2 of swColor) {
-		element2.style.background = "#18a805"
-		}
-		chartcolor = "#000"
-		var links = document.getElementsByTagName("a");
-		for(var i=0;i<links.length;i++)
-		{
-			if(links[i].href)
-			{
-				links[i].style.color = "white";  
-			}
-		} 
-		
-	}
-	
-	if(thememod == 'grey'){
-		themesel.style.color = "white"
-		themesel.style.background = "#707371"
-		simtheme.style.color = "white"
-		simtheme.style.background = "#707371"
-		logtheme.style.color = "white"
-		logtheme.style.background = "#707371"
-		keytheme.style.color = "white"
-		keytheme.style.background = "#707371"
-		infospeed.style.color = "white"
-		infospeed.style.background = "#707371"
-		infobar.style.color = "white"
-		infobar.style.background = "#707371"
-		infoms.style.color = "white"
-		infoms.style.background = "#707371"
-		for (const element1 of btnColor) {
-		element1.style.background = "#4f4e4e"
-		}
-		for (const element2 of swColor) {
-		element2.style.background = "#4f4e4e"
-		}
-		chartcolor = "#000"
-		var links = document.getElementsByTagName("a");
-		for(var i=0;i<links.length;i++)
-		{
-			if(links[i].href)
-			{
-				links[i].style.color = "white";  
-			}
-		} 
-		
-	}
-	
-	if(thememod == 'dark'){
-		themesel.style.color = "white"
-		themesel.style.background = "black"
-		simtheme.style.color = "white"
-		simtheme.style.background = "black"
-		logtheme.style.color = "white"
-		logtheme.style.background = "black"
-		keytheme.style.color = "white"
-		keytheme.style.background = "black"
-		infospeed.style.color = "white"
-		infospeed.style.background = "black"
-		infobar.style.color = "white"
-		infobar.style.background = "black"
-		infoms.style.color = "white"
-		infoms.style.background = "black"
-		for (const element1 of btnColor) {
-		element1.style.background = "#696868"
-		}
-		for (const element2 of swColor) {
-		element2.style.background = "#696868"
-		}
-		chartcolor = "#000"
-		var links = document.getElementsByTagName("a");
-		for(var i=0;i<links.length;i++)
-		{
-			if(links[i].href)
-			{
-				links[i].style.color = "white";  
-			}
-		} 
-		
-	}
-	
-	if(thememod == 'light'){
-		themesel.style.color = "black"
-		themesel.style.background = "white"
-		simtheme.style.color = "black"
-		simtheme.style.background = "white"
-		logtheme.style.color = "black"
-		logtheme.style.background = "white"
-		keytheme.style.color = "black"
-		keytheme.style.background = "white"
-		infospeed.style.color = "black"
-		infospeed.style.background = "white"
-		infobar.style.color = "black"
-		infobar.style.background = "white"
-		infoms.style.color = "black"
-		infoms.style.background = "white"
-		chartcolor = "#fff"
-		for (const element1 of btnColor) {
-		element1.style.background = "#03c6fc"
-		}
-		for (const element2 of swColor) {
-		element2.style.background = "#03c6fc"
-		}
-		var links = document.getElementsByTagName("a");
-		for(var i=0;i<links.length;i++)
-		{
-			if(links[i].href)
-			{
-				links[i].style.color = "black";  
-			}
-		} 
-		
-	}
-	
-	if(thememod == 'blue'){
-		themesel.style.color = "white"
-		themesel.style.background = "#036ffc"
-		simtheme.style.color = "white"
-		simtheme.style.background = "#036ffc"
-		logtheme.style.color = "white"
-		logtheme.style.background = "#036ffc"
-		keytheme.style.color = "white"
-		keytheme.style.background = "#036ffc"
-		infospeed.style.color = "white"
-		infospeed.style.background = "#036ffc"
-		infobar.style.color = "white"
-		infobar.style.background = "#036ffc"
-		infoms.style.color = "white"
-		infoms.style.background = "#036ffc"
-		chartcolor = "#036ffc"
-		for (const element1 of btnColor) {
-		element1.style.background = "#03c6fc"
-		}
-		for (const element2 of swColor) {
-		element2.style.background = "#03c6fc"
-		}
-		var links = document.getElementsByTagName("a");
-		for(var i=0;i<links.length;i++)
-		{
-			if(links[i].href)
-			{
-				links[i].style.color = "white";  
-			}
-		} 
-		
-	}
-	
-}
 
 apichange = document.getElementById("tokenkey");
 apichange.addEventListener('input', inputHandler);
@@ -2223,8 +1985,7 @@ gamechange.addEventListener('change', inputHandler4);
 menumode = document.getElementById("botMenuMode");
 menumode.addEventListener('change', inputHandler5);
 
-thememode = document.getElementById("thememod");
-thememode.addEventListener('change', inputHandler6);
+
 
 if (localStorage.getItem("gameselect") != null) {
 	document.getElementById("gameselect").value = localStorage.getItem("gameselect");
@@ -2267,30 +2028,7 @@ if (localStorage.getItem("menumode") != null) {
 	document.getElementsByClassName('botSim')[0].style.visibility = "hidden";
 	
 }
-/*
-$('#gameselect').on('change', function (e) {
-	var mirror = document.getElementById('gameselect');
-	var input_mirror = mirror.options[mirror.selectedIndex].value;
-	localStorage.setItem("gameselect", input_mirror);
-	//window.location.reload(true);
-});
 
-$('#botMenuMode').on('change', function (e) {
-	var codemode = document.getElementById("botMenuMode").options.selectedIndex;
-	localStorage.setItem("modecode", codemode);
-	document.getElementById("botMenuMode").options.selectedIndex = parseInt(localStorage.getItem("modecode"));
-	showOnChange(e);
-	//window.location.reload(true);
-});
-
-
-$('#mirrors').on('change', function (e) {
-	var mirror = document.getElementById('mirrors');
-	var input_mirror = mirror.options[mirror.selectedIndex].value;
-	localStorage.setItem("mirror", input_mirror);
-	window.location.reload(true);
-});
-*/
 function downloadFile() {
 
 }
@@ -2552,15 +2290,7 @@ function outjson(json){
 		document.getElementById("botMenuCoin").value = localStorage.getItem("currenc");
 	}
 }
-/*
-$('#botMenuCoin').on('change', function (e) {
-	var curry = document.getElementById('botMenuCoin').value;
-	localStorage.setItem("currenc", curry);
-	currency = curry;
-	userBalances();
-});
 
-*/
 
 function indexMatchingText(text) {
     var opts = document.getElementById("botMenuCoin").options;
@@ -2743,874 +2473,271 @@ function outvault(json){
 
 }
 
-function hiloBet(betsize, startcard){
-	
-	var body = {
-    "identifier": randomString(21),
-    "currency": currency,
-    "amount": betsize,
-    "startCard": startcard
-}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/hilo/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				hiloBet(betsize, startcard)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
+function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
+    fetch(`https://${mirror}/${url}`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': tokenapi
+        }
+    })
+    .then(res => res.json())
+    .then(json => data(json))
+    .catch(() => {
+        if (running) {
+            setTimeout(() => {
+                if (running) {
+                    betRequest({ url, body, retryParams, retryDelay });
+                }
+            }, retryDelay);
+        }
+    });
 }
 
-function hiloNext(guessed){
-	var body = {
-    "guess": guessed
-	}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/hilo/next', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				hiloNext(guessed)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
+function hiloBet(betsize, startcard) {
+    betRequest({
+        url: '_api/casino/hilo/bet',
+        body: { identifier: randomString(21), currency, amount: betsize, startCard: startcard },
+        retryParams: [betsize, startcard]
+    });
 }
 
-function hiloCash(){
-
-	var body = {
-    "identifier": randomString(21)
-	}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/hilo/cashout', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				hiloCash()
-				}				
-			}, "1000");
-			
-		}
-	});
-	
+function hiloNext(guessed) {
+    betRequest({
+        url: '_api/casino/hilo/next',
+        body: { guess: guessed },
+        retryParams: [guessed]
+    });
 }
 
-function dartsBet(betsize, diff){
-
-	var body = {
-    "currency": currency,
-    "amount": betsize,
-    "identifier": randomString(21),
-    "difficulty": diff
-}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/darts/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				dartsBet(betsize, diff)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
+function hiloCash() {
+    betRequest({
+        url: '_api/casino/hilo/cashout',
+        body: { identifier: randomString(21) }
+    });
 }
 
-function videopokerBet(betsize){
-	
-	var body = {
-    "currency": currency,
-    "amount": betsize
-	}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/video-poker/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				videopokerBet(betsize)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
+function dartsBet(betsize, diff) {
+    betRequest({
+        url: '_api/casino/darts/bet',
+        body: { currency, amount: betsize, identifier: randomString(21), difficulty: diff },
+        retryParams: [betsize, diff]
+    });
 }
 
-
-function samuraiBet(betsize){
-
-	spinType = "complete"
-	
-	var body = {
-    "currency": currency,
-    "amount": betsize,
-    "identifier": randomString(21)
-	}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/slots-samurai/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				samuraiBet(betsize)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
+function videopokerBet(betsize) {
+    betRequest({
+        url: '_api/casino/video-poker/bet',
+        body: { currency, amount: betsize },
+        retryParams: [betsize]
+    });
 }
 
-function samuraiNext(){
-	
-	var body = {
-    "identifier": randomString(21)
-	}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/slots-samurai/next', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				samuraiNext()
-				}				
-			}, "1000");
-			
-		}
-	});
-	
+function samuraiBet(betsize) {
+    spinType = "complete";
+    betRequest({
+        url: '_api/casino/slots-samurai/bet',
+        body: { currency, amount: betsize, identifier: randomString(21) },
+        retryParams: [betsize]
+    });
 }
 
-
-function scarabBet(betsize, lines){
-	
-	var body = {
-    "currency": currency,
-    "amount": betsize,
-    "lines": lines,
-    "identifier": randomString(21)
-	}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/slots/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				scarabBet(betsize, lines)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
+function samuraiNext() {
+    betRequest({
+        url: '_api/casino/slots-samurai/next',
+        body: { identifier: randomString(21) }
+    });
 }
 
-
-function tomeBet(betsize, lines){
-	
-	var body = {
-		"currency": currency,
-		"amount": betsize,
-		"lines": lines,
-		"identifier": randomString(21)
-	}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/slots-tome-of-life/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				tomeBet(betsize, lines)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
+function scarabBet(betsize, lines) {
+    betRequest({
+        url: '_api/casino/slots/bet',
+        body: { currency, amount: betsize, lines, identifier: randomString(21) },
+        retryParams: [betsize, lines]
+    });
 }
 
-
-function diamondBet(betsize){
-
-	var body = {
-    "currency": currency,
-    "amount": betsize,
-    "identifier": randomString(21)
-	}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/diamonds/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				diamondBet(betsize)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
+function tomeBet(betsize, lines) {
+    betRequest({
+        url: '_api/casino/slots-tome-of-life/bet',
+        body: { currency, amount: betsize, lines, identifier: randomString(21) },
+        retryParams: [betsize, lines]
+    });
 }
 
-function caseBet(betsize, difficulty){
-
-	var body = {
-    "currency": currency,
-    "amount": betsize,
-    "identifier": randomString(21),
-    "difficulty": difficulty
-	}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/cases/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				caseBet(betsize, difficulty)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
+function diamondBet(betsize) {
+    betRequest({
+        url: '_api/casino/diamonds/bet',
+        body: { currency, amount: betsize, identifier: randomString(21) },
+        retryParams: [betsize]
+    });
 }
 
+function caseBet(betsize, difficulty) {
+    betRequest({
+        url: '_api/casino/cases/bet',
+        body: { currency, amount: betsize, difficulty, identifier: randomString(21) },
+        retryParams: [betsize, difficulty]
+    });
+}
 
-function flipBet(betsize, guesses){
+function flipBet(betsize, guesses) {
+    betRequest({
+        url: '_api/graphql',
+        body: {
+            query: `mutation FlipBet($amount: Float!, $currency: CurrencyEnum!, $identifier: String, $guesses: [FlipConditionEnum!]!) {
+                flipBet(amount: $amount, currency: $currency, identifier: $identifier, guesses: $guesses) {
+                    ...CasinoBet
+                    state { ...CasinoGameFlip }
+                }
+            }
+            fragment CasinoBet on CasinoBet { id active payoutMultiplier amountMultiplier amount payout updatedAt currency game user { id name } }
+            fragment CasinoGameFlip on CasinoGameFlip { currentRound payoutMultiplier playedRounds flips }`,
+            variables: { amount: betsize, currency, identifier: randomString(21), guesses }
+        },
+        retryParams: [betsize, guesses]
+    });
+}
 
-	var body = {
-    "query": "mutation FlipBet($amount: Float!, $currency: CurrencyEnum!, $identifier: String, $guesses: [FlipConditionEnum!]!) {\n  flipBet(\n    amount: $amount\n    currency: $currency\n    identifier: $identifier\n    guesses: $guesses\n  ) {\n    ...CasinoBet\n    state {\n      ...CasinoGameFlip\n    }\n  }\n}\n\nfragment CasinoBet on CasinoBet {\n  id\n  active\n  payoutMultiplier\n  amountMultiplier\n  amount\n  payout\n  updatedAt\n  currency\n  game\n  user {\n    id\n    name\n  }\n}\n\nfragment CasinoGameFlip on CasinoGameFlip {\n  currentRound\n  payoutMultiplier\n  playedRounds\n  flips\n}\n",
-    "variables": {
-        "amount": betsize,
-        "currency": currency,
-        "identifier": randomString(21),
-        "guesses": guesses
+function rockpaperBet(betsize, guesses) {
+    betRequest({
+        url: '_api/casino/rock-paper-scissors/bet',
+        body: { currency, amount: betsize, identifier: randomString(21), guesses },
+        retryParams: [betsize, guesses]
+    });
+}
+
+function snakesBet(betsize, snakedifficulty, snakerolls) {
+    betRequest({
+        url: '_api/casino/snakes/bet',
+        body: { currency, amount: betsize, identifier: randomString(21), difficulty: snakedifficulty, rollCount: snakerolls },
+        retryParams: [betsize, snakedifficulty, snakerolls]
+    });
+}
+
+function baccaratbet(tie, player, banker) {
+    betRequest({
+        url: '_api/casino/baccarat/bet',
+        body: { currency, identifier: randomString(21), tie, player, banker },
+        retryParams: [tie, player, banker]
+    });
+}
+
+function dragontowerBet(betsize, difficulty, eggs) {
+    betRequest({
+        url: '_api/casino/dragon-tower/bet',
+        body: { amount: betsize, currency, identifier: randomString(21), difficulty, eggs },
+        retryParams: [betsize, difficulty, eggs]
+    });
+}
+
+function roulettebet(selection) {
+    const groups = { rows: [], parities: [], ranges: [], colors: [], numbers: [] };
+    selection.forEach(obj => {
+        if (obj.value.includes("row")) groups.rows.push(obj);
+        else if (obj.value.includes("parity")) groups.parities.push(obj);
+        else if (obj.value.includes("range")) groups.ranges.push(obj);
+        else if (obj.value.includes("color")) groups.colors.push(obj);
+        else if (obj.value.includes("number")) groups.numbers.push(obj);
+    });
+
+    betRequest({
+        url: '_api/casino/roulette/bet',
+        body: { currency, identifier: randomString(21), ...groups },
+        retryParams: [selection]
+    });
+}
+
+function wheelbet(betsize, segments, risk) {
+    betRequest({
+        url: '_api/casino/wheel/spin',
+        body: { amount: betsize, currency, identifier: randomString(21), risk, segments },
+        retryParams: [betsize, segments, risk]
+    });
+}
+
+function plinkobet(betsize, rows, risk) {
+    betRequest({
+        url: '_api/casino/plinko/bet',
+        body: { amount: betsize, currency, identifier: randomString(21), risk, rows },
+        retryParams: [betsize, rows, risk]
+    });
+}
+
+function kenobet(betsize, selected, risk) {
+    betRequest({
+        url: '_api/casino/keno/bet',
+        body: { amount: betsize, currency, identifier: randomString(21), risk, numbers: selected },
+        retryParams: [betsize, selected, risk]
+    });
+}
+
+function minebet(betsize, fields, mines) {
+    betRequest({
+        url: '_api/casino/mines/bet',
+        body: { amount: betsize, currency, identifier: randomString(21), minesCount: mines, fields },
+        retryParams: [betsize, fields, mines]
+    });
+}
+
+function pumpBet(betsize, rounds, difficulty) {
+    betRequest({
+        url: '_api/casino/pump/bet',
+        body: { amount: betsize, currency, identifier: randomString(21), round: rounds, difficulty },
+        retryDelay: 2000,
+        retryParams: [betsize, rounds, difficulty]
+    });
+}
+
+function LimboBet(amount, target_multi) {
+    betRequest({
+        url: '_api/casino/limbo/bet',
+        body: { multiplierTarget: target_multi, identifier: randomString(21), amount, currency },
+        retryDelay: 2000,
+        retryParams: [amount, target_multi]
+    });
+}
+
+function DiceBet(amount, chance, bethigh) {
+    let target, cond;
+
+    if (bethigh) {
+        target = 100 - 0.01 - chance;
+        cond = "above";
+    } else {
+        target = chance;
+        cond = "below";
     }
-	}
-		
-	
-	fetch('https://' + mirror + '/_api/graphql', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				flipBet(betsize, guesses)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
+
+    const isPrimedice = mirror.includes("primedice");
+    const url = isPrimedice ? '_api/graphql' : '_api/casino/dice/roll';
+    const body = isPrimedice ? {
+        query: `mutation PrimediceRoll($amount: Float!, $target: Float!, $condition: CasinoGamePrimediceConditionEnum!, $currency: CurrencyEnum!) {
+            primediceRoll(amount: $amount, target: $target, condition: $condition, currency: $currency) {
+                ...CasinoBetFragment
+                state { ...PrimediceStateFragment }
+            }
+        }
+        fragment CasinoBetFragment on CasinoBet {
+            id active payoutMultiplier amountMultiplier amount payout updatedAt currency game user { id name }
+        }
+        fragment PrimediceStateFragment on CasinoGamePrimedice {
+            result target condition
+        }`,
+        variables: { target, condition: cond, amount, currency }
+    } : {
+        target, condition: cond, identifier: randomString(21), amount, currency
+    };
+
+    betRequest({
+        url,
+        body,
+        retryDelay: 2000,
+        retryParams: [amount, chance, bethigh]
+    });
 }
 
-function rockpaperBet(betsize, guesses){
-	
-	var body = {
-    "currency": currency,
-    "amount": betsize,
-    "identifier": randomString(21),
-    "guesses": guesses
-	}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/rock-paper-scissors/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				rockpaperBet(betsize, guesses)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
-}
-
-function snakesBet(betsize, snakedifficulty, snakerolls){
-
-	var body = {
-    "currency": currency,
-    "amount": betsize,
-    "identifier": randomString(21),
-    "difficulty": snakedifficulty,
-    "rollCount": snakerolls
-	}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/snakes/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				snakesBet(betsize, snakedifficulty, snakerolls)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
-}
-
-
-function baccaratbet(baccarattie, baccaratplayer, baccaratbanker){
-	
-	var body = {
-        "currency": currency,
-        "identifier": randomString(21),
-        "tie": baccarattie,
-        "banker": baccaratbanker,
-		"player": baccaratplayer
-		}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/baccarat/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				baccaratbet(baccarattie, baccaratplayer, baccaratbanker)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
-}
-
-function dragontowerBet(betsize, dragondifficulty, dragoneggs){
-	
-	var body = {
-        "amount": betsize,
-        "currency": currency,
-        "identifier": randomString(21),
-        "difficulty": dragondifficulty,
-        "eggs": dragoneggs
-		}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/dragon-tower/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				dragontowerBet(betsize, dragondifficulty, dragoneggs)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
-}
-
-function roulettebet(selection){
-	
-	let roulette_row = []
-	let roulette_parity = []
-	let roulette_range = []
-	let roulette_color = []
-	let roulette_number = []
-	
-	selection.forEach(function(obj){
-		if(obj.value.indexOf("row") >= 0){
-			roulette_row.push(obj)
-		}
-		if(obj.value.indexOf("parity") >= 0){
-			roulette_parity.push(obj)
-		}
-		if(obj.value.indexOf("range") >= 0){
-			roulette_range.push(obj)
-		}
-		if(obj.value.indexOf("color") >= 0){
-			roulette_color.push(obj)
-		}
-		if(obj.value.indexOf("number") >= 0){
-			roulette_number.push(obj)
-		}
-	});
-	
-	var body = {
-        "currency": currency,
-        "identifier": randomString(21),
-        "numbers": roulette_number,
-		"colors": roulette_color,
-		"ranges": roulette_range,
-		"rows": roulette_row,
-		"parities": roulette_parity
-		}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/roulette/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{	
-			setTimeout(() => {
-				if(running){
-				roulettebet(selection)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
-}
-
-function wheelbet(betsize, wheelsegments, wheelrisk){
-	
-	var body = {
-        "amount": betsize,
-        "currency": currency,
-        "identifier": randomString(21),
-        "risk": wheelrisk,
-        "segments": wheelsegments
-		}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/wheel/spin', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				wheelbet(betsize, wheelsegments, wheelrisk)	
-				}				
-			}, "1000");
-			
-		}
-	});
-	
-}
-
-function plinkobet(betsize, plinkorows, plinkorisk){
-	
-	var body = {
-        "amount": betsize,
-        "currency": currency,
-        "identifier": randomString(21),
-        "risk": plinkorisk,
-        "rows": plinkorows
-		}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/plinko/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				plinkobet(betsize, plinkorows, plinkorisk)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
-}
-
-function kenobet(betsize, kenoselected, kenorisk){
-	
-	var body = {
-        "amount": betsize,
-        "currency": currency,
-        "identifier": randomString(21),
-        "risk": kenorisk,
-        "numbers": kenoselected
-		}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/keno/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				kenobet(betsize, kenoselected, kenorisk)
-				}				
-			}, "1000");
-			
-		}
-	});
-	
-}
-
-function minebet(betsize, fieldcount, minecount){
-	
-	var body = {
-    "amount": betsize,
-    "currency": currency,
-    "identifier": randomString(21),
-    "minesCount": minecount,
-    "fields": fieldcount
-}
-		
-	
-	fetch('https://' + mirror + '/_api/casino/mines/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				minebet(betsize, fieldcount, minecount)	
-				}				
-			}, "1000");
-			
-		}
-	});
-	
-}
-
-
-function pumpBet(betsize, rounds, difficulty){
-	
-	var body = {
-    "amount": betsize,
-    "currency": currency,
-    "identifier": randomString(21),
-    "round": rounds,
-    "difficulty": difficulty
-	}
-		
-	fetch('https://' + mirror + '/_api/casino/pump/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		//console.log(err, json);
-		if(running == true)
-		{
-			setTimeout(() => {
-				if(running){
-				pumpBet(betsize, rounds, difficulty)
-				}				
-			}, "2000");
-			
-		}
-	});
-	
-}
-
-
-function LimboBet(amount, target_multi){
-	
-	/*var body = {
-		variables:{
-		"multiplierTarget": target_multi,
-        "identifier": randomString(21),
-        "amount": amount,
-        "currency": document.getElementById('botMenuCoin').value
-		},
-		query:"mutation LimboBet($amount: Float!, $multiplierTarget: Float!, $currency: CurrencyEnum!, $identifier: String!) {\n  limboBet(\n    amount: $amount\n    currency: $currency\n    multiplierTarget: $multiplierTarget\n    identifier: $identifier\n  ) {\n    ...CasinoBet\n    state {\n      ...CasinoGameLimbo\n    }\n  }\n}\n\nfragment CasinoBet on CasinoBet {\n  id\n  active\n  payoutMultiplier\n  amountMultiplier\n  amount\n  payout\n  updatedAt\n  currency\n  game\n  user {\n    id\n    name\n  }\n}\n\nfragment CasinoGameLimbo on CasinoGameLimbo {\n  result\n  multiplierTarget\n}\n"	}
-		*/
-		var body = {
-			"multiplierTarget": target_multi,
-			"identifier": randomString(21),
-			"amount": amount,
-			"currency": currency
-		}
-	
-	fetch('https://' + mirror + '/_api/casino/limbo/bet', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				LimboBet(amount, target_multi)							
-			}, "2000");
-			
-		}
-	});
-	
-}
-
-function DiceBet(amount, chance, bethigh){
-
-	if(mirror.includes("primedice")){
-	
-		var targetdice = 49.5
-		if(bethigh == false){
-			targetdice = chance
-			cond = "below"
-		} else {
-			targetdice = 100 - 0.01 - chance
-			cond = "above"
-		}
-		
-
-		var body = {
-			variables:{ 
-			"target": targetdice,
-			"condition": cond,
-			"amount": amount,
-			"currency": currency
-			},
-			operationName: "PrimediceRoll",
-			query:"mutation PrimediceRoll($amount: Float!, $target: Float!, $condition: CasinoGamePrimediceConditionEnum!, $currency: CurrencyEnum!) {\n  primediceRoll(amount: $amount, target: $target, condition: $condition, currency: $currency) {\n    ...CasinoBetFragment\n    state {\n      ...PrimediceStateFragment\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment CasinoBetFragment on CasinoBet {\n  id\n  active\n  payoutMultiplier\n  amountMultiplier\n  amount\n  payout\n  updatedAt\n  currency\n  game\n  user {\n    id\n    name\n    __typename\n  }\n  __typename\n}\n\nfragment PrimediceStateFragment on CasinoGamePrimedice {\n  result\n  target\n  condition\n  __typename\n}\n"	}
-			
-		
-		fetch('https://' + mirror + '/_api/graphql', {
-			method: 'post',
-			body:    JSON.stringify(body),
-			headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-		})
-		.then(res => res.json())
-		.then(json => data(json))
-		.catch(function(err, json) {
-			console.log(err);
-			if(running == true)
-			{
-				setTimeout(() => {
-					 DiceBet(amount, chance, bethigh)							
-				}, "2000");
-				
-			}
-		});
-	
-	} else {
-	
-	var targetdice = 49.5
-	if(bethigh == false){
-		targetdice = chance
-		cond = "below"
-	} else {
-		targetdice = 100 - chance
-		cond = "above"
-	}
-	
-
-	/*var body = {
-		variables:{ 
-		"target": target,
-        "condition": cond,
-        "identifier": randomString(21),
-        "amount": amount,
-        "currency": document.getElementById('botMenuCoin').value
-		},
-		query:"mutation DiceRoll($amount: Float!, $target: Float!, $condition: CasinoGameDiceConditionEnum!, $currency: CurrencyEnum!, $identifier: String!) {\n  diceRoll(\n    amount: $amount\n    target: $target\n    condition: $condition\n    currency: $currency\n    identifier: $identifier\n  ) {\n    ...CasinoBet\n    state {\n      ...CasinoGameDice\n    }\n  }\n}\n\nfragment CasinoBet on CasinoBet {\n  id\n  active\n  payoutMultiplier\n  amountMultiplier\n  amount\n  payout\n  updatedAt\n  currency\n  game\n  user {\n    id\n    name\n  }\n}\n\nfragment CasinoGameDice on CasinoGameDice {\n  result\n  target\n  condition\n}\n"	}
-	*/
-	var body = {
-    "target": targetdice,
-    "condition": cond,
-    "identifier": randomString(21),
-    "amount": amount,
-    "currency": currency
-		}
-	
-	fetch('https://' + mirror + '/_api/casino/dice/roll', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => data(json))
-	.catch(function(err, json) {
-		console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				 DiceBet(amount, chance, bethigh)							
-			}, "2000");
-			
-		}
-	});
-	}
-	
-}
 
 function data(json){
 		if(json.errors != null){
@@ -8149,7 +7276,7 @@ function resetstats(){
 	document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 	
 	
-	resetChart();
+	//resetChart();
 	
 	document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
 	document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
