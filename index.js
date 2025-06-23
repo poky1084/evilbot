@@ -2780,6 +2780,7 @@ function data(json){
 			tdcheck.checked = false;
 		}
 		tdcheck.id = "checked";
+		tdhigh.appendChild(tdcheck);
 		
 		if(!json.hasOwnProperty("data")){
 			if(!json.hasOwnProperty("hiloNext") && !json.hasOwnProperty("hiloCashout"))
@@ -2861,7 +2862,7 @@ function data(json){
 			
 			
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.chance.toFixed(4)
 			if(bethigh == false){
 				tdRollChance.innerHTML = json.data.primediceRoll.state.result.toFixed(4)
@@ -2944,7 +2945,7 @@ function data(json){
 			
 			lastBet.target = guesses.length
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = guesses.length;
@@ -3104,7 +3105,7 @@ function data(json){
 			
 			
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.chance.toFixed(4)
 			if(bethigh == false){
 				tdRollChance.innerHTML = json.diceRoll.state.result.toFixed(4)
@@ -3183,7 +3184,7 @@ function data(json){
 			tdamount.innerHTML = json.limboBet.amount.toFixed(8)
 			
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = (99 / json.limboBet.state.multiplierTarget).toFixed(4)
 			tdRollChance.innerHTML = (99 / json.limboBet.state.result).toFixed(4)
 			tdProfit.innerHTML = current_profit.toFixed(8)
@@ -3251,7 +3252,7 @@ function data(json){
 			
 			
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			//tdRollChance.innerHTML = (99 / json.pumpBet.state.result).toFixed(4)
 			tdProfit.innerHTML = current_profit.toFixed(8)
@@ -3344,7 +3345,7 @@ function data(json){
 			}
 			lastBet.target = 0
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = bettext
@@ -3414,7 +3415,7 @@ function data(json){
 			
 			lastBet.target = eggs.length
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = json.dragonTowerBet.state.difficulty + "|" + eggs.length
@@ -3485,7 +3486,7 @@ function data(json){
 			
 			lastBet.target = json.rouletteBet.state.numbers.length
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = ""
@@ -3553,7 +3554,7 @@ function data(json){
 			
 			lastBet.target = json.wheelSpin.state.segments
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = json.wheelSpin.state.risk + "|" + json.wheelSpin.state.segments
@@ -3622,7 +3623,7 @@ function data(json){
 			
 			lastBet.target = json.plinkoBet.state.rows
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = json.plinkoBet.state.risk + "|" + json.plinkoBet.state.rows
@@ -3705,7 +3706,7 @@ function data(json){
 			
 			lastBet.target = kenofield.length
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML =  json.kenoBet.state.risk + "|" + kenofield.length
@@ -3782,7 +3783,7 @@ function data(json){
 			
 			lastBet.target = str_field.length
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML =  minefield.length + "|" + str_field.length
@@ -3853,7 +3854,7 @@ function data(json){
 			
 			lastBet.target = json.casesBet.state.difficulty
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML =  json.casesBet.state.difficulty
@@ -3921,7 +3922,7 @@ function data(json){
 			
 			lastBet.target = rolls
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML =  json.snakesBet.state.difficulty + "|" + rolls
@@ -4001,7 +4002,7 @@ function data(json){
 			
 			lastBet.target = json.rockPaperScissorsBet.state.difficulty
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML =  guesses.length
@@ -4066,7 +4067,7 @@ function data(json){
 			
 			lastBet.target = lines
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML =  lines
@@ -4137,7 +4138,7 @@ function data(json){
 			
 			lastBet.target = lines
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = lines
@@ -4208,7 +4209,7 @@ function data(json){
 			
 			lastBet.target = 0
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = spinType === "complete" ? "" : spinType
@@ -4283,7 +4284,7 @@ function data(json){
 			
 			lastBet.target = 0
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = spinType === "complete" ? "" : spinType
@@ -4361,7 +4362,7 @@ function data(json){
 			
 			lastBet.target = 0
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = ""
@@ -4430,7 +4431,7 @@ function data(json){
 			
 			lastBet.target = 0
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = json.dartsBet.state.difficulty
@@ -4520,7 +4521,7 @@ function data(json){
 				cards.push(index.card.rank)
 			});
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = ""
@@ -4603,7 +4604,7 @@ function data(json){
 				cards.push(index.card.rank)
 			});
 			
-			tdhigh.appendChild(tdcheck);
+			
 			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
 			tdProfit.innerHTML = current_profit.toFixed(8)
 			tdTargetNumber.innerHTML = ""
