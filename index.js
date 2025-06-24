@@ -1632,7 +1632,9 @@ function sleep(ms){
 }
 
 function sleepfor (time) {
-	timeouts = [];
+	for (var i=0; i<timeouts.length; i++) {
+	  clearTimeout(timeouts[i]);
+	}
   return new Promise((resolve) => timeouts.push(setTimeout(resolve, time)));
 }
 
@@ -3807,7 +3809,7 @@ function loadLua() {
         js.global:resetstats()
     end`)()
 	fengari.load(`function sleep(n)
-        js.global:sLeep(n)
+        js.global:sleep(n)
     end`)()
 	fengari.load(`function vault(n)
         js.global:vault(n)
