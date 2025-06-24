@@ -1667,143 +1667,129 @@ function makebet(n, y, betidentifier){
 		
 	}
 }
-function dataslide(json, betidentifier){
-	if(json.data.hasOwnProperty("multiplayerSlideBet")){
-		//console.log(json.data.multiplayerSlideBet.id)
-		gamelist[json.data.multiplayerSlideBet.id] = betidentifier
-		log("Slide bet placed. ID:" + betidentifier + " | amount: " + nextbet.toFixed(8) + " | target: " + target.toFixed(2))
-		slide_bet_placed = true;
-		if(json.data.multiplayerCrashBet.hasOwnProperty("slideResult")){
-			if(json.data.multiplayerCrashBet.slideResult == "pending"){
-					slide_bet_placed = true;	
-										
-			}
-		}
-	}
+
+// Simplified functions with proper request handling
+function dataslide(json, betidentifier) {
+    if (!json?.data?.multiplayerSlideBet) return;
+
+    gamelist[json.data.multiplayerSlideBet.id] = betidentifier;
+    log(`Slide bet placed. ID: ${betidentifier} | amount: ${nextbet.toFixed(8)} | target: ${target.toFixed(2)}`);
+    
+    if (json.data.multiplayerSlideBet.slideResult === "pending") {
+        slide_bet_placed = true;
+    }
 }
 
+function datacrash(json) {
+    if (!json?.data?.multiplayerCrashBet?.result) return;
 
-function datacrash(json){
-	if(json.data.hasOwnProperty("multiplayerCrashBet")){
-		
-		if(json.data.multiplayerCrashBet.hasOwnProperty("result")){
-			if(json.data.multiplayerCrashBet.result == "pending"){
-				crash_bet_placed = true;
-				cbamount = json.data.multiplayerCrashBet.amount
-				cbtarget = json.data.multiplayerCrashBet.cashoutAt
-			log("Crash bet placed | Amount: " + cbamount.toFixed(8) + " | Target: " + cbtarget.toFixed(2))
-				
-			}
-		}
-	}
+    if (json.data.multiplayerCrashBet.result === "pending") {
+        crash_bet_placed = true;
+        cbamount = json.data.multiplayerCrashBet.amount;
+        cbtarget = json.data.multiplayerCrashBet.cashoutAt;
+        log(`Crash bet placed | Amount: ${cbamount.toFixed(8)} | Target: ${cbtarget.toFixed(2)}`);
+    }
 }
 
-
-
-function crashbet(betsize, target_multi){
-	
-	//socketstart.push(setTimeout(() => {startSocket()}, 15000))
-	
-	
-	var body = {
-		variables:{
-        "cashoutAt": target_multi,
-        "amount": betsize,
-        "currency": currency
-		},
-		query:"mutation MultiplayerCrashBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!) {\n  multiplayerCrashBet(amount: $amount, currency: $currency, cashoutAt: $cashoutAt) {\n    ...MultiplayerCrashBet\n    user {\n      id\n      activeCrashBet {\n        ...MultiplayerCrashBet\n      }\n    }\n  }\n}\n\nfragment MultiplayerCrashBet on MultiplayerCrashBet {\n  id\n  user {\n    id\n    name\n  }\n  payoutMultiplier\n  gameId\n  amount\n  payout\n  currency\n  result\n  updatedAt\n  cashoutAt\n  btcAmount: amount(currency: btc)\n}\n"		}
-		
-	fetch('https://' +  mirror + '/_api/graphql', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => datacrash(json))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				//crashbet(betsize, target_multi)							
-			}, "2000");
-			
-		}
-	});
-	
+// Improved fetch function with proper error handling
+async function makeRequest(body, callback) {
+    try {
+        const res = await fetch(`https://${mirror}/_api/graphql`, {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 
+                'Content-Type': 'application/json',
+                'x-access-token': tokenapi 
+            },
+        });
+        
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        
+        const json = await res.json();
+        callback(json);
+    } catch (err) {
+        console.error('Request failed:', err);
+        if (running) setTimeout(() => {}, 2000);
+    }
 }
 
-function slidebet(betsize, slideat, betidentifier){
-	//socketstart.push(setTimeout(() => {startSocket()}, 15000))
-	
-	var body = {
-		variables:{
-        "identifier": randomString(21),
-        "cashoutAt": slideat,
-        "amount": betsize,
-        "currency": currency
-		},
-		query:"mutation MultiplayerSlideBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!, $identifier: String!) {\n  multiplayerSlideBet(\n    amount: $amount\n    currency: $currency\n    cashoutAt: $cashoutAt\n    identifier: $identifier\n  ) {\n    __typename\n    ...MultiplayerSlideBet\n    user {\n      id\n      activeSlideBet {\n        ...MultiplayerSlideBet\n      }\n    }\n  }\n}\n\nfragment MultiplayerSlideBet on MultiplayerSlideBet {\n  id\n  user {\n    id\n    name\n    preferenceHideBets\n  }\n  payoutMultiplier\n  gameId\n  amount\n  payout\n  currency\n  slideResult: result\n  updatedAt\n  cashoutAt\n  btcAmount: amount(currency: btc)\n  active\n  createdAt\n}\n"		}
-		
-	
-	fetch('https://' +  mirror + '/_api/graphql', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => dataslide(json, betidentifier))
-	.catch(function(err, json) {
-		//console.log(err);
-		if(running == true)
-		{
-			setTimeout(() => {
-				//slidebet(betsize, target_multi)							
-			}, "2000");
-			
-		}
-	});
-	
+function crashbet(betsize, target_multi) {
+    const body = {
+        variables: {
+            cashoutAt: target_multi,
+            amount: betsize,
+            currency: currency
+        },
+        query: `mutation MultiplayerCrashBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!) {
+            multiplayerCrashBet(amount: $amount, currency: $currency, cashoutAt: $cashoutAt) {
+                ...MultiplayerCrashBet
+                user { id activeCrashBet { ...MultiplayerCrashBet } }
+            }
+        }
+        fragment MultiplayerCrashBet on MultiplayerCrashBet {
+            id user { id name } payoutMultiplier gameId amount payout currency result
+            updatedAt cashoutAt btcAmount: amount(currency: btc)
+        }`
+    };
+    
+    makeRequest(body, datacrash);
 }
 
-
-function resetseed(e){
-
- var client = e;
- if(client == undefined){
-	client = randomString(10);
- }
-var body = {
-		operationName:"RotateSeedPair",
-		variables:{
-        "seed": client
-		},
-		query:"mutation RotateSeedPair($seed: String!) {\n  rotateSeedPair(seed: $seed) {\n    clientSeed {\n      user {\n        id\n        activeClientSeed {\n          id\n          seed\n          __typename\n        }\n        activeServerSeed {\n          id\n          nonce\n          seedHash\n          nextSeedHash\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"		}
-		
-	
-	fetch('https://' + mirror + '/_api/graphql', {
-		method: 'post',
-		body:    JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
-	})
-	.then(res => res.json())
-	.then(json => outseed(json))
-	.catch(function(err, json) {
-		console.log(err);
-		setTimeout(() => {
-			//initUser();							
-		}, "2000");
-	});
+function slidebet(betsize, slideat, betidentifier) {
+    const body = {
+        variables: {
+            identifier: randomString(21),
+            cashoutAt: slideat,
+            amount: betsize,
+            currency: currency
+        },
+        query: `mutation MultiplayerSlideBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!, $identifier: String!) {
+            multiplayerSlideBet(amount: $amount, currency: $currency, cashoutAt: $cashoutAt, identifier: $identifier) {
+                __typename ...MultiplayerSlideBet
+                user { id activeSlideBet { ...MultiplayerSlideBet } }
+            }
+        }
+        fragment MultiplayerSlideBet on MultiplayerSlideBet {
+            id user { id name preferenceHideBets } payoutMultiplier gameId amount payout
+            currency slideResult: result updatedAt cashoutAt btcAmount: amount(currency: btc)
+            active createdAt
+        }`
+    };
+    
+    makeRequest(body, (json) => dataslide(json, betidentifier));
 }
 
+function resetseed(client = randomString(10)) {
+    const body = {
+        operationName: "RotateSeedPair",
+        variables: { seed: client },
+        query: `mutation RotateSeedPair($seed: String!) {
+            rotateSeedPair(seed: $seed) {
+                clientSeed {
+                    user {
+                        id
+                        activeClientSeed { id seed __typename }
+                        activeServerSeed { id nonce seedHash nextSeedHash __typename }
+                        __typename
+                    }
+                    __typename
+                }
+                __typename
+            }
+        }`
+    };
+    
+    makeRequest(body, outseed);
+}
 
-function outseed(json){
-	if(json.errors != undefined){
-		log(json.errors[0].errorType);
-	} else {
-		log("Seed has been reset.")
-	}
-
+function outseed(json) {
+    if (json?.errors) {
+        log(json.errors[0].errorType);
+    } else {
+        log("Seed has been reset.");
+    }
 }
 
 function toFixedNo(num, fixed) {
@@ -1824,31 +1810,7 @@ function sLeep(n){
     //console.log("betdelay: " +n+ " ms");  
 }
 
-function isHiLow(lastCard) {
-    let result = "1";
-    try {
-        const strArray = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-        const numArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 
-        const index = strArray.indexOf(lastCard);
-        if (index === -1) {
-            throw new Error("Invalid card");
-        }
-
-        const num1 = numArray[index];
-        const num2 = numArray[6]; // 7 is the middle value
-
-        if (num1 > num2) {
-            result = 0;
-        } else if (num1 < num2) {
-            result = 1;
-        }
-        // If num1 === num2, result stays "1" as per original logic
-    } catch (e) {
-        // silently fail like in the C# code
-    }
-    return result;
-}
 
 function showOnChange(e) {
 	var elem = document.getElementById("botMenuMode");
