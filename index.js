@@ -3047,1580 +3047,362 @@ function data(json){
 			lastBet.percent = (profit_total / started_bal * 100)
 		
 		} else {
+		const gameType = Object.keys(json)[0];
+		const bet = json[gameType];
 		
-		if(json.hasOwnProperty("diceRoll"))
-		{
-			
-			
-	
-			
-			lastBet.name = json.diceRoll.user.name
-			lastBet.amount = json.diceRoll.amount;
-			lastBet.payoutMultiplier = json.diceRoll.payoutMultiplier;
-			lastBet.Roll = json.diceRoll.state.result;
-			lastBet.payout = json.diceRoll.payout;
-			lastBet.target = json.diceRoll.state.target;
-			if(json.diceRoll.state.condition == "below"){
-				bethigh = false;
-			} else {
-				bethigh = true;
-			}
-			
-			if(bethigh == false){
-				lastBet.chance = json.diceRoll.state.target;
-			} else {
-				lastBet.chance = 100 - json.diceRoll.state.target;
-			}
-			
-			
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "green"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-					
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "red"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-				
-											
-			} 
+		lastBet = {
+			name: bet.user.name,
+			amount: bet.amount,
+			payoutMultiplier: bet.payoutMultiplier,
+			payout: bet.payout,
+			Roll: bet.state.result || bet.state._popPoint ,
+			win: bet.payoutMultiplier >= 1
+		};
 		
-			current_profit = parseFloat(json.diceRoll.payout) - parseFloat(json.diceRoll.amount);
-			profit_total += parseFloat(json.diceRoll.payout) - parseFloat(json.diceRoll.amount);
-			wagered += parseFloat(json.diceRoll.amount);
-			
 		
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.diceRoll.amount.toFixed(8)
-			
-			
-			
-			
-			tdTargetChance.innerHTML = lastBet.chance.toFixed(4)
-			if(bethigh == false){
-				tdRollChance.innerHTML = json.diceRoll.state.result.toFixed(4)
-			} else {
-				tdRollChance.innerHTML = (100 - json.diceRoll.state.result).toFixed(4)
-			}
-			
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			if(bethigh){
-				lastBet.targetNumber = (99 / (lastBet.chance));
-				tdTargetNumber.innerHTML = ">" + (99 / (lastBet.chance)).toFixed(4)
-			} else {
-				lastBet.targetNumber = (99 / lastBet.chance);
-				tdTargetNumber.innerHTML = ">" + (99 / lastBet.chance).toFixed(4)
-			}
-			tdRollNumber.innerHTML = json.diceRoll.state.result.toFixed(2)
-			tdNonce.innerHTML = json.diceRoll.game;
-			tdBetID.innerHTML = json.diceRoll.id;
-			tdPayout.innerHTML = json.diceRoll.payout.toFixed(8);
-			
-						
-					
-			
-
-				
-			
-			
-			
-			
-			
-			
-			
-		}
-		if(json.hasOwnProperty("limboBet"))
-		{
-			
-		
-	
-			
-			lastBet.name = json.limboBet.user.name
-			lastBet.amount = json.limboBet.amount;
-			lastBet.payoutMultiplier = json.limboBet.payoutMultiplier;
-			lastBet.Roll = json.limboBet.state.result;
-			lastBet.chance = 99 / json.limboBet.state.multiplierTarget;
-			lastBet.payout = json.limboBet.payout;
-			lastBet.target = json.limboBet.state.multiplierTarget;
-			
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "green"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-					
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "red"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-				
-											
-			} 
-		
-			current_profit = parseFloat(json.limboBet.payout) - parseFloat(json.limboBet.amount);
-			profit_total += parseFloat(json.limboBet.payout) - parseFloat(json.limboBet.amount);
-			wagered += parseFloat(json.limboBet.amount);
-			
-			
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.limboBet.amount.toFixed(8)
-			
-			
-			
-			tdTargetChance.innerHTML = (99 / json.limboBet.state.multiplierTarget).toFixed(4)
-			tdRollChance.innerHTML = (99 / json.limboBet.state.result).toFixed(4)
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = ">" + json.limboBet.state.multiplierTarget.toFixed(4)
-			lastBet.targetNumber = json.limboBet.state.multiplierTarget;
-			tdRollNumber.innerHTML = json.limboBet.state.result.toFixed(2)
-			tdNonce.innerHTML = json.limboBet.game;
-			tdBetID.innerHTML = json.limboBet.id;
-			tdPayout.innerHTML = json.limboBet.payout.toFixed(8);
-			
-			
-					
-			
-
-				
-			
-			
-	
-
-			
-		}
-		if(json.hasOwnProperty("pumpBet"))
-		{
-			
-			
-	
-			lastBet.name = json.pumpBet.user.name
-			lastBet.amount = json.pumpBet.amount;
-			lastBet.payoutMultiplier = json.pumpBet.payoutMultiplier;
-			lastBet.Roll = json.pumpBet.state._popPoint;
-			lastBet.payout = json.pumpBet.payout;
-			lastBet.target = pumps;
-			
-			
-			
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.pumpBet.payout) - parseFloat(json.pumpBet.amount);
-			profit_total += parseFloat(json.pumpBet.payout) - parseFloat(json.pumpBet.amount);
-			wagered += parseFloat(json.pumpBet.amount);
-			
-			
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.pumpBet.amount.toFixed(8)
-			
-			
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			//tdRollChance.innerHTML = (99 / json.pumpBet.state.result).toFixed(4)
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = pumps
-			lastBet.targetNumber = pumps;
-			tdRollNumber.innerHTML = json.pumpBet.state._popPoint
-			tdNonce.innerHTML = json.pumpBet.game;
-			tdBetID.innerHTML = json.pumpBet.id;
-			tdPayout.innerHTML = json.pumpBet.payout.toFixed(8);
-			
-			
-					
-			
-
-				
-			
-			
-			
-
-			
-
-			
-		}
-	
-		if(json.hasOwnProperty("baccaratBet"))
-		{
-			
-			
-	
-			lastBet.name = json.baccaratBet.user.name
-			lastBet.amount = json.baccaratBet.amount;
-			lastBet.payoutMultiplier = json.baccaratBet.payoutMultiplier;
-			var elem = document.getElementById("botMenuMode");
-			var value = document.getElementById("botMenuMode").value;
-			if(value == "lua"){
-				lastBet.Roll = JSON.stringify(json.baccaratBet.state.result);
-			} else if(value == "js"){
-				lastBet.Roll = json.baccaratBet.state.result;
-			}
-			
-			lastBet.payout = json.baccaratBet.payout;
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.baccaratBet.payout) - parseFloat(json.baccaratBet.amount);
-			profit_total += parseFloat(json.baccaratBet.payout) - parseFloat(json.baccaratBet.amount);
-			wagered += parseFloat(json.baccaratBet.amount);
-			
-			
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.baccaratBet.amount.toFixed(8)
-			
-			
-			
-			
-			let bettext = ""
-			let bettie = json.baccaratBet.state.tie
-			let betbanker = json.baccaratBet.state.banker
-			let betplayer = json.baccaratBet.state.player
-			if(bettie > 0){
-				bettext += "t|"
-			}
-			if(betbanker > 0){
-				bettext += "b|"
-			}
-			if(betplayer > 0){
-				bettext += "p"
-			}
-			lastBet.target = 0
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = bettext
-			lastBet.targetNumber = bettext
-			tdRollNumber.innerHTML = json.baccaratBet.state.result;
-			tdNonce.innerHTML = json.baccaratBet.game;
-			tdBetID.innerHTML = json.baccaratBet.id;
-			tdPayout.innerHTML = json.baccaratBet.payout.toFixed(8);
-			
-			
-					
-			
-
-				
-			
-	
-
-			
-
-			
+		if (lastBet.win) {
+			win = true;
+			winstreak++;
+			wins++;
+			losestreak = 0;
+		} else {
+			win = false;
+			losses++;
+			losestreak++;
+			winstreak = 0;
 		}
 
-		if(json.hasOwnProperty("dragonTowerBet"))
-		{
-			
-			
-	
-			lastBet.name = json.dragonTowerBet.user.name
-			lastBet.amount = json.dragonTowerBet.amount;
-			lastBet.payoutMultiplier = json.dragonTowerBet.payoutMultiplier;
-			lastBet.Roll = json.dragonTowerBet.state.currentRound;
-			lastBet.payout = json.dragonTowerBet.payout;
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
+		// Calculate profits
+		current_profit = parseFloat(bet.payout) - parseFloat(bet.amount);
+		profit_total += current_profit;
+		wagered += parseFloat(bet.amount);
 		
-			current_profit = parseFloat(json.dragonTowerBet.payout) - parseFloat(json.dragonTowerBet.amount);
-			profit_total += parseFloat(json.dragonTowerBet.payout) - parseFloat(json.dragonTowerBet.amount);
-			wagered += parseFloat(json.dragonTowerBet.amount);
+		tdbets.innerHTML = wins + losses;
+		tdamount.innerHTML = bet.amount.toFixed(8);
+		tdProfit.innerHTML = current_profit.toFixed(8);
+		tdNonce.innerHTML = bet.game;
+		tdBetID.innerHTML = bet.id;
+		tdPayout.innerHTML = bet.payout.toFixed(8);
 		
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.dragonTowerBet.amount.toFixed(8)
-			
-			
-			
-			
-			lastBet.target = eggs.length
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = json.dragonTowerBet.state.difficulty + "|" + eggs.length
-			lastBet.targetNumber = json.dragonTowerBet.state.difficulty + "|" + eggs.length
-			tdRollNumber.innerHTML = lastBet.payoutMultiplier;
-			tdNonce.innerHTML = json.dragonTowerBet.game;
-			tdBetID.innerHTML = json.dragonTowerBet.id;
-			tdPayout.innerHTML = json.dragonTowerBet.payout.toFixed(8);
-			
-			
-					
-			
-
-				
-			
-			
-
-			
-
-			
+		if (gameType === "diceRoll"){
+            lastBet.Roll = bet.state.result;
+            lastBet.chance = bet.state.condition === "below" 
+                ? bet.state.target 
+                : 100 - bet.state.target;
+            lastBet.target = bet.state.target;
+            lastBet.targetNumber = 99 / lastBet.chance;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.chance.toFixed(4);
+            tdRollChance.innerHTML = bet.state.condition === "below" 
+                ? bet.state.result.toFixed(4) 
+                : (100 - bet.state.result).toFixed(4);
+            tdTargetNumber.innerHTML = (bet.state.condition === "below" ? "<" : ">") + lastBet.targetNumber.toFixed(4);
+            tdRollNumber.innerHTML = bet.state.result.toFixed(2);
+            //break;
 		}
-
-		if(json.hasOwnProperty("rouletteBet"))
-		{
-			
-			
-	
-			lastBet.name = json.rouletteBet.user.name
-			lastBet.amount = json.rouletteBet.amount;
-			lastBet.payoutMultiplier = json.rouletteBet.payoutMultiplier;
-			lastBet.Roll = json.rouletteBet.state.result;
-			lastBet.payout = json.rouletteBet.payout;
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.rouletteBet.payout) - parseFloat(json.rouletteBet.amount);
-			profit_total += parseFloat(json.rouletteBet.payout) - parseFloat(json.rouletteBet.amount);
-			wagered += parseFloat(json.rouletteBet.amount);
-			
-			
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.rouletteBet.amount.toFixed(8)
-			
-			
-			
-			
-			lastBet.target = json.rouletteBet.state.numbers.length
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = ""
-			lastBet.targetNumber = ""
-			tdRollNumber.innerHTML = lastBet.Roll;
-			tdNonce.innerHTML = json.rouletteBet.game;
-			tdBetID.innerHTML = json.rouletteBet.id;
-			tdPayout.innerHTML = json.rouletteBet.payout.toFixed(8);
-			
-			
-					
-			
-
-				
-			
-			
-	
+        
+		if (gameType === "limboBet"){
+            lastBet.Roll = bet.state.result;
+            lastBet.chance = 99 / bet.state.multiplierTarget;
+            lastBet.target = bet.state.multiplierTarget;
+            lastBet.targetNumber = bet.state.multiplierTarget;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.chance.toFixed(4);
+            tdRollChance.innerHTML = (99 / bet.state.result).toFixed(4);
+            tdTargetNumber.innerHTML = ">" + bet.state.multiplierTarget.toFixed(4);
+            tdRollNumber.innerHTML = bet.state.result.toFixed(2);
+            //break;
 		}
-
-		if(json.hasOwnProperty("wheelSpin"))
-		{
-			
-			
-	
-			lastBet.name = json.wheelSpin.user.name
-			lastBet.amount = json.wheelSpin.amount;
-			lastBet.payoutMultiplier = json.wheelSpin.payoutMultiplier;
-			lastBet.Roll = json.wheelSpin.state.result;
-			lastBet.payout = json.wheelSpin.payout;
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.wheelSpin.payout) - parseFloat(json.wheelSpin.amount);
-			profit_total += parseFloat(json.wheelSpin.payout) - parseFloat(json.wheelSpin.amount);
-			wagered += parseFloat(json.wheelSpin.amount);
-			
-		
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.wheelSpin.amount.toFixed(8)
-			
-			
-			
-			
-			lastBet.target = json.wheelSpin.state.segments
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = json.wheelSpin.state.risk + "|" + json.wheelSpin.state.segments
-			lastBet.targetNumber = json.wheelSpin.state.risk + "|" + json.wheelSpin.state.segments
-			tdRollNumber.innerHTML = lastBet.Roll;
-			tdNonce.innerHTML = json.wheelSpin.game;
-			tdBetID.innerHTML = json.wheelSpin.id;
-			tdPayout.innerHTML = json.wheelSpin.payout.toFixed(8);
-			
-				
-					
-			
-
-				
-			
-	
+        if (gameType === "pumpBet"){
+            lastBet.Roll = bet.state._popPoint;
+            lastBet.target = pumps;
+            lastBet.targetNumber = pumps;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = pumps;
+            tdRollNumber.innerHTML = bet.state._popPoint;
+            //break;
 		}
-
-		
-
-		if(json.hasOwnProperty("plinkoBet"))
-		{
-			
-			
-	
-			lastBet.name = json.plinkoBet.user.name
-			lastBet.amount = json.plinkoBet.amount;
-			lastBet.payoutMultiplier = json.plinkoBet.payoutMultiplier;
-			lastBet.Roll = json.plinkoBet.payoutMultiplier;
-			lastBet.payout = json.plinkoBet.payout;
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.plinkoBet.payout) - parseFloat(json.plinkoBet.amount);
-			profit_total += parseFloat(json.plinkoBet.payout) - parseFloat(json.plinkoBet.amount);
-			wagered += parseFloat(json.plinkoBet.amount);
-			
-		
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.plinkoBet.amount.toFixed(8)
-			
-			
-			
-			
-			lastBet.target = json.plinkoBet.state.rows
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = json.plinkoBet.state.risk + "|" + json.plinkoBet.state.rows
-			lastBet.targetNumber = json.plinkoBet.state.risk + "|" + json.plinkoBet.state.rows
-			tdRollNumber.innerHTML = lastBet.Roll;
-			tdNonce.innerHTML = json.plinkoBet.game;
-			tdBetID.innerHTML = json.plinkoBet.id;
-			tdPayout.innerHTML = json.plinkoBet.payout.toFixed(8);
-			
-				
-					
-			
-
-				
-			
-			
-			
-
-		}
-
-		if(json.hasOwnProperty("kenoBet"))
-		{
-			
-			
-	
-			lastBet.name = json.kenoBet.user.name
-			lastBet.amount = json.kenoBet.amount;
-			lastBet.payoutMultiplier = json.kenoBet.payoutMultiplier;
-			lastBet.Roll = json.kenoBet.state.drawnNumbers;
-			lastBet.payout = json.kenoBet.payout;
-			
-			var rounds = json.kenoBet.state.drawnNumbers;
-			var kenofield =  json.kenoBet.state.selectedNumbers;
-			
-			
-			var hitkeno = kenofield.filter(function(n) {
-				return rounds.indexOf(n) !== -1;
-			});
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.kenoBet.payout) - parseFloat(json.kenoBet.amount);
-			profit_total += parseFloat(json.kenoBet.payout) - parseFloat(json.kenoBet.amount);
-			wagered += parseFloat(json.kenoBet.amount);
-			
-			
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.kenoBet.amount.toFixed(8)
-			
-			
-			
-			
-			let hitnumbers = hitkeno
-			if(hitnumbers == "undefined") {
-				hitnumbers = ""
-			} else {
-				hitnumbers = hitkeno
-			}
-			
-			lastBet.target = kenofield.length
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML =  json.kenoBet.state.risk + "|" + kenofield.length
-			lastBet.targetNumber =  json.kenoBet.state.risk + "|" + kenofield.length
-			tdRollNumber.innerHTML = hitkeno.length + "x";
-			tdNonce.innerHTML = json.kenoBet.game;
-			tdBetID.innerHTML = json.kenoBet.id;
-			tdPayout.innerHTML = json.kenoBet.payout.toFixed(8);
-			
-			
-					
-			
-
-
-		}
-
-		if(json.hasOwnProperty("minesBet"))
-		{
-			
-			
-	
-			lastBet.name = json.minesBet.user.name
-			lastBet.amount = json.minesBet.amount;
-			lastBet.payoutMultiplier = json.minesBet.payoutMultiplier;
-			lastBet.Roll = json.minesBet.state.mines;
-			lastBet.payout = json.minesBet.payout;
-			
-			var rounds = json.minesBet.state.rounds;
-			var minefield =  json.minesBet.state.mines;
-			var str_field = [];
-			rounds.forEach(function(round){
-				str_field.push(round.field)
-			});
-			
-			//lastBet.target = str_field;
-			
-			var hitmines = str_field.filter(function(n) {
-				return minefield.indexOf(n) !== -1;
-			});
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.minesBet.payout) - parseFloat(json.minesBet.amount);
-			profit_total += parseFloat(json.minesBet.payout) - parseFloat(json.minesBet.amount);
-			wagered += parseFloat(json.minesBet.amount);
-		
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.minesBet.amount.toFixed(8)
-			
-			
-		
-			
-			
-			lastBet.target = str_field.length
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML =  minefield.length + "|" + str_field.length
-			lastBet.targetNumber =  minefield.length + "|" + str_field.length
-			tdRollNumber.innerHTML = hitmines;
-			tdNonce.innerHTML = json.minesBet.game;
-			tdBetID.innerHTML = json.minesBet.id;
-			tdPayout.innerHTML = json.minesBet.payout.toFixed(8);
-			
-				
-					
-			
-
-				
-			
-			
-			
-	
-		}
-
-		if(json.hasOwnProperty("casesBet"))
-		{
-			
-			
-	
-			lastBet.name = json.casesBet.user.name
-			lastBet.amount = json.casesBet.amount;
-			lastBet.payoutMultiplier = json.casesBet.payoutMultiplier;
-			lastBet.Roll = json.casesBet.state.result;
-			lastBet.payout = json.casesBet.payout;
-			
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.casesBet.payout) - parseFloat(json.casesBet.amount);
-			profit_total += parseFloat(json.casesBet.payout) - parseFloat(json.casesBet.amount);
-			wagered += parseFloat(json.casesBet.amount);
-			
-			
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.casesBet.amount.toFixed(8)
-			
-			
-			
-			
-			
-			lastBet.target = json.casesBet.state.difficulty
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML =  json.casesBet.state.difficulty
-			lastBet.targetNumber =  json.casesBet.state.difficulty
-			tdRollNumber.innerHTML = json.casesBet.state.result;
-			tdNonce.innerHTML = json.casesBet.game;
-			tdBetID.innerHTML = json.casesBet.id;
-			tdPayout.innerHTML = json.casesBet.payout.toFixed(8);
-			
-			
-					
-			
-
-				
-			
-		}
-
-		if(json.hasOwnProperty("snakesBet"))
-		{
-			
-			
-	
-			lastBet.name = json.snakesBet.user.name
-			lastBet.amount = json.snakesBet.amount;
-			lastBet.payoutMultiplier = json.snakesBet.payoutMultiplier;
-			
-			lastBet.payout = json.snakesBet.payout;
-			
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.snakesBet.payout) - parseFloat(json.snakesBet.amount);
-			profit_total += parseFloat(json.snakesBet.payout) - parseFloat(json.snakesBet.amount);
-			wagered += parseFloat(json.snakesBet.amount);
-			
-		
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.snakesBet.amount.toFixed(8)
-			
-			
-			
-			
-			
-			lastBet.target = rolls
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML =  json.snakesBet.state.difficulty + "|" + rolls
-			lastBet.targetNumber =  json.snakesBet.state.difficulty + "|" + rolls
-			
-			
-			let snakecount = 0
-			Object.keys(json.snakesBet.state.rounds).forEach(function (key) {
-			   if(json.snakesBet.state.rounds[key].payoutMultiplier >= 1){
-				   snakecount++;
-			   }
-			});
-			lastBet.Roll = snakecount;
-			tdRollNumber.innerHTML = snakecount;
-			tdNonce.innerHTML = json.snakesBet.game;
-			tdBetID.innerHTML = json.snakesBet.id;
-			tdPayout.innerHTML = json.snakesBet.payout.toFixed(8);
-			
-			
-					
-			
-
-				
-			
-			
-			
-			
-		}
-
-		if(json.hasOwnProperty("rockPaperScissorsBet"))
-		{
-			
-			
-	
-			lastBet.name = json.rockPaperScissorsBet.user.name
-			lastBet.amount = json.rockPaperScissorsBet.amount;
-			lastBet.payoutMultiplier = json.rockPaperScissorsBet.payoutMultiplier;
-			lastBet.Roll = json.rockPaperScissorsBet.payoutMultiplier;
-			lastBet.payout = json.rockPaperScissorsBet.payout;
-			
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.rockPaperScissorsBet.payout) - parseFloat(json.rockPaperScissorsBet.amount);
-			profit_total += parseFloat(json.rockPaperScissorsBet.payout) - parseFloat(json.rockPaperScissorsBet.amount);
-			wagered += parseFloat(json.rockPaperScissorsBet.amount);
-			
-			
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.rockPaperScissorsBet.amount.toFixed(8)
-			
-			
-			
-			
-			
-			lastBet.target = json.rockPaperScissorsBet.state.difficulty
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML =  guesses.length
-			lastBet.targetNumber =  guesses.length
-			tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
-			tdNonce.innerHTML = json.rockPaperScissorsBet.game;
-			tdBetID.innerHTML = json.rockPaperScissorsBet.id;
-			tdPayout.innerHTML = json.rockPaperScissorsBet.payout.toFixed(8);
-			
-				
-					
-			
-
-		}
-
-		if(json.hasOwnProperty("slotsTomeOfLifeBet"))
-		{
-			
-			
-	
-			lastBet.name = json.slotsTomeOfLifeBet.user.name
-			lastBet.amount = json.slotsTomeOfLifeBet.amount;
-			lastBet.payoutMultiplier = json.slotsTomeOfLifeBet.payoutMultiplier;
-			lastBet.Roll = json.slotsTomeOfLifeBet.payoutMultiplier;
-			lastBet.payout = json.slotsTomeOfLifeBet.payout;
-			
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.slotsTomeOfLifeBet.payout) - parseFloat(json.slotsTomeOfLifeBet.amount);
-			profit_total += parseFloat(json.slotsTomeOfLifeBet.payout) - parseFloat(json.slotsTomeOfLifeBet.amount);
-			wagered += parseFloat(json.slotsTomeOfLifeBet.amount);
-			
-	
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.slotsTomeOfLifeBet.amount.toFixed(8)
-			
-			
-			
-			
-			
-			lastBet.target = lines
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML =  lines
-			lastBet.targetNumber = lines
-			tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
-			tdNonce.innerHTML = json.slotsTomeOfLifeBet.game;
-			tdBetID.innerHTML = json.slotsTomeOfLifeBet.id;
-			tdPayout.innerHTML = json.slotsTomeOfLifeBet.payout.toFixed(8);
-			
-		
-					
-			
-
-				
-			
-			
-			
-	
-		}
-
-		if(json.hasOwnProperty("slotsBet"))
-		{
-			
-			
-	
-			lastBet.name = json.slotsBet.user.name
-			lastBet.amount = json.slotsBet.amount;
-			lastBet.payoutMultiplier = json.slotsBet.payoutMultiplier;
-			lastBet.Roll = json.slotsBet.payoutMultiplier;
-			lastBet.payout = json.slotsBet.payout;
-			
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.slotsBet.payout) - parseFloat(json.slotsBet.amount);
-			profit_total += parseFloat(json.slotsBet.payout) - parseFloat(json.slotsBet.amount);
-			wagered += parseFloat(json.slotsBet.amount);
-			
-	
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.slotsBet.amount.toFixed(8)
-			
-			
-			
-			
-			
-			lastBet.target = lines
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = lines
-			lastBet.targetNumber = lines
-			tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
-			tdNonce.innerHTML = json.slotsBet.game;
-			tdBetID.innerHTML = json.slotsBet.id;
-			tdPayout.innerHTML = json.slotsBet.payout.toFixed(8);
-			
-				
-					
-			
-
-				
-			
-		
-		}
-
-		if(json.hasOwnProperty("slotsSamuraiBet"))
-		{
-			
-			
-	
-			
-	
-			lastBet.name = json.slotsSamuraiBet.user.name
-			lastBet.amount = json.slotsSamuraiBet.amount;
-			lastBet.payoutMultiplier = json.slotsSamuraiBet.payoutMultiplier;
-			lastBet.Roll = json.slotsSamuraiBet.payoutMultiplier;
-			lastBet.payout = json.slotsSamuraiBet.payout;
-			
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.slotsSamuraiBet.payout) - parseFloat(json.slotsSamuraiBet.amount);
-			profit_total += parseFloat(json.slotsSamuraiBet.payout) - parseFloat(json.slotsSamuraiBet.amount);
-			wagered += parseFloat(json.slotsSamuraiBet.amount);
-			
-	
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.slotsSamuraiBet.amount.toFixed(8)
-			
-			
-			
-			
-			
-			lastBet.target = 0
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = spinType === "complete" ? "" : spinType
-			lastBet.targetNumber = spinType === "complete" ? "" : spinType
-			tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
-			tdNonce.innerHTML = json.slotsSamuraiBet.game;
-			tdBetID.innerHTML = json.slotsSamuraiBet.id;
-			tdPayout.innerHTML = json.slotsSamuraiBet.payout.toFixed(8);
-			
-			
-					
-			
-
-				
-	
-			
-			if(json.slotsSamuraiBet.state.nextSpinType === "special" || json.slotsSamuraiBet.state.nextSpinType === "bonus"){
-				samuraiNext()
-				samuraiskip = true
-				spinType = json.slotsSamuraiBet.state.nextSpinType
-				return;
-			}
+        if (gameType === "baccaratBet"){
+            const elem = document.getElementById("botMenuMode");
+            const value = elem.value;
+            lastBet.Roll = value === "lua" 
+                ? JSON.stringify(bet.state.result) 
+                : bet.state.result;
+                
+            let bettext = "";
+            if (bet.state.tie > 0) bettext += "t|";
+            if (bet.state.banker > 0) bettext += "b|";
+            if (bet.state.player > 0) bettext += "p";
+            lastBet.target = 0;
+            lastBet.targetNumber = bettext;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.Roll;
+            //break;
+		} 
+        if (gameType === "dragonTowerBet"){
+            lastBet.Roll = bet.state.currentRound;
+            lastBet.target = eggs.length;
+            lastBet.targetNumber = `${bet.state.difficulty}|${eggs.length}`;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.payoutMultiplier;
+            //break;
+        }    
+        if (gameType === "rouletteBet"){
+            lastBet.Roll = bet.state.result;
+            lastBet.target = bet.state.numbers.length;
+            lastBet.targetNumber = "";
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.Roll;
+            //break;
+        }    
+        if (gameType === "wheelSpin"){
+            lastBet.Roll = bet.state.result;
+            lastBet.target = bet.state.segments;
+            lastBet.targetNumber = `${bet.state.risk}|${bet.state.segments}`;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.Roll;
+            //break;
+        }    
+        if (gameType === "plinkoBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = bet.state.rows;
+            lastBet.targetNumber = `${bet.state.risk}|${bet.state.rows}`;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.Roll;
+            //break;
+        }    
+        if (gameType === "kenoBet"){
+            lastBet.Roll = bet.state.drawnNumbers;
+            const kenofield = bet.state.selectedNumbers;
+            const hitkeno = kenofield.filter(n => bet.state.drawnNumbers.includes(n));
+            lastBet.target = kenofield.length;
+            lastBet.targetNumber = `${bet.state.risk}|${kenofield.length}`;
+            lastBet.hitCount = hitkeno.length;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.hitCount + "x";
+            //break;
+        }    
+        if (gameType === "minesBet"){
+            lastBet.Roll = bet.state.mines;
+            const rounds = bet.state.rounds;
+            const minefield = bet.state.mines;
+            const str_field = rounds.map(round => round.field);
+            
+            const hitmines = str_field.filter(n => minefield.includes(n));
+            
+            lastBet.target = str_field.length;
+            lastBet.targetNumber = `${minefield.length}|${str_field.length}`;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = hitmines;
+            //break;
+        }    
+        if (gameType === "casesBet"){
+            lastBet.Roll = bet.state.result;
+            lastBet.target = bet.state.difficulty;
+            lastBet.targetNumber = bet.state.difficulty;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.Roll;
+            //break;
+        }    
+        if (gameType === "snakesBet"){
+            lastBet.target = rolls;
+            lastBet.targetNumber = `${bet.state.difficulty}|${rolls}`;
+            
+            let snakecount = 0;
+            Object.keys(bet.state.rounds).forEach(key => {
+                if (bet.state.rounds[key].payoutMultiplier >= 1) {
+                    snakecount++;
+                }
+            });
+            lastBet.Roll = snakecount;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = snakecount;
+            //break;
+        }    
+        if (gameType === "rockPaperScissorsBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = bet.state.difficulty;
+            lastBet.targetNumber = guesses.length;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
+            //break;
+        }    
+        if (gameType === "slotsTomeOfLifeBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = lines;
+            lastBet.targetNumber = lines;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
+            //break;
+        }    
+        if (gameType === "slotsBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = lines;
+            lastBet.targetNumber = lines;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
+            //break;
+        }    
+        if (gameType === "slotsSamuraiBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = 0;
+            lastBet.targetNumber = spinType === "complete" ? "" : spinType;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
+            
+            // Special handling for next spin type
+            if (bet.state.nextSpinType === "special" || bet.state.nextSpinType === "bonus") {
+                samuraiNext();
+                samuraiskip = true;
+                spinType = bet.state.nextSpinType;
+                return;
+            }
+            //break;
+		}   
+        if (gameType === "slotsSamuraiNext"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = 0;
+            lastBet.targetNumber = spinType === "complete" ? "" : spinType;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
+            
+            samuraiskip = false;
+            
+            // Special handling for next spin type
+            if (bet.state.nextSpinType === "special" || bet.state.nextSpinType === "bonus") {
+                samuraiNext();
+                spinType = bet.state.nextSpinType;
+                samuraiskip = true;
+                return;
+            }
+            //break;
+        }    
+        if (gameType === "diamondsBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = 0;
+            lastBet.targetNumber = "";
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
+            //break;
+        }    
+        if (gameType === "dartsBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = 0;
+            lastBet.targetNumber = bet.state.difficulty;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
+            //break;
+        }    
+        if (gameType === "hiloBet"){
+            // Just set current bet for hiloBet (active game)
+            currentBet = bet;
+        }    
+        if (gameType === "hiloNext"){
+            if (bet.active) {
+                // Active game continues
+                cashout_done = false;
+                currentBet = bet;
+                
+            } else {
+                // Game ended
+                cashout_done = true;
+                lastBet.Roll = bet.payoutMultiplier;
+                lastBet.target = 0;
+                
+                // Process cards
+                const cards = [];
+                cards.push(startcard.rank);
+                bet.state.rounds.forEach((index) => {
+                    cards.push(index.card.rank);
+                });
+                lastBet.targetNumber = "";
+                
+                // UI Updates
+                tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+                tdTargetNumber.innerHTML = "";
+                tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
+                tdRollChance.innerHTML = cards.join(",");
+            }
+            
+        }    
+        if (gameType === "hiloCashout"){
+            cashout_done = true;
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = 0;
+            
+            // Process cards
+            const cards = [];
+            cards.push(startcard.rank);
+            bet.state.rounds.forEach((index) => {
+                cards.push(index.card.rank);
+            });
+            lastBet.targetNumber = "";
+            
+            // UI Updates
+            tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = "";
+            tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
+            tdRollChance.innerHTML = cards.join(",");
 		}
 		
-		if(json.hasOwnProperty("slotsSamuraiNext"))
-		{
-			
-			
-	
-			lastBet.name = json.slotsSamuraiNext.user.name
-			lastBet.amount = json.slotsSamuraiNext.amount;
-			lastBet.payoutMultiplier = json.slotsSamuraiNext.payoutMultiplier;
-			lastBet.Roll = json.slotsSamuraiNext.payoutMultiplier;
-			lastBet.payout = json.slotsSamuraiNext.payout;
-			
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
 		
-			current_profit = parseFloat(json.slotsSamuraiNext.payout) - parseFloat(json.slotsSamuraiNext.amount);
-			profit_total += parseFloat(json.slotsSamuraiNext.payout) - parseFloat(json.slotsSamuraiNext.amount);
-			wagered += parseFloat(json.slotsSamuraiNext.amount);
-			
-
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.slotsSamuraiNext.amount.toFixed(8)
-			
-			
-			
-			
-			
-			lastBet.target = 0
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = spinType === "complete" ? "" : spinType
-			lastBet.targetNumber = spinType === "complete" ? "" : spinType
-			tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
-			tdNonce.innerHTML = json.slotsSamuraiNext.game;
-			tdBetID.innerHTML = json.slotsSamuraiNext.id;
-			tdPayout.innerHTML = json.slotsSamuraiNext.payout.toFixed(8);
-			
-			
-					
-			
-
-				
-			
-			
-	
-			samuraiskip = false
-			
-			if(json.slotsSamuraiNext.state.nextSpinType === "special" || json.slotsSamuraiNext.state.nextSpinType === "bonus"){
-					samuraiNext()
-					spinType = json.slotsSamuraiNext.state.nextSpinType
-					samuraiskip = true
-					return;
-				}
-			}
-
-		if(json.hasOwnProperty("diamondsBet"))
-		{
-			
-			
-	
-			lastBet.name = json.diamondsBet.user.name
-			lastBet.amount = json.diamondsBet.amount;
-			lastBet.payoutMultiplier = json.diamondsBet.payoutMultiplier;
-			lastBet.Roll = json.diamondsBet.payoutMultiplier;
-			lastBet.payout = json.diamondsBet.payout;
-			
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
 		
-			current_profit = parseFloat(json.diamondsBet.payout) - parseFloat(json.diamondsBet.amount);
-			profit_total += parseFloat(json.diamondsBet.payout) - parseFloat(json.diamondsBet.amount);
-			wagered += parseFloat(json.diamondsBet.amount);
-			
-		
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.diamondsBet.amount.toFixed(8)
-			
-			
-			
-			
-			
-			lastBet.target = 0
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = ""
-			lastBet.targetNumber = ""
-			tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
-			tdNonce.innerHTML = json.diamondsBet.game;
-			tdBetID.innerHTML = json.diamondsBet.id;
-			tdPayout.innerHTML = json.diamondsBet.payout.toFixed(8);
-			
-				
-					
-			
-
-				
-			
-			
-			
-		
-		}
-		if(json.hasOwnProperty("dartsBet"))
-		{
-			
-			
-	
-			lastBet.name = json.dartsBet.user.name
-			lastBet.amount = json.dartsBet.amount;
-			lastBet.payoutMultiplier = json.dartsBet.payoutMultiplier;
-			lastBet.Roll = json.dartsBet.payoutMultiplier;
-			lastBet.payout = json.dartsBet.payout;
-			
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.dartsBet.payout) - parseFloat(json.dartsBet.amount);
-			profit_total += parseFloat(json.dartsBet.payout) - parseFloat(json.dartsBet.amount);
-			wagered += parseFloat(json.dartsBet.amount);
-
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.dartsBet.amount.toFixed(8)
-			
-			
-			
-			
-			
-			lastBet.target = 0
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = json.dartsBet.state.difficulty
-			lastBet.targetNumber = json.dartsBet.state.difficulty
-			tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
-			tdNonce.innerHTML = json.dartsBet.game;
-			tdBetID.innerHTML = json.dartsBet.id;
-			tdPayout.innerHTML = json.dartsBet.payout.toFixed(8);
-			
-			
-					
-			
-
-				
-			
-			
-			
-				
-		}
-		if(json.hasOwnProperty("hiloBet"))
-		{
-			
-			currentBet = json.hiloBet
-			
-		
-		}	
-
-		if(json.hasOwnProperty("hiloNext"))
-		{
-			currentBet = json.hiloNext
-			if(json.hiloNext.active){
-				cashout_done = false
-				
-	
-			} else {
-			cashout_done = true	
-				
-			
-	
-			lastBet.name = json.hiloNext.user.name
-			lastBet.amount = json.hiloNext.amount;
-			lastBet.payoutMultiplier = json.hiloNext.payoutMultiplier;
-			lastBet.Roll = json.hiloNext.payoutMultiplier;
-			lastBet.payout = json.hiloNext.payout;
-			
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.hiloNext.payout) - parseFloat(json.hiloNext.amount);
-			profit_total += parseFloat(json.hiloNext.payout) - parseFloat(json.hiloNext.amount);
-			wagered += parseFloat(json.hiloNext.amount);
-			
-
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.hiloNext.amount.toFixed(8)
-			
-			
-			
-			
-			
-			lastBet.target = 0
-			cards = []
-			cards.push(startcard.rank)
-			json.hiloNext.state.rounds.forEach((index) => {
-				cards.push(index.card.rank)
-			});
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = ""
-			lastBet.targetNumber = ""
-			tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
-			tdRollChance.innerHTML = cards.join(",")
-			tdNonce.innerHTML = json.hiloNext.game;
-			tdBetID.innerHTML = json.hiloNext.id;
-			tdPayout.innerHTML = json.hiloNext.payout.toFixed(8);
-			
-	
-					
-			
-
-				
-			
-			
-			
-		
-			
-			
-			}
-			
-			
-		
-		}	
-
-		if(json.hasOwnProperty("hiloCashout"))
-		{
+		if(game != "hilo"){
 			cashout_done = true
-			
-	
-			lastBet.name = json.hiloCashout.user.name
-			lastBet.amount = json.hiloCashout.amount;
-			lastBet.payoutMultiplier = json.hiloCashout.payoutMultiplier;
-			lastBet.Roll = json.hiloCashout.payoutMultiplier;
-			lastBet.payout = json.hiloCashout.payout;
-			
-			
-			
-
-			if(lastBet.payoutMultiplier >= 1){
-				win = true;
-				lastBet.win = true;
-				color = "#05f711"
-				//win
-				winstreak++;
-				wins++;
-				losestreak = 0;
-
-			} else {
-
-				win = false;
-				lastBet.win = false;
-				color = "#f72a42"
-				losses++;
-				losestreak++;
-				winstreak = 0;
-
-											
-			} 
-		
-			current_profit = parseFloat(json.hiloCashout.payout) - parseFloat(json.hiloCashout.amount);
-			profit_total += parseFloat(json.hiloCashout.payout) - parseFloat(json.hiloCashout.amount);
-			wagered += parseFloat(json.hiloCashout.amount);
-			
-	
-			
-			tdbets.innerHTML = wins + losses;
-			tdamount.innerHTML = json.hiloCashout.amount.toFixed(8)
-			
-			
-			
-			
-			
-			lastBet.target = 0
-			cards = []
-			cards.push(startcard.rank)
-			json.hiloCashout.state.rounds.forEach((index) => {
-				cards.push(index.card.rank)
-			});
-			
-			
-			tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + "x"
-			tdProfit.innerHTML = current_profit.toFixed(8)
-			tdTargetNumber.innerHTML = ""
-			lastBet.targetNumber = ""
-			tdRollNumber.innerHTML = lastBet.payoutMultiplier.toFixed(2);
-			tdRollChance.innerHTML = cards.join(",")
-			tdNonce.innerHTML = json.hiloCashout.game;
-			tdBetID.innerHTML = json.hiloCashout.id;
-			tdPayout.innerHTML = json.hiloCashout.payout.toFixed(8);
-			
-		
-			
-
-		
 		}
-		if(cashout_done || game != "hilo"){
+		if(cashout_done){
 			
 			
 			
@@ -4705,15 +3487,12 @@ function data(json){
 			lastBet.percent = (profit_total / started_bal * 100)
 		}
 		}
-		if(game != "hilo"){
-			cashout_done = true
-		}
-		var elem = document.getElementById("botMenuMode");
+		
 		var value = document.getElementById("botMenuMode").value;
 		if(value == "lua"){
 			sendLua();
 		} else if(value == "js"){
-			if(game == "hilo"){
+			if(game === "hilo"){
 			if(cashout_done) {
 				dobet();
 			} else {
@@ -4730,129 +3509,79 @@ function data(json){
 			hiloCash()
 		}
 		}
-		if(running && samuraiskip == false){
-			sleepfor(sleeptime).then(() => {
-			sleeptime = 0
-			if(running){
-			if(game == "hilo"){
-				if(cashout_done){
-				cashout_done = false
-				hiloBet(nextbet, startcard)
-				} else {
-				if(hiloguess == 7 || hiloguess == 5 || hiloguess == 4 || hiloguess == 2){
-					let lastCard = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
-					if(hiloguess == 2){
-						guessed = 'equal'
-						hiloNext(guessed)
-					} else if(hiloguess == 7){
-						guessed = 'skip'
-						hiloNext(guessed)
-					} else if(hiloguess == 5){
-					if(lastCard == "A"){
-						guessed = "higher"
-					}
-					if(lastCard == "K"){
-						guessed = "equal"
-					}
-					if(lastCard == "Q"){
-						guessed = "higherEqual"
-					}
-					if(lastCard == "J"){
-						guessed = "higherEqual"
-					}
-					if(parseInt(lastCard) <= 10 && parseInt(lastCard) != NaN){
-						guessed = "higherEqual"
-					}
-					hiloNext(guessed)
-					} else if(hiloguess == 4){
-					if(lastCard == "A"){
-						guessed = "equal"
-					}
-					if(lastCard == "K"){
-						guessed = "lower"
-					}
-					if(lastCard == "Q"){
-						guessed = "lowerEqual"
-					}
-					if(lastCard == "J"){
-						guessed = "lowerEqual"
-					}
-					if(parseInt(lastCard) <= 10 && parseInt(lastCard) != NaN){
-						guessed = "lowerEqual"
-					}
-					hiloNext(guessed)
-					//hiloguess = 3
-					} 
-				} else if(hiloguess == 3){
-					hiloCash()
-					
-				}
-				}
-				} 
-			
-			if(game == "tomeoflife"){
-			tomeBet(nextbet, lines)
-			} 
-			if(game == "scarabspin"){
-			scarabBet(nextbet, lines)
-			} 
-			if(game == "bluesamurai"){
-			 samuraiBet(nextbet)
-			} 
-			if(game == "diamonds"){
-			diamondBet(nextbet)
-			} 
-			if(game == "cases"){
-			caseBet(nextbet, difficulty)
-			} 
-			if(game == "videopoker"){
-			videopokerBet(nextbet)
-			} 
-			if(game == "rps"){
-			rockpaperBet(nextbet, guesses)
-			} 
-			if(game == "flip"){
-			flipBet(nextbet, guesses)
-			} 
-			if(game == "snakes"){
-			snakesBet(nextbet, difficulty, rolls)
-			} 
-			if(game == "pump"){
-			pumpBet(nextbet, pumps, difficulty)
-			} 
-			if(game == "baccarat"){
-			baccaratbet(tie, player, banker)
-			} 
-			if(game == "dragontower"){
-			dragontowerBet(nextbet, difficulty, eggs)
-			} 			
-			if(game == "roulette"){
-			roulettebet(chips)
-			} 
-			if(game == "wheel"){
-			wheelbet(nextbet, segments, risk)
-			} 		
-			if(game == "plinko"){
-			plinkobet(nextbet, rows, risk)
-			} 
-			if(game == "mines"){
-			minebet(nextbet, fields, mines)
-			}
-			if(game == "keno"){
-			kenobet(nextbet, numbers, risk)
-			}
-			if(game == "dice"){
-			DiceBet(nextbet, chance, bethigh)
-			}
-			if(game == "limbo"){
-			LimboBet(nextbet, target);
-			}
-			if(game == "darts"){
-			dartsBet(nextbet, difficulty)
-			} 
-			}
-			});
-		}		
+		if (running && !samuraiskip) {
+		sleepfor(sleeptime).then(() => {
+        sleeptime = 0;
+        if (!running) return;
+
+        const gameHandlers = {
+            hilo: () => {
+                if (cashout_done) {
+                    cashout_done = false;
+                    hiloBet(nextbet, startcard);
+                } else {
+                    const lastCard = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
+                    
+                    if ([2, 4, 5, 7].includes(hiloguess)) {
+                        const guesses = {
+                            2: 'equal',
+                            7: 'skip',
+                            5: {
+                                A: 'higher',
+                                K: 'equal',
+                                Q: 'higherEqual',
+                                J: 'higherEqual',
+                                default: 'higherEqual'
+                            },
+                            4: {
+                                A: 'equal',
+                                K: 'lower',
+                                Q: 'lowerEqual',
+                                J: 'lowerEqual',
+                                default: 'lowerEqual'
+                            }
+                        };
+                        
+                        let guessed;
+                        if (hiloguess === 5 || hiloguess === 4) {
+                            guessed = guesses[hiloguess][lastCard] || guesses[hiloguess].default;
+                        } else {
+                            guessed = guesses[hiloguess];
+                        }
+                        
+                        hiloNext(guessed);
+                    } else if (hiloguess === 3) {
+                        hiloCash();
+                    }
+                }
+            },
+            tomeoflife: () => tomeBet(nextbet, lines),
+            scarabspin: () => scarabBet(nextbet, lines),
+            bluesamurai: () => samuraiBet(nextbet),
+            diamonds: () => diamondBet(nextbet),
+            cases: () => caseBet(nextbet, difficulty),
+            videopoker: () => videopokerBet(nextbet),
+            rps: () => rockpaperBet(nextbet, guesses),
+            flip: () => flipBet(nextbet, guesses),
+            snakes: () => snakesBet(nextbet, difficulty, rolls),
+            pump: () => pumpBet(nextbet, pumps, difficulty),
+            baccarat: () => baccaratbet(tie, player, banker),
+            dragontower: () => dragontowerBet(nextbet, difficulty, eggs),
+            roulette: () => roulettebet(chips),
+            wheel: () => wheelbet(nextbet, segments, risk),
+            plinko: () => plinkobet(nextbet, rows, risk),
+            mines: () => minebet(nextbet, fields, mines),
+            keno: () => kenobet(nextbet, numbers, risk),
+            dice: () => DiceBet(nextbet, chance, bethigh),
+            limbo: () => LimboBet(nextbet, target),
+            darts: () => dartsBet(nextbet, difficulty)
+        };
+
+        if (gameHandlers[game]) {
+            gameHandlers[game]();
+        }
+    });
+	}		
 }
 
 
@@ -5607,20 +4336,6 @@ btnStart.addEventListener('click', function() {  if(document.getElementById("tok
 
 var btnStop = document.getElementById("botStopButton");
 btnStop.addEventListener('click', function() {  btnStart.disabled = false; stop(); }, false);
-
-/*
-var btnKey= document.getElementById("getkey");
-btnKey.addEventListener('click', function() {  
-	if(getCookie("session") != undefined){
-		tokenapi = getCookie("session"); 
-		document.getElementById("tokenkey").value = tokenapi;
-		localStorage.setItem("apitoken", tokenapi);
-		initUser()
-		startSocket();
-	}
-}, false);*/
-
-
 
 
 function startSocket() {
