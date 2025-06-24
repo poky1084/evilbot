@@ -3923,6 +3923,9 @@ function start(){
 			game = undefined;
 			fengari.load('game=undefined')();
 
+			sleeptime = 0;
+			sleep(0);
+
 			const getEl = id => document.getElementById(id);
 			const getLua = expr => fengari.load(`return ${expr}`)();
 			const setFastMode = () => getEl('speedChange').checked;
