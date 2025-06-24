@@ -1635,6 +1635,7 @@ function sleepfor (time) {
 	for (var i=0; i<timeouts.length; i++) {
 	  clearTimeout(timeouts[i]);
 	}
+	timeouts = [];
   return new Promise((resolve) => timeouts.push(setTimeout(resolve, time)));
 }
 
