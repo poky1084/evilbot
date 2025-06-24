@@ -2164,23 +2164,7 @@ inputcommand.addEventListener("keyup", function(event) {
 });
 
 
-function safeExecute(jsCode) {
-  try {
-    // Try Function (most CSPs block it)
-    return new Function(jsCode)();
-  } catch (e1) {
-    try {
-      // Try creating a script tag with blob (often blocked too)
-      const blob = new Blob([jsCode], { type: 'application/javascript' });
-      const url = URL.createObjectURL(blob);
-      const script = document.createElement('script');
-      script.src = url;
-      document.head.appendChild(script);
-    } catch (e2) {
-      console.warn("All dynamic execution methods blocked by CSP.");
-    }
-  }
-}
+
 
 var inputcmd = document.getElementById("runinput").value;
 var cmdrunn = document.getElementById("runcmd");
@@ -2703,7 +2687,7 @@ function DiceBet(amount, chance, bethigh) {
     let target, cond;
 
     if (bethigh) {
-        target = 100 - 0.01 - chance;
+        target = 100 - chance;
         cond = "above";
     } else {
         target = chance;
@@ -3869,7 +3853,6 @@ function loadLua() {
 	fengari.load(`function username()
         return js.global:username()
     end`)()
-	var elem = document.getElementById("botMenuMode");
 	var value = document.getElementById("botMenuMode").value;
 	if(value == "lua"){
 		fengari.load('balance=' + balance)()
