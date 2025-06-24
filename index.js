@@ -3917,14 +3917,13 @@ function start(){
 		fastmode = document.getElementById('speedChange').checked;
 		mirror = document.getElementById("mirrors").value;
 		run_clicked = true;
+		sleeptime = 0;
+		btnStart.disabled = true;
 		document.getElementById("result").innerHTML = ""
 		
 		if (document.getElementById("botMenuMode").value === "lua") {
 			game = undefined;
 			fengari.load('game=undefined')();
-
-			sleeptime = 0;
-			sleep(0);
 
 			const getEl = id => document.getElementById(id);
 			const getLua = expr => fengari.load(`return ${expr}`)();
@@ -3978,7 +3977,6 @@ function start(){
 
 			localStorage.setItem("luacode", htmlEditor.getValue());
 
-			btnStart.disabled = true;
 			userBalances();
 			started_bal = balance;
 
@@ -4024,10 +4022,7 @@ function start(){
 		setTimeout(htmlEditor2.getValue() + `
 		
 		localStorage.setItem("jscode", htmlEditor2.getValue());
-			sleeptime = 0;
-			sleep(0);
-
-			btnStart.disabled = true;
+;
 			userBalances();
 			started_bal = balance;
 
