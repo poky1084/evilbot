@@ -3782,7 +3782,7 @@ function resetstats(){
 	document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 	
 	
-	//resetChart();
+	resetChart();
 	
 	document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
 	document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
