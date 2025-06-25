@@ -1090,7 +1090,7 @@ var currency = null;
 var target_multi = 1.01;
 var basebet = 0;
 var amount = basebet;
-var running = true;
+var running = false;
 var nextbet = 0;
 var win = false;
 
@@ -2174,7 +2174,7 @@ resetAll1.addEventListener('click', function() { resetAll(); }, false);
 var userBalances1 = document.getElementById("userBal");
 userBalances1.addEventListener('click', function() { userBalances(); }, false);
 var botStopOnWinButton = document.getElementById("botStopOnWinButton");
-botStopOnWinButton.addEventListener('click', function() { stoponwin = true; start(); }, false);
+botStopOnWinButton.addEventListener('click', function() { stoponwin = true; botStopOnWinButton.disabled = true; if (running == false) {start();} }, false);
 
 
 var showOnChange1 = document.getElementById("botShowMode");
@@ -3928,7 +3928,7 @@ function start(){
 		run_clicked = true;
 		sleeptime = 0;
 		btnStart.disabled = true;
-		botStopOnWinButton.disabled = true;
+		
 		document.getElementById("result").innerHTML = ""
 		
 		if (document.getElementById("botMenuMode").value === "lua") {
