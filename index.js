@@ -3348,7 +3348,7 @@ function stop(){
 	  clearTimeout(timeouts[i]);
 	}
 	timeouts = [];
-	dobet = function(){}
+	//dobet = function(){}
 }
 
 function resetAll(){
@@ -3928,7 +3928,7 @@ function start(){
 		run_clicked = true;
 		sleeptime = 0;
 		btnStart.disabled = true;
-		
+		dobet = function(){}
 		document.getElementById("result").innerHTML = ""
 		
 		if (document.getElementById("botMenuMode").value === "lua") {
