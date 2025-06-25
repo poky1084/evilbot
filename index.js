@@ -3117,7 +3117,7 @@ function data(json){
 				amount: bet.amount,
 				payoutMultiplier: bet.payoutMultiplier,
 				payout: bet.payout,
-				Roll: bet.state.result || bet.state._popPoint ,
+				Roll: bet.state.result != undefined ? bet.state.result : lastBet.Roll,
 				win: bet.payoutMultiplier >= 1
 			};
 			
