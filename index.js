@@ -2774,7 +2774,7 @@ function data(json){
             tdRollChance.innerHTML = bethigh 
                 ? (100 - 0.01 - bet.state.result).toFixed(4) 
                 : bet.state.result.toFixed(4);
-            tdTargetNumber.innerHTML = (bethigh ? ">" : "<") + lastBet.target.toFixed(4);
+            tdTargetNumber.innerHTML = (bethigh ? ">" : "<") + lastBet.targetNumber.toFixed(4);
             tdRollNumber.innerHTML = bet.state.result.toFixed(2);
             //break;
         }    
