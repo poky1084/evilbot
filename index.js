@@ -2836,8 +2836,7 @@ function data(json){
             //break;
 		}
         if (gameType === "baccaratBet"){
-            const elem = document.getElementById("botMenuMode");
-            const value = elem.value;
+            const value = document.getElementById("botMenuMode").value
             lastBet.Roll = value === "lua" 
                 ? JSON.stringify(bet.state.result) 
                 : bet.state.result;
@@ -3117,7 +3116,7 @@ function data(json){
 				amount: bet.amount,
 				payoutMultiplier: bet.payoutMultiplier,
 				payout: bet.payout,
-				Roll: bet.state.result != undefined ? bet.state.result : lastBet.Roll,
+				Roll: lastBet.Roll,
 				win: bet.payoutMultiplier >= 1
 			};
 			
