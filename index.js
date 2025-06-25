@@ -2768,11 +2768,13 @@ function data(json){
 			winstreak++;
 			wins++;
 			losestreak = 0;
+			color = 'green'
 		} else {
 			win = false;
 			losses++;
 			losestreak++;
 			winstreak = 0;
+			color = 'red'
 		}
 
 		// Calculate profits
