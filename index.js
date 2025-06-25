@@ -1036,7 +1036,7 @@ Hold top or bottom area to move the bot around</pre>
 			<span class="loader"></span>
 			<span id="timerDown"></span>
 		  </div>
-          <button id="botStopOnWinButton" disabled="disabled" class="btn-grad btn-control fontbigger" >StopOnWin</button>
+          <button id="botStopOnWinButton" class="btn-grad btn-control fontbigger" >StopOnWin</button>
           <button class="btn-grad btn-control fontbigger" id="userBal">CheckBalance</button>
         </div>
       </div>
@@ -1187,6 +1187,7 @@ var timeouts = [];
 var measures = [];
 var socketstart = [];
 
+var stoponwin = false;
 var stopped = true;
 var bet_found = false;
 var run_clicked = false;
@@ -2172,6 +2173,9 @@ var resetAll1 = document.getElementById("resetAlles");
 resetAll1.addEventListener('click', function() { resetAll(); }, false);
 var userBalances1 = document.getElementById("userBal");
 userBalances1.addEventListener('click', function() { userBalances(); }, false);
+var botStopOnWinButton = document.getElementById("botStopOnWinButton");
+botStopOnWinButton.addEventListener('click', function() { stoponwin = true; start(); }, false);
+
 
 var showOnChange1 = document.getElementById("botShowMode");
 showOnChange1.addEventListener('click', function() { showOnChange(this); }, false);
@@ -3243,6 +3247,10 @@ function data(json){
 			
 			
 		}
+		if(win && stoponwin){
+			stop()
+		}
+		
 		if(hiloguess == 3 && running == false && cashout_done == false && game === "hilo" && win == false){
 			//cashout_done = true
 			hiloCash()
@@ -3326,12 +3334,13 @@ function data(json){
 
 
 function stop(){
-
+	stoponwin = false;
 	running = false;
 	run_clicked = false;
 	simrunning = false;
 	cashout_done = false;
 	btnStart.disabled = false;
+	botStopOnWinButton.disabled = false;
 	fastmode = false;
 	mirror = document.getElementById("mirrors").value;
 	document.getElementById("result").innerHTML = ""
@@ -3919,6 +3928,7 @@ function start(){
 		run_clicked = true;
 		sleeptime = 0;
 		btnStart.disabled = true;
+		botStopOnWinButton.disabled = true;
 		document.getElementById("result").innerHTML = ""
 		
 		if (document.getElementById("botMenuMode").value === "lua") {
