@@ -2174,7 +2174,7 @@ resetAll1.addEventListener('click', function() { resetAll(); }, false);
 var userBalances1 = document.getElementById("userBal");
 userBalances1.addEventListener('click', function() { userBalances(); }, false);
 var botStopOnWinButton = document.getElementById("botStopOnWinButton");
-botStopOnWinButton.addEventListener('click', function() { stoponwin = true; botStopOnWinButton.disabled = true; if (running == false) {start();} }, false);
+botStopOnWinButton.addEventListener('click', function() { stopOnWin() }, false);
 
 
 var showOnChange1 = document.getElementById("botShowMode");
@@ -2324,10 +2324,9 @@ function deleteLogs(){
 }
 
 function stopOnWin() {
-    running = false;
-	btnStart.disabled = false;
-	simrunning = false;
-	cashout_done = false;
+    stoponwin = true; 
+	botStopOnWinButton.disabled = true; 
+	if (running == false) {start();}
 }
 
 
