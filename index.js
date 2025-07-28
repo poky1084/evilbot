@@ -763,6 +763,7 @@ a:link {
 		<option value="flip">flip</option>
 		<option value="darts">darts</option>
 		<option value="snakes">snakes</option>
+		<option value="bars">bars</option>
 		<option value="cases">cases</option>
 		<option value="rps">rps</option>
 		<option value="tomeoflife">tomeoflife</option>
@@ -1152,6 +1153,7 @@ let mines = 1
 let fields = [1,2,3]
 let risk = "low"
 let difficulty = "easy"
+let tiles = [2]
 let numbers = [1,2,3,4,5,6,7,8,9]
 let rows = 8
 let segments = 10
@@ -2447,6 +2449,14 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
     });
 }
 
+function barsBet(betsize, difficulty, tiles) {
+    betRequest({
+        url: '_api/casino/bars/bet',
+        body: { amount: betsize, currency, identifier: randomString(21), difficulty, tiles },
+        retryParams: [betsize, difficulty, tiles]
+    });
+}
+
 function hiloBet(betsize, startcard) {
     betRequest({
         url: '_api/casino/hilo/bet',
@@ -2792,6 +2802,18 @@ function data(json){
 		}
 		
 		if (json && !json.data) {
+		
+		if (gameType === "barsBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = bet.state.tiles;
+            lastBet.targetNumber = `${bet.state.difficulty}|${bet.state.tiles.length}`;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = bet.payoutMultiplier;
+            //break;
+        }  
 		
 		if (gameType === "diceRoll"){
             lastBet.Roll = bet.state.result;
@@ -3302,6 +3324,7 @@ function data(json){
                     }
                 }
             },
+			bars: () => barsBet(nextbet, difficulty, tiles),
             tomeoflife: () => tomeBet(nextbet, lines),
             scarabspin: () => scarabBet(nextbet, lines),
             bluesamurai: () => samuraiBet(nextbet),
@@ -3979,7 +4002,8 @@ function start(){
 			let fields = JSON.parse(getLua('"[" .. table.concat(fields or {1}, ",") .. "]"'));
 			let numbers = JSON.parse(getLua('"[" .. table.concat(numbers or {1}, ",") .. "]"'));
 			let guesses = getLua('table.concat(guesses or {1}, ",")').split(',');
-
+			let tiles = JSON.parse(getLua('"[" .. table.concat(tiles or {1}, ",") .. "]"'));
+			
 			// Fallbacks
 			if (!tokenapi) tokenapi = getEl("tokenkey").value;
 			if (fastmode === undefined || fastmode === null) fastmode = setFastMode();
@@ -3993,6 +4017,7 @@ function start(){
 			if (!game) game = getEl("gameselect").value;
 
 			const betFunctions = {
+				bars: () => barsBet(nextbet, difficulty, tiles),
 				hilo: () => hiloBet(nextbet, startcard),
 				bluesamurai: () => samuraiBet(nextbet),
 				darts: () => dartsBet(nextbet, difficulty),
@@ -4048,6 +4073,7 @@ function start(){
 			};
 
 			gameFunctions = {
+				bars: 		 () => runBet(barsBet, [nextbet, difficulty, tiles]),
 				hilo:        () => runBet(hiloBet, [nextbet, startcard]),
 				bluesamurai: () => runBet(samuraiBet, [nextbet]),
 				darts:       () => runBet(dartsBet, [nextbet, difficulty]),
