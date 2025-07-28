@@ -41,7 +41,13 @@ function dobet(){
  //strategy code
 }
 ```
-
+<b>Bars: </b>
+```javascript
+game = "bars"
+difficulty = "easy"
+tiles = [2,3,4,5,6]
+nextbet = 0
+```
 
 <b>Plinko: </b>
 ```javascript
