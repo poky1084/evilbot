@@ -751,6 +751,7 @@ a:link {
 	  <select id="gameselect" class="gameselect">
         <option value="dice" selected="selected">dice</option>
 		<option value="limbo">limbo</option>
+		<option value="primedice">primedice</option>
 		<option value="mines">mines</option>
 		<option value="keno">keno</option>
 		<option value="plinko">plinko</option>
@@ -764,6 +765,7 @@ a:link {
 		<option value="darts">darts</option>
 		<option value="snakes">snakes</option>
 		<option value="bars">bars</option>
+		<option value="packs">packs</option>
 		<option value="cases">cases</option>
 		<option value="rps">rps</option>
 		<option value="tomeoflife">tomeoflife</option>
@@ -775,7 +777,7 @@ a:link {
       </select>
 	   <select id="mirrors" class="mirrors">
       </select>
-	  <span style="font-size: 13px;font-weight: bold;">API:</span> <input type="password" id="tokenkey" value="" style="width: 33%;color: white;border-style: solid;border-radius: 5px;border-width: 1px;" placeholder="Stake or Primedice api key here">
+	  <span style="font-size: 13px;font-weight: bold;">API: </span><input type="password" id="tokenkey" value="" style="width: 33%;color: white;border-style: solid;border-radius: 5px;border-width: 1px;" placeholder="Stake or Primedice api key here">
       
 	  <span>
         Records
@@ -1128,7 +1130,7 @@ var color = "red"
 
 var started_bal = 0;
 
-var condition = "below";
+//var condition = "below";
 
 serverSeed = "";
 clientSeed = "";
@@ -1141,6 +1143,12 @@ bet_sim = 0
 
 var chartcolor = "#000"
 //let opensocket = []
+
+let target1 = 2
+let target2 = 24
+let target3 = 34
+let target4 = 68
+let condition = "rollBetweenTwo"
 
 var sendDate = (new Date()).getTime();
 var errorgame = false
@@ -2449,6 +2457,14 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
     });
 }
 
+function packsBet(betsize) {
+    betRequest({
+        url: '_api/casino/packs/bet',
+        body: { amount: betsize, currency, identifier: randomString(21) },
+        retryParams: [betsize]
+    });
+}
+
 function barsBet(betsize, difficulty, tiles) {
     betRequest({
         url: '_api/casino/bars/bet',
@@ -2661,6 +2677,19 @@ function LimboBet(amount, target_multi) {
     });
 }
 
+function PrimeBet(amount, target1, target2, target3, target4, condition) {
+	if (condition === "rollBetween" || condition === "rollOutside"){
+		target3 = null
+		target4 = null
+	}
+    betRequest({
+        url: '_api/casino/primedice-x/bet',
+        body: { target1, target2, target3, target4, condition, identifier: randomString(21), amount, currency },
+        retryDelay: 2000,
+        retryParams: [amount, target1, target2, target3, target4, condition]
+    });
+}
+
 function DiceBet(amount, chance, bethigh) {
     let target, cond;
 
@@ -2814,6 +2843,32 @@ function data(json){
             tdRollNumber.innerHTML = bet.payoutMultiplier;
             //break;
         }  
+		
+		if (gameType === "packsBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = null;
+            lastBet.targetNumber = null
+            
+            // UI Updates
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = bet.payoutMultiplier;
+            //break;
+        }  
+		
+		if (gameType === "primediceXBet"){
+            lastBet.Roll = bet.state.result;
+            lastBet.chance = 0
+            lastBet.target = 0
+            lastBet.targetNumber = 0
+            
+            // UI Updates
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x"
+            tdRollChance.innerHTML = bet.state.condition;
+            tdTargetNumber.innerHTML = bet.state.target1 + "|" + bet.state.target2 + "|" + bet.state.target3 + "|" + bet.state.target4;
+            tdRollNumber.innerHTML = bet.state.result.toFixed(2);
+            //break;
+		}
 		
 		if (gameType === "diceRoll"){
             lastBet.Roll = bet.state.result;
@@ -3344,7 +3399,9 @@ function data(json){
             keno: () => kenobet(nextbet, numbers, risk),
             dice: () => DiceBet(nextbet, chance, bethigh),
             limbo: () => LimboBet(nextbet, target),
-            darts: () => dartsBet(nextbet, difficulty)
+            darts: () => dartsBet(nextbet, difficulty),
+			packs: () => packsBet(nextbet), 
+			primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
         };
 
         if (gameHandlers[game]) {
@@ -3997,6 +4054,11 @@ function start(){
 			rolls = getLua("rolls");
 			startcard = getLua("startcard");
 			tokenapi = getLua("tokenapi");
+			target1 = getLua("target1");
+			target2 = getLua("target2");
+			target3 = getLua("target3");
+			target4 = getLua("target4");
+			condition = getLua("condition");
 
 			let eggs = JSON.parse(getLua('"[" .. table.concat(eggs or {1}, ",") .. "]"'));
 			let fields = JSON.parse(getLua('"[" .. table.concat(fields or {1}, ",") .. "]"'));
@@ -4037,7 +4099,9 @@ function start(){
 				mines: () => minebet(nextbet, fields, mines),
 				keno: () => kenobet(nextbet, numbers, risk),
 				dice: () => DiceBet(nextbet, chance, bethigh),
-				limbo: () => LimboBet(nextbet, target)
+				limbo: () => LimboBet(nextbet, target),
+				packs: () => packsBet(nextbet),
+				primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
 			};
 
 			const runBet = betFunctions[game];
@@ -4094,7 +4158,9 @@ function start(){
 				mines:       () => runBet(minebet, [nextbet, fields, mines]),
 				keno:        () => runBet(kenobet, [nextbet, numbers, risk]),
 				dice:        () => runBet(DiceBet, [nextbet, chance, bethigh]),
-				limbo:       () => runBet(LimboBet, [nextbet, target])
+				limbo:       () => runBet(LimboBet, [nextbet, target]),
+				packs:       () => runBet(packsBet, [nextbet]),
+				primedice:   () => runBet(PrimeBet, [nextbet, target1, target2, target3, target4, condition])
 			};
 
 			if (game in gameFunctions) gameFunctions[game]();
