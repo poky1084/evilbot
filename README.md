@@ -42,6 +42,24 @@ function dobet(){
  //strategy code
 }
 ```
+
+<b>primedice X: </b>
+```javascript
+game = "primedice"
+condition = "rollOutside"  // use these: "rollBetween" or "rollBetweenTwo" or "rollOutside"
+target1 = 5
+target2 = 24
+target3 = 45
+target4 = 68
+nextbet = 0
+```
+
+<b>Packs: </b>
+```javascript
+game = "packs"
+nextbet = 0
+```
+
 <b>Bars: </b>
 ```javascript
 game = "bars"
