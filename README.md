@@ -54,6 +54,33 @@ target4 = 68
 nextbet = 0
 ```
 
+<b>Blackjack: </b>
+```javascript
+game = "blackjack"
+nextbet=0
+basebet=nextbet
+nextAction = "BLACKJACK_STAND" // can be these: "BLACKJACK_DOUBLE" or "BLACKJACK_HIT" or "BLACKJACK_SPLIT" or "BLACKJACK_INSURANCE" or "BLACKJACK_NOINSURANCE"
+
+function dobet() {
+  if(win){
+      nextbet = basebet
+  } 	
+}
+
+function round(){
+
+  if (currentBet.state.dealer[0].value === 11){
+    	nextAction = "BLACKJACK_NOINSURANCE"
+  } else {
+    	nextAction = "BLACKJACK_STAND"
+  }
+  if (currentBet.state.player[0].actions.includes("insurance") || currentBet.state.player[0].actions.includes("noInsurance")) {
+  	 	nextAction = "BLACKJACK_STAND"
+  }
+  return nextAction
+}
+```
+
 <b>Packs: </b>
 ```javascript
 game = "packs"
