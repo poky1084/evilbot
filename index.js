@@ -756,6 +756,7 @@ a:link {
 		<option value="keno">keno</option>
 		<option value="plinko">plinko</option>
 		<option value="hilo">hilo</option>
+		<option value="blackjack">blackjack</option>
 		<option value="wheel">wheel</option>
 		<option value="roulette">roulette</option>
 		<option value="dragontower">dragontower</option>
@@ -1096,6 +1097,9 @@ var amount = basebet;
 var running = false;
 var nextbet = 0;
 var win = false;
+let bet = null;
+let action = "stand";
+let nextactions = "BLACKJACK_STAND"
 
 var bethigh = false;
 var chance = 49.5
@@ -2473,6 +2477,22 @@ function barsBet(betsize, difficulty, tiles) {
     });
 }
 
+function blackjackBet(betsize) {
+    betRequest({
+        url: '_api/casino/blackjack/bet',
+        body: { identifier: randomString(21), currency, amount: betsize },
+        retryParams: [betsize]
+    });
+}
+
+function blackjackNext(nextaction) {
+    betRequest({
+        url: '_api/casino/blackjack/next',
+        body: { action: nextaction, identifier: randomString(21) },
+        retryParams: [nextaction]
+    });
+}
+
 function hiloBet(betsize, startcard) {
     betRequest({
         url: '_api/casino/hilo/bet',
@@ -2749,12 +2769,36 @@ function data(json){
 			}
 			if(json.errors[0].errorType.includes("existingGame")){
 				hiloguess = round()
+				nextactions = round()
+				if(nextactions === "BLACKJACK_STAND"){
+					action = "stand"
+				} 
+				if(nextactions === "BLACKJACK_SPLIT"){
+					action = "split"
+				} 
+				if(nextactions === "BLACKJACK_HIT"){
+					action = "hit"
+				} 
+				if(nextactions === "BLACKJACK_DOUBLE"){
+					action = "double"
+				} 	
+				if(nextactions === "BLACKJACK_NOINSURANCE"){
+					action = "noInsurance"
+				} 
+				if(nextactions === "BLACKJACK_INSURANCE"){
+					action = "insurance"
+				} 					
+			}
+			cashout_done = false
+			if(json.errors[0].errorType.includes("notFound")){
+				cashout_done = true		
 			}
 			if(json.errors[0].errorType.includes("insignificantBet") && game === "hilo"){
 				cashout_done = true
-			} else {
-				cashout_done = false
 			}
+			if(json.errors[0].errorType.includes("insignificantBet") && game === "blackjack"){
+				cashout_done = true
+			} 
 			//return;
 		} else {
 		errorgame = false
@@ -2790,7 +2834,7 @@ function data(json){
 		}
 		
 		const gameType = Object.keys(json)[0] === "data" ? Object.keys(json.data)[0] : Object.keys(json)[0]
-		const bet = Object.keys(json)[0] === "data" ? json.data[gameType] : json[gameType]
+		bet = Object.keys(json)[0] === "data" ? json.data[gameType] : json[gameType]
 		
 	
 		if(json.data){
@@ -3129,7 +3173,52 @@ function data(json){
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
             //break;
+        } 
+
+		if (gameType === "blackjackBet"){
+            if (bet.active) {
+                // Active game continues
+                cashout_done = false;
+                currentBet = bet;
+                
+            } else {
+                // Game ended
+                cashout_done = true;
+                lastBet.Roll = bet.payoutMultiplier;
+                lastBet.target = 0;
+             
+                lastBet.targetNumber = "";
+                
+                // UI Updates
+                tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+                tdTargetNumber.innerHTML = null;
+                tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+                tdRollChance.innerHTML = null;
+            }
         }    
+        if (gameType === "blackjackNext"){
+            if (bet.active) {
+                // Active game continues
+                cashout_done = false;
+                currentBet = bet;
+                
+            } else {
+                // Game ended
+                cashout_done = true;
+                lastBet.Roll = bet.payoutMultiplier;
+                lastBet.target = 0;
+             
+                lastBet.targetNumber = "";
+                
+                // UI Updates
+                tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+                tdTargetNumber.innerHTML = null;
+                tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+                tdRollChance.innerHTML = null;
+            }
+            
+        }    
+	
         if (gameType === "hiloBet"){
             // Just set current bet for hiloBet (active game)
             currentBet = bet;
@@ -3184,7 +3273,7 @@ function data(json){
 		}
 		
 		
-		if(game != "hilo"){
+		if(game != "hilo" && game != "blackjack"){
 			cashout_done = true
 		}
 		if(cashout_done){
@@ -3312,11 +3401,33 @@ function data(json){
 		if(value == "lua"){
 			sendLua();
 		} else if(value == "js"){
-			if(game === "hilo"){
+			if(game === "hilo" || game === "blackjack"){
 			if(cashout_done) {
 				dobet();
 			} else {
-				hiloguess = round()
+				if (game === "hilo"){
+					hiloguess = round()
+				} else {
+					nextactions = round()
+					if(nextactions === "BLACKJACK_STAND"){
+						action = "stand"
+					} 
+					if(nextactions === "BLACKJACK_SPLIT"){
+						action = "split"
+					} 
+					if(nextactions === "BLACKJACK_HIT"){
+						action = "hit"
+					} 
+					if(nextactions === "BLACKJACK_DOUBLE"){
+						action = "double"
+					} 	
+					if(nextactions === "BLACKJACK_NOINSURANCE"){
+						action = "noInsurance"
+					} 
+					if(nextactions === "BLACKJACK_INSURANCE"){
+						action = "insurance"
+					} 
+				}
 			}
 			} else {
 				dobet();
@@ -3377,6 +3488,14 @@ function data(json){
                     } else if (hiloguess === 3) {
                         hiloCash();
                     }
+                }
+            },
+			blackjack: () => {
+                if (cashout_done) {
+                    cashout_done = false;
+                    blackjackBet(nextbet);
+                } else {
+					blackjackNext(action);
                 }
             },
 			bars: () => barsBet(nextbet, difficulty, tiles),
@@ -4059,6 +4178,7 @@ function start(){
 			target3 = getLua("target3");
 			target4 = getLua("target4");
 			condition = getLua("condition");
+			action = getLua("action");
 
 			let eggs = JSON.parse(getLua('"[" .. table.concat(eggs or {1}, ",") .. "]"'));
 			let fields = JSON.parse(getLua('"[" .. table.concat(fields or {1}, ",") .. "]"'));
@@ -4101,6 +4221,7 @@ function start(){
 				dice: () => DiceBet(nextbet, chance, bethigh),
 				limbo: () => LimboBet(nextbet, target),
 				packs: () => packsBet(nextbet),
+				blackjack: () => blackjackBet(nextbet),
 				primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
 			};
 
@@ -4160,6 +4281,7 @@ function start(){
 				dice:        () => runBet(DiceBet, [nextbet, chance, bethigh]),
 				limbo:       () => runBet(LimboBet, [nextbet, target]),
 				packs:       () => runBet(packsBet, [nextbet]),
+				blackjack:	 () => runBet(blackjackBet, [nextbet]),
 				primedice:   () => runBet(PrimeBet, [nextbet, target1, target2, target3, target4, condition])
 			};
 
