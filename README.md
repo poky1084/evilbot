@@ -81,6 +81,14 @@ function round(){
 }
 ```
 
+<b>Chicken: </b>
+```javascript
+game = "chicken"
+steps = 1
+difficulty = "medium"
+nextbet = 0
+```
+
 <b>Packs: </b>
 ```javascript
 game = "packs"
