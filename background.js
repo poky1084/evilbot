@@ -10,7 +10,7 @@ const targetSites = [
   "stake.bet", "stake.com", "stake.pet", "stake.kim", "stake.us",
   "stake.games", "stake.mba", "stake.ac", "stake.jp", "stake.bz",
   "stake.krd", "stake.ceo", "staketr.com", "primedice.com",
-  "primedice.games", "stake1021.com", "stake1022.com"
+  "primedice.games", "stake1021.com", "stake1067.com"
 ];
 
 chrome.webNavigation.onCompleted.addListener((details) => {

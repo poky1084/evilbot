@@ -761,6 +761,7 @@ a:link {
 		<option value="roulette">roulette</option>
 		<option value="dragontower">dragontower</option>
 		<option value="baccarat">baccarat</option>
+		<option value="chicken">chicken</option>
 		<option value="pump">pump</option>
 		<option value="flip">flip</option>
 		<option value="darts">darts</option>
@@ -1200,6 +1201,7 @@ let timeoutClear = null
 var timeouts = [];
 var measures = [];
 var socketstart = [];
+let steps = 1
 
 var stoponwin = false;
 var stopped = true;
@@ -2461,6 +2463,14 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
     });
 }
 
+function chickenBet(betsize, difficulty, steps) {
+    betRequest({
+        url: '_api/casino/chicken/bet',
+        body: { amount: betsize, currency, identifier: randomString(21), difficulty, round: steps },
+        retryParams: [betsize, difficulty, steps]
+    });
+}
+
 function packsBet(betsize) {
     betRequest({
         url: '_api/casino/packs/bet',
@@ -2860,7 +2870,8 @@ function data(json){
             tdTargetNumber.innerHTML = (bethigh ? ">" : "<") + lastBet.targetNumber.toFixed(4);
             tdRollNumber.innerHTML = bet.state.result.toFixed(2);
             //break;
-        }    
+        }
+	
         if (gameType === "flipBet") {
             lastBet.Roll = bet.state.currentRound;
             lastBet.target = guesses.length;
@@ -2875,6 +2886,18 @@ function data(json){
 		}
 		
 		if (json && !json.data) {
+		
+        if (gameType === "chickenBet"){
+            lastBet.Roll = bet.state._deathPoint;
+            lastBet.target = steps;
+            lastBet.targetNumber = `${bet.state.difficulty}|${steps}`;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = bet.payoutMultiplier;
+            //break;
+        } 	
 		
 		if (gameType === "barsBet"){
             lastBet.Roll = bet.payoutMultiplier;
@@ -3520,6 +3543,7 @@ function data(json){
             limbo: () => LimboBet(nextbet, target),
             darts: () => dartsBet(nextbet, difficulty),
 			packs: () => packsBet(nextbet), 
+			chicken: () => chickenBet(nextbet, difficulty, steps),
 			primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
         };
 
@@ -4108,6 +4132,14 @@ function sendLua() {
     rolls = fengari.load(`return rolls`)();
     startcard = fengari.load(`return startcard`)();
 
+	target1 = getLua("target1");
+	target2 = getLua("target2");
+	target3 = getLua("target3");
+	target4 = getLua("target4");
+	condition = getLua("condition");
+	action = getLua("action");
+	steps = getLua("steps");
+
     // Token key
     tokenapi = fengari.load(`return tokenapi`)();
     if (tokenapi === undefined || tokenapi === null) {
@@ -4179,7 +4211,8 @@ function start(){
 			target4 = getLua("target4");
 			condition = getLua("condition");
 			action = getLua("action");
-
+			steps = getLua("steps");
+			
 			let eggs = JSON.parse(getLua('"[" .. table.concat(eggs or {1}, ",") .. "]"'));
 			let fields = JSON.parse(getLua('"[" .. table.concat(fields or {1}, ",") .. "]"'));
 			let numbers = JSON.parse(getLua('"[" .. table.concat(numbers or {1}, ",") .. "]"'));
@@ -4222,6 +4255,7 @@ function start(){
 				limbo: () => LimboBet(nextbet, target),
 				packs: () => packsBet(nextbet),
 				blackjack: () => blackjackBet(nextbet),
+				chicken: () => chickenBet(nextbet, difficulty, steps),
 				primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
 			};
 
@@ -4282,6 +4316,7 @@ function start(){
 				limbo:       () => runBet(LimboBet, [nextbet, target]),
 				packs:       () => runBet(packsBet, [nextbet]),
 				blackjack:	 () => runBet(blackjackBet, [nextbet]),
+				chicken: 	 () => runBet(chickenBet, [nextbet, difficulty, steps]),
 				primedice:   () => runBet(PrimeBet, [nextbet, target1, target2, target3, target4, condition])
 			};
 
