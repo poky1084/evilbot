@@ -762,6 +762,7 @@ a:link {
 		<option value="dragontower">dragontower</option>
 		<option value="baccarat">baccarat</option>
 		<option value="chicken">chicken</option>
+		<option value="tarot">tarot</option>
 		<option value="pump">pump</option>
 		<option value="flip">flip</option>
 		<option value="darts">darts</option>
@@ -2463,6 +2464,14 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
     });
 }
 
+function tarotBet(betsize, difficulty) {
+    betRequest({
+        url: '_api/casino/tarot/bet',
+        body: { amount: betsize, currency, identifier: randomString(21), difficulty },
+        retryParams: [betsize, difficulty]
+    });
+}
+
 function chickenBet(betsize, difficulty, steps) {
     betRequest({
         url: '_api/casino/chicken/bet',
@@ -2886,6 +2895,18 @@ function data(json){
 		}
 		
 		if (json && !json.data) {
+		
+		if (gameType === "tarotBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = bet.state.difficulty;
+            lastBet.targetNumber = `${bet.state.difficulty}`;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = bet.payoutMultiplier;
+            //break;
+        } 
 		
         if (gameType === "chickenBet"){
             lastBet.Roll = bet.state._deathPoint;
@@ -3544,6 +3565,7 @@ function data(json){
             darts: () => dartsBet(nextbet, difficulty),
 			packs: () => packsBet(nextbet), 
 			chicken: () => chickenBet(nextbet, difficulty, steps),
+			tarot: () => tarotBet(nextbet, difficulty),
 			primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
         };
 
@@ -4132,13 +4154,13 @@ function sendLua() {
     rolls = fengari.load(`return rolls`)();
     startcard = fengari.load(`return startcard`)();
 
-	target1 = getLua("target1");
-	target2 = getLua("target2");
-	target3 = getLua("target3");
-	target4 = getLua("target4");
-	condition = getLua("condition");
-	action = getLua("action");
-	steps = getLua("steps");
+	target1 = fengari.load(`return target1`)();
+	target2 = fengari.load(`return target2`)();
+	target3 = fengari.load(`return target3`)();
+	target4 = fengari.load(`return target4`)();
+	condition = fengari.load(`return condition`)();
+	//action = getLua("action");
+	steps = fengari.load(`return steps`)();
 
     // Token key
     tokenapi = fengari.load(`return tokenapi`)();
@@ -4256,6 +4278,7 @@ function start(){
 				packs: () => packsBet(nextbet),
 				blackjack: () => blackjackBet(nextbet),
 				chicken: () => chickenBet(nextbet, difficulty, steps),
+				tarot: () => tarotBet(nextbet, difficulty),
 				primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
 			};
 
@@ -4317,6 +4340,7 @@ function start(){
 				packs:       () => runBet(packsBet, [nextbet]),
 				blackjack:	 () => runBet(blackjackBet, [nextbet]),
 				chicken: 	 () => runBet(chickenBet, [nextbet, difficulty, steps]),
+				tarot: 	 	 () => runBet(tarotBet, [nextbet, difficulty]),
 				primedice:   () => runBet(PrimeBet, [nextbet, target1, target2, target3, target4, condition])
 			};
 

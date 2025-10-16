@@ -81,13 +81,6 @@ function round(){
 }
 ```
 
-<b>Tarot: </b>
-```javascript
-game = "tarot"
-difficulty = "medium"
-nextbet = 0
-```
-
 <b>Chicken: </b>
 ```javascript
 game = "chicken"
