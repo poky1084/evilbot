@@ -11,7 +11,6 @@ demo: https://www.youtube.com/watch?v=mtVi5s4OnkY
 Please give a Star on the repo in case you liked/used it. Thank you!
 
 <b>Donate:</b> https://ko-fi.com/poky <br />
-https://cwallet.com/t/YHT4YK3M
 
 <b>Discord</b>: fisk_992 <br />
 <b>Stake</b>: poky1084 <br />
