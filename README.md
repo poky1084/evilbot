@@ -80,6 +80,14 @@ function round(){
 }
 ```
 
+<b>drill: </b>
+```javascript
+game = "drill"
+nextbet = 0
+target = 2
+pick = 1
+```
+
 <b>Tarot: </b>
 ```javascript
 game = "tarot"
