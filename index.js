@@ -762,6 +762,7 @@ a:link {
 		<option value="dragontower">dragontower</option>
 		<option value="baccarat">baccarat</option>
 		<option value="chicken">chicken</option>
+		<option value="drill">drill</option>
 		<option value="tarot">tarot</option>
 		<option value="pump">pump</option>
 		<option value="flip">flip</option>
@@ -1203,6 +1204,7 @@ var timeouts = [];
 var measures = [];
 var socketstart = [];
 let steps = 1
+let pick = 1
 
 var stoponwin = false;
 var stopped = true;
@@ -2441,8 +2443,8 @@ function outvault(json){
 	}
 
 }
-
 function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
+
     fetch(`https://${mirror}/${url}`, {
         method: 'POST',
         body: JSON.stringify(body),
@@ -2451,16 +2453,80 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
             'x-access-token': tokenapi
         }
     })
-    .then(res => res.json())
-    .then(json => data(json))
-    .catch(() => {
-        if (running) {
-            setTimeout(() => {
-                if (running) {
-                    betRequest({ url, body, retryParams, retryDelay });
-                }
-            }, retryDelay);
+    .then(res => {
+        if (!res.ok) {
+            // Manually throw an object with the status code
+            throw { status: res.status };
         }
+        return res.json();
+    })
+    .then(json => data(json))
+    .catch(err => {
+        if (running) {
+           // console.log("Caught error status:", err.status);
+
+            if (err.status === 403) {
+                setTimeout(() => {
+			console.log("error status 403");
+			
+			if (running) {
+				
+			runBet = (fn, args = []) => {
+				fn(...args);
+			};
+
+			gameFunctions = {
+				bars: 		 () => runBet(barsBet, [nextbet, difficulty, tiles]),
+				hilo:        () => runBet(hiloBet, [nextbet, startcard]),
+				bluesamurai: () => runBet(samuraiBet, [nextbet]),
+				darts:       () => runBet(dartsBet, [nextbet, difficulty]),
+				tomeoflife:  () => runBet(tomeBet, [nextbet, lines]),
+				scarabspin:  () => runBet(scarabBet, [nextbet, lines]),
+				diamonds:    () => runBet(diamondBet, [nextbet]),
+				cases:       () => runBet(caseBet, [nextbet, difficulty]),
+				videopoker:  () => runBet(videopokerBet, [nextbet]),
+				rps:         () => runBet(rockpaperBet, [nextbet, guesses]),
+				flip:        () => runBet(flipBet, [nextbet, guesses]),
+				snakes:      () => runBet(snakesBet, [nextbet, difficulty, rolls]),
+				pump:        () => runBet(pumpBet, [nextbet, pumps, difficulty]),
+				baccarat:    () => runBet(baccaratbet, [tie, player, banker]),
+				dragontower: () => runBet(dragontowerBet, [nextbet, difficulty, eggs]),
+				roulette:    () => runBet(roulettebet, [chips]),
+				wheel:       () => runBet(wheelbet, [nextbet, segments, risk]),
+				plinko:      () => runBet(plinkobet, [nextbet, rows, risk]),
+				mines:       () => runBet(minesbet, [nextbet, fields, mines]),
+				keno:        () => runBet(kenobet, [nextbet, numbers, risk]),
+				dice:        () => runBet(DiceBet, [nextbet, chance, bethigh]),
+				limbo:       () => runBet(LimboBet, [nextbet, target]),
+				packs:       () => runBet(packsBet, [nextbet]),
+				blackjack:	 () => runBet(blackjackBet, [nextbet]),
+				chicken: 	 () => runBet(chickenBet, [nextbet, difficulty, steps]),
+				tarot: 	 	 () => runBet(tarotBet, [nextbet, difficulty]),
+				drill: 	 	 () => runBet(drillBet, [nextbet, target, pick]),
+				primedice:   () => runBet(PrimeBet, [nextbet, target1, target2, target3, target4, condition])
+			};
+
+			if (game in gameFunctions) gameFunctions[game]();
+			}		
+					
+                }, 2000);
+            } else {
+                setTimeout(() => {
+                    //console.log("betrequest");
+					if (running) {
+						betRequest({ url, body, retryParams, retryDelay });
+					}
+                }, 2000);
+            }
+        }
+    });
+}
+
+function drillBet(betsize, target, pick) {
+    betRequest({
+        url: '_api/casino/drill/bet',
+        body: { amount: betsize, currency, identifier: randomString(21), target, pick },
+        retryParams: [betsize, target, pick]
     });
 }
 
@@ -2895,6 +2961,19 @@ function data(json){
 		}
 		
 		if (json && !json.data) {
+		
+		if (gameType === "drillBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = bet.state.target;
+            lastBet.targetNumber = `${bet.state.target}`;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = bet.state.drillResults[bet.state.pick-1].multiplier;
+		tdRollChance.innerHTML = bet.state.pick + "/" + bet.payoutMultiplier;
+            //break;
+        } 
 		
 		if (gameType === "tarotBet"){
             lastBet.Roll = bet.payoutMultiplier;
@@ -3566,6 +3645,7 @@ function data(json){
 			packs: () => packsBet(nextbet), 
 			chicken: () => chickenBet(nextbet, difficulty, steps),
 			tarot: () => tarotBet(nextbet, difficulty),
+			drill: () => drillBet(nextbet, target, pick),
 			primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
         };
 
@@ -4234,6 +4314,7 @@ function start(){
 			condition = getLua("condition");
 			action = getLua("action");
 			steps = getLua("steps");
+			pick = getLua("pick");
 			
 			let eggs = JSON.parse(getLua('"[" .. table.concat(eggs or {1}, ",") .. "]"'));
 			let fields = JSON.parse(getLua('"[" .. table.concat(fields or {1}, ",") .. "]"'));
@@ -4279,6 +4360,7 @@ function start(){
 				blackjack: () => blackjackBet(nextbet),
 				chicken: () => chickenBet(nextbet, difficulty, steps),
 				tarot: () => tarotBet(nextbet, difficulty),
+				drill: () => drillBet(nextbet, target, pick),
 				primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
 			};
 
@@ -4341,6 +4423,7 @@ function start(){
 				blackjack:	 () => runBet(blackjackBet, [nextbet]),
 				chicken: 	 () => runBet(chickenBet, [nextbet, difficulty, steps]),
 				tarot: 	 	 () => runBet(tarotBet, [nextbet, difficulty]),
+				drill: 	 	 () => runBet(drillBet, [nextbet, target, pick]),
 				primedice:   () => runBet(PrimeBet, [nextbet, target1, target2, target3, target4, condition])
 			};
 
