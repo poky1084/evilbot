@@ -2971,7 +2971,7 @@ function data(json){
             tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = bet.state.drillResults[bet.state.pick-1].multiplier;
-		tdRollChance.innerHTML = bet.state.pick + "/" + bet.payoutMultiplier;
+		tdRollChance.innerHTML = bet.state.pick + "/" + bet.state.target;
             //break;
         } 
 		
