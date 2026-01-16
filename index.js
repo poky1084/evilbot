@@ -1151,6 +1151,9 @@ body, body * {
   margin-right: 2px;
   font-size: 0.9em;
 }
+
+
+
 </style>
 
 <body>
@@ -1426,10 +1429,10 @@ end</textarea>
     
     <div id="botFooter">
       <div class="clearfix">
-        <div id="infobar" class="float-left" style="padding-left: 3px; font-size: 10px; line-height: 18px;">
+        <div id="infobar" class="float-left" style="padding-left: 3px; font-size: 12px; line-height: 18px;">
           <a href="https://github.com/poky1084" target="_blank" rel="noopener noreferrer">github.com/poky1084</a> | Discord: fisk_992 | Telegram: <a href="https://t.me/poky_1084" target="_blank" rel="noopener noreferrer">@poky_1084</a>
         </div>
-        <div id="infospeed" class="float-right" style="font-size: 10px; line-height: 18px;">
+        <div id="infospeed" class="float-right" style="font-size: 12px; line-height: 18px;">
           <span id="botSpeed">0</span>
           <span class="bot-toggle" id="botToggleHideControlBot">▲</span>
         </div>
