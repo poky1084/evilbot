@@ -1,201 +1,311 @@
- document.body.insertAdjacentHTML("beforebegin", `<body><div id="botWrapLicenseBox">
-      <style>
-        .bot-input {
-          all: revert;
-          padding: 2px;
-          border: 1px solid #ccc;
-          border-radius: 3px;
-        }
-        
-        .btn-grad {
-          all: revert;
-          cursor: pointer;
-          background-image: linear-gradient(to right, #ffb347 0%, #ffcc33  51%, #ffb347  100%);
-          text-align: center;
-          transition: 0.5s;
-          padding: 3px;
-          background-size: 200% auto;
-          border: #ffc107;
-          border-radius: 3px;
-        }
-        
-        .btn-grad:hover {
-          background-position: right center;
-          text-decoration: none;
-        }
-        
-        .btn-grad:active {
-          opacity: .65;
-        }
-        
-        .btn-grad:disabled {
-          cursor: auto;
-          opacity: .65;
-          color: #fff;
-        }
-
-        #botLicenseAlert {
-          text-align: left!important;
-          color: red;
-          margin-top: 5px;
-        }
-      </style>
-
-      </div><div id="botWrap"><style>
+ document.body.insertAdjacentHTML("beforebegin", `<style>
+/* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #2a2c2d;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #555;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #666;
 }
 
+/* Main bot container */
 #bot {
   all: revert;
   width: 1000px;
-  font-family: "Courier New", monospace;
-  font-size: 12px!important;
+  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 12px !important;
   text-align: left;
-  background: #036ffc;
+  background: #313335;
   color: #fff;
-  line-height: 1.5!important;
   position: absolute;
   z-index: 2147483002;
-  border: 0.6px solid #ccc;
-  border-radius: 3px;
+  border: 1px solid #242628;
+  border-radius: 4px;
   top: 50%; 
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 1;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  padding: 0;
+  margin: 0; /* Reset margin */
 }
 
+/* Header and Footer - DARKER */
 #botHeader,
 #botFooter {
   cursor: move;
-  height: 20px;
-  padding: 3px 5px;
+  height: 18px;
+  padding: 2px 4px;
+  background: #252729; /* Darker */
+  border-bottom: 1px solid #1e2022; /* Darker border */
+  margin: 0; /* Reset margin */
+}
+
+#botHeader {
+  border-radius: 4px 4px 0 0; /* Match container radius */
+}
+
+#botFooter {
+  border-top: 1px solid #1e2022;
+  border-bottom: none;
+  border-radius: 0 0 4px 4px; /* Match container radius */
 }
 
 .bot-toggle {
   cursor: pointer;
-  padding: 5px;
+  padding: 3px;
   z-index: 2147483003;
 }
 
+/* Menu styling - SINGLE ROW and DARKER */
 #botMenu {
-  padding: 3px;
+  padding: 4px; /* Adjusted padding */
+  background: #27292b; /* Darker */
+  border-bottom: 1px solid #1e2022;
+  display: flex;
+  gap: 6px; /* Space between elements */
+  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap; /* Force single row */
+  margin: 0; /* Reset margin */
+  border-top: none; /* Remove any top border */
 }
 
 #botMenu select,
-#botMenu span input[type=number] {
+#botMenu span input[type=number],
+#botMenu input[type="password"] {
   all: revert;
-  background: #fff!important;
-  padding: 3px 5px;
-  border: 1px solid #ccc;
-  border-radius: 0;
+  background: #2d2f31 !important; /* Darker input background */
+  color: #fff;
+  padding: 3px 6px;
+  border: 1px solid #3a3c3e;
   border-radius: 3px;
+  font-size: 11px;
+  height: 22px;
+  margin: 0; /* Reset margin */
 }
 
 #botMenu span input[type=number] {
-  width: 86px;
+  width: 50px; /* More compact */
 }
 
+#botMenu input[type="password"] {
+  width: 150px; /* Compact password field */
+}
+
+#botMenu span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  margin: 0; /* Reset margin */
+}
+
+/* Rounded toggle switch */
 .switch {
   position: relative;
   display: inline-block;
-  width: 45px;
-  height: 19px;
-  background: #03c6fc;
+  width: 40px;
+  height: 20px;
+  background: #3a3c3e; /* Dark gray when off */
+  border-radius: 20px; /* Rounded */
+  transition: background 0.3s;
+  margin: 0; /* Reset margin */
 }
 
 .switch input { 
   width: 0;
   height: 0;
+  opacity: 0;
 }
 
 .slider {
-  all: revert;
   position: absolute;
   cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 3px;
+  border-radius: 20px; /* Rounded */
   -webkit-transition: .4s;
   transition: .4s;
+  background: #3a3c3e; /* Dark gray when off */
 }
 
 .slider:before {
   content: "";
   position: absolute;
-  background: white;
-  height: 13px;
-  width: 13px;
-  left: 3px;
-  bottom: 3.5px;
-  border-radius: 3px;
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  border-radius: 50%; /* Round knob */
   -webkit-transition: .3s;
   transition: .3s;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
+input:checked + .slider {
+  background: #16a34a; /* Green when on */
+}
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
 }
 
+/* Buttons */
 .btn-grad {
   all: revert;
   cursor: pointer;
   text-align: center;
-  transition: 0.5s;
-  padding: 3px;
-  background-size: 200% auto;
-  border: #ffc107;
+  transition: 0.3s;
+  padding: 4px 8px;
+  border: none;
   border-radius: 3px;
-  background-color: #03c6fc;
+  background-color: #16a34a;
+  color: white;
+  font-weight: bold;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+  margin: 0; /* Reset margin */
 }
 
 .btn-grad:hover {
-  background-position: right center;
-  text-decoration: none;
+  background-color: #1d9c4d;
 }
 
 .btn-grad:active {
-  opacity: .65;
+  background-color: #13843f;
 }
 
 .btn-grad:disabled {
   cursor: auto;
-  opacity: .65;
-  color: #fff;
+  opacity: .5;
+  color: #ccc;
 }
 
 .btn-control {
-  padding-top: 10px!important;
-  padding-bottom: 10px!important;
+  padding: 6px 12px !important;
+  font-size: 12px !important;
 }
 
-#botOpenLUAScript,
-#botOpenJSScript {
-  all: revert;
+/* Stats section - DARKER */
+.bot-stats,
+.bot-flex-container {
+    display: flex;
+    align-items: stretch;
+    font-weight: bold;
+    font-size: 15px !important;
+    position: relative;
+    background: #27292b; /* Darker */
+    margin: 0; /* Reset margin */
+    padding: 4px 0;
+    font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+    border-bottom: 1px solid #1e2022;
 }
 
+.bot-stats div {
+  flex-grow: 1;
+  padding: 2px 12px;
+  border-right: 1px solid #1e2022;
+  margin: 0; /* Reset margin */
+}
+
+.bot-stats div:last-child {
+  border-right: none;
+}
+
+.bot-stats div li {
+  list-style: none;
+  padding: 2px 0;
+  margin: 0; /* Reset margin */
+}
+
+/* Menu 2 - DARKER */
+.bot-menu2 {
+  display: flex;
+  font-size: 11px !important;
+  background: #27292b; /* Darker */
+  border-bottom: 1px solid #1e2022;
+  padding: 3px 0;
+  margin: 0; /* Reset margin */
+}
+
+.bot-menu2 span {
+  padding: 2px 4px;
+  text-align: center;
+  margin: 0; /* Reset margin */
+}
+
+/* Fast mode positioning */
+.fastmode {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+  padding: 2px 5px;
+  font-weight: bold;
+  font-size: 11px;
+  margin-left: auto;
+  gap: 6px;
+}
+
+/* Tab and control menus */
+#botTabMenu,
+#botControlMenu {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 3px;
+  gap: 4px;
+}
+
+#botTabMenu button,
+#botControlMenu button {
+  flex-basis: 0;
+  flex-grow: 1;
+  padding: 5px 2px;
+  margin: 0; /* Reset margin */
+}
+
+/* Control buttons - DARKER BACKGROUND */
+#botControlMenu {
+  position: relative;
+  margin-top: 10px;
+  padding: 6px;
+  background: #252729; /* Darker */
+  border-top: 1px solid #1e2022;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Main content area */
+#botBody {
+  padding: 0;
+  margin: 0; /* Reset margin */
+}
+
+/* Chart and history - DARKER */
 #botChart,
 #botWrapHistory {
-  height: 200px;
+  height: 160px;
   padding: 3px;
+  background: #27292b; /* Darker */
+  margin: 2; /* Reset margin */
 }
 
 #botWrapHistory {
@@ -204,454 +314,145 @@ input:checked + .slider:before {
 
 #botWrapHistory table {
   border-collapse: collapse;
-  font-size: 11px!important;
+  font-size: 10px !important;
+  margin: 2; /* Reset margin */
 }
 
 #botWrapHistory table thead tr th {
   text-align: left;
-  padding: 1px;
-  border: 1px solid #ccc;
+  padding: 3px 5px;
+  border: 1px solid #3a3c3e;
+  background: #2d2f31; /* Darker header */
+  font-weight: bold;
 }
 
 #botHistory tr {
-  border-bottom: 1px solid #fff;
-  color: #000!important;
+  border-bottom: 1px solid #3a3c3e;
+  color: #ddd !important;
 }
 
 #botHistory tr:last-child {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #3a3c3e;
 }
 
-#botHistory tr td {
+#botHistory {
   all: revert;
   white-space: nowrap;
-  padding: 1.5px;
-  border-right: 1px solid #fff;
-  border-left: 1px solid #fff;
+  padding: 3px 5px;
+  border-right: 1px solid #3a3c3e;
+  border-left: 1px solid #3a3c3e;
+  background: #27292b; /* Darker cell background */
 }
 
 #botHistory tr td:first-child {
-  border-left: 1px solid #ccc;
+  border-left: 1px solid #3a3c3e;
 }
 
 #botHistory tr td:last-child {
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #3a3c3e;
 }
 
 #botHistory tr td input {
   all: revert;
 }
 
-#botAdvancedMode,
-#botWrapMode,
-#botWrapVariables,
-#botWrapFunctions,
-#botWrapTips {
+/* Code container - DARKER */
+#botWrapMode {
   overflow: scroll;
-  height: 340px;
+  height: 260px;
+  background: #252729; /* Darker */
+  margin: 0; /* Reset margin */
 }
 
-#botWrapVariables pre,
-#botWrapFunctions pre,
-#botWrapTips pre {
-  all: revert;
-  background: #fff;
-  color: #000;
-  margin: 0;
+.code-container {
+  display: grid;
+  position: relative;
+  margin-bottom: 0;
+  overflow: auto;
+  border-radius: 3px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, .3);
+  width: 100%;
+  height: 220px;
+  background: #252729; /* Darker */
+  margin: 0; /* Reset margin */
 }
 
-.botSim {
-	overflow: auto;
-	visibility : visible;
-	grid-area: 1 / 1;
-	width: 100%;
-	overflow: auto
+.botSim, .code-lua, .code-js, #botWrapLog {
+  grid-area: 1 / 1;
+  width: 100%;
+  overflow: auto;
+  height: 220px;
 }
+
 .code-lua {
-	overflow: auto;
-	visibility : hidden;
-	grid-area: 1 / 1;
-	width: 100%;
-	overflow: auto
-}
-.code-js {
-	visibility : visible;
-	z-index: 10;
-	grid-area: 1 / 1;
-	overflow: auto;
-	width: 100%;
+  visibility: hidden;
 }
 
 #botWrapLog {
-	visibility : hidden;
-	z-index: 10;
-	grid-area: 1 / 1;
-	overflow: scroll;
+  visibility: hidden;
+  z-index: 10;
+  background: #1e2022; /* Darker log background */
 }
 
-#botLog li {
-	font-size: 6px!important;
-}
-
-#botSimLog {
-	font-size: 11px!important;
-}
-
-#botOpenScript {
-  all: revert;
-}
-
+/* CodeMirror editor - DARKER */
 .CodeMirror {
-   height: 299px;
-  min-height: 299px;
+  height: 210px !important;
+  min-height: 210px !important;
+  background: #252729 !important; /* Darker */
+  color: #fff !important;
 }
 
-.bot-stats,
-.bot-flex-container {
-    display: flex;
-    align-items: stretch;
-    font-weight: bold;
-    font-size: 14px;
-    position: relative; /* Enable absolute positioning inside */
-  }
-
-  .overlay-text {
-	font-size: 30px;
-    position: absolute;
-    top: 10px; /* Adjust position as needed */
-    left: 390px;
-    color: #000; /* or white, depending on background */
-    background: rgba(255, 255, 255, 0.7); /* optional background */
-    padding: 4px 8px;
-    border-radius: 4px;
-    pointer-events: none; /* So it doesn't block clicks */
-  }
-
-.bot-stats div {
-  flex-grow: 1;
-  padding: 2px 32px;
+.CodeMirror-gutters {
+  background: #1e2022 !important; /* Darker */
+  border-right: 1px solid #3a3c3e !important;
 }
 
-.bot-stats div li {
-  list-style: none;
+/* Textareas - DARKER */
+#botSimLog, #botLog, #jscode, #luacode {
+  background: #252729; /* Darker */
+  color: #fff;
+  border: 1px solid #3a3c3e;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 11px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+  margin: 0; /* Reset margin */
 }
 
-.bot-advanced-item {
-  line-height: 2;
-  padding: 3px 0;
-  border-bottom: 1px solid #e7e7e7;
+/* Result button with loader */
+.button-wrapper {
+  position: relative;
+  display: inline-block;
 }
 
-.bot-advanced-item:last-child {
-  border: none;
+.button-wrapper .loader {
+  position: absolute;
+  top: 30%;
+  left: 46%;
+  transform: translate(-50%, -50%) rotateZ(45deg);
+  z-index: 2;
+  pointer-events: none;
 }
 
-.bot-advanced-item input {
-  all: revert;
+#timerDown {
+  display: inline-block;
+  color: #ffffff;
+  font-size: 12px;
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  top: 30%;
+  left: 46%;
+  z-index: 2;
 }
 
-.bot-advanced-item input[type=number] {
-  width: 86px;
-}
-
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.float-left {
-  float: left!important;
-}
-
-.float-right {
-  float: right!important;
-}
-
-.bot-menu2 {
-  display: flex;
-  font-size: 11px!important;
-}
-
-.bot-menu2 span {
-  padding: 3px 6px;
-  text-align: center;
-}
-
-#botTabMenu,
-#botControlMenu {
-  display: flex; flex-wrap: wrap;
-  margin-top: 3px;
-}
-
-#botTabMenu button,
-#botControlMenu button {
-  flex-basis: 0;
-  flex-grow: 1;
-  margin: 3px;
-}
-
-
-/**
- *
- * In this pen:
- * added stylesheets with CDN:
- *   -  //cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/codemirror.css
- *   -  //cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/theme/material.css
- *
- */
-
-*, *:after, *:before {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-html,
-body {
-	height: 100%;
-}
-html {
-	text-rendering: optimizeLegibility;
-	line-height: 1.5em;
-	letter-spacing: .3px;
-	font-family: "Poppins", sans-serif;
-	-webkit-text-size-adjust: 100%;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-body {
-}
-html {
-	font-family: "Geneva", sans-serif;
-}
-
-
-/* ----------
-	WRAPPERS & CONTAINERS
----------- */
-section {
-	position: relative;
-	padding: 2.5rem 0;
-}
-.container {
-	position: relative;
-	margin: auto;
-	padding: 0 20px;
-	width: 100%;
-	max-width: 970px;
-}
-section:after, .container:after, .row:after {
-	display: table;
-	content: "";
-	clear: both;
-}
-
-
-/* ----------
-	ANHOR TAG
----------- */
-a {
-	cursor: pointer;
-	outline: 0;
-}
-h1 > a,
-h2 > a,
-h3 > a,
-h4 > a,
-h5 > a,
-h6 > a,
-p  > a {
-	color: #ed9d0a;
-	text-decoration: none;
-}
-h1 > a:hover,
-h2 > a:hover,
-h3 > a:hover,
-h4 > a:hover,
-h5 > a:hover,
-h6 > a:hover,
-p  > a:hover {
-	text-decoration: underline;
-}
-
-
-/* ----------
-	TYPOGRAPHY
----------- */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-ul {
-	margin-bottom: 1rem;
-	-ms-word-break: break-word;
-	-ms-word-wrap: break-word;
-	-webkit-word-break: break-word;
-	-webkit-word-wrap: break-word;
-	word-break: break-word;
-	word-wrap: break-word;
-}
-h1:last-child,
-h2:last-child,
-h3:last-child,
-h4:last-child,
-h5:last-child,
-h6:last-child,
-p:last-child,
-blockquote:last-child,
-ul:last-child {
-	margin-bottom: 0;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	line-height: 1.25em;
-	letter-spacing: 1px;
-	font-weight: 600;
-}
-h1:not(:first-child),
-h2:not(:first-child),
-h3:not(:first-child),
-h4:not(:first-child),
-h5:not(:first-child),
-h6:not(:first-child) {
-	margin-top: 1.5em;
-}
-h1 {
-	letter-spacing: 2px;
-	font-size: 1.75rem;
-}
-h2 {
-	font-size: 1.5rem;
-}
-h1 strong,
-h2 strong,
-h3 strong,
-h4 strong,
-h5 strong,
-h6 strong {
-	font-weight: 700;
-}
-p {
-	line-height: 1.5em;
-}
-ul {
-	padding-left: 1.5rem;
-}
-hr {
-	border: 0;
-	border-top: 1px solid #e1e1e1;
-}
-
-
-/* ----------
-	CODE BLOCK
----------- */
-.code-container {
-	display: grid;
-	position: relative;
-	margin-bottom: 1.5rem;
-	overflow: auto;
-	border-radius: 3px;
-	box-shadow: 3px 3px 6px rgba(0, 0, 0, .3);
-	width: 100%;
-}
-.code-container:last-child {
-	margin-bottom: 0;
-	width: 100%;
-}
-
-.btn {
-	background-color: #ed9d0a;
-	color: #fff;
-	padding: 4px 10px;
-	text-decoration: none;
-	border-radius: 3px;
-	box-shadow: 0 8px 6px -6px rgba(0, 0, 0, .15);
-	-webkit-backface-visibility: hidden;
-	-webkit-transition: 200ms -webkit-transform ease, 200ms transform ease, 200ms box-shadow ease;
-			transition: 200ms -webkit-transform ease, 200ms transform ease, 200ms box-shadow ease;
-}
-.btn:hover {
-	box-shadow: 0 6px 6px -4px rgba(0, 0, 0, .2);
-	-webkit-transform: translateY(-2px);
-			transform: translateY(-2px);
-}
-.btn.btn-left {
-	float: left;
-}
-.btn.btn-right {
-	float: right;
-}
-
-
-.row {
-	margin-bottom: 1.5rem;
-	width: 100%;
-}
-.row:last-child {
-	margin-bottom: 0;
-}
-
-#runcmd {
-	width: 30%
-}
-
-#runinput {
-	width: 60%
-}
-
-.fastmode{
-     display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Aligns contents to the right inside .fastmode */
-    text-align: right;
-    padding: 10px;
-     font-weight: bold;
-	 position: absolute; /* Or use relative/other as needed */
-    top: 40px;
-    right: 10px;
-}
-a:hover {
-  color: white;
-  text-decoration: underline;
-}
-a:link {
-  color: white;
-  text-decoration: underline;
-}
-
-#result {
-	font-size: 16px;
-}
-
-#userBal {
-	font-size: 14px;
-}
-
-#botStopOnWinButton {
-	font-size: 14px;
-}
-
-#botStopButton {
-	font-size: 14px;
-}
-
-#botStartButton {
-	font-size: 14px;
-}
-
+/* Loader animation */
 .loader {
   display: none;
   color: #ffffff;
-  font-size: 19px;
+  font-size: 16px;
   overflow: hidden;
   width: 1em;
   height: 1em;
@@ -698,241 +499,346 @@ a:link {
   0% { transform: rotate(0deg) }
   100% { transform: rotate(360deg) }
 }
- 
-   
-.button-wrapper {
-  position: relative;
-  display: inline-block;
+
+/* Additional styling */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
-.button-wrapper .loader {
-  position: absolute;
-  top: 30%;
-  left: 46%;
-  transform: translate(-50%, -50%) rotateZ(45deg);
-  z-index: 2;
-  pointer-events: none; /* so the button is still clickable if needed */
+.float-left {
+  float: left !important;
+  margin: 0; /* Reset margin */
 }
 
-#timerDown {
-  display: inline-block;
-  color: #ffffff;
-  font-size: 14px;
-  width: 1em;
-  height: 1em;
-  position: absolute;
-  top: 30%;
-  left: 46%;
-  z-index: 2;
+.float-right {
+  float: right !important;
+  margin: 0; /* Reset margin */
+}
+
+/* Link styling */
+a {
+  color: #4fa3ff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #6cb4ff;
+  text-decoration: underline;
+}
+
+/* Adjustments for specific elements */
+#result {
+  font-size: 17px;
+  min-width: 200px;
+}
+
+#userBal, #botStopOnWinButton, #botStopButton, #botStartButton {
+  font-size: 12px;
+}
+
+/* Make the two main columns more compact */
+.bot-flex-container > div {
+  padding: 4px !important;
+}
+
+/* Adjust the right column layout */
+.bot-flex-container > div:last-child {
+  padding-left: 4px !important;
+}
+
+/* Make the control buttons at bottom more compact */
+#botControlMenu button {
+  min-width: 80px;
+}
+
+* {
+  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+  margin: 0;
+  padding: 0;
+}
+
+body, body * {
+  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+  margin: 0;
+  padding: 0;
+}
+
+/* Specific adjustments for darker theme */
+.bot-select, .gameselect, .mirrors, .thememod {
+  background: #2d2f31 !important;
+  color: #fff !important;
+  border: 1px solid #3a3c3e !important;
+  margin: 0; /* Reset margin */
+}
+
+.bot-select option, .gameselect option, .mirrors option, .thememod option {
+  background: #2d2f31;
+  color: #fff;
+}
+
+/* Input placeholders */
+::placeholder {
+  color: #aaa !important;
+  opacity: 1;
+}
+
+/* Fix for file input */
+#botOpenScript {
+  background: #2d2f31 !important;
+  color: #fff !important;
+  border: 1px solid #3a3c3e !important;
+  padding: 3px;
+  border-radius: 3px;
+  margin: 0; /* Reset margin */
+}
+
+/* Style for simulation inputs */
+#serverseed, #clientseed, #nonce {
+  background: #2d2f31 !important;
+  color: #fff !important;
+  border: 1px solid #3a3c3e !important;
+  margin: 0; /* Reset margin */
+}
+
+#runinput {
+  background: #2d2f31 !important;
+  color: #fff !important;
+  border: 1px solid #3a3c3e !important;
+  margin: 0; /* Reset margin */
+}
+
+/* Stats labels */
+.bot-stats .float-left {
+  color: #aaa;
+}
+
+.bot-stats .float-right {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Reset all margins and padding on main elements */
+#botMain, #botWrapControl, #botLUAMode, #botTabMenu, #botControlMenu {
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure no gap between header and menu */
+#botHeader + #botBody #botMenu {
+  margin-top: 0;
+  border-top: none;
+}
+
+#botHistory tr td {
+  padding: 3px 5px !important; /* Increased from 3px 5px */
+}
+
+#botHistory table thead tr th {
+  padding: 3px 5px !important; /* Increased for header too */
 }
 </style>
-<center>
+
+<body>
+
 <div id="bot">
   <div id="botHeader">
     <div class="clearfix">
-      <div class="float-left" style="padding-left: 5px;">
+      <div class="float-left" style="padding-left: 3px; font-size: 11px;">
         #evilbot | stake.com | stake.us | primedice
       </div>
       <div class="float-right">
-        <span class="bot-toggle" id="botToggleMinimal">▼</span>
+        <span class="bot-toggle" id="botToggleMinimal" style="">▼</span>
       </div>
     </div>
   </div>
-<div id="botBody"> 
-  <div id="botMain">
-    <div id="botMenu">
-      <select id="botMenuMode" class="bot-select">
-        <option value="js" selected="selected">JsMode</option>
-		<option value="lua">LuaMode</option>
-      </select>
-      <select id="botMenuCoin" class="bot-select">
-	  <option value="btc" selected="selected">btc</option>
-      </select>
-	  <select id="gameselect" class="gameselect">
-        <option value="dice" selected="selected">dice</option>
-		<option value="limbo">limbo</option>
-		<option value="primedice">primedice</option>
-		<option value="mines">mines</option>
-		<option value="keno">keno</option>
-		<option value="plinko">plinko</option>
-		<option value="hilo">hilo</option>
-		<option value="blackjack">blackjack</option>
-		<option value="wheel">wheel</option>
-		<option value="roulette">roulette</option>
-		<option value="dragontower">dragontower</option>
-		<option value="baccarat">baccarat</option>
-		<option value="chicken">chicken</option>
-		<option value="drill">drill</option>
-		<option value="tarot">tarot</option>
-		<option value="pump">pump</option>
-		<option value="flip">flip</option>
-		<option value="darts">darts</option>
-		<option value="snakes">snakes</option>
-		<option value="bars">bars</option>
-		<option value="packs">packs</option>
-		<option value="cases">cases</option>
-		<option value="rps">rps</option>
-		<option value="tomeoflife">tomeoflife</option>
-		<option value="scarabspin">scarabspin</option>
-		<option value="bluesamurai">bluesamurai</option>
-		<option value="diamonds">diamonds</option>
-		<option value="crash">crash</option>
-		<option value="slide">slide</option>
-      </select>
-	   <select id="mirrors" class="mirrors">
-      </select>
-	  <span style="font-size: 13px;font-weight: bold;">API: </span><input type="password" id="tokenkey" value="" style="width: 33%;color: white;border-style: solid;border-radius: 5px;border-width: 1px;" placeholder="Stake or Primedice api key here">
-      
-	  <span>
-        Records
-        <input type="number" id="botMaxRows" value="20" style="width: 40px;">
-		<select id="thememod" class="thememod">
-		<option value="light" >light</option>
-		<option value="blue" >blue</option>
-		<option value="dark" >dark</option>
-		<option value="grey" >grey</option>
-		<option value="green" >green</option>
-		<option value="brown" >brown</option>
-      </select>
-      </span>
-      <span id="scriptName"></span>
-    </div>
-
-    <div class="bot-menu2">
-    <center>
-      <span style="padding-top: 19px;">
-        <button class="btn-grad" id="resetstat">ResetStats</button>
-      </span>
-      <span style="padding-top: 19px;">
-        <button class="btn-grad" id="resetChart">ResetChart</button>
-      </span>
-      <span style="padding-top: 19px;">
-        <button class="btn-grad" id="deleteTable">ResetHistory</button>
-      </span>
-      <span style="padding-top: 19px;">
-        <button class="btn-grad" id="deleteLog">ResetLog</button>
-      </span>
-      <span style="padding-top: 19px;">
-        <button class="btn-grad" id="resetsee">ResetSeed</button>
-      </span>
-      <span style="padding-top: 19px;">
-        <button class="btn-grad" id="resetAlles">ResetAll</button>
-      </span>
-	  <div class="fastmode"> Fast Mode:
-			<label class="switch">
-				<input id="speedChange" type="checkbox"> <span class="slider"></span>
-			</label>
-			
-		</div>
-	  </center>
-    </div>
-
-    <div class="bot-stats" id="botStats">
-      <div>
-        <li class="clearfix">
-          <span class="float-left">Time:</span>
-          <span class="float-right"><span id="botTime">0:0:0:0</span></span>
-        </li>
-        <li class="clearfix">
-          <span class="float-left">Balance:</span>
-          <span class="float-right"><span id="botBalance">0.00000000</span></span>
-        </li>
-        <li class="clearfix">
-          <span class="float-left">Wagered:</span>
-          <span class="float-right">(<span id="botPercentWagered">0.00</span>x) <span id="botWagered">0.00000000</span></span>
-        </li>
-        <li class="clearfix">
-          <span class="float-left">Profit:</span>
-          <span class="float-right" id="botWrapPercentProfit">(<span id="botPercentProfit">0.00</span>%) <span id="botProfit">0.00000000</span></span>
-        </li>
-      </div>
-      
-      <div>
-        <li class="clearfix">
-          <span class="float-left">HighBet:</span>
-          <span class="float-right"><span id="botHighBet">0.00000000</span></span>
-        </li>
-        <li class="clearfix">
-          <span class="float-left">HighLose:</span>
-          <span class="float-right"><span id="botHighLose">0.00000000</span></span>
-        </li>
-        <li class="clearfix">
-          <span class="float-left">HighProfit:</span>
-          <span class="float-right"><span id="botHighProfit">0.00000000</span></span>
-        </li>
-        <li class="clearfix">
-          <span class="float-left">High/Low-Streak:</span>
-          <span class="float-right"><span id="botHighLowStreak">0 / 0</span></span>
-        </li>
-      </div>
-
-      <div style="flex-grow: 1; padding: 2px 32px;">
-        <li class="clearfix">
-          <span class="float-left">Bets:</span>
-          <span class="float-right"><span id="botBets">0</span></span>
-        </li>
-        <li class="clearfix">
-          <span class="float-left">Wins:</span>
-          <span class="float-right"><span id="botWins">0</span></span>
-        </li>
-        <li class="clearfix">
-          <span class="float-left">Losses:</span>
-          <span class="float-right"><span id="botLosses">0</span></span>
-        </li>
-        <li class="clearfix">
-          <span class="float-left">CurrentStreak:</span>
-          <span class="float-right"><span id="botCurrentStreak">0</span></span>
-        </li>
-      </div>
-    </div>
-
-    <div class="bot-flex-container" id="botWrapControl">
-	  
-      <div style="flex-grow: 1; width: 50%;">
-        <div id="chartContainer" style="height: 195px; width:100%;"></div>
-
-        <div id="botWrapHistory">
-          <table>
-            <thead>
-              <tr>
-                <th>Bets</th>
-                <th>Amount</th>
-                <th>High</th>
-                <th>TargetChance</th>
-                <th>RollChance</th>
-                <th>Profit</th>
-				<th>Payout</th>
-                <th>TargetNumber</th>
-                <th>RollNumber</th>
-                <th>Game</th>
-                <th>BetID</th>
-              </tr>
-            </thead>
-            <tbody id="botHistory"></tbody>
-          </table>
+  
+  <div id="botBody"> 
+    <div id="botMain">
+      <!-- SINGLE ROW MENU - NO GAP -->
+      <div id="botMenu">
+        <select id="botMenuMode" class="bot-select">
+          <option value="js" selected="selected">JsMode</option>
+          <option value="lua">LuaMode</option>
+        </select>
+        <select id="botMenuCoin" class="bot-select">
+          <option value="btc" selected="selected">btc</option>
+        </select>
+        <select id="gameselect" class="gameselect">
+			<option value="dice" selected="selected">dice</option>
+			<option value="limbo">limbo</option>
+			<option value="primedice">primedice</option>
+			<option value="mines">mines</option>
+			<option value="keno">keno</option>
+			<option value="plinko">plinko</option>
+			<option value="hilo">hilo</option>
+			<option value="blackjack">blackjack</option>
+			<option value="wheel">wheel</option>
+			<option value="roulette">roulette</option>
+			<option value="dragontower">dragontower</option>
+			<option value="baccarat">baccarat</option>
+			<option value="chicken">chicken</option>
+			<option value="drill">drill</option>
+			<option value="tarot">tarot</option>
+			<option value="pump">pump</option>
+			<option value="flip">flip</option>
+			<option value="darts">darts</option>
+			<option value="snakes">snakes</option>
+			<option value="bars">bars</option>
+			<option value="packs">packs</option>
+			<option value="cases">cases</option>
+			<option value="rps">rps</option>
+			<option value="tomeoflife">tomeoflife</option>
+			<option value="scarabspin">scarabspin</option>
+			<option value="bluesamurai">bluesamurai</option>
+			<option value="diamonds">diamonds</option>
+			<option value="crash">crash</option>
+			<option value="slide">slide</option>
+        </select>
+        <select id="mirrors" class="mirrors"></select>
+        <span>API:</span>
+        <input type="password" id="tokenkey" value="" placeholder="API key">
+        <span>Records</span>
+        <input type="number" id="botMaxRows" value="20" style="width: 50px;">
+        <!--<select id="thememod" class="thememod">
+          <option value="dark" selected="selected">dark</option>
+          <option value="dark">light</option>
+        </select>-->
+        <span id="scriptName"></span>
+        <div class="fastmode">Fast Mode:
+          <label class="switch">
+            <input id="speedChange" type="checkbox">
+            <span class="slider"></span>
+          </label>
         </div>
       </div>
 
-      <div style="flex-grow: 1; width: 50%; padding-left: 5px;">
-        <div id="botTabMenu">
-          <button class="btn-grad" id="botShowMode"  >Code</button>
-          <button class="btn-grad" id="botShowLog" >Log</button>
-		  <button class="btn-grad" id="botShowSim" >Sim (dice)</button>
+      <div class="bot-menu2">
+        <center>
+          <span>
+            <button class="btn-grad" id="resetstat">ResetStats</button>
+          </span>
+          <span>
+            <button class="btn-grad" id="resetChart">ResetChart</button>
+          </span>
+          <span>
+            <button class="btn-grad" id="deleteTable">ResetHistory</button>
+          </span>
+          <span>
+            <button class="btn-grad" id="deleteLog">ResetLog</button>
+          </span>
+          <span>
+            <button class="btn-grad" id="resetsee">ResetSeed</button>
+          </span>
+          <span>
+            <button class="btn-grad" id="resetAlles">ResetAll</button>
+          </span>
+        </center>
+      </div>
+
+      <div class="bot-stats" id="botStats">
+        <div>
+          <li class="clearfix">
+            <span class="float-left">Time:</span>
+            <span class="float-right"><span id="botTime">0:0:0:0</span></span>
+          </li>
+          <li class="clearfix">
+            <span class="float-left">Balance:</span>
+            <span class="float-right"><span id="botBalance">0.00000000</span></span>
+          </li>
+          <li class="clearfix">
+            <span class="float-left">Wagered:</span>
+            <span class="float-right">(<span id="botPercentWagered">0.00</span>x) <span id="botWagered">0.00000000</span></span>
+          </li>
+          <li class="clearfix">
+            <span class="float-left">Profit:</span>
+            <span class="float-right" id="botWrapPercentProfit">(<span id="botPercentProfit">0.00</span>%) <span id="botProfit">0.00000000</span></span>
+          </li>
+        </div>
+        
+        <div>
+          <li class="clearfix">
+            <span class="float-left">HighBet:</span>
+            <span class="float-right"><span id="botHighBet">0.00000000</span></span>
+          </li>
+          <li class="clearfix">
+            <span class="float-left">HighLose:</span>
+            <span class="float-right"><span id="botHighLose">0.00000000</span></span>
+          </li>
+          <li class="clearfix">
+            <span class="float-left">HighProfit:</span>
+            <span class="float-right"><span id="botHighProfit">0.00000000</span></span>
+          </li>
+          <li class="clearfix">
+            <span class="float-left">High/Low-Streak:</span>
+            <span class="float-right"><span id="botHighLowStreak">0 / 0</span></span>
+          </li>
         </div>
 
         <div>
+          <li class="clearfix">
+            <span class="float-left">Bets:</span>
+            <span class="float-right"><span id="botBets">0</span></span>
+          </li>
+          <li class="clearfix">
+            <span class="float-left">Wins:</span>
+            <span class="float-right"><span id="botWins">0</span></span>
+          </li>
+          <li class="clearfix">
+            <span class="float-left">Losses:</span>
+            <span class="float-right"><span id="botLosses">0</span></span>
+          </li>
+          <li class="clearfix">
+            <span class="float-left">CurrentStreak:</span>
+            <span class="float-right"><span id="botCurrentStreak">0</span></span>
+          </li>
+        </div>
+      </div>
+
+      <div class="bot-flex-container" id="botWrapControl">
+        <div style="flex-grow: 1; width: 50%;">
+          <div id="chartContainer" style="height: 160px; width:100%;"></div>
+
+          <div id="botWrapHistory">
+            <table>
+              <thead>
+                <tr>
+                  <th>Bets</th>
+                  <th>Amount</th>
+                  <th>High</th>
+                  <th>Multiplier</th>
+                  <th>RollChance</th>
+                  <th>Profit</th>
+                  <th>Payout</th>
+                  <th>TargetNumber</th>
+                  <th>RollNumber</th>
+                  <th>Game</th>
+                  <th>BetID</th>
+                </tr>
+              </thead>
+              <tbody id="botHistory"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style="flex-grow: 1; width: 50%;">
+          <div id="botTabMenu">
+            <button class="btn-grad" id="botShowMode">Code</button>
+            <button class="btn-grad" id="botShowLog">Log</button>
+            <button class="btn-grad" id="botShowSim">Sim (dice)</button>
+          </div>
+
           <div id="botWrapMode">
             <div id="botLUAMode">
-              <div style="padding: 5px 2px 5px">
+              <div style="padding: 3px 2px">
                 <button class="btn-grad" id="botSaveScriptButton">Save</button>
-                <input style="margin: 0 3px;" type="file" id="botOpenScript" accept=".txt, .js, .lua">
+                <input style="margin: 0 3px; font-size: 11px;" type="file" id="botOpenScript" accept=".txt, .js, .lua">
               </div>
-<div class="code-container">
-
-
-
-<div class="code-js">
-<textarea id="jscode">chance=49.5
+              
+              <div class="code-container">
+                <div class="code-js">
+                  <textarea id="jscode">chance=49.5
 bethigh=true
 nextbet=0.00000000
 basebet=nextbet
@@ -943,9 +849,10 @@ dobet = function() {
   } else {
     nextbet=previousbet*2
   }
-}</textarea></div>
-<div class="code-lua">
-	<textarea id="luacode">chance=49.5
+}</textarea>
+                </div>
+                <div class="code-lua">
+                  <textarea id="luacode">chance=49.5
 bethigh=true
 basebet=0.00000000
 nextbet=basebet
@@ -956,112 +863,57 @@ function dobet()
   else
     nextbet=previousbet*2
   end
-end</textarea></div>
-     
-
-          <div class="botSim">
-			ServerSeed:<input id="serverseed" type="text" style="color:black; background:white;"></br>
-            ClientSeed:<input id="clientseed" type="text" style="color:black; background:white;"></br>
-			Nonce:<input id="nonce" type="text" value="1" style="color:black; background:white;"></br>
-			<button id="runsim" type="button">Simulate</button>
-			<button id="stopsim" type="button">Stop</button>
-			<textarea id="botSimLog" style="width: 100%; height: 80%; color:white; background:black;"></textarea>
-          </div>
-     
-
-          <div id="botWrapLog">
-            <textarea id="botLog" style="width: 100%; height: 262px; font-size: 11px; color:white; background:black;"></textarea>
-			<button class="btn-grad" id="runcmd" type="button">Command</button><input id="runinput" type="text" style="background:white;color:black">
-          </div>
- </div>   
-	</div>
-          </div>
-
-
-
- 
-	</div>
-          </div>
-          <div id="botWrapVariables" style="display: none;">
-            <pre>chance : % win chance in next game
-plinkoRow : Plinko rows, only for plinko game, some site not have
-plinkoRisk : risk level for plinko game (low, medium, high)
-bethigh : Bet side in next game (true is over/above, false is under/below)
-nextbet : Amount in next game
-lastBet.amount, previousbet : Amount in previous game
-lastBet.chance : % win chance in previous game
-lastBet.roll : % roll chance in previous game
-lastBet.target : Target number in previous game (some sites have)
-lastBet.result : Result number in previous game (some sites have)
-lastBet.profit, currentprofit : Profit in previous game
-lastBet.nonce : Current seed nonce
-lastBet.id : Bet ID in previous game
-currency : Currency to play (some site not work)
-balance : Current balance
-profit : Session profit
-wagered : Session wagered
-win : State in previous game (true is win, false is lose)
-bets : Bet count
-wins : Win count
-winstreak  : Winning streak
-losses : Lose count
-losestreak : Losing streak
-currentstreak : Current streak (smaller 0 is losing streak and vice versa)
-partialprofit : partialprofit (same in other dicebot)
-scriptname : Name of script u use</pre>
+end</textarea>
+                </div>
+                
+                <div class="botSim">
+                  ServerSeed:<input id="serverseed" type="text" style="width: 70%; margin: 2px;"><br>
+                  ClientSeed:<input id="clientseed" type="text" style="width: 70%; margin: 2px;"><br>
+                  Nonce:<input id="nonce" type="text" value="1" style="width: 70%; margin: 2px;"><br>
+                  <button id="runsim" type="button" class="btn-grad" style="padding: 2px 5px;">Simulate</button>
+                  <button id="stopsim" type="button" class="btn-grad" style="padding: 2px 5px;">Stop</button>
+                  <textarea id="botSimLog" style="width: 100%; height: 120px; margin-top: 5px;"></textarea>
+                </div>
+                
+                <div id="botWrapLog">
+                  <textarea id="botLog" style="width: 100%; height: 180px; font-size: 13px;"></textarea>
+                  <button class="btn-grad" id="runcmd" type="button" style="padding: 2px 5px;">Command</button>
+                  <input id="runinput" type="text" style="padding: 2px; width: 65%;">
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div id="botWrapFunctions" style="display: none;">
-<pre>dobet() : Main function for betting
-stop() : Stop betting
-resume() : Resume betting with current params
-resetseed() : Reset fairness
-resetstats() : Reset statistics
-resetchart() : Reset chart
-resethistory() : Reset history
-resetlog() : Reset log
-resetall() : Reset time, statistics, chart, history, log
-checkbalance() : Check actual balance
-ching() : Alert with sound
-log(message) : Write a message in Log area
-sleep(sec) : Pause betting system with sec
-resetpartialprofit() : Reset partialprofit</pre>
-          </div>
-
-          <div id="botWrapTips" style="display: none;">
-            <pre>Click ▼ or ▲ on to see something change
-Disable chart, history, log to have best performance
-Hold top or bottom area to move the bot around</pre>
+          <!-- Control buttons -->
+          <div id="botControlMenu">
+            <button id="botStartButton" class="btn-grad btn-control">Start</button>
+            <button id="botStopButton" class="btn-grad btn-control">Stop</button>
+            <div class="button-wrapper">
+              <button id="result" class="btn-grad btn-control" style="width:180px;height:35px;"></button>
+              <span class="loader"></span>
+              <span id="timerDown"></span>
+            </div>
+            <button id="botStopOnWinButton" class="btn-grad btn-control">StopOnWin</button>
           </div>
         </div>
-
-        <div id="botControlMenu">
-          <button id="botStartButton" class="btn-grad btn-control fontbigger" >Start</button>
-          <button id="botStopButton" class="btn-grad btn-control fontbigger" >Stop</button>
-         <div class="button-wrapper">
-			<button id="result" class="btn-grad btn-control fontbigger" style="width:250px;height:45px;background-color:#03A8FC;color:white;"></button>
-			<span class="loader"></span>
-			<span id="timerDown"></span>
-		  </div>
-          <button id="botStopOnWinButton" class="btn-grad btn-control fontbigger" >StopOnWin</button>
-          <button class="btn-grad btn-control fontbigger" id="userBal">CheckBalance</button>
+      </div>
+    </div>
+    
+    <div id="botFooter">
+      <div class="clearfix">
+        <div id="infobar" class="float-left" style="padding-left: 3px; font-size: 10px; line-height: 18px;">
+          <a href="https://github.com/poky1084" target="_blank" rel="noopener noreferrer">github.com/poky1084</a> | Discord: fisk_992 | Telegram: <a href="https://t.me/poky_1084" target="_blank" rel="noopener noreferrer">@poky_1084</a>
         </div>
-      </div>
-	  </div>
-	   <div id="botFooter">
-    <div class="clearfix">
-      <div id="infobar" class="float-left" style="padding-left: 5px;color:white"> 
-        <a href="https://github.com/poky1084" target="_blank" rel="noopener noreferrer">github.com/poky1084</a> | Discord: fisk_992 | Telegram: <a href="https://t.me/poky_1084" target="_blank" rel="noopener noreferrer">https://t.me/poky_1084</a>  
-      </div>
-      <div id="infospeed" class="float-right" style="color:white">
-        <span id="botSpeed" style="color:white">0</span>
-        <span class="bot-toggle" id="botToggleHideControlBot" >▲</span>
+        <div id="infospeed" class="float-right" style="font-size: 10px; line-height: 18px;">
+          <span id="botSpeed">0</span>
+          <span class="bot-toggle" id="botToggleHideControlBot">▲</span>
+        </div>
       </div>
     </div>
   </div>
-    </div>
-</center>
+</div>
 </body>`)
+ 
  function getCookie(name) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
@@ -1248,6 +1100,15 @@ if(svelt != undefined){
 	//svelt.remove();
 }*/
 
+
+
+document.getElementById("result").style.cssText = `
+  font-size: 18px !important;
+    width: 180px;
+    height: 35px;
+    font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+`;
+
 if (localStorage.getItem("mirror") != null) {
 	mirror = window.location.host
 	localStorage.setItem("mirror", mirror);
@@ -1293,13 +1154,17 @@ startSocket();
 htmlEditor = CodeMirror.fromTextArea(document.getElementById("luacode"), {
 	lineNumbers: true,
 	mode: 'lua',
-	// theme: 'default',
+	theme: 'darcula',
+    lineWrapping: true,
+    scrollbarStyle: 'native'
 });
 
 htmlEditor2 = CodeMirror.fromTextArea(document.getElementById("jscode"), {
 	lineNumbers: true,
 	mode: 'javascript',
-	// theme: 'default',
+	theme: 'darcula',
+    lineWrapping: true,
+	scrollbarStyle: 'native'
 });
 
 if(localStorage.getItem("jscode") != null){
@@ -1320,14 +1185,18 @@ dobet = function() {
 	localStorage.setItem("jscode", htmlEditor2.getValue());
 }
 
-setTimeout(() => htmlEditor2.refresh(), 300);
-setTimeout(() => htmlEditor.refresh(), 300);
+/*setTimeout(() => {
+ htmlEditor2.refresh();
+ htmlEditor.refresh()
+}, 2000);
+*/
 
 if(localStorage.getItem("luacode") != null){
 	htmlEditor.setValue(localStorage.getItem("luacode"));
 } 
 
 function changeTheme(){
+	/*
 	var thememod = document.getElementById('thememod').value;
 	localStorage.setItem("thememod", thememod);
 	var themesel = document.getElementById('bot')
@@ -1574,12 +1443,15 @@ function changeTheme(){
 		} 
 		
 	}
+	*/
+	
+	(function(){document.querySelectorAll('*').forEach(e=>e.style.fontFamily="'JetBrains Mono','Cascadia Code','Consolas',monospace");})();
 	
 }
 
 
 if (localStorage.getItem("thememod") != null) {
-	document.getElementById("thememod").value = localStorage.getItem("thememod");
+	//document.getElementById("thememod").value = localStorage.getItem("thememod");
 	changeTheme()
 } else {
 	changeTheme();
@@ -1590,8 +1462,8 @@ const inputHandler6 = function(e) {
 
 }
 
-thememode = document.getElementById("thememod");
-thememode.addEventListener('change', inputHandler6);
+//thememode = document.getElementById("thememod");
+//thememode.addEventListener('change', inputHandler6);
 
 htmlEditor.on("change", function (e) {
 	localStorage.setItem("luacode", e.getValue());
@@ -1600,9 +1472,80 @@ htmlEditor2.on("change", function (e) {
 	localStorage.setItem("jscode", e.getValue());
 });
 
+(function() {
+  const bot = document.getElementById('bot');
+  const header = document.getElementById('botHeader');
+  const footer = document.getElementById('botFooter');
+	
+  let isDragging = false;
+  let currentX;
+  let currentY;
+  let initialX;
+  let initialY;
+  let xOffset = 0;
+  let yOffset = 0;
 
+  header.addEventListener('mousedown', dragStart);
+  footer.addEventListener('mousedown', dragStart);
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('mouseup', dragEnd);
+
+  function dragStart(e) {
+    // Don't drag if clicking on toggle button
+    if (e.target.classList.contains('bot-toggle')) {
+      return;
+    }
+    
+    initialX = e.clientX - xOffset;
+    initialY = e.clientY - yOffset;
+
+    isDragging = true;
+  }
+
+  function drag(e) {
+    if (isDragging) {
+      e.preventDefault();
+      
+      currentX = e.clientX - initialX;
+      currentY = e.clientY - initialY;
+
+      xOffset = currentX;
+      yOffset = currentY;
+
+      setTranslate(currentX, currentY, bot);
+    }
+  }
+
+  function dragEnd(e) {
+    initialX = currentX;
+    initialY = currentY;
+
+    isDragging = false;
+  }
+
+  function setTranslate(xPos, yPos, el) {
+    el.style.transform = `translate(calc(-50% + ${xPos}px), calc(-50% + ${yPos}px))`;
+  }
+})();
 
 }
+
+setTimeout(() => {
+ htmlEditor2.refresh();
+ htmlEditor.refresh()
+}, 5000);
+
+setTimeout(() => {
+ htmlEditor2.refresh();
+ htmlEditor.refresh()
+}, 7000);
+
+setTimeout(() => {
+ htmlEditor2.refresh();
+ htmlEditor.refresh()
+}, 10000);
+
+
 const toggleBtn = document.getElementById("botToggleHideControlBot");
 const toggleBtn1 = document.getElementById("botToggleMinimal");
 const botBody = document.getElementById("botBody");
@@ -2190,8 +2133,8 @@ var resetseed1 = document.getElementById("resetsee");
 resetseed1.addEventListener('click', function() { resetseed(); }, false);
 var resetAll1 = document.getElementById("resetAlles");
 resetAll1.addEventListener('click', function() { resetAll(); }, false);
-var userBalances1 = document.getElementById("userBal");
-userBalances1.addEventListener('click', function() { userBalances(); }, false);
+//var userBalances1 = document.getElementById("userBal");
+//userBalances1.addEventListener('click', function() { userBalances(); }, false);
 var botStopOnWinButton = document.getElementById("botStopOnWinButton");
 botStopOnWinButton.addEventListener('click', function() { stopOnWin() }, false);
 
@@ -3457,10 +3400,32 @@ function data(json){
 			row.appendChild(tdBetID);	
 			
 			if(win){
-				row.style.background = "#91F190";
+				//row.style.color = "#91F190";
 			} else {
-				row.style.background = "#FFC0CB";
+				//row.style.background = "#FFC0CB";
 			}
+			
+
+
+			if(win){
+				// Add a class to the row
+				row.classList.add("win-row");
+				// Or set style on all cells
+				var cells = row.getElementsByTagName("td");
+				for(var i = 0; i < cells.length; i++) {
+					cells[i].style.color = "#91F190";
+				}
+			} else {
+				// For losses, you might want a different color
+				//row.classList.add("loss-row");
+				// Or set red color for losses
+				//var cells = row.getElementsByTagName("td");
+				//for(var i = 0; i < cells.length; i++) {
+					//cells[i].style.color = "#F19091";
+				//}
+			}
+
+
 			
 			table.prepend(row);
 			
@@ -3871,9 +3836,27 @@ function RunSimDice(){
 			
 			
 			if(win){
-				row.style.background = "#91F190";
+				//row.style.color = "#91F190";
 			} else {
-				row.style.background = "#FFC0CB";
+				//row.style.background = "#FFC0CB";
+			}
+			
+			if(win){
+				// Add a class to the row
+				row.classList.add("win-row");
+				// Or set style on all cells
+				var cells = row.getElementsByTagName("td");
+				for(var i = 0; i < cells.length; i++) {
+					cells[i].style.color = "#91F190";
+				}
+			} else {
+				// For losses, you might want a different color
+				//row.classList.add("loss-row");
+				// Or set red color for losses
+				//var cells = row.getElementsByTagName("td");
+				//for(var i = 0; i < cells.length; i++) {
+					//cells[i].style.color = "#F19091";
+				//}
 			}
 			
 			table.prepend(row);
@@ -4560,7 +4543,7 @@ function startSocket() {
 					
 					
 					
-						row.style.background = "#91F190";
+						row.style.color = "#91F190";
 					
 					
 						var tdbets = document.createElement("td");
@@ -4701,7 +4684,7 @@ function startSocket() {
 						var row = document.createElement("tr");
 					
 						
-						row.style.background = "#FFC0CB";
+						row.style.color = "#FFC0CB";
 			
 						
 						var tdbets = document.createElement("td");
@@ -4841,7 +4824,7 @@ function startSocket() {
 							
 							var row = document.createElement("tr");
 							//betcount++;
-							row.style.background = "#e8e9eb";
+							row.style.color = "#e8e9eb";
 							//win = null
 							//lastBet.win = null
 							
@@ -4984,7 +4967,7 @@ function startSocket() {
 							lastBet.Roll = obj.payload.data.slide.event.multiplier;
 							var row = document.createElement("tr");
 							//betcount++;
-							row.style.background = "#e8e9eb";
+							row.style.color = "#e8e9eb";
 							//win = null
 							//lastBet.win = null
 							
@@ -5080,7 +5063,7 @@ function startSocket() {
 								
 								var row = document.createElement("tr");
 
-								row.style.background = "#91F190";
+								row.style.color = "#91F190";
 
 								var tdbets = document.createElement("td");
 								var tdamount = document.createElement("td");
@@ -5219,7 +5202,7 @@ function startSocket() {
 								var row = document.createElement("tr");
 								
 								
-								row.style.background = "#FFC0CB";
+								row.style.color = "#FFC0CB";
 								
 								var tdbets = document.createElement("td");
 								var tdamount = document.createElement("td");
