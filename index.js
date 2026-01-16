@@ -2896,7 +2896,7 @@ function data(json){
             lastBet.targetNumber = guesses.length;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = lastBet.Roll;
             //break;
@@ -2911,7 +2911,7 @@ function data(json){
             lastBet.targetNumber = `${bet.state.target}`;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = bet.state.drillResults[bet.state.pick-1].multiplier;
 		tdRollChance.innerHTML = bet.state.pick + "/" + bet.state.target;
@@ -2924,7 +2924,7 @@ function data(json){
             lastBet.targetNumber = `${bet.state.difficulty}`;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = bet.payoutMultiplier;
             //break;
@@ -2936,7 +2936,7 @@ function data(json){
             lastBet.targetNumber = `${bet.state.difficulty}|${steps}`;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = bet.payoutMultiplier;
             //break;
@@ -2948,7 +2948,7 @@ function data(json){
             lastBet.targetNumber = `${bet.state.difficulty}|${bet.state.tiles.length}`;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = bet.payoutMultiplier;
             //break;
@@ -2960,7 +2960,7 @@ function data(json){
             lastBet.targetNumber = null
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = bet.payoutMultiplier;
             //break;
@@ -2973,7 +2973,7 @@ function data(json){
             lastBet.targetNumber = 0
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x"
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x"
             tdRollChance.innerHTML = bet.state.condition;
             tdTargetNumber.innerHTML = bet.state.target1 + "|" + bet.state.target2 + "|" + bet.state.target3 + "|" + bet.state.target4;
             tdRollNumber.innerHTML = bet.state.result.toFixed(2);
@@ -2989,7 +2989,7 @@ function data(json){
             lastBet.targetNumber = 99 / lastBet.chance;
             
             // UI Updates
-            tdTargetChance.innerHTML = lastBet.chance.toFixed(4);
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdRollChance.innerHTML = bet.state.condition === "below" 
                 ? bet.state.result.toFixed(4) 
                 : (100 - bet.state.result).toFixed(4);
@@ -3005,7 +3005,7 @@ function data(json){
             lastBet.targetNumber = bet.state.multiplierTarget;
             
             // UI Updates
-            tdTargetChance.innerHTML = lastBet.chance.toFixed(4);
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdRollChance.innerHTML = (99 / bet.state.result).toFixed(4);
             tdTargetNumber.innerHTML = ">" + bet.state.multiplierTarget.toFixed(4);
             tdRollNumber.innerHTML = bet.state.result.toFixed(2);
@@ -3017,7 +3017,7 @@ function data(json){
             lastBet.targetNumber = pumps;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = pumps;
             tdRollNumber.innerHTML = bet.state._popPoint;
             //break;
@@ -3036,7 +3036,7 @@ function data(json){
             lastBet.targetNumber = bettext;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = lastBet.Roll;
             //break;
@@ -3047,7 +3047,7 @@ function data(json){
             lastBet.targetNumber = `${bet.state.difficulty}|${eggs.length}`;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = bet.payoutMultiplier;
             //break;
@@ -3058,7 +3058,7 @@ function data(json){
             lastBet.targetNumber = "";
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = lastBet.Roll;
             //break;
@@ -3069,7 +3069,7 @@ function data(json){
             lastBet.targetNumber = `${bet.state.risk}|${bet.state.segments}`;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = lastBet.Roll;
             //break;
@@ -3080,7 +3080,7 @@ function data(json){
             lastBet.targetNumber = `${bet.state.risk}|${bet.state.rows}`;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = lastBet.Roll;
             //break;
@@ -3094,7 +3094,7 @@ function data(json){
             lastBet.hitCount = hitkeno.length;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = lastBet.hitCount + "x";
             //break;
@@ -3111,7 +3111,7 @@ function data(json){
             lastBet.targetNumber = `${minefield.length}|${str_field.length}`;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = hitmines;
             //break;
@@ -3122,7 +3122,7 @@ function data(json){
             lastBet.targetNumber = bet.state.difficulty;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = lastBet.Roll;
             //break;
@@ -3140,7 +3140,7 @@ function data(json){
             lastBet.Roll = snakecount;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = snakecount;
             //break;
@@ -3151,9 +3151,9 @@ function data(json){
             lastBet.targetNumber = guesses.length;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
-            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(4);
             //break;
         }    
         if (gameType === "slotsTomeOfLifeBet"){
@@ -3162,9 +3162,9 @@ function data(json){
             lastBet.targetNumber = lines;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
-            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(4);
             //break;
         }    
         if (gameType === "slotsBet"){
@@ -3173,9 +3173,9 @@ function data(json){
             lastBet.targetNumber = lines;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
-            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(4);
             //break;
         }    
         if (gameType === "slotsSamuraiBet"){
@@ -3184,9 +3184,9 @@ function data(json){
             lastBet.targetNumber = spinType === "complete" ? "" : spinType;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
-            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(4);
             
             // Special handling for next spin type
             if (bet.state.nextSpinType === "special" || bet.state.nextSpinType === "bonus") {
@@ -3203,9 +3203,9 @@ function data(json){
             lastBet.targetNumber = spinType === "complete" ? "" : spinType;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
-            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(4);
             
             samuraiskip = false;
             
@@ -3224,9 +3224,9 @@ function data(json){
             lastBet.targetNumber = "";
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
-            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(4);
             //break;
         }    
         if (gameType === "dartsBet"){
@@ -3235,9 +3235,9 @@ function data(json){
             lastBet.targetNumber = bet.state.difficulty;
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
-            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(4);
             //break;
         } 
 
@@ -3256,9 +3256,9 @@ function data(json){
                 lastBet.targetNumber = "";
                 
                 // UI Updates
-                tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+                tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
                 tdTargetNumber.innerHTML = null;
-                tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+                tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(4);
                 tdRollChance.innerHTML = null;
             }
         }    
@@ -3277,9 +3277,9 @@ function data(json){
                 lastBet.targetNumber = "";
                 
                 // UI Updates
-                tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+                tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
                 tdTargetNumber.innerHTML = null;
-                tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+                tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(4);
                 tdRollChance.innerHTML = null;
             }
             
@@ -3310,9 +3310,9 @@ function data(json){
                 lastBet.targetNumber = "";
                 
                 // UI Updates
-                tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+                tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
                 tdTargetNumber.innerHTML = "";
-                tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+                tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(4);
                 tdRollChance.innerHTML = cards.join(",");
             }
             
@@ -3331,9 +3331,9 @@ function data(json){
             lastBet.targetNumber = "";
             
             // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = "";
-            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(4);
             tdRollChance.innerHTML = cards.join(",");
 		}
 		}
