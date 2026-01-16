@@ -180,7 +180,7 @@ input:checked + .slider:before {
   background-color: #16a34a;
   color: white;
   font-weight: bold;
-  font-size: 11px;
+  font-size: 13px;
   font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
   margin: 0; /* Reset margin */
 }
