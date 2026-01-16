@@ -16,8 +16,9 @@ Please give a Star on the repo in case you liked/used it. Thank you!
 <b>Stake</b>: poky1084 <br />
 <b>Telegram:</b>: https://t.me/poky_1084
 
+<img width="1134" height="621" alt="Screenshot 2026-01-16 030157" src="https://github.com/user-attachments/assets/fe7f38d7-0ba2-451b-b398-a4c3df4e894f" />
 
-<img width="1140" height="629" alt="Screenshot 2026-01-16 024134" src="https://github.com/user-attachments/assets/61cf30dc-2275-46ba-a27a-8eb4410aefdb" />
+
 
 
 
