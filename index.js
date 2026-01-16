@@ -159,7 +159,7 @@
 }
 
 input:checked + .slider {
-  background: #16a34a; /* Green when on */
+  background: #d6d2d5; /* Green when on */
 }
 
 input:checked + .slider:before {
@@ -638,6 +638,168 @@ body, body * {
 #botHistory table thead tr th {
   padding: 3px 5px !important; /* Increased for header too */
 }
+
+/* LIGHT THEME STYLES */
+#bot.light-theme {
+    background: #f5f5f5 !important;
+    color: #000 !important;
+    border: 1px solid #ddd !important;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+#bot.light-theme #botHeader,
+#bot.light-theme #botFooter {
+    background: #e0e0e0 !important;
+    border-bottom: 1px solid #ccc !important;
+    color: #000 !important;
+}
+
+#bot.light-theme #botMenu {
+    background: #e8e8e8 !important;
+    border-bottom: 1px solid #ccc !important;
+}
+
+#bot.light-theme #botMenu select,
+#bot.light-theme #botMenu span input[type=number],
+#bot.light-theme #botMenu input[type="password"],
+#bot.light-theme .bot-select,
+#bot.light-theme .gameselect,
+#bot.light-theme .mirrors {
+    background: #ffffff !important;
+    color: #000 !important;
+    border: 1px solid #bbb !important;
+}
+
+#bot.light-theme .bot-stats,
+#bot.light-theme .bot-flex-container {
+    background: #e8e8e8 !important;
+    border-bottom: 1px solid #ccc !important;
+    color: #000 !important;
+}
+
+#bot.light-theme .bot-stats div {
+    border-right: 1px solid #ccc !important;
+}
+
+#bot.light-theme .bot-stats .float-left {
+    color: #555 !important;
+}
+
+#bot.light-theme .bot-stats .float-right {
+    color: #000 !important;
+}
+
+#bot.light-theme .bot-menu2 {
+    background: #e8e8e8 !important;
+    border-bottom: 1px solid #ccc !important;
+}
+
+#bot.light-theme #botControlMenu {
+    background: #e0e0e0 !important;
+    border-top: 1px solid #ccc !important;
+}
+
+#bot.light-theme #botChart,
+#bot.light-theme #botWrapHistory {
+    background: #f0f0f0 !important;
+}
+
+#bot.light-theme #botWrapHistory table thead tr th {
+    background: #e8e8e8 !important;
+    border: 1px solid #ccc !important;
+    color: #000 !important;
+}
+
+#bot.light-theme #botHistory {
+    background: #f0f0f0 !important;
+    border-right: 1px solid #ccc !important;
+    border-left: 1px solid #ccc !important;
+    color: #000 !important;
+}
+
+#bot.light-theme #botHistory tr {
+    border-bottom: 1px solid #ccc !important;
+    color: #000 !important;
+}
+
+#bot.light-theme #botWrapMode,
+#bot.light-theme .code-container {
+    background: #ffffff !important;
+}
+
+#bot.light-theme .CodeMirror {
+    background: #ffffff !important;
+    color: #000 !important;
+}
+
+#bot.light-theme .CodeMirror-gutters {
+    background: #f0f0f0 !important;
+    border-right: 1px solid #ddd !important;
+}
+
+#bot.light-theme #botSimLog,
+#bot.light-theme #botLog,
+#bot.light-theme #jscode,
+#bot.light-theme #luacode,
+#bot.light-theme #serverseed,
+#bot.light-theme #clientseed,
+#bot.light-theme #nonce,
+#bot.light-theme #runinput,
+#bot.light-theme #botOpenScript,
+#bot.light-theme #botMaxRows,
+#bot.light-theme #botWrapLog {
+    background: #ffffff !important;
+    color: #000 !important;
+    border: 1px solid #bbb !important;
+}
+
+#bot.light-theme .switch {
+    background: #ccc !important;
+}
+
+#bot.light-theme .slider {
+    background: #ccc !important;
+}
+
+#bot.light-theme input:checked + .slider {
+    background: #d6d2d5 !important;
+}
+
+/* Scrollbar styling for light theme */
+#bot.light-theme ::-webkit-scrollbar-track {
+    background: #e0e0e0 !important;
+}
+
+#bot.light-theme ::-webkit-scrollbar-thumb {
+    background: #aaa !important;
+}
+
+#bot.light-theme ::-webkit-scrollbar-thumb:hover {
+    background: #888 !important;
+}
+
+/* Button styling for light theme */
+#bot.light-theme .btn-grad {
+    background-color: #4CAF50 !important;
+    color: white !important;
+}
+
+#bot.light-theme .btn-grad:hover {
+    background-color: #45a049 !important;
+}
+
+#bot.light-theme a {
+    color: #0066cc !important;
+}
+
+#bot.light-theme a:hover {
+    color: #0052a3 !important;
+}
+
+/* Placeholder text for light theme */
+#bot.light-theme ::placeholder {
+    color: #777 !important;
+}
 </style>
 
 <body>
@@ -701,6 +863,12 @@ body, body * {
         <input type="password" id="tokenkey" value="" placeholder="API key">
         <span>Records</span>
         <input type="number" id="botMaxRows" value="20" style="width: 50px;">
+		<div class="fastmode">Light:
+          <label class="switch">
+            <input id="themeChange" type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
         <!--<select id="thememod" class="thememod">
           <option value="dark" selected="selected">dark</option>
           <option value="dark">light</option>
@@ -1092,6 +1260,31 @@ let connectionTimeout = [];
 
 const reconnectDelay = 10000;
 let pingInterval = null;
+
+
+    const themeSwitch = document.getElementById('themeChange');
+    const botContainer = document.getElementById('bot');
+    
+    // Check for saved theme preference or default to dark
+    const savedTheme = localStorage.getItem('botTheme') || 'dark';
+    
+    // Apply saved theme on page load
+    if (savedTheme === 'light') {
+        themeSwitch.checked = true;
+        botContainer.classList.add('light-theme');
+    }
+    
+    // Toggle theme when switch is clicked
+    themeSwitch.addEventListener('change', function() {
+        if (this.checked) {
+            botContainer.classList.add('light-theme');
+            localStorage.setItem('botTheme', 'light');
+        } else {
+            botContainer.classList.remove('light-theme');
+            localStorage.setItem('botTheme', 'dark');
+        }
+    });
+
 
 function addBot(){
 
@@ -3413,7 +3606,7 @@ function data(json){
 				// Or set style on all cells
 				var cells = row.getElementsByTagName("td");
 				for(var i = 0; i < cells.length; i++) {
-					cells[i].style.color = "#91F190";
+					cells[i].style.color = "#058514";
 				}
 			} else {
 				// For losses, you might want a different color
@@ -3847,7 +4040,7 @@ function RunSimDice(){
 				// Or set style on all cells
 				var cells = row.getElementsByTagName("td");
 				for(var i = 0; i < cells.length; i++) {
-					cells[i].style.color = "#91F190";
+					cells[i].style.color = "#058514";
 				}
 			} else {
 				// For losses, you might want a different color
