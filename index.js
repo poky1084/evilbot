@@ -1072,7 +1072,8 @@ body, body * {
 }
 
 #bot.light-theme #botProfit,
-#bot.light-theme #botHighProfit {
+#bot.light-theme #botHighProfit,
+#bot.light-theme #botCurrentStreak {
   color: #2E7D32;
 }
 
