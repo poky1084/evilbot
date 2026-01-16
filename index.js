@@ -1010,7 +1010,7 @@ body, body * {
   text-align: left;
   font-weight: 500;
   color: #ccc;
-  font-size: 12px;
+  font-size: 15px;
   flex-shrink: 0;
 }
 
@@ -1018,7 +1018,7 @@ body, body * {
   text-align: right;
   font-weight: 600;
   color: #fff;
-  font-size: 12px;
+  font-size: 15px;
   font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
   flex-shrink: 0;
   margin-left: 10px;
