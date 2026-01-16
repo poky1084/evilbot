@@ -114,7 +114,7 @@
 }
 
 /* Rounded toggle switch */
-.switch {
+#bot .switch {
   position: relative;
   display: inline-block;
   width: 40px;
@@ -125,13 +125,13 @@
   margin: 0; /* Reset margin */
 }
 
-.switch input { 
+#bot .switch input { 
   width: 0;
   height: 0;
   opacity: 0;
 }
 
-.slider {
+#bot .slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -144,7 +144,7 @@
   background: #3a3c3e; /* Dark gray when off */
 }
 
-.slider:before {
+#bot .slider:before {
   content: "";
   position: absolute;
   height: 16px;
@@ -158,18 +158,18 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-input:checked + .slider {
+#bot input:checked + .slider {
   background: #d6d2d5; /* Green when on */
 }
 
-input:checked + .slider:before {
+#bot input:checked + .slider:before {
   -webkit-transform: translateX(20px);
   -ms-transform: translateX(20px);
   transform: translateX(20px);
 }
 
 /* Buttons */
-.btn-grad {
+#bot .btn-grad {
   all: revert;
   cursor: pointer;
   text-align: center;
@@ -184,15 +184,15 @@ input:checked + .slider:before {
   margin: 0; /* Reset margin */
 }
 
-.btn-grad:hover {
+#bot .btn-grad:hover {
   background-color: #1d9c4d;
 }
 
-.btn-grad:active {
+#bot .btn-grad:active {
   background-color: #13843f;
 }
 
-.btn-grad:disabled {
+#bot .btn-grad:disabled {
   cursor: auto;
   opacity: .5;
   color: #ccc;
@@ -419,12 +419,12 @@ input:checked + .slider:before {
 }
 
 /* Result button with loader */
-.button-wrapper {
+#bot .button-wrapper {
   position: relative;
   display: inline-block;
 }
 
-.button-wrapper .loader {
+#bot .button-wrapper .loader {
   position: absolute;
   top: 30%;
   left: 46%;
@@ -446,7 +446,7 @@ input:checked + .slider:before {
 }
 
 /* Loader animation */
-.loader {
+#bot .loader {
   display: none;
   color: #ffffff;
   font-size: 16px;
@@ -498,29 +498,29 @@ input:checked + .slider:before {
 }
 
 /* Additional styling */
-.clearfix::after {
+#bot .clearfix::after {
   content: "";
   clear: both;
   display: table;
 }
 
-.float-left {
+#bot .float-left {
   float: left !important;
   margin: 0; /* Reset margin */
 }
 
-.float-right {
+#bot .float-right {
   float: right !important;
   margin: 0; /* Reset margin */
 }
 
 /* Link styling */
-a {
+#bot a {
   color: #4fa3ff;
   text-decoration: none;
 }
 
-a:hover {
+#bot a:hover {
   color: #6cb4ff;
   text-decoration: underline;
 }
@@ -566,7 +566,8 @@ a:hover {
 }
 
 /* Input placeholders */
-::placeholder {
+
+#bot input::placeholder {
   color: #aaa !important;
   opacity: 1;
 }
@@ -1146,7 +1147,7 @@ a:hover {
 #result {
 	font-variant-numeric: tabular-nums; /* Keeps numbers aligned but plain */
   font-feature-settings: "zero" 0;
-  font-size: 13px;
+  font-size: 15px;
 }
 * {
   margin: 0;
@@ -1168,7 +1169,7 @@ body, body * {
   <div id="botHeader">
     <div class="clearfix">
       <div class="float-left" style="padding-left: 3px; font-size: 11px;">
-        #evilbot | stake.com | stake.us | primedice
+        #evilbot | stake.com | stake.us
       </div>
       <div class="float-right">
         <span class="bot-toggle" id="botToggleMinimal" style="">▼</span>
@@ -1339,6 +1340,7 @@ body, body * {
               <thead>
                 <tr>
                   <th>Bets</th>
+				  <th>Game</th>
                   <th>Amount</th>
                   <th>High</th>
                   <th>Multiplier</th>
@@ -1347,7 +1349,6 @@ body, body * {
                   <th>Payout</th>
                   <th>TargetNumber</th>
                   <th>RollNumber</th>
-                  <th>Game</th>
                   <th>BetID</th>
                 </tr>
               </thead>
@@ -3959,6 +3960,7 @@ function data(json){
 			tdPayout.innerHTML = bet.payout.toFixed(8);
 			
 			row.appendChild(tdbets);
+			row.appendChild(tdNonce);
 			row.appendChild(tdamount);
 			row.appendChild(tdhigh);
 			row.appendChild(tdTargetChance);
@@ -3967,7 +3969,7 @@ function data(json){
 			row.appendChild(tdPayout);
 			row.appendChild(tdTargetNumber);
 			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
+			
 			row.appendChild(tdBetID);	
 			
 			if(win){
@@ -4409,6 +4411,7 @@ function RunSimDice(){
 			tdPayout.innerHTML = lastBet.payout.toFixed(8);
 			
 			row.appendChild(tdbets);
+			row.appendChild(tdNonce);
 			row.appendChild(tdamount);
 			row.appendChild(tdhigh);
 			row.appendChild(tdTargetChance);
@@ -4417,7 +4420,7 @@ function RunSimDice(){
 			row.appendChild(tdPayout);
 			row.appendChild(tdTargetNumber);
 			row.appendChild(tdRollNumber);
-			row.appendChild(tdNonce);
+			//row.appendChild(tdNonce);
 			row.appendChild(tdBetID);			
 					
 			
@@ -5172,6 +5175,7 @@ function startSocket() {
 
 						
 						row.appendChild(tdbets);
+						row.appendChild(tdNonce);
 						row.appendChild(tdamount);
 						row.appendChild(tdhigh);
 						row.appendChild(tdTargetChance);
@@ -5180,7 +5184,7 @@ function startSocket() {
 						row.appendChild(tdPayout);
 						row.appendChild(tdTargetNumber);
 						row.appendChild(tdRollNumber);
-						row.appendChild(tdNonce);
+						//row.appendChild(tdNonce);
 						row.appendChild(tdBetID);
 						var table = document.getElementById("botHistory");							
 						table.prepend(row);
@@ -5313,6 +5317,7 @@ function startSocket() {
 						
 						
 						row.appendChild(tdbets);
+						row.appendChild(tdNonce);
 						row.appendChild(tdamount);
 						row.appendChild(tdhigh);
 						row.appendChild(tdTargetChance);
@@ -5321,7 +5326,7 @@ function startSocket() {
 						row.appendChild(tdPayout);
 						row.appendChild(tdTargetNumber);
 						row.appendChild(tdRollNumber);
-						row.appendChild(tdNonce);
+						//row.appendChild(tdNonce);
 						row.appendChild(tdBetID);
 						
 						var table = document.getElementById("botHistory");							
@@ -5453,6 +5458,7 @@ function startSocket() {
 							
 							
 							row.appendChild(tdbets);
+							row.appendChild(tdNonce);
 							row.appendChild(tdamount);
 							row.appendChild(tdhigh);
 							row.appendChild(tdTargetChance);
@@ -5461,7 +5467,7 @@ function startSocket() {
 							row.appendChild(tdPayout);
 							row.appendChild(tdTargetNumber);
 							row.appendChild(tdRollNumber);
-							row.appendChild(tdNonce);
+							//row.appendChild(tdNonce);
 							row.appendChild(tdBetID);
 							
 							var table = document.getElementById("botHistory");							
@@ -5596,6 +5602,7 @@ function startSocket() {
 							
 							
 							row.appendChild(tdbets);
+							row.appendChild(tdNonce);
 							row.appendChild(tdamount);
 							row.appendChild(tdhigh);
 							row.appendChild(tdTargetChance);
@@ -5604,7 +5611,7 @@ function startSocket() {
 							row.appendChild(tdPayout);
 							row.appendChild(tdTargetNumber);
 							row.appendChild(tdRollNumber);
-							row.appendChild(tdNonce);
+							//row.appendChild(tdNonce);
 							row.appendChild(tdBetID);
 							
 							var table = document.getElementById("botHistory");							
@@ -5690,6 +5697,7 @@ function startSocket() {
 
 			
 								row.appendChild(tdbets);
+								row.appendChild(tdNonce);
 								row.appendChild(tdamount);
 								row.appendChild(tdhigh);
 								row.appendChild(tdTargetChance);
@@ -5698,7 +5706,7 @@ function startSocket() {
 								row.appendChild(tdPayout);
 								row.appendChild(tdTargetNumber);
 								row.appendChild(tdRollNumber);
-								row.appendChild(tdNonce);
+								//row.appendChild(tdNonce);
 								row.appendChild(tdBetID);
 								var table = document.getElementById("botHistory");							
 								
@@ -5829,6 +5837,7 @@ function startSocket() {
 								
 								
 								row.appendChild(tdbets);
+								row.appendChild(tdNonce);
 								row.appendChild(tdamount);
 								row.appendChild(tdhigh);
 								row.appendChild(tdTargetChance);
@@ -5837,7 +5846,7 @@ function startSocket() {
 								row.appendChild(tdPayout);
 								row.appendChild(tdTargetNumber);
 								row.appendChild(tdRollNumber);
-								row.appendChild(tdNonce);
+								//row.appendChild(tdNonce);
 								row.appendChild(tdBetID);
 								var table = document.getElementById("botHistory");							
 								
