@@ -1,4 +1,6 @@
- document.body.insertAdjacentHTML("beforebegin", `<style>
+ document.body.insertAdjacentHTML("beforebegin", `
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+ <style>
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 10px;
@@ -201,7 +203,7 @@ input:checked + .slider:before {
 
 .btn-control {
   padding: 6px 12px !important;
-  font-size: 12px !important;
+  font-size: 14px !important;
 }
 
 /* Stats section - DARKER */
@@ -1152,6 +1154,16 @@ body, body * {
   font-size: 0.9em;
 }
 
+#botProfit::before {
+  margin-right: 2px;
+  font-size: 0.9em;
+}
+
+.stats-value {
+	font-variant-numeric: tabular-nums; /* Keeps numbers aligned but plain */
+  font-feature-settings: "zero" 0;
+  font-size: 13px;
+}
 
 
 </style>
@@ -1998,7 +2010,20 @@ function changeTheme(){
 	}
 	*/
 	
-	(function(){document.querySelectorAll('*').forEach(e=>e.style.fontFamily="'JetBrains Mono','Cascadia Code','Consolas',monospace");})();
+	//(function(){document.querySelectorAll('*').forEach(e=>e.style.fontFamily="'JetBrains Mono','Cascadia Code','Consolas',monospace");})();
+	
+	
+	(function(){document.querySelectorAll('*').forEach(e=>e.style.fontFamily="'Montserrat'");})();
+	
+	//(function(){document.querySelectorAll('*').forEach(e=>e.style.fontFamily="'Montserrat', sans-serif");})();
+	//(function(){document.querySelectorAll('*').forEach(e=>e.style.fontFamily="'Roboto', sans-serif");})();
+	//(function(){document.querySelectorAll('*').forEach(e=>e.style.fontFamily="'Courier New', Courier, monospace");})();
+	//(function(){document.querySelectorAll('*').forEach(e=>e.style.fontFamily="Arial, Helvetica, sans-serif");})();
+	
+	
+	
+	
+	
 	
 }
 
