@@ -800,6 +800,72 @@ body, body * {
 #bot.light-theme ::placeholder {
     color: #777 !important;
 }
+/* Make chartContainer darker with rounded corners */
+#chartContainer {
+  background: #1e2022 !important; /* Darker than main background #313335 */
+  border-radius: 8px !important;
+  border: 1px solid #2a2c2d !important;
+}
+
+/* Make botWrapHistory darker with rounded corners */
+#botWrapHistory {
+  background: #1e2022 !important; /* Darker than main background */
+  border-radius: 8px !important;
+  border: 1px solid #2a2c2d !important;
+  margin-top: 4px !important;
+}
+
+
+#botWrapHistory table thead tr th {
+  background: #252729 !important; /* Darker header */
+}
+
+#botWrapHistory table tbody {
+  background: #1e2022 !important; /* Ensure body is also dark */
+}
+
+/* Make bot-stats darker with rounded corners */
+.bot-stats {
+  background: #1e2022 !important; /* Darker than main background */
+  border-radius: 8px !important;
+  border: 1px solid #2a2c2d !important;
+  margin: 4px 0 !important;
+  padding: 8px 0 !important;
+  overflow: hidden;
+}
+
+.bot-stats div {
+  border-right: 1px solid #2a2c2d !important;
+}
+
+/* Light theme adjustments */
+#bot.light-theme #chartContainer {
+  background: #e0e0e0 !important;
+  border: 1px solid #ccc !important;
+}
+
+#bot.light-theme #botWrapHistory {
+  background: #e0e0e0 !important;
+  border: 1px solid #ccc !important;
+}
+
+#bot.light-theme #botWrapHistory table thead tr th {
+  background: #d0d0d0 !important;
+}
+
+#bot.light-theme #botWrapHistory table tbody {
+  background: #e0e0e0 !important;
+}
+
+#bot.light-theme .bot-stats {
+  background: #e0e0e0 !important;
+  border: 1px solid #ccc !important;
+}
+
+#bot.light-theme .bot-stats div {
+  border-right: 1px solid #ccc !important;
+}
+
 </style>
 
 <body>
