@@ -866,6 +866,45 @@ body, body * {
   border-right: 1px solid #ccc !important;
 }
 
+/* Glowing effect for elements inside botMenu */
+#botMenu select:hover,
+#botMenu input:hover,
+#botMenu span:hover,
+#botMenu .switch:hover,
+#botMenu .slider:hover {
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.8) !important;
+  transition: box-shadow 0.2s ease-in-out !important;
+  border-color: rgba(0, 255, 255, 0.5) !important;
+  outline: none !important;
+}
+
+/* Special glow for the themeChange checkbox */
+#botMenu #themeChange:hover + .slider {
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.8) !important;
+}
+
+/* Glow for the speedChange checkbox */
+#botMenu #speedChange:hover + .slider {
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.8) !important;
+}
+
+/* Glowing effect for runinput specifically */
+#runinput:hover {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.9) !important;
+  transition: box-shadow 0.2s ease-in-out !important;
+  border-color: rgba(0, 255, 255, 0.6) !important;
+  outline: none !important;
+}
+
+/* Light theme adjustments */
+#bot.light-theme #botMenu select:hover,
+#bot.light-theme #botMenu input:hover,
+#bot.light-theme #botMenu span:hover,
+#bot.light-theme #runinput:hover {
+  box-shadow: 0 0 10px rgba(0, 150, 255, 0.7) !important;
+  border-color: rgba(0, 150, 255, 0.5) !important;
+}
+
 </style>
 
 <body>
