@@ -1155,7 +1155,7 @@ htmlEditor = CodeMirror.fromTextArea(document.getElementById("luacode"), {
 	lineNumbers: true,
 	mode: 'lua',
 	theme: 'darcula',
-    lineWrapping: true,
+    lineWrapping: false,
     scrollbarStyle: 'native'
 });
 
@@ -1163,7 +1163,7 @@ htmlEditor2 = CodeMirror.fromTextArea(document.getElementById("jscode"), {
 	lineNumbers: true,
 	mode: 'javascript',
 	theme: 'darcula',
-    lineWrapping: true,
+    lineWrapping: false,
 	scrollbarStyle: 'native'
 });
 
