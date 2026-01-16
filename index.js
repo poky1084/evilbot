@@ -905,6 +905,251 @@ body, body * {
   border-color: rgba(0, 150, 255, 0.5) !important;
 }
 
+/* Add this to your existing CSS, replacing the .bot-stats-container section */
+
+/* Enhanced Statistics Container */
+/* Enhanced Statistics Container */
+.bot-stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+  color: #fff;
+  padding: 0;
+  background: #1e2022;
+  border-radius: 8px;
+  border: 1px solid #2a2c2d;
+  margin: 4px 8px;
+  overflow: hidden;
+}
+
+/* Stats Section with vertical separators */
+.stats-section {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 15px;
+  position: relative;
+}
+
+/* Vertical separator between sections */
+.stats-section:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 0;
+  height: calc(100% - 20px);
+  width: 1px;
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    #2a2c2d 10%, 
+    #2a2c2d 90%, 
+    transparent 100%);
+}
+
+/* Section title with bottom border */
+.section-title {
+  margin: 0 0 10px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #2a2c2d;
+  font-size: 12px;
+  font-weight: 600;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Stats items with row separators */
+.stats-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
+  padding: 6px 0;
+  position: relative;
+}
+
+/* Horizontal separator between rows - FIXED: don't add to last item */
+.stats-item:not(:last-child) {
+  margin-bottom: 0;
+}
+
+.stats-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, 
+    transparent 0%, 
+    #2a2c2d 20%, 
+    #2a2c2d 80%, 
+    transparent 100%);
+}
+
+/* Enhanced hover effects - FIXED: Adjust for last item */
+.stats-item:hover {
+  background: rgba(42, 44, 45, 0.3);
+  border-radius: 4px;
+  padding: 6px 8px;
+  margin: 0 -8px 0 -8px; /* Removed bottom margin on hover */
+  z-index: 1;
+}
+
+/* Specifically handle the last item hover to prevent overflow */
+.stats-item:last-child:hover {
+  margin-bottom: 0;
+}
+
+/* Special handling: when last item is hovered, hide the separator of the previous item */
+.stats-item:hover + .stats-item::after {
+  opacity: 0;
+}
+
+.stats-label {
+  text-align: left;
+  font-weight: 500;
+  color: #ccc;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.stats-value {
+  text-align: right;
+  font-weight: 600;
+  color: #fff;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+/* Color coding for specific values */
+#botProfit,
+#botHighProfit,
+#botCurrentStreak {
+  color: #4CAF50;
+}
+
+#botPercentProfit.negative {
+  color: #f44336;
+}
+
+/* Light theme adjustments */
+#bot.light-theme .bot-stats-container {
+  background: #e0e0e0;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+#bot.light-theme .stats-section:not(:last-child)::after {
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    #bbb 10%, 
+    #bbb 90%, 
+    transparent 100%);
+}
+
+#bot.light-theme .section-title {
+  border-bottom: 1px solid #bbb;
+  color: #666;
+}
+
+#bot.light-theme .stats-item:not(:last-child)::after {
+  background: linear-gradient(to right, 
+    transparent 0%, 
+    #bbb 20%, 
+    #bbb 80%, 
+    transparent 100%);
+}
+
+#bot.light-theme .stats-label {
+  color: #555;
+}
+
+#bot.light-theme .stats-value {
+  color: #222;
+}
+
+#bot.light-theme #botProfit,
+#bot.light-theme #botHighProfit {
+  color: #2E7D32;
+}
+
+#bot.light-theme #botPercentProfit.negative {
+  color: #C62828;
+}
+
+#bot.light-theme .stats-item:hover {
+  background: rgba(187, 187, 187, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .bot-stats-container {
+    flex-direction: column;
+    margin: 4px;
+  }
+  
+  .stats-section {
+    width: 100%;
+    padding: 10px 15px;
+  }
+  
+  .stats-section:not(:last-child)::after {
+    top: auto;
+    right: 15px;
+    bottom: 0;
+    left: 15px;
+    height: 1px;
+    width: calc(100% - 30px);
+    background: linear-gradient(to right, 
+      transparent 0%, 
+      #2a2c2d 20%, 
+      #2a2c2d 80%, 
+      transparent 100%);
+  }
+  
+  /* On mobile, adjust hover margins */
+  .stats-item:hover {
+    margin: 0 -8px 0 -8px;
+  }
+}
+
+/* Update the existing CSS for these elements */
+
+/* Add negative color for botProfit */
+#botProfit.negative {
+  color: #f44336 !important;
+}
+
+/* Add negative color for botCurrentStreak */
+#botCurrentStreak.negative {
+  color: #f44336 !important;
+}
+
+/* Light theme adjustments */
+#bot.light-theme #botProfit.negative {
+  color: #C62828 !important;
+}
+
+#bot.light-theme #botCurrentStreak.negative {
+  color: #C62828 !important;
+}
+
+#botProfit.negative::before {
+  content: "";
+  margin-right: 2px;
+}
+
+#botProfit::before {
+  content: "+";
+  margin-right: 2px;
+  font-size: 0.9em;
+}#botProfit::before {
+  margin-right: 2px;
+  font-size: 0.9em;
+}
 </style>
 
 <body>
@@ -1010,64 +1255,70 @@ body, body * {
         </center>
       </div>
 
-      <div class="bot-stats" id="botStats">
-        <div>
-          <li class="clearfix">
-            <span class="float-left">Time:</span>
-            <span class="float-right"><span id="botTime">0:0:0:0</span></span>
-          </li>
-          <li class="clearfix">
-            <span class="float-left">Balance:</span>
-            <span class="float-right"><span id="botBalance">0.00000000</span></span>
-          </li>
-          <li class="clearfix">
-            <span class="float-left">Wagered:</span>
-            <span class="float-right">(<span id="botPercentWagered">0.00</span>x) <span id="botWagered">0.00000000</span></span>
-          </li>
-          <li class="clearfix">
-            <span class="float-left">Profit:</span>
-            <span class="float-right" id="botWrapPercentProfit">(<span id="botPercentProfit">0.00</span>%) <span id="botProfit">0.00000000</span></span>
-          </li>
-        </div>
-        
-        <div>
-          <li class="clearfix">
-            <span class="float-left">HighBet:</span>
-            <span class="float-right"><span id="botHighBet">0.00000000</span></span>
-          </li>
-          <li class="clearfix">
-            <span class="float-left">HighLose:</span>
-            <span class="float-right"><span id="botHighLose">0.00000000</span></span>
-          </li>
-          <li class="clearfix">
-            <span class="float-left">HighProfit:</span>
-            <span class="float-right"><span id="botHighProfit">0.00000000</span></span>
-          </li>
-          <li class="clearfix">
-            <span class="float-left">High/Low-Streak:</span>
-            <span class="float-right"><span id="botHighLowStreak">0 / 0</span></span>
-          </li>
-        </div>
+<div class="bot-stats-container">
+  <div class="stats-section">
+    <div class="stats-item">
+      <span class="stats-label">Time:</span>
+      <span class="stats-value" id="botTime">0:0:0:0</span>
+    </div>
+    <div class="stats-item">
+      <span class="stats-label">Balance:</span>
+      <span class="stats-value" id="botBalance">0.00000000</span>
+    </div>
+    <div class="stats-item">
+      <span class="stats-label">Wagered:</span>
+      <span class="stats-value">
+        (<span id="botPercentWagered">0.00</span>x) 
+        <span id="botWagered">0.00000000</span>
+      </span>
+    </div>
+    <div class="stats-item">
+      <span class="stats-label">Profit:</span>
+      <span class="stats-value" id="botWrapPercentProfit">
+        (<span id="botPercentProfit">0.00</span>%) 
+        <span id="botProfit">0.00000000</span>
+      </span>
+    </div>
+  </div>
 
-        <div>
-          <li class="clearfix">
-            <span class="float-left">Bets:</span>
-            <span class="float-right"><span id="botBets">0</span></span>
-          </li>
-          <li class="clearfix">
-            <span class="float-left">Wins:</span>
-            <span class="float-right"><span id="botWins">0</span></span>
-          </li>
-          <li class="clearfix">
-            <span class="float-left">Losses:</span>
-            <span class="float-right"><span id="botLosses">0</span></span>
-          </li>
-          <li class="clearfix">
-            <span class="float-left">CurrentStreak:</span>
-            <span class="float-right"><span id="botCurrentStreak">0</span></span>
-          </li>
-        </div>
-      </div>
+  <div class="stats-section">
+    <div class="stats-item">
+      <span class="stats-label">HighBet:</span>
+      <span class="stats-value" id="botHighBet">0.00000000</span>
+    </div>
+    <div class="stats-item">
+      <span class="stats-label">HighLose:</span>
+      <span class="stats-value" id="botHighLose">0.00000000</span>
+    </div>
+    <div class="stats-item">
+      <span class="stats-label">HighProfit:</span>
+      <span class="stats-value" id="botHighProfit">0.00000000</span>
+    </div>
+    <div class="stats-item">
+      <span class="stats-label">High/Low-Streak:</span>
+      <span class="stats-value" id="botHighLowStreak">0 / 0</span>
+    </div>
+  </div>
+
+  <div class="stats-section">
+    <div class="stats-item">
+      <span class="stats-label">Bets:</span>
+      <span class="stats-value" id="botBets">0</span>
+    </div>
+    <div class="stats-item">
+      <span class="stats-label">Wins:</span>
+      <span class="stats-value" id="botWins">0</span>
+    </div>
+    <div class="stats-item">
+      <span class="stats-label">Losses:</span>
+      <span class="stats-value" id="botLosses">0</span>
+    </div>
+    <div class="stats-item">
+      <span class="stats-label">CurrentStreak:</span>
+      <span class="stats-value" id="botCurrentStreak">0</span>
+    </div>
+  </div>
+</div>
 
       <div class="bot-flex-container" id="botWrapControl">
         <div style="flex-grow: 1; width: 50%;">
@@ -3764,6 +4015,26 @@ function data(json){
 			
 			updateChart();
 			
+			
+			  const profitElement = document.getElementById('botProfit');
+			  //profitElement.textContent = value;
+			  
+			  // Add negative class if value is negative
+			  if (profit_total < 0) {
+				profitElement.classList.add('negative');
+			  } else {
+				profitElement.classList.remove('negative');
+			  }
+			  
+				const streakElement = document.getElementById('botCurrentStreak');
+			  //streakElement.textContent = value;
+			  
+			  // Check if it's negative or loss strea
+			  if (currentstreak < 0) {
+				streakElement.classList.add('negative');
+			  } else {
+				streakElement.classList.remove('negative');
+			  }
 			
 			//document.getElementById("multi").innerHTML = toFixedNo(json.data.limboBet.state.result, 2);
 			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
