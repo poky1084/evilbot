@@ -24,7 +24,6 @@
 #bot {
   all: revert;
   width: 1000px;
-  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
   font-size: 12px !important;
   text-align: left;
   background: #313335;
@@ -76,7 +75,6 @@
   border-bottom: 1px solid #1e2022;
   display: flex;
   gap: 6px; /* Space between elements */
-  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
@@ -183,7 +181,6 @@ input:checked + .slider:before {
   color: white;
   font-weight: bold;
   font-size: 13px;
-  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
   margin: 0; /* Reset margin */
 }
 
@@ -217,7 +214,6 @@ input:checked + .slider:before {
     background: #27292b; /* Darker */
     margin: 0; /* Reset margin */
     padding: 4px 0;
-    font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
     border-bottom: 1px solid #1e2022;
 }
 
@@ -415,7 +411,6 @@ input:checked + .slider:before {
   color: #fff;
   border: 1px solid #3a3c3e;
   border-radius: 3px;
-  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
   font-size: 11px;
   width: 100%;
   box-sizing: border-box;
@@ -555,17 +550,7 @@ a:hover {
   min-width: 80px;
 }
 
-* {
-  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
-  margin: 0;
-  padding: 0;
-}
 
-body, body * {
-  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
-  margin: 0;
-  padding: 0;
-}
 
 /* Specific adjustments for darker theme */
 .bot-select, .gameselect, .mirrors, .thememod {
@@ -915,7 +900,6 @@ body, body * {
   display: flex;
   flex-wrap: wrap;
   gap: 0;
-  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
   color: #fff;
   padding: 0;
   background: #1e2022;
@@ -1021,7 +1005,6 @@ body, body * {
   font-weight: 600;
   color: #fff;
   font-size: 15px;
-  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
   flex-shrink: 0;
   margin-left: 10px;
 }
@@ -1159,12 +1142,23 @@ body, body * {
   font-size: 0.9em;
 }
 
-.stats-value {
+.stats-value,
+#result {
 	font-variant-numeric: tabular-nums; /* Keeps numbers aligned but plain */
   font-feature-settings: "zero" 0;
   font-size: 13px;
 }
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Montserrat;
+}
 
+body, body * {
+  margin: 0;
+  padding: 0;
+  font-family: Montserrat;
+}
 
 </style>
 
@@ -1671,7 +1665,6 @@ document.getElementById("result").style.cssText = `
   font-size: 18px !important;
     width: 180px;
     height: 35px;
-    font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
 `;
 
 if (localStorage.getItem("mirror") != null) {
