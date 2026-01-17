@@ -1159,6 +1159,47 @@ body, body * {
   font-family: Montserrat;
 }
 
+/* Light theme select options */
+#bot.light-theme .bot-select option,
+#bot.light-theme .gameselect option,
+#bot.light-theme .mirrors option,
+#bot.light-theme .thememod option {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Also style the dropdown when open in light theme */
+#bot.light-theme .bot-select:focus,
+#bot.light-theme .gameselect:focus,
+#bot.light-theme .mirrors:focus,
+#bot.light-theme .thememod:focus {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Ensure the dropdown list itself has proper styling in light theme */
+#bot.light-theme .bot-select option:hover,
+#bot.light-theme .gameselect option:hover,
+#bot.light-theme .mirrors option:hover,
+#bot.light-theme .thememod option:hover {
+    background: #f0f0f0 !important;
+    color: #000000 !important;
+}
+
+/* For the dropdown arrow in light theme */
+#bot.light-theme .bot-select,
+#bot.light-theme .gameselect,
+#bot.light-theme .mirrors,
+#bot.light-theme .thememod {
+    background-repeat: no-repeat !important;
+    background-position: right 8px center !important;
+    background-size: 12px !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    padding-right: 30px !important;
+}
+
 </style>
 
 <body>
