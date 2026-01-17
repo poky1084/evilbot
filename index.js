@@ -2942,15 +2942,17 @@ function outbals(json){
 	balan1.innerHTML = balance.toFixed(8);
 	for (var i = 0; i < json.data.user.balances.length; i++)
 	{
-		if (json.data.user.balances[i].available.currency == document.getElementById('botMenuCoin').value)
+		if (json.data.user.balances[i].available.currency == currency)
 		{
 			current_balance = json.data.user.balances[i].available.amount;
 			balance = current_balance;
+			started_bal = balance;
 			var balan = document.getElementById("botBalance");
 			balan.innerHTML = balance.toFixed(8);
 
 		}
 	}
+	
 	//document.getElementById("botMenuCoin").options[indexMatchingText(localStorage.getItem("currenc"))].selected = 'selected';
 }
 
@@ -4874,6 +4876,7 @@ function start(){
 		dobet = function(){}
 		document.getElementById("result").innerHTML = ""
 		
+		
 		if (document.getElementById("botMenuMode").value === "lua") {
 			game = undefined;
 			fengari.load('game=undefined')();
@@ -4897,6 +4900,8 @@ function start(){
 
 			fengari.load(code)();
 
+		
+			currency = getLua("currency");
 			// Direct Lua variable retrieval
 			game = getLua("game");
 			fastmode = getLua("fastmode");
@@ -4940,7 +4945,7 @@ function start(){
 			localStorage.setItem("luacode", htmlEditor.getValue());
 
 			userBalances();
-			started_bal = balance;
+			//started_bal = balance;
 
 			if (!game) game = getEl("gameselect").value;
 
@@ -4983,7 +4988,7 @@ function start(){
 					runBet();
 				}
 			}
-
+			//userBalances();
 			drawChart();
 		} else if (document.getElementById("botMenuMode").value === "js") {
 		game = document.getElementById("gameselect").value;
@@ -4993,7 +4998,7 @@ function start(){
 		localStorage.setItem("jscode", htmlEditor2.getValue());
 ;
 			userBalances();
-			started_bal = balance;
+			//started_bal = balance;
 
 			if (game === undefined) game = document.getElementById("gameselect").value;
 
