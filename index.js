@@ -199,7 +199,6 @@
 }
 
 .btn-control {
-  padding: 6px 12px !important;
   font-size: 14px !important;
 }
 
@@ -288,7 +287,6 @@
   background: #252729; /* Darker */
   border-top: 1px solid #1e2022;
   justify-content: flex-end;
-  gap: 10px;
 }
 
 /* Main content area */
@@ -1421,10 +1419,10 @@ end</textarea>
 
           <!-- Control buttons -->
           <div id="botControlMenu">
-            <button id="botStartButton" class="btn-grad btn-control">Start</button>
-            <button id="botStopButton" class="btn-grad btn-control">Stop</button>
+            <button id="botStartButton" class="btn-grad btn-control" style="width:70px;">Start</button>
+            <button id="botStopButton" class="btn-grad btn-control" style="width:70px;">Stop</button>
             <div class="button-wrapper">
-              <button id="result" class="btn-grad btn-control" style="width:180px;height:35px;"></button>
+              <button id="result" class="btn-grad btn-control" style="width:230px;height:35px;"></button>
               <span class="loader"></span>
               <span id="timerDown"></span>
             </div>
@@ -1664,7 +1662,7 @@ if(svelt != undefined){
 
 document.getElementById("result").style.cssText = `
   font-size: 18px !important;
-    width: 180px;
+    width: 230px;
     height: 35px;
 `;
 
