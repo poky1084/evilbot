@@ -1184,9 +1184,6 @@
     background-repeat: no-repeat !important;
     background-position: right 8px center !important;
     background-size: 12px !important;
-    -webkit-appearance: none !important;
-    -moz-appearance: none !important;
-    appearance: none !important;
     padding-right: 30px !important;
 }
 
