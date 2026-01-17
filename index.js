@@ -3328,12 +3328,12 @@ function pumpBet(betsize, rounds, difficulty) {
     });
 }
 
-function LimboBet(amount, target_multi) {
+function LimboBet(amount, target) {
     betRequest({
         url: '_api/casino/limbo/bet',
-        body: { multiplierTarget: target_multi, identifier: randomString(21), amount, currency },
+        body: { multiplierTarget: target, identifier: randomString(21), amount, currency },
         retryDelay: 2000,
-        retryParams: [amount, target_multi]
+        retryParams: [amount, target]
     });
 }
 
@@ -3425,18 +3425,17 @@ function data(json){
 				
 							
 			}
+			if(game==="blackjack"){
 			if(json.errors[0].errorType === "blackjackInvalidAction"){
 				action = "noInsurance"
-				blackjackNext(action);
-				return;
 			} else {
 				action = "stand"	
-				blackjackNext(action);
-				return;
 			}
+			}
+			
 			cashout_done = false
 			if(json.errors[0].errorType.includes("notFound")){
-				cashout_done = true		
+				cashout_done = true				
 			}
 			if(json.errors[0].errorType.includes("insignificantBet") && game === "hilo"){
 				cashout_done = true
@@ -4134,7 +4133,7 @@ function data(json){
 			} else {
 				if (game === "hilo"){
 					hiloguess = round()
-				} else {
+				} else if (game === "blackjack"){
 					nextactions = round()
 					if(nextactions === "BLACKJACK_STAND"){
 						action = "stand"
@@ -4995,8 +4994,12 @@ function start(){
 			const runBet = betFunctions[game];
 			if (runBet) {
 				if (fastmode) {
+					if(game != "blackjack" && game != "hilo" && game != "bluesamurai"){
 					setTimeout(runBet, 5);
 					setTimeout(runBet, 50);
+					} else {
+						runBet();
+					}
 				} else {
 					runBet();
 				}
@@ -5017,8 +5020,12 @@ function start(){
 
 			runBet = (fn, args = []) => {
 				if (fastmode) {
+					if(game != "blackjack" && game != "hilo" && game != "bluesamurai"){
 					setTimeout(() => fn(...args), 5);
 					setTimeout(() => fn(...args), 50);
+					} else {
+						fn(...args);
+					}
 				} else {
 					fn(...args);
 				}
