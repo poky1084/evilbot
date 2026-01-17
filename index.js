@@ -1147,17 +1147,7 @@
   font-feature-settings: "zero" 0;
   font-size: 15px;
 }
-* {
-  margin: 0;
-  padding: 0;
-  font-family: Montserrat;
-}
 
-body, body * {
-  margin: 0;
-  padding: 0;
-  font-family: Montserrat;
-}
 
 /* Light theme select options */
 #bot.light-theme .bot-select option,
@@ -1198,6 +1188,10 @@ body, body * {
     -moz-appearance: none !important;
     appearance: none !important;
     padding-right: 30px !important;
+}
+
+#bot, #bot * {
+  font-family: Montserrat;
 }
 
 </style>
