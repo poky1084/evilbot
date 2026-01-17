@@ -3408,26 +3408,21 @@ function data(json){
 			errorgame = true
 			}
 			if(json.errors[0].errorType.includes("existingGame")){
-				hiloguess = round()
-				nextactions = round()
-				if(nextactions === "BLACKJACK_STAND"){
+				if(game==="hilo"){
+					hiloNext("equal")
+					return;
+				}
+				if(game==="mines"){
+					//activeBetMines()
+				}
+				if(game==="blackjack"){
 					action = "stand"
-				} 
-				if(nextactions === "BLACKJACK_SPLIT"){
-					action = "split"
-				} 
-				if(nextactions === "BLACKJACK_HIT"){
-					action = "hit"
-				} 
-				if(nextactions === "BLACKJACK_DOUBLE"){
-					action = "double"
-				} 	
-				if(nextactions === "BLACKJACK_NOINSURANCE"){
-					action = "noInsurance"
-				} 
-				if(nextactions === "BLACKJACK_INSURANCE"){
-					action = "insurance"
-				} 					
+					blackjackNext(action);
+					return;
+				};
+				
+				
+							
 			}
 			cashout_done = false
 			if(json.errors[0].errorType.includes("notFound")){
