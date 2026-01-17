@@ -1177,14 +1177,22 @@
 }
 
 /* For the dropdown arrow in light theme */
-#bot.light-theme .bot-select,
-#bot.light-theme .gameselect,
-#bot.light-theme .mirrors,
+
 #bot.light-theme .thememod {
     background-repeat: no-repeat !important;
     background-position: right 8px center !important;
     background-size: 12px !important;
     padding-right: 30px !important;
+	
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+	
+	border: 2px solid black !important; /* Test border */
+}
+
+#botMenu select {
+    border: 2px solid black !important; /* Test border */
 }
 
 #bot, #bot * {
