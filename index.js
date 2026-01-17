@@ -1192,7 +1192,7 @@
 }
 
 #botMenu select {
-    border: 2px solid black !important; /* Test border */
+    
 }
 
 #bot, #bot * {
