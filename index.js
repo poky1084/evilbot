@@ -2295,7 +2295,7 @@ function crashbet(betsize, target_multi) {
     const body = {
         variables: {
             cashoutAt: target_multi,
-            amount: betsize,
+            amount,
             currency: currency
         },
         query: `mutation MultiplayerCrashBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!) {
@@ -2318,7 +2318,7 @@ function slidebet(betsize, slideat, betidentifier) {
         variables: {
             identifier: randomString(21),
             cashoutAt: slideat,
-            amount: betsize,
+            amount,
             currency: currency
         },
         query: `mutation MultiplayerSlideBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!, $identifier: String!) {
@@ -3077,75 +3077,75 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
     });
 }
 
-function drillBet(betsize, target, pick) {
+function drillBet(amount, target, pick) {
     betRequest({
         url: '_api/casino/drill/bet',
-        body: { amount: betsize, currency, identifier: randomString(21), target, pick },
-        retryParams: [betsize, target, pick]
+        body: { amount, currency, identifier: randomString(21), target, pick },
+        retryParams: [amount, target, pick]
     });
 }
 
-function tarotBet(betsize, difficulty) {
+function tarotBet(amount, difficulty) {
     betRequest({
         url: '_api/casino/tarot/bet',
-        body: { amount: betsize, currency, identifier: randomString(21), difficulty },
-        retryParams: [betsize, difficulty]
+        body: { amount, currency, identifier: randomString(21), difficulty },
+        retryParams: [amount, difficulty]
     });
 }
 
-function chickenBet(betsize, difficulty, steps) {
+function chickenBet(amount, difficulty, round) {
     betRequest({
         url: '_api/casino/chicken/bet',
-        body: { amount: betsize, currency, identifier: randomString(21), difficulty, round: steps },
-        retryParams: [betsize, difficulty, steps]
+        body: { amount, currency, identifier: randomString(21), difficulty, round },
+        retryParams: [amount, difficulty, round]
     });
 }
 
-function packsBet(betsize) {
+function packsBet(amount) {
     betRequest({
         url: '_api/casino/packs/bet',
-        body: { amount: betsize, currency, identifier: randomString(21) },
-        retryParams: [betsize]
+        body: { amount, currency, identifier: randomString(21) },
+        retryParams: [amount]
     });
 }
 
-function barsBet(betsize, difficulty, tiles) {
+function barsBet(amount, difficulty, tiles) {
     betRequest({
         url: '_api/casino/bars/bet',
-        body: { amount: betsize, currency, identifier: randomString(21), difficulty, tiles },
-        retryParams: [betsize, difficulty, tiles]
+        body: { amount, currency, identifier: randomString(21), difficulty, tiles },
+        retryParams: [amount, difficulty, tiles]
     });
 }
 
-function blackjackBet(betsize) {
+function blackjackBet(amount) {
     betRequest({
         url: '_api/casino/blackjack/bet',
-        body: { identifier: randomString(21), currency, amount: betsize },
-        retryParams: [betsize]
+        body: { identifier: randomString(21), currency, amount },
+        retryParams: [amount]
     });
 }
 
-function blackjackNext(nextaction) {
+function blackjackNext(action) {
     betRequest({
         url: '_api/casino/blackjack/next',
-        body: { action: nextaction, identifier: randomString(21) },
-        retryParams: [nextaction]
+        body: { action, identifier: randomString(21) },
+        retryParams: [action]
     });
 }
 
-function hiloBet(betsize, startcard) {
+function hiloBet(amount, startCard) {
     betRequest({
         url: '_api/casino/hilo/bet',
-        body: { identifier: randomString(21), currency, amount: betsize, startCard: startcard },
-        retryParams: [betsize, startcard]
+        body: { identifier: randomString(21), currency, amount, startCard },
+        retryParams: [amount, startCard]
     });
 }
 
-function hiloNext(guessed) {
+function hiloNext(guess) {
     betRequest({
         url: '_api/casino/hilo/next',
-        body: { guess: guessed },
-        retryParams: [guessed]
+        body: { guess },
+        retryParams: [guess]
     });
 }
 
@@ -3156,28 +3156,28 @@ function hiloCash() {
     });
 }
 
-function dartsBet(betsize, diff) {
+function dartsBet(amount, difficulty) {
     betRequest({
         url: '_api/casino/darts/bet',
-        body: { currency, amount: betsize, identifier: randomString(21), difficulty: diff },
-        retryParams: [betsize, diff]
+        body: { currency, amount, identifier: randomString(21), difficulty },
+        retryParams: [amount, difficulty]
     });
 }
 
-function videopokerBet(betsize) {
+function videopokerBet(amount) {
     betRequest({
         url: '_api/casino/video-poker/bet',
-        body: { currency, amount: betsize },
-        retryParams: [betsize]
+        body: { currency, amount },
+        retryParams: [amount]
     });
 }
 
-function samuraiBet(betsize) {
+function samuraiBet(amount) {
     spinType = "complete";
     betRequest({
         url: '_api/casino/slots-samurai/bet',
-        body: { currency, amount: betsize, identifier: randomString(21) },
-        retryParams: [betsize]
+        body: { currency, amount, identifier: randomString(21) },
+        retryParams: [amount]
     });
 }
 
@@ -3188,39 +3188,39 @@ function samuraiNext() {
     });
 }
 
-function scarabBet(betsize, lines) {
+function scarabBet(amount, lines) {
     betRequest({
         url: '_api/casino/slots/bet',
-        body: { currency, amount: betsize, lines, identifier: randomString(21) },
-        retryParams: [betsize, lines]
+        body: { currency, amount, lines, identifier: randomString(21) },
+        retryParams: [amount, lines]
     });
 }
 
-function tomeBet(betsize, lines) {
+function tomeBet(amount, lines) {
     betRequest({
         url: '_api/casino/slots-tome-of-life/bet',
-        body: { currency, amount: betsize, lines, identifier: randomString(21) },
-        retryParams: [betsize, lines]
+        body: { currency, amount, lines, identifier: randomString(21) },
+        retryParams: [amount, lines]
     });
 }
 
-function diamondBet(betsize) {
+function diamondBet(amount) {
     betRequest({
         url: '_api/casino/diamonds/bet',
-        body: { currency, amount: betsize, identifier: randomString(21) },
-        retryParams: [betsize]
+        body: { currency, amount, identifier: randomString(21) },
+        retryParams: [amount]
     });
 }
 
-function caseBet(betsize, difficulty) {
+function caseBet(amount, difficulty) {
     betRequest({
         url: '_api/casino/cases/bet',
-        body: { currency, amount: betsize, difficulty, identifier: randomString(21) },
-        retryParams: [betsize, difficulty]
+        body: { currency, amount, difficulty, identifier: randomString(21) },
+        retryParams: [amount, difficulty]
     });
 }
 
-function flipBet(betsize, guesses) {
+function flipBet(amount, guesses) {
     betRequest({
         url: '_api/graphql',
         body: {
@@ -3232,25 +3232,25 @@ function flipBet(betsize, guesses) {
             }
             fragment CasinoBet on CasinoBet { id active payoutMultiplier amountMultiplier amount payout updatedAt currency game user { id name } }
             fragment CasinoGameFlip on CasinoGameFlip { currentRound payoutMultiplier playedRounds flips }`,
-            variables: { amount: betsize, currency, identifier: randomString(21), guesses }
+            variables: { amount, currency, identifier: randomString(21), guesses }
         },
-        retryParams: [betsize, guesses]
+        retryParams: [amount, guesses]
     });
 }
 
-function rockpaperBet(betsize, guesses) {
+function rockpaperBet(amount, guesses) {
     betRequest({
         url: '_api/casino/rock-paper-scissors/bet',
-        body: { currency, amount: betsize, identifier: randomString(21), guesses },
-        retryParams: [betsize, guesses]
+        body: { currency, amount, identifier: randomString(21), guesses },
+        retryParams: [amount, guesses]
     });
 }
 
-function snakesBet(betsize, snakedifficulty, snakerolls) {
+function snakesBet(amount, difficulty, rollCount) {
     betRequest({
         url: '_api/casino/snakes/bet',
-        body: { currency, amount: betsize, identifier: randomString(21), difficulty: snakedifficulty, rollCount: snakerolls },
-        retryParams: [betsize, snakedifficulty, snakerolls]
+        body: { currency, amount, identifier: randomString(21), difficulty, rollCount },
+        retryParams: [amount, difficulty, rollCount]
     });
 }
 
@@ -3262,11 +3262,11 @@ function baccaratbet(tie, player, banker) {
     });
 }
 
-function dragontowerBet(betsize, difficulty, eggs) {
+function dragontowerBet(amount, difficulty, eggs) {
     betRequest({
         url: '_api/casino/dragon-tower/bet',
-        body: { amount: betsize, currency, identifier: randomString(21), difficulty, eggs },
-        retryParams: [betsize, difficulty, eggs]
+        body: { amount, currency, identifier: randomString(21), difficulty, eggs },
+        retryParams: [amount, difficulty, eggs]
     });
 }
 
@@ -3287,53 +3287,53 @@ function roulettebet(selection) {
     });
 }
 
-function wheelbet(betsize, segments, risk) {
+function wheelbet(amount, segments, risk) {
     betRequest({
         url: '_api/casino/wheel/spin',
-        body: { amount: betsize, currency, identifier: randomString(21), risk, segments },
-        retryParams: [betsize, segments, risk]
+        body: { amount, currency, identifier: randomString(21), risk, segments },
+        retryParams: [amount, segments, risk]
     });
 }
 
-function plinkobet(betsize, rows, risk) {
+function plinkobet(amount, rows, risk) {
     betRequest({
         url: '_api/casino/plinko/bet',
-        body: { amount: betsize, currency, identifier: randomString(21), risk, rows },
-        retryParams: [betsize, rows, risk]
+        body: { amount, currency, identifier: randomString(21), risk, rows },
+        retryParams: [amount, rows, risk]
     });
 }
 
-function kenobet(betsize, selected, risk) {
+function kenobet(amount, numbers, risk) {
     betRequest({
         url: '_api/casino/keno/bet',
-        body: { amount: betsize, currency, identifier: randomString(21), risk, numbers: selected },
-        retryParams: [betsize, selected, risk]
+        body: { amount, currency, identifier: randomString(21), risk, numbers },
+        retryParams: [amount, numbers, risk]
     });
 }
 
-function minebet(betsize, fields, mines) {
+function minebet(amount, fields, minesCount) {
     betRequest({
         url: '_api/casino/mines/bet',
-        body: { amount: betsize, currency, identifier: randomString(21), minesCount: mines, fields },
-        retryParams: [betsize, fields, mines]
+        body: { amount, currency, identifier: randomString(21), minesCount, fields },
+        retryParams: [amount, fields, minesCount]
     });
 }
 
-function pumpBet(betsize, rounds, difficulty) {
+function pumpBet(amount, round, difficulty) {
     betRequest({
         url: '_api/casino/pump/bet',
-        body: { amount: betsize, currency, identifier: randomString(21), round: rounds, difficulty },
+        body: { amount, currency, identifier: randomString(21), round, difficulty },
         retryDelay: 2000,
-        retryParams: [betsize, rounds, difficulty]
+        retryParams: [amount, round, difficulty]
     });
 }
 
-function LimboBet(amount, target) {
+function LimboBet(amount, multiplierTarget) {
     betRequest({
         url: '_api/casino/limbo/bet',
-        body: { multiplierTarget: target, identifier: randomString(21), amount, currency },
+        body: { multiplierTarget, identifier: randomString(21), amount, currency },
         retryDelay: 2000,
-        retryParams: [amount, target]
+        retryParams: [amount, multiplierTarget]
     });
 }
 
