@@ -3416,13 +3416,23 @@ function data(json){
 					//activeBetMines()
 				}
 				if(game==="blackjack"){
-					action = "stand"
+					
+					action = "stand"	
 					blackjackNext(action);
 					return;
 				};
 				
 				
 							
+			}
+			if(json.errors[0].errorType === "blackjackInvalidAction"){
+				action = "noInsurance"
+				blackjackNext(action);
+				return;
+			} else {
+				action = "stand"	
+				blackjackNext(action);
+				return;
 			}
 			cashout_done = false
 			if(json.errors[0].errorType.includes("notFound")){
@@ -4022,6 +4032,7 @@ function data(json){
 				var cells = row.getElementsByTagName("td");
 				for(var i = 0; i < cells.length; i++) {
 					cells[i].style.color = "#058514";
+					//cells[i].style.background = "#74e374";
 				}
 			} else {
 				// For losses, you might want a different color
