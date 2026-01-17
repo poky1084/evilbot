@@ -4778,7 +4778,6 @@ function sendLua() {
         balance = ${balance}
         profit = ${profit_total}
         currentprofit = ${currentprofit}
-        currency = ${JSON.stringify(currency)}
     `)();
 
     // Counters
@@ -4875,7 +4874,7 @@ function start(){
 		btnStart.disabled = true;
 		dobet = function(){}
 		document.getElementById("result").innerHTML = ""
-		
+		currency = document.getElementById("botMenuCoin").value;
 		
 		if (document.getElementById("botMenuMode").value === "lua") {
 			game = undefined;
@@ -4887,7 +4886,7 @@ function start(){
 
 			fastmode = setFastMode();
 			fengari.load(`fastmode = ${fastmode}`)();
-
+			fengari.load(`currency = nil`)();
 			loadLua();
 
 			let code = htmlEditor.getValue()
@@ -4899,9 +4898,12 @@ function start(){
 				.replace(/(\w+\s*)\/=\s*(\w+)/g, '$1=$1/$2 ');
 
 			fengari.load(code)();
-
-		
 			currency = getLua("currency");
+			
+			if (currency === undefined){
+				currency = document.getElementById("botMenuCoin").value;
+			}
+			
 			// Direct Lua variable retrieval
 			game = getLua("game");
 			fastmode = getLua("fastmode");
