@@ -2291,7 +2291,7 @@ async function makeRequest(body, callback) {
     }
 }
 
-function crashbet(betsize, target_multi) {
+function crashbet(amount, target_multi) {
     const body = {
         variables: {
             cashoutAt: target_multi,
@@ -2313,7 +2313,7 @@ function crashbet(betsize, target_multi) {
     makeRequest(body, datacrash);
 }
 
-function slidebet(betsize, slideat, betidentifier) {
+function slidebet(amount, slideat, betidentifier) {
     const body = {
         variables: {
             identifier: randomString(21),
