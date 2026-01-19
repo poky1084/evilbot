@@ -25,6 +25,8 @@ Please give a Star on the repo in case you liked/used it. Thank you!
 
 <b>functions:</b> `resetseed('clientseed'), resetstats(), vault(amount), log('text'), start(), stop(), sleep(1000), resetAll(), resetChart(), deleteLogs()` <br />
 
+<b>Crash game manual cashout:</b> `cashout()` in script, or use it as command in Log tab
+
 <b>Variables:</b> `game = "limbo", win, currentstreak, profit, wagered, balance, previousbet, currentprofit, bets, wins, losses, losestreak, winstreak, fastmode = true` <br />
 <b>lastBet vars:</b> `lastBet.Roll, lastBet.win, lastBet.amount, lastBet.payout, lastBet.payoutMultiplier, lastBet.name`
 
@@ -254,7 +256,9 @@ nextbet = 0
 ```javascript
 game = "crash"
 target = 2
-nextbet = 0 
+nextbet = 0
+
+USE THIS>>>> cashout() function in script to manually cashout!
 ```
 
 <b>Slide:</b>
