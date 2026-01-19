@@ -2270,6 +2270,28 @@ function datacrash(json) {
     }
 }
 
+function unvault(amount, pw){
+    const body = {
+        variables: {
+        "currency":currency,
+        "amount": parseFloat(amount.toFixed(8)),
+        "password": pw
+		},
+        query: `mutation CreateVaultWithdrawal($currency: CurrencyEnum!, $amount: Float!, $password: String, $tfaToken: String, $oauthToken: String) {\n  createVaultWithdrawal(\n    currency: $currency\n    amount: $amount\n    password: $password\n    tfaToken: $tfaToken\n    oauthToken: $oauthToken\n  ) {\n    id\n    currency\n    amount\n    user {\n      id\n      hasEmailVerified\n      email\n      balances {\n        ...UserBalance\n      }\n    }\n    __typename\n  }\n}\n\nfragment UserBalance on UserBalance {\n  available {\n    amount\n    currency\n  }\n  vault {\n    amount\n    currency\n  }\n}`
+    };
+    
+    makeRequest(body, outunvault);	
+}
+
+function outunvault(json){
+	if(json.errors != undefined){
+		log(json.errors[0].errorType);
+	} else {
+		log("Vault withdrawal of " + json.data.createVaultWithdrawal.amount.toFixed(8))
+	}
+
+}
+
 // Improved fetch function with proper error handling
 async function makeRequest(body, callback) {
     try {
@@ -2300,7 +2322,7 @@ function crashclick(json) {
 		crash_bet_placed = false;
         cbamount = json.data.multiplayerCrashCashout.payout - json.data.multiplayerCrashCashout.amount;
         cbtarget = json.data.multiplayerCrashCashout.payoutMultiplier;
-        log(`Crash manual | Profit: ${cbamount.toFixed(8)} | Payoutmultiplier: ${cbtarget.toFixed(2)}`);
+        log(`Crash manual | multiplier: ${cbtarget.toFixed(2)} | Profit: ${cbamount.toFixed(8)}`);
 		
 						//cashedoutauto = true;
 						//bet_has_been_made = false;
@@ -3223,7 +3245,7 @@ function outvault(json){
 	if(json.errors != undefined){
 		log(json.errors[0].errorType);
 	} else {
-		log("Deposited " + json.data.createVaultDeposit.amount.toFixed(10) + " to vault.")
+		log("Deposited " + json.data.createVaultDeposit.amount.toFixed(8) + " to vault.")
 	}
 
 }
@@ -5023,6 +5045,9 @@ function loadLua() {
     end`)()
 	fengari.load(`function vault(n)
         js.global:vault(n)
+    end`)()
+	fengari.load(`function unvault(a, pw)
+        return js.global:unvault(a, pw)
     end`)()
 	fengari.load(`function username()
         return js.global:username()
