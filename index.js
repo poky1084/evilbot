@@ -2251,7 +2251,7 @@ function dataslide(json, betidentifier) {
     if (!json?.data?.multiplayerSlideBet) return;
 
     gamelist[json.data.multiplayerSlideBet.id] = betidentifier;
-    log(`Slide bet placed. ID: ${betidentifier} | amount: ${nextbet.toFixed(8)} | target: ${target.toFixed(2)}`);
+    log(`Slide bet placed. ID: ${betidentifier} | amount: ${json.data.multiplayerSlideBet.amount.toFixed(8)} | target: ${json.data.multiplayerSlideBet.cashoutAt.toFixed(2)}`);
     
     if (json.data.multiplayerSlideBet.slideResult === "pending") {
         slide_bet_placed = true;
