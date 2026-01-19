@@ -4880,7 +4880,7 @@ function sendLua() {
     fields = JSON.parse(fengari.load(`return "[" .. table.concat(fields or {1}, ",") .. "]"`)());
     numbers = JSON.parse(fengari.load(`return "[" .. table.concat(numbers or {1}, ",") .. "]"`)());
     guesses = fengari.load(`return table.concat(guesses or {1}, ",")`)().split(",");
-	tiles = JSON.parse(fengari.load(`return "[" .. table.concat(tiles or {1}, ",") .. "]"`));
+	//tiles = JSON.parse(fengari.load(`return "[" .. table.concat(tiles or {1}, ",") .. "]"`));
 
     // Direct values
     chips = fengari.load(`return chips`)();
