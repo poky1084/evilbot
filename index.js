@@ -3536,9 +3536,9 @@ function data(json){
             
             // UI Updates
             tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
-            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdTargetNumber.innerHTML = bet.state.pick + "/" + bet.state.target.toFixed(4);
             tdRollNumber.innerHTML = bet.state.drillResults[bet.state.pick-1].multiplier;
-		tdRollChance.innerHTML = bet.state.pick + "/" + bet.state.target;
+		tdRollChance.innerHTML = bet.state.pick + "/" + bet.state.target.toFixed(4);;
             //break;
         } 
 		
