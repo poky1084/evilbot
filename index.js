@@ -5030,6 +5030,9 @@ function loadLua() {
 	fengari.load(`function makebet(n, y, id)
         return js.global:makebet(n, y, id)
     end`)()
+	fengari.load(`function cashout()
+        return js.global:cashout()
+    end`)()
 	var value = document.getElementById("botMenuMode").value;
 	if(value == "lua"){
 		fengari.load('balance=' + balance)()
