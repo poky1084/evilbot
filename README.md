@@ -23,7 +23,7 @@ Please give a Star on the repo in case you liked/used it. Thank you!
 
 # Use: <br />
 
-<b>functions:</b> `resetseed('clientseed'), resetstats(), vault(amount), unvault(amount, password), log('text'), start(), stop(), sleep(1000), resetAll(), resetChart(), deleteLogs()` <br />
+<b>functions:</b> `resetseed('clientseed'), resetstats(), vault(amount), unvault(amount, 'password'), log('text'), start(), stop(), sleep(1000), resetAll(), resetChart(), deleteLogs()` <br />
 
 <b>Crash game manual cashout:</b> `cashout()` in script, or use it as command in Log tab
 
