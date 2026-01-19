@@ -5371,12 +5371,13 @@ function startSocket() {
 						lastBet.amount = previousbet;
 						lastBet.target = target;
 
-						var value = document.getElementById("botMenuMode").value;
-						if(value == "lua"){
-							sendLua();
-						} else if(value == "js"){
-							dobet();
-						}
+						if(running){
+								var value = document.getElementById("botMenuMode").value;
+								if(value == "lua"){
+									sendLua();
+								} else if(value == "js"){
+									dobet();
+								}}
 							
 						
 						
@@ -5542,12 +5543,13 @@ function startSocket() {
 						lastBet.amount = previousbet;
 						lastBet.target = target;
 						
-						var value = document.getElementById("botMenuMode").value;
-						if(value == "lua"){
-							sendLua();
-						} else if(value == "js"){
-							dobet();
-						}
+						if(running){
+								var value = document.getElementById("botMenuMode").value;
+								if(value == "lua"){
+									sendLua();
+								} else if(value == "js"){
+									dobet();
+								}}
 
 				
 					}
@@ -5774,12 +5776,13 @@ function startSocket() {
 							}
 							
 							setTimeout(() => {
+								if(running){
 								var value = document.getElementById("botMenuMode").value;
 								if(value == "lua"){
 									sendLua();
 								} else if(value == "js"){
 									dobet();
-								}
+								}}
 							}, "5000");
 					
 					}
