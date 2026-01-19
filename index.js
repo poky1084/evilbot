@@ -1382,10 +1382,10 @@
                   <th>Amount</th>
                   <th>High</th>
                   <th>Multiplier</th>
+				  <th>Target</th>
                   <th>RollChance</th>
                   <th>Profit</th>
                   <th>Payout</th>
-                  <th>TargetNumber</th>
                   <th>RollNumber</th>
                   <th>BetID</th>
                 </tr>
@@ -3617,7 +3617,7 @@ function data(json){
             tdRollChance.innerHTML = bet.state.condition === "below" 
                 ? bet.state.result.toFixed(4) 
                 : (100 - bet.state.result).toFixed(4);
-            tdTargetNumber.innerHTML = (bet.state.condition === "below" ? "<" : ">") + lastBet.targetNumber.toFixed(4);
+            tdTargetNumber.innerHTML = ">" + lastBet.targetNumber.toFixed(4);
             tdRollNumber.innerHTML = bet.state.result.toFixed(2);
             //break;
 		}
@@ -4017,10 +4017,11 @@ function data(json){
 			row.appendChild(tdamount);
 			row.appendChild(tdhigh);
 			row.appendChild(tdTargetChance);
+			row.appendChild(tdTargetNumber);
 			row.appendChild(tdRollChance);
 			row.appendChild(tdProfit);
 			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
+			//row.appendChild(tdTargetNumber);
 			row.appendChild(tdRollNumber);
 			
 			row.appendChild(tdBetID);	
@@ -4470,10 +4471,11 @@ function RunSimDice(){
 			row.appendChild(tdamount);
 			row.appendChild(tdhigh);
 			row.appendChild(tdTargetChance);
+			row.appendChild(tdTargetNumber);
 			row.appendChild(tdRollChance);
 			row.appendChild(tdProfit);
 			row.appendChild(tdPayout);
-			row.appendChild(tdTargetNumber);
+			//row.appendChild(tdTargetNumber);
 			row.appendChild(tdRollNumber);
 			//row.appendChild(tdNonce);
 			row.appendChild(tdBetID);			
@@ -5274,10 +5276,11 @@ function startSocket() {
 						row.appendChild(tdamount);
 						row.appendChild(tdhigh);
 						row.appendChild(tdTargetChance);
+						row.appendChild(tdTargetNumber);
 						row.appendChild(tdRollChance);
 						row.appendChild(tdProfit);
 						row.appendChild(tdPayout);
-						row.appendChild(tdTargetNumber);
+						//row.appendChild(tdTargetNumber);
 						row.appendChild(tdRollNumber);
 						//row.appendChild(tdNonce);
 						row.appendChild(tdBetID);
@@ -5445,10 +5448,11 @@ function startSocket() {
 						row.appendChild(tdamount);
 						row.appendChild(tdhigh);
 						row.appendChild(tdTargetChance);
+						row.appendChild(tdTargetNumber);
 						row.appendChild(tdRollChance);
 						row.appendChild(tdProfit);
 						row.appendChild(tdPayout);
-						row.appendChild(tdTargetNumber);
+						//row.appendChild(tdTargetNumber);
 						row.appendChild(tdRollNumber);
 						//row.appendChild(tdNonce);
 						row.appendChild(tdBetID);
@@ -5615,10 +5619,11 @@ function startSocket() {
 							row.appendChild(tdamount);
 							row.appendChild(tdhigh);
 							row.appendChild(tdTargetChance);
+							row.appendChild(tdTargetNumber);
 							row.appendChild(tdRollChance);
 							row.appendChild(tdProfit);
 							row.appendChild(tdPayout);
-							row.appendChild(tdTargetNumber);
+							//row.appendChild(tdTargetNumber);
 							row.appendChild(tdRollNumber);
 							//row.appendChild(tdNonce);
 							row.appendChild(tdBetID);
@@ -5759,10 +5764,11 @@ function startSocket() {
 							row.appendChild(tdamount);
 							row.appendChild(tdhigh);
 							row.appendChild(tdTargetChance);
+							row.appendChild(tdTargetNumber);
 							row.appendChild(tdRollChance);
 							row.appendChild(tdProfit);
 							row.appendChild(tdPayout);
-							row.appendChild(tdTargetNumber);
+							//row.appendChild(tdTargetNumber);
 							row.appendChild(tdRollNumber);
 							//row.appendChild(tdNonce);
 							row.appendChild(tdBetID);
@@ -5858,10 +5864,11 @@ function startSocket() {
 								row.appendChild(tdamount);
 								row.appendChild(tdhigh);
 								row.appendChild(tdTargetChance);
+								row.appendChild(tdTargetNumber);
 								row.appendChild(tdRollChance);
 								row.appendChild(tdProfit);
 								row.appendChild(tdPayout);
-								row.appendChild(tdTargetNumber);
+								//row.appendChild(tdTargetNumber);
 								row.appendChild(tdRollNumber);
 								//row.appendChild(tdNonce);
 								row.appendChild(tdBetID);
@@ -6021,10 +6028,11 @@ function startSocket() {
 								row.appendChild(tdamount);
 								row.appendChild(tdhigh);
 								row.appendChild(tdTargetChance);
+								row.appendChild(tdTargetNumber);
 								row.appendChild(tdRollChance);
 								row.appendChild(tdProfit);
 								row.appendChild(tdPayout);
-								row.appendChild(tdTargetNumber);
+								//row.appendChild(tdTargetNumber);
 								row.appendChild(tdRollNumber);
 								//row.appendChild(tdNonce);
 								row.appendChild(tdBetID);
