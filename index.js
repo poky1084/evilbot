@@ -2295,12 +2295,12 @@ async function makeRequest(body, callback) {
 }
 
 function crashclick(json) {
-	if(json.errors != null) return;
+	if(json.errors != null || cashedoutauto) return;
 		manualcash = true;
 		crash_bet_placed = false;
-        cbamount = json.data.multiplayerCrashCashout.amount;
+        cbamount = json.data.multiplayerCrashCashout.payout - json.data.multiplayerCrashCashout.amount;
         cbtarget = json.data.multiplayerCrashCashout.payoutMultiplier;
-        log(`Crash manual | Amount: ${cbamount.toFixed(8)} | Payoutmultiplier: ${cbtarget.toFixed(2)}`);
+        log(`Crash manual | Profit: ${cbamount.toFixed(8)} | Payoutmultiplier: ${cbtarget.toFixed(2)}`);
 		
 						//cashedoutauto = true;
 						//bet_has_been_made = false;
@@ -2498,7 +2498,7 @@ function crashclick(json) {
 }
 
 function cashout() {
-	if(!manualcash){
+	if(!manualcash && !cashedoutauto){
 		crashcash()
 	}
 }
