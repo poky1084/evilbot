@@ -1533,6 +1533,7 @@ var bethigh = false;
 var chance = 49.5
 var game = "dice";
 var endgame = false;
+var manualcash = false;
 
 var losestreak = 0;
 var winstreak  = 0;
@@ -2262,6 +2263,7 @@ function datacrash(json) {
 
     if (json.data.multiplayerCrashBet.result === "pending") {
         crash_bet_placed = true;
+		manualcash = false;
         cbamount = json.data.multiplayerCrashBet.amount;
         cbtarget = json.data.multiplayerCrashBet.cashoutAt;
         log(`Crash bet placed | Amount: ${cbamount.toFixed(8)} | Target: ${cbtarget.toFixed(2)}`);
@@ -2290,6 +2292,224 @@ async function makeRequest(body, callback) {
         console.error('Request failed:', err);
         if (running) setTimeout(() => {}, 2000);
     }
+}
+
+function crashclick(json) {
+	if(json.errors != null) return;
+		manualcash = true;
+		crash_bet_placed = false;
+        cbamount = json.data.multiplayerCrashCashout.amount;
+        cbtarget = json.data.multiplayerCrashCashout.payoutMultiplier;
+        log(`Crash manual | Amount: ${cbamount.toFixed(8)} | Payoutmultiplier: ${cbtarget.toFixed(2)}`);
+		
+						//cashedoutauto = true;
+						//bet_has_been_made = false;
+						color = "#05f711";
+						bet_found = true;
+						win = true;
+						lastBet.win = true;
+						lastBet.amount = json.data.multiplayerCrashCashout.amount;
+						lastBet.payoutMultiplier = json.data.multiplayerCrashCashout.payoutMultiplier;
+						
+						endgame = true;
+						//win
+						winstreak++;
+						wins++;
+						losestreak = 0;
+						betcount++;
+						bets = betcount;
+						
+					
+						current_profit = parseFloat(lastBet.amount * lastBet.payoutMultiplier) - parseFloat(lastBet.amount);
+						profit_total += current_profit
+						wagered += parseFloat(lastBet.amount);
+						
+						var row = document.createElement("tr");
+					
+					
+					
+						row.style.color = "#91F190";
+					
+					
+						var tdbets = document.createElement("td");
+						var tdamount = document.createElement("td");
+						var tdhigh = document.createElement("td");
+						var tdTargetChance = document.createElement("td");
+						var tdRollChance= document.createElement("td");
+						var tdProfit = document.createElement("td");
+						var tdPayout = document.createElement("td");
+						var tdTargetNumber = document.createElement("td");
+						//var tdRollNumber = document.createElement("td");
+						var tdRollNumber = document.createElement("td");
+						tdRollNumber.innerHTML = "";
+						tdRollNumber.id = 'roll_' + Math.random().toString(36).substring(2, 15);
+						
+						var tdNonce = document.createElement("td");
+						var tdBetID = document.createElement("td");
+						
+						window.lastRollCellId = tdRollNumber.id;
+						
+						tdbets.innerHTML = betcount;
+						tdamount.innerHTML = nextbet.toFixed(8)
+						
+						var tdcheck = document.createElement("input");
+						tdcheck.type = "checkbox";
+						tdcheck.name = "checked";
+						tdcheck.checked = "";
+						tdcheck.id = "checked";
+						
+						tdhigh.appendChild(tdcheck);
+						tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + ""
+						tdRollChance.innerHTML = "manual";
+						tdProfit.innerHTML = current_profit.toFixed(8)
+						tdTargetNumber.innerHTML = ">" + lastBet.payoutMultiplier.toFixed(2)
+						//lastBet.targetNumber = obj.payload.data.crash.event.cashoutAt;
+						//tdRollNumber.innerHTML = ""
+						tdNonce.innerHTML = game;
+						tdBetID.innerHTML = json.data.multiplayerCrashCashout.id;
+						tdPayout.innerHTML = json.data.multiplayerCrashCashout.payout.toFixed(8);
+						
+
+
+						
+
+						
+						row.appendChild(tdbets);
+						row.appendChild(tdNonce);
+						row.appendChild(tdamount);
+						row.appendChild(tdhigh);
+						row.appendChild(tdTargetChance);
+						row.appendChild(tdTargetNumber);
+						row.appendChild(tdRollNumber);
+						row.appendChild(tdProfit);
+						row.appendChild(tdPayout);
+						row.appendChild(tdRollChance);
+						row.appendChild(tdBetID);
+						
+						
+
+						// Store the ID somewhere accessible
+						
+
+						// Add a class or data attribute to identify it
+						//row.classList.add('latest-bet');
+						
+						var table = document.getElementById("botHistory");		
+
+						if(win){
+							// Add a class to the row
+							row.classList.add("win-row");
+							// Or set style on all cells
+							var cells = row.getElementsByTagName("td");
+							for(var i = 0; i < cells.length; i++) {
+								cells[i].style.color = "#058514";
+							}
+						} else {
+							// For losses, you might want a different color
+							//row.classList.add("loss-row");
+							// Or set red color for losses
+							//var cells = row.getElementsByTagName("td");
+							//for(var i = 0; i < cells.length; i++) {
+								//cells[i].style.color = "#F19091";
+							//}
+						}
+						
+						table.prepend(row);
+
+						if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
+						{
+							table.deleteRow(table.rows.length - 1);
+						}
+					
+						if(winstreak > losestreak){
+							currentstreak = winstreak;
+						} else {
+							currentstreak = -losestreak;
+						}
+					
+						if(highest_bet[highest_bet.length-1] < nextbet){
+							highest_bet.pop();
+							highest_bet.push(nextbet);
+						}
+						if(highest_profit[highest_profit.length-1] < profit_total){
+							highest_profit.pop();
+							highest_profit.push(profit_total);
+						}
+						if(lowest_profit[lowest_profit.length-1] > profit_total){
+							lowest_profit.pop();
+							lowest_profit.push(profit_total);
+						}
+						if(highest_streak[highest_streak.length-1] < currentstreak){
+							highest_streak.pop();
+							highest_streak.push(currentstreak);
+						}
+						if(lowest_streak[lowest_streak.length-1] > currentstreak){
+							lowest_streak.pop();
+							lowest_streak.push(currentstreak);
+						}
+
+						current_balance += current_profit;
+						balance = current_balance;
+						profit = profit_total;
+						previousbet = nextbet;
+						currentprofit = current_profit;
+						
+						
+						
+						updateChart();
+						
+						const profitElement = document.getElementById('botProfit');
+						  //profitElement.textContent = value;
+						  
+						  // Add negative class if value is negative
+						  if (profit_total < 0) {
+							profitElement.classList.add('negative');
+						  } else {
+							profitElement.classList.remove('negative');
+						  }
+						  
+							const streakElement = document.getElementById('botCurrentStreak');
+						  //streakElement.textContent = value;
+						  
+						  // Check if it's negative or loss strea
+						  if (currentstreak < 0) {
+							streakElement.classList.add('negative');
+						  } else {
+							streakElement.classList.remove('negative');
+						  }
+			
+						
+						document.getElementById("botBalance").innerHTML = balance.toFixed(8);
+						document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
+						document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
+						document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
+						document.getElementById("botHighLose").innerHTML = Math.min.apply(null, lowest_profit).toFixed(8);
+						document.getElementById("botHighBet").innerHTML = Math.max.apply(null, highest_bet).toFixed(8);
+						document.getElementById("botBets").innerHTML = bets;
+						document.getElementById("botWins").innerHTML = wins;
+						document.getElementById("botLosses").innerHTML = losses;
+						document.getElementById("botCurrentStreak").innerHTML = currentstreak;
+						document.getElementById("botHighLowStreak").innerHTML = Math.max.apply(null, highest_streak) + " / " + Math.min.apply(null, lowest_streak);
+						document.getElementById("botPercentProfit").innerHTML = (profit_total / started_bal * 100).toFixed(2);
+						document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
+						
+						lastBet.percent = (profit_total / started_bal * 100)
+					
+}
+
+function cashout() {
+	if(!manualcash){
+		crashcash()
+	}
+}
+
+function crashcash() {
+    const body = {
+        variables: {},
+        query: `mutation MultiplayerCrashCashout {\n  multiplayerCrashCashout {\n    ...MultiplayerCrashBet\n  }\n}\n\nfragment MultiplayerCrashBet on MultiplayerCrashBet {\n  id\n  user {\n    id\n    name\n    preferenceHideBets\n  }\n  payoutMultiplier\n  gameId\n  amount\n  payout\n  currency\n  result\n  updatedAt\n  cashoutAt\n  btcAmount: amount(currency: btc)\n}`
+    };
+    
+    makeRequest(body, crashclick);
 }
 
 function crashbet(amount, target) {
@@ -5211,6 +5431,7 @@ function startSocket() {
 					
 					if(obj.payload.data.crash.event.result == "autocashout")
 					{
+						//manualcash = false;
 						target = parseFloat(target.toFixed(2))
 						cashedoutauto = true;
 						//bet_has_been_made = false;
@@ -5425,7 +5646,7 @@ function startSocket() {
 						
 					}
 					if(obj.payload.data.crash.event.result == "busted"){
-						
+						//manualcash = false;
 						target = parseFloat(target.toFixed(2))
 						color = "#f72a42"
 						current_profit = -parseFloat(nextbet);
@@ -5628,7 +5849,7 @@ function startSocket() {
 							slide_bet_placed = false;
 							make_slide_bet = false;
 							finished_round = true
-							
+							//manualcash = false;
 							document.getElementById("result").innerHTML = "Crash at " + obj.payload.data.crash.event.multiplier.toFixed(2);
 							const loader1 = document.querySelector('.loader');
 							loader1.style.display = 'inline-block';
