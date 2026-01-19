@@ -2362,7 +2362,7 @@ function crashclick(json) {
 						tdTargetChance.innerHTML = lastBet.payoutMultiplier.toFixed(2) + ""
 						tdRollChance.innerHTML = "manual";
 						tdProfit.innerHTML = current_profit.toFixed(8)
-						tdTargetNumber.innerHTML = ">" + lastBet.payoutMultiplier.toFixed(2)
+						tdTargetNumber.innerHTML = ">" + json.data.multiplayerCrashCashout.cashoutAt.toFixed(2)
 						//lastBet.targetNumber = obj.payload.data.crash.event.cashoutAt;
 						//tdRollNumber.innerHTML = ""
 						tdNonce.innerHTML = game;
