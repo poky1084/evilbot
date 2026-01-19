@@ -2915,7 +2915,7 @@ setTimeout(() => {
 	userBalances();	
 }, "500");
 
-function userBalances(){
+function userBalances(newbal){
 
 var body = {
 		operationName:"UserBalances",
@@ -2929,7 +2929,7 @@ var body = {
 		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
 	})
 	.then(res => res.json())
-	.then(json => outbals(json))
+	.then(json => outbals(json, newbal))
 	.catch(function(err, json) {
 		console.log(err);
 		setTimeout(() => {
@@ -2940,7 +2940,13 @@ var body = {
 
 }
 
-function outbals(json){
+
+(function repeat() {
+  userBalances();
+  setTimeout(repeat, 5000);
+})();
+
+function outbals(json, newbal){
 
 	balance = 0
 	var balan1 = document.getElementById("botBalance");
@@ -2957,7 +2963,9 @@ function outbals(json){
 
 		}
 	}
-	
+	if(newbal){
+		started_bal = balance;
+	}
 	//document.getElementById("botMenuCoin").options[indexMatchingText(localStorage.getItem("currenc"))].selected = 'selected';
 }
 
@@ -4544,6 +4552,27 @@ function RunSimDice(){
 			
 			updateChart();
 			
+			const profitElement = document.getElementById('botProfit');
+			  //profitElement.textContent = value;
+			  
+			  // Add negative class if value is negative
+			  if (profit_total < 0) {
+				profitElement.classList.add('negative');
+			  } else {
+				profitElement.classList.remove('negative');
+			  }
+			  
+				const streakElement = document.getElementById('botCurrentStreak');
+			  //streakElement.textContent = value;
+			  
+			  // Check if it's negative or loss strea
+			  if (currentstreak < 0) {
+				streakElement.classList.add('negative');
+			  } else {
+				streakElement.classList.remove('negative');
+			  }
+			
+			
 			var balan = document.getElementById("botBalance");
 			balan.innerHTML = balance_sim.toFixed(8);
 			//document.getElementById("multi").innerHTML = toFixedNo(json.limboBet.state.result, 2);
@@ -4962,7 +4991,8 @@ function start(){
 
 			localStorage.setItem("luacode", htmlEditor.getValue());
 
-			userBalances();
+			//userBalances();
+			userBalances(true);
 			//started_bal = balance;
 
 			if (!game) game = getEl("gameselect").value;
@@ -5019,7 +5049,8 @@ function start(){
 		
 		localStorage.setItem("jscode", htmlEditor2.getValue());
 ;
-			userBalances();
+			//userBalances();
+			userBalances(true);
 			//started_bal = balance;
 
 			if (game === undefined) game = document.getElementById("gameselect").value;
@@ -5295,6 +5326,27 @@ function startSocket() {
 						
 						updateChart();
 						
+						const profitElement = document.getElementById('botProfit');
+						  //profitElement.textContent = value;
+						  
+						  // Add negative class if value is negative
+						  if (profit_total < 0) {
+							profitElement.classList.add('negative');
+						  } else {
+							profitElement.classList.remove('negative');
+						  }
+						  
+							const streakElement = document.getElementById('botCurrentStreak');
+						  //streakElement.textContent = value;
+						  
+						  // Check if it's negative or loss strea
+						  if (currentstreak < 0) {
+							streakElement.classList.add('negative');
+						  } else {
+							streakElement.classList.remove('negative');
+						  }
+			
+						
 						document.getElementById("botBalance").innerHTML = balance.toFixed(8);
 						document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
 						document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
@@ -5444,6 +5496,27 @@ function startSocket() {
 						
 						
 						updateChart();
+						
+						const profitElement = document.getElementById('botProfit');
+					  //profitElement.textContent = value;
+					  
+					  // Add negative class if value is negative
+					  if (profit_total < 0) {
+						profitElement.classList.add('negative');
+					  } else {
+						profitElement.classList.remove('negative');
+					  }
+					  
+						const streakElement = document.getElementById('botCurrentStreak');
+					  //streakElement.textContent = value;
+					  
+					  // Check if it's negative or loss strea
+					  if (currentstreak < 0) {
+						streakElement.classList.add('negative');
+					  } else {
+						streakElement.classList.remove('negative');
+					  }
+			
 						
 						document.getElementById("botBalance").innerHTML = balance.toFixed(8);
 						document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
@@ -5836,7 +5909,28 @@ function startSocket() {
 								
 								
 								updateChart();
-													
+												
+								const profitElement = document.getElementById('botProfit');
+							  //profitElement.textContent = value;
+							  
+							  // Add negative class if value is negative
+							  if (profit_total < 0) {
+								profitElement.classList.add('negative');
+							  } else {
+								profitElement.classList.remove('negative');
+							  }
+							  
+								const streakElement = document.getElementById('botCurrentStreak');
+							  //streakElement.textContent = value;
+							  
+							  // Check if it's negative or loss strea
+							  if (currentstreak < 0) {
+								streakElement.classList.add('negative');
+							  } else {
+								streakElement.classList.remove('negative');
+							  }
+			
+												
 								document.getElementById("botBalance").innerHTML = balance.toFixed(8);
 								document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
 								document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
@@ -5978,6 +6072,27 @@ function startSocket() {
 								
 								
 								updateChart();
+								
+								const profitElement = document.getElementById('botProfit');
+								  //profitElement.textContent = value;
+								  
+								  // Add negative class if value is negative
+								  if (profit_total < 0) {
+									profitElement.classList.add('negative');
+								  } else {
+									profitElement.classList.remove('negative');
+								  }
+								  
+									const streakElement = document.getElementById('botCurrentStreak');
+								  //streakElement.textContent = value;
+								  
+								  // Check if it's negative or loss strea
+								  if (currentstreak < 0) {
+									streakElement.classList.add('negative');
+								  } else {
+									streakElement.classList.remove('negative');
+								  }
+			
 								
 								document.getElementById("botBalance").innerHTML = balance.toFixed(8);
 								document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
