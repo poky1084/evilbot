@@ -5477,7 +5477,7 @@ function startSocket() {
 						tdcheck.id = "checked";
 						
 						tdhigh.appendChild(tdcheck);
-						tdTargetChance.innerHTML = (0).toFixed(4) + ""
+						tdTargetChance.innerHTML = 0
 						tdRollChance.innerHTML = ""
 						tdProfit.innerHTML = current_profit.toFixed(8)
 						tdTargetNumber.innerHTML = ">" + target.toFixed(2)
