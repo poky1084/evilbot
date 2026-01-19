@@ -1532,6 +1532,7 @@ let nextactions = "BLACKJACK_STAND"
 var bethigh = false;
 var chance = 49.5
 var game = "dice";
+var endgame = false;
 
 var losestreak = 0;
 var winstreak  = 0;
@@ -5219,6 +5220,7 @@ function startSocket() {
 						lastBet.amount = previousbet;
 						lastBet.payoutMultiplier = target;
 						
+						endgame = true;
 						//win
 						winstreak++;
 						wins++;
@@ -5436,7 +5438,7 @@ function startSocket() {
 						lastBet.amount = previousbet;
 						lastBet.payoutMultiplier = 0;
 						
-						
+						endgame = false;
 						betcount++;
 						bets = betcount;
 						
@@ -5707,8 +5709,8 @@ function startSocket() {
 								}
 							}
 	
-							if(win){
-								win = null;
+							if(endgame){
+								endgame = null;
 								if(running){
 									var value = document.getElementById("botMenuMode").value;
 									if(value == "lua"){
