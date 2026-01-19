@@ -2811,6 +2811,7 @@ function outjson(json){
 
 		}
 	}
+	
 	if (localStorage.getItem("currenc") != null) {
 		document.getElementById("botMenuCoin").value = localStorage.getItem("currenc");
 	}
@@ -2957,7 +2958,6 @@ function outbals(json, newbal){
 		{
 			current_balance = json.data.user.balances[i].available.amount;
 			balance = current_balance;
-			started_bal = balance;
 			var balan = document.getElementById("botBalance");
 			balan.innerHTML = balance.toFixed(8);
 
@@ -4753,7 +4753,7 @@ function resetstats(){
 	profit = 0;
 	currentprofit = 0;
 	current_profit = 0;
-	started_bal = balance;
+	//started_bal = balance;
 
 	profit = profit_total;
 	currentprofit = current_profit;
