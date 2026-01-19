@@ -5269,10 +5269,10 @@ function startSocket() {
 						tdcheck.id = "checked";
 						
 						tdhigh.appendChild(tdcheck);
-						tdTargetChance.innerHTML = target.toFixed(4) + ""
+						tdTargetChance.innerHTML = target.toFixed(2) + ""
 						tdRollChance.innerHTML = ""
 						tdProfit.innerHTML = current_profit.toFixed(8)
-						tdTargetNumber.innerHTML = ">" + target.toFixed(4)
+						tdTargetNumber.innerHTML = ">" + target.toFixed(2)
 						//lastBet.targetNumber = obj.payload.data.crash.event.cashoutAt;
 						//tdRollNumber.innerHTML = ""
 						tdNonce.innerHTML = game;
@@ -5480,7 +5480,7 @@ function startSocket() {
 						tdTargetChance.innerHTML = (0).toFixed(4) + ""
 						tdRollChance.innerHTML = ""
 						tdProfit.innerHTML = current_profit.toFixed(8)
-						tdTargetNumber.innerHTML = ">" + target.toFixed(4)
+						tdTargetNumber.innerHTML = ">" + target.toFixed(2)
 						lastBet.targetNumber = target;
 						tdRollNumber.innerHTML = ""
 						tdNonce.innerHTML = game;
