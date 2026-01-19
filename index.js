@@ -5624,7 +5624,7 @@ function startSocket() {
 							slide_bet_placed = false;
 							make_slide_bet = false;
 							finished_round = true
-							
+							win = null;
 							document.getElementById("result").innerHTML = "Crash at " + obj.payload.data.crash.event.multiplier.toFixed(2);
 							const loader1 = document.querySelector('.loader');
 							loader1.style.display = 'inline-block';
