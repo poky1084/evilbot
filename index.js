@@ -2464,7 +2464,7 @@ const inputHandler3 = function(e) {
 	var curry = document.getElementById('botMenuCoin').value;
 	localStorage.setItem("currenc", curry);
 	currency = curry;
-	userBalances();
+	userBalances(false);
 	//startSocket();
 }
 
@@ -2912,7 +2912,7 @@ setTimeout(() => {
 	} else {
 		currency = document.getElementById("botMenuCoin").value;
 	}
-	userBalances();	
+	userBalances(false);	
 }, "500");
 
 function userBalances(newbal){
@@ -2942,7 +2942,7 @@ var body = {
 
 
 (function repeat() {
-  userBalances();
+  userBalances(false);
   setTimeout(repeat, 5000);
 })();
 
