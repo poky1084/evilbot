@@ -5211,6 +5211,7 @@ function startSocket() {
 					
 					if(obj.payload.data.crash.event.result == "autocashout")
 					{
+						target = parseFloat(target.toFixed(2))
 						cashedoutauto = true;
 						//bet_has_been_made = false;
 						color = "#05f711";
@@ -5425,6 +5426,7 @@ function startSocket() {
 					}
 					if(obj.payload.data.crash.event.result == "busted"){
 						
+						target = parseFloat(target.toFixed(2))
 						color = "#f72a42"
 						current_profit = -parseFloat(nextbet);
 						profit_total += -parseFloat(nextbet);
