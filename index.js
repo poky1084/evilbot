@@ -2291,11 +2291,11 @@ async function makeRequest(body, callback) {
     }
 }
 
-function crashbet(amount, target_multi) {
+function crashbet(amount, target) {
     const body = {
         variables: {
-            cashoutAt: target_multi,
-            amount,
+            cashoutAt: target,
+            amount: amount,
             currency: currency
         },
         query: `mutation MultiplayerCrashBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!) {
@@ -2313,12 +2313,12 @@ function crashbet(amount, target_multi) {
     makeRequest(body, datacrash);
 }
 
-function slidebet(amount, slideat, betidentifier) {
+function slidebet(amount, target, betidentifier) {
     const body = {
         variables: {
             identifier: randomString(21),
-            cashoutAt: slideat,
-            amount,
+            cashoutAt: target,
+            amount: amount,
             currency: currency
         },
         query: `mutation MultiplayerSlideBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!, $identifier: String!) {
