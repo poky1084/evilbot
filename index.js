@@ -5410,13 +5410,13 @@ function startSocket() {
 						lastBet.amount = previousbet;
 						lastBet.target = target;
 
-						if(running){
-								var value = document.getElementById("botMenuMode").value;
-								if(value == "lua"){
-									sendLua();
-								} else if(value == "js"){
-									dobet();
-								}}
+						/*if(running){
+							var value = document.getElementById("botMenuMode").value;
+							if(value == "lua"){
+								sendLua();
+							} else if(value == "js"){
+								dobet();
+						}}*/
 							
 						
 						
@@ -5708,6 +5708,14 @@ function startSocket() {
 							}
 	
 							if(win){
+								if(running){
+									var value = document.getElementById("botMenuMode").value;
+									if(value == "lua"){
+										sendLua();
+									} else if(value == "js"){
+										dobet();
+								}}
+								
 								if (document.getElementById(window.lastRollCellId)) {
 									document.getElementById(window.lastRollCellId).innerHTML = lastBet.Roll.toFixed(4);
 									window.lastRollCellId = "null";
