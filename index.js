@@ -3988,6 +3988,7 @@ function data(json){
 			profit_total += current_profit;
 			wagered += parseFloat(bet.amount);
 			
+			current_balance += current_profit;
 			balance = current_balance;
 			profit = profit_total;
 			previousbet = lastBet.amount;
@@ -4106,6 +4107,7 @@ function data(json){
 			  }
 			
 			//document.getElementById("multi").innerHTML = toFixedNo(json.data.limboBet.state.result, 2);
+			document.getElementById("botBalance").innerHTML = balance.toFixed(8);
 			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
 			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
 			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
@@ -4545,6 +4547,7 @@ function RunSimDice(){
 			var balan = document.getElementById("botBalance");
 			balan.innerHTML = balance_sim.toFixed(8);
 			//document.getElementById("multi").innerHTML = toFixedNo(json.limboBet.state.result, 2);
+			document.getElementById("botBalance").innerHTML = balance.toFixed(8);
 			document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
 			document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
 			document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
@@ -4705,7 +4708,7 @@ function resetstats(){
 	winstreak  = 0;
 	highest_streak = [0];
 	lowest_streak = [0];
-	current_balance = 0;
+	//current_balance = 0;
 	betcount = 0;
 	bets = 0
 	wins = 0;
@@ -4729,7 +4732,7 @@ function resetstats(){
 	
 	
 	resetChart();
-	
+	document.getElementById("botBalance").innerHTML = balance.toFixed(8);
 	document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
 	document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
 	document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
@@ -4773,6 +4776,9 @@ function loadLua() {
     end`)()
 	fengari.load(`function username()
         return js.global:username()
+    end`)()
+	fengari.load(`function makebet(n, y, id)
+        return js.global:makebet(n, y, id)
     end`)()
 	var value = document.getElementById("botMenuMode").value;
 	if(value == "lua"){
@@ -5279,6 +5285,7 @@ function startSocket() {
 							lowest_streak.push(currentstreak);
 						}
 
+						current_balance += current_profit;
 						balance = current_balance;
 						profit = profit_total;
 						previousbet = nextbet;
@@ -5288,6 +5295,7 @@ function startSocket() {
 						
 						updateChart();
 						
+						document.getElementById("botBalance").innerHTML = balance.toFixed(8);
 						document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
 						document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
 						document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
@@ -5311,7 +5319,12 @@ function startSocket() {
 						lastBet.amount = previousbet;
 						lastBet.target = target;
 
-						dobet();
+						var value = document.getElementById("botMenuMode").value;
+						if(value == "lua"){
+							sendLua();
+						} else if(value == "js"){
+							dobet();
+						}
 							
 						
 						
@@ -5422,6 +5435,7 @@ function startSocket() {
 							lowest_streak.push(currentstreak);
 						}
 
+						current_balance += current_profit;
 						balance = current_balance;
 						profit = profit_total;
 						previousbet = nextbet;
@@ -5431,6 +5445,7 @@ function startSocket() {
 						
 						updateChart();
 						
+						document.getElementById("botBalance").innerHTML = balance.toFixed(8);
 						document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
 						document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
 						document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
@@ -5454,7 +5469,12 @@ function startSocket() {
 						lastBet.amount = previousbet;
 						lastBet.target = target;
 						
-						dobet();
+						var value = document.getElementById("botMenuMode").value;
+						if(value == "lua"){
+							sendLua();
+						} else if(value == "js"){
+							dobet();
+						}
 
 				
 					}
@@ -5681,9 +5701,12 @@ function startSocket() {
 							}
 							
 							setTimeout(() => {
-								dobet();
-								
-								target_multi = 99 / chance;
+								var value = document.getElementById("botMenuMode").value;
+								if(value == "lua"){
+									sendLua();
+								} else if(value == "js"){
+									dobet();
+								}
 							}, "5000");
 					
 					}
@@ -5803,7 +5826,8 @@ function startSocket() {
 									lowest_streak.pop();
 									lowest_streak.push(currentstreak);
 								}
-
+								
+								current_balance += current_profit;
 								balance = current_balance;
 								profit = profit_total;
 								previousbet = nextbet;
@@ -5813,6 +5837,7 @@ function startSocket() {
 								
 								updateChart();
 													
+								document.getElementById("botBalance").innerHTML = balance.toFixed(8);
 								document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
 								document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
 								document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
@@ -5943,7 +5968,8 @@ function startSocket() {
 									lowest_streak.pop();
 									lowest_streak.push(currentstreak);
 								}
-
+								
+								current_balance += current_profit;
 								balance = current_balance;
 								profit = profit_total;
 								//previousbet = amount;
@@ -5953,6 +5979,7 @@ function startSocket() {
 								
 								updateChart();
 								
+								document.getElementById("botBalance").innerHTML = balance.toFixed(8);
 								document.getElementById("botProfit").innerHTML = profit_total.toFixed(8);
 								document.getElementById("botWagered").innerHTML = wagered.toFixed(8);
 								document.getElementById("botHighProfit").innerHTML = Math.max.apply(null, highest_profit).toFixed(8);
@@ -6127,6 +6154,7 @@ function subscribeToChannels() {
       }`
     }
   }));
+  
 
   websocket.send(JSON.stringify({
     id: "3c099e10-dd7d-4a93-a86c-f2fe0082a6f3",
