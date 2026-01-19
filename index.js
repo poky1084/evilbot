@@ -1383,10 +1383,10 @@
                   <th>High</th>
                   <th>Multiplier</th>
 				  <th>Target</th>
-                  <th>RollChance</th>
+				  <th>Roll</th>
                   <th>Profit</th>
                   <th>Payout</th>
-                  <th>RollNumber</th>
+                  <th>RollChance</th>
                   <th>BetID</th>
                 </tr>
               </thead>
@@ -2294,8 +2294,8 @@ async function makeRequest(body, callback) {
 function crashbet(amount, target) {
     const body = {
         variables: {
-            cashoutAt: target,
-            amount: amount,
+            cashoutAt: parseFloat(target.toFixed(2)),
+            amount: parseFloat(amount.toFixed(8)),
             currency: currency
         },
         query: `mutation MultiplayerCrashBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!) {
@@ -2317,8 +2317,8 @@ function slidebet(amount, target, betidentifier) {
     const body = {
         variables: {
             identifier: randomString(21),
-            cashoutAt: target,
-            amount: amount,
+            cashoutAt: parseFloat(target.toFixed(2)),
+            amount: parseFloat(amount.toFixed(8)),
             currency: currency
         },
         query: `mutation MultiplayerSlideBet($amount: Float!, $currency: CurrencyEnum!, $cashoutAt: Float!, $identifier: String!) {
@@ -4018,11 +4018,11 @@ function data(json){
 			row.appendChild(tdhigh);
 			row.appendChild(tdTargetChance);
 			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollChance);
+			row.appendChild(tdRollNumber);
 			row.appendChild(tdProfit);
 			row.appendChild(tdPayout);
-			//row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
+			row.appendChild(tdRollChance);
+			row.appendChild(tdBetID);
 			
 			row.appendChild(tdBetID);	
 			
@@ -4472,13 +4472,11 @@ function RunSimDice(){
 			row.appendChild(tdhigh);
 			row.appendChild(tdTargetChance);
 			row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollChance);
+			row.appendChild(tdRollNumber);
 			row.appendChild(tdProfit);
 			row.appendChild(tdPayout);
-			//row.appendChild(tdTargetNumber);
-			row.appendChild(tdRollNumber);
-			//row.appendChild(tdNonce);
-			row.appendChild(tdBetID);			
+			row.appendChild(tdRollChance);
+			row.appendChild(tdBetID);		
 					
 			
 
@@ -5116,6 +5114,7 @@ var btnStop = document.getElementById("botStopButton");
 btnStop.addEventListener('click', function() {  btnStart.disabled = false; stop(); }, false);
 
 
+
 function startSocket() {
     isReconnecting = false;
   // Close any existing sockets
@@ -5247,9 +5246,15 @@ function startSocket() {
 						var tdProfit = document.createElement("td");
 						var tdPayout = document.createElement("td");
 						var tdTargetNumber = document.createElement("td");
+						//var tdRollNumber = document.createElement("td");
 						var tdRollNumber = document.createElement("td");
+						tdRollNumber.innerHTML = "";
+						tdRollNumber.id = 'roll_' + Math.random().toString(36).substring(2, 15);
+						
 						var tdNonce = document.createElement("td");
 						var tdBetID = document.createElement("td");
+						
+						window.lastRollCellId = tdRollNumber.id;
 						
 						tdbets.innerHTML = betcount;
 						tdamount.innerHTML = nextbet.toFixed(8)
@@ -5257,7 +5262,7 @@ function startSocket() {
 						var tdcheck = document.createElement("input");
 						tdcheck.type = "checkbox";
 						tdcheck.name = "checked";
-						tdcheck.checked = "checked";
+						tdcheck.checked = "";
 						tdcheck.id = "checked";
 						
 						tdhigh.appendChild(tdcheck);
@@ -5266,10 +5271,13 @@ function startSocket() {
 						tdProfit.innerHTML = current_profit.toFixed(8)
 						tdTargetNumber.innerHTML = ">" + target.toFixed(4)
 						//lastBet.targetNumber = obj.payload.data.crash.event.cashoutAt;
-						tdRollNumber.innerHTML = ""
+						//tdRollNumber.innerHTML = ""
 						tdNonce.innerHTML = game;
 						tdBetID.innerHTML = obj.payload.data.crash.event.id;
 						tdPayout.innerHTML = parseFloat(nextbet * target).toFixed(8);
+						
+
+
 						
 
 						
@@ -5279,16 +5287,42 @@ function startSocket() {
 						row.appendChild(tdhigh);
 						row.appendChild(tdTargetChance);
 						row.appendChild(tdTargetNumber);
-						row.appendChild(tdRollChance);
+						row.appendChild(tdRollNumber);
 						row.appendChild(tdProfit);
 						row.appendChild(tdPayout);
-						//row.appendChild(tdTargetNumber);
-						row.appendChild(tdRollNumber);
-						//row.appendChild(tdNonce);
+						row.appendChild(tdRollChance);
 						row.appendChild(tdBetID);
-						var table = document.getElementById("botHistory");							
+						
+						
+
+						// Store the ID somewhere accessible
+						
+
+						// Add a class or data attribute to identify it
+						//row.classList.add('latest-bet');
+						
+						var table = document.getElementById("botHistory");		
+
+						if(win){
+							// Add a class to the row
+							row.classList.add("win-row");
+							// Or set style on all cells
+							var cells = row.getElementsByTagName("td");
+							for(var i = 0; i < cells.length; i++) {
+								cells[i].style.color = "#058514";
+							}
+						} else {
+							// For losses, you might want a different color
+							//row.classList.add("loss-row");
+							// Or set red color for losses
+							//var cells = row.getElementsByTagName("td");
+							//for(var i = 0; i < cells.length; i++) {
+								//cells[i].style.color = "#F19091";
+							//}
+						}
+						
 						table.prepend(row);
-		
+
 						if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
 						{
 							table.deleteRow(table.rows.length - 1);
@@ -5402,6 +5436,7 @@ function startSocket() {
 						lastBet.amount = previousbet;
 						lastBet.payoutMultiplier = 0;
 						
+						
 						betcount++;
 						bets = betcount;
 						
@@ -5419,9 +5454,14 @@ function startSocket() {
 						var tdProfit = document.createElement("td");
 						var tdPayout = document.createElement("td");
 						var tdTargetNumber = document.createElement("td");
+						//var tdRollNumber = document.createElement("td");
 						var tdRollNumber = document.createElement("td");
+						tdRollNumber.innerHTML = "";
+						tdRollNumber.id = 'roll_' + Math.random().toString(36).substring(2, 15);
 						var tdNonce = document.createElement("td");
 						var tdBetID = document.createElement("td");
+						
+						window.lastRollCellId = tdRollNumber.id;
 						
 						tdbets.innerHTML = betcount;
 						tdamount.innerHTML = nextbet.toFixed(8)
@@ -5429,7 +5469,7 @@ function startSocket() {
 						var tdcheck = document.createElement("input");
 						tdcheck.type = "checkbox";
 						tdcheck.name = "checked";
-						tdcheck.checked = "checked";
+						tdcheck.checked = "";
 						tdcheck.id = "checked";
 						
 						tdhigh.appendChild(tdcheck);
@@ -5451,16 +5491,36 @@ function startSocket() {
 						row.appendChild(tdhigh);
 						row.appendChild(tdTargetChance);
 						row.appendChild(tdTargetNumber);
-						row.appendChild(tdRollChance);
+						row.appendChild(tdRollNumber);
 						row.appendChild(tdProfit);
 						row.appendChild(tdPayout);
-						//row.appendChild(tdTargetNumber);
-						row.appendChild(tdRollNumber);
-						//row.appendChild(tdNonce);
+						row.appendChild(tdRollChance);
 						row.appendChild(tdBetID);
 						
-						var table = document.getElementById("botHistory");							
+						var table = document.getElementById("botHistory");	
+						if(win){
+							// Add a class to the row
+							row.classList.add("win-row");
+							// Or set style on all cells
+							var cells = row.getElementsByTagName("td");
+							for(var i = 0; i < cells.length; i++) {
+								cells[i].style.color = "#058514";
+							}
+						} else {
+							// For losses, you might want a different color
+							//row.classList.add("loss-row");
+							// Or set red color for losses
+							//var cells = row.getElementsByTagName("td");
+							//for(var i = 0; i < cells.length; i++) {
+								//cells[i].style.color = "#F19091";
+							//}
+						}
+						
 						table.prepend(row);
+						if (document.getElementById(window.lastRollCellId)) {
+								document.getElementById(window.lastRollCellId).innerHTML = lastBet.Roll.toFixed(4);
+								window.lastRollCellId = "null"
+						}
 		
 						if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
 						{
@@ -5592,8 +5652,13 @@ function startSocket() {
 							var tdPayout = document.createElement("td");
 							var tdTargetNumber = document.createElement("td");
 							var tdRollNumber = document.createElement("td");
+							//var tdRollNumber = document.createElement("td");
+							//tdRollNumber.innerHTML = "";
+							//tdRollNumber.id = 'roll_' + Math.random().toString(36).substring(2, 15);
 							var tdNonce = document.createElement("td");
 							var tdBetID = document.createElement("td");
+							
+							
 							
 							tdbets.innerHTML = ""
 							tdamount.innerHTML = "CrashAt"
@@ -5601,7 +5666,7 @@ function startSocket() {
 							var tdcheck = document.createElement("input");
 							tdcheck.type = "checkbox";
 							tdcheck.name = "checked";
-							tdcheck.checked = "checked";
+							tdcheck.checked = "";
 							tdcheck.id = "checked";
 							
 							tdhigh.appendChild(tdcheck);
@@ -5610,7 +5675,7 @@ function startSocket() {
 							tdProfit.innerHTML = ""
 							tdTargetNumber.innerHTML = ""
 							//lastBet.targetNumber = target_multi;
-							tdRollNumber.innerHTML = lastBet.Roll.toFixed(4) + "";
+							tdRollNumber.innerHTML = lastBet.Roll.toFixed(4);
 							tdNonce.innerHTML = game;
 							tdBetID.innerHTML = "";
 							tdPayout.innerHTML = "";
@@ -5622,22 +5687,32 @@ function startSocket() {
 							row.appendChild(tdhigh);
 							row.appendChild(tdTargetChance);
 							row.appendChild(tdTargetNumber);
-							row.appendChild(tdRollChance);
+							row.appendChild(tdRollNumber);
 							row.appendChild(tdProfit);
 							row.appendChild(tdPayout);
-							//row.appendChild(tdTargetNumber);
-							row.appendChild(tdRollNumber);
-							//row.appendChild(tdNonce);
+							row.appendChild(tdRollChance);
 							row.appendChild(tdBetID);
 							
-							var table = document.getElementById("botHistory");							
-							table.prepend(row);
-			
-							if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-							{
-								table.deleteRow(table.rows.length - 1);
-							}
+					
 							
+							
+							var table = document.getElementById("botHistory");	
+							
+							if(!running){
+								table.prepend(row);
+				
+								if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
+								{
+									table.deleteRow(table.rows.length - 1);
+								}
+							}
+	
+							if(win){
+								if (document.getElementById(window.lastRollCellId)) {
+									document.getElementById(window.lastRollCellId).innerHTML = lastBet.Roll.toFixed(4);
+									window.lastRollCellId = "null";
+								}
+							}
 							if(cashedoutauto == false){
 								
 								
@@ -5746,7 +5821,7 @@ function startSocket() {
 							var tdcheck = document.createElement("input");
 							tdcheck.type = "checkbox";
 							tdcheck.name = "checked";
-							tdcheck.checked = "checked";
+							tdcheck.checked = "";
 							tdcheck.id = "checked";
 							
 							tdhigh.appendChild(tdcheck);
@@ -5767,22 +5842,24 @@ function startSocket() {
 							row.appendChild(tdhigh);
 							row.appendChild(tdTargetChance);
 							row.appendChild(tdTargetNumber);
-							row.appendChild(tdRollChance);
+							row.appendChild(tdRollNumber);
 							row.appendChild(tdProfit);
 							row.appendChild(tdPayout);
-							//row.appendChild(tdTargetNumber);
-							row.appendChild(tdRollNumber);
-							//row.appendChild(tdNonce);
+							row.appendChild(tdRollChance);
 							row.appendChild(tdBetID);
 							
-							var table = document.getElementById("botHistory");							
-							table.prepend(row);
-			
-							if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
-							{
-								table.deleteRow(table.rows.length - 1);
-							}
+							var table = document.getElementById("botHistory");
 							
+							
+							
+							if(!running){
+								table.prepend(row);
+							
+								if (table.rows.length > parseInt(document.getElementById("botMaxRows").value))
+								{
+									table.deleteRow(table.rows.length - 1);
+								}
+							}
 							setTimeout(() => {
 								if(running){
 								var value = document.getElementById("botMenuMode").value;
@@ -5846,7 +5923,7 @@ function startSocket() {
 								var tdcheck = document.createElement("input");
 								tdcheck.type = "checkbox";
 								tdcheck.name = "checked";
-								tdcheck.checked = "checked";
+								tdcheck.checked = "";
 								tdcheck.id = "checked";
 								
 								tdhigh.appendChild(tdcheck);
@@ -5867,15 +5944,31 @@ function startSocket() {
 								row.appendChild(tdhigh);
 								row.appendChild(tdTargetChance);
 								row.appendChild(tdTargetNumber);
-								row.appendChild(tdRollChance);
+								row.appendChild(tdRollNumber);
 								row.appendChild(tdProfit);
 								row.appendChild(tdPayout);
-								//row.appendChild(tdTargetNumber);
-								row.appendChild(tdRollNumber);
-								//row.appendChild(tdNonce);
+								row.appendChild(tdRollChance);
 								row.appendChild(tdBetID);
 								var table = document.getElementById("botHistory");							
 								
+								
+								if(win){
+									// Add a class to the row
+									row.classList.add("win-row");
+									// Or set style on all cells
+									var cells = row.getElementsByTagName("td");
+									for(var i = 0; i < cells.length; i++) {
+										cells[i].style.color = "#058514";
+									}
+								} else {
+									// For losses, you might want a different color
+									//row.classList.add("loss-row");
+									// Or set red color for losses
+									//var cells = row.getElementsByTagName("td");
+									//for(var i = 0; i < cells.length; i++) {
+										//cells[i].style.color = "#F19091";
+									//}
+								}
 								
 								table.prepend(row);
 								
@@ -6010,7 +6103,7 @@ function startSocket() {
 								var tdcheck = document.createElement("input");
 								tdcheck.type = "checkbox";
 								tdcheck.name = "checked";
-								tdcheck.checked = "checked";
+								tdcheck.checked = "";
 								tdcheck.id = "checked";
 								
 								tdhigh.appendChild(tdcheck);
@@ -6031,15 +6124,31 @@ function startSocket() {
 								row.appendChild(tdhigh);
 								row.appendChild(tdTargetChance);
 								row.appendChild(tdTargetNumber);
-								row.appendChild(tdRollChance);
+								row.appendChild(tdRollNumber);
 								row.appendChild(tdProfit);
 								row.appendChild(tdPayout);
-								//row.appendChild(tdTargetNumber);
-								row.appendChild(tdRollNumber);
-								//row.appendChild(tdNonce);
+								row.appendChild(tdRollChance);
 								row.appendChild(tdBetID);
 								var table = document.getElementById("botHistory");							
 								
+								
+								if(win){
+									// Add a class to the row
+									row.classList.add("win-row");
+									// Or set style on all cells
+									var cells = row.getElementsByTagName("td");
+									for(var i = 0; i < cells.length; i++) {
+										cells[i].style.color = "#058514";
+									}
+								} else {
+									// For losses, you might want a different color
+									//row.classList.add("loss-row");
+									// Or set red color for losses
+									//var cells = row.getElementsByTagName("td");
+									//for(var i = 0; i < cells.length; i++) {
+										//cells[i].style.color = "#F19091";
+									//}
+								}
 								
 								table.prepend(row);
 								
