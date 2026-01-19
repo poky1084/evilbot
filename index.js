@@ -2318,7 +2318,7 @@ function slidebet(amount, target, betidentifier) {
     const body = {
         variables: {
             identifier: randomString(21),
-            cashoutAt: parseFloat(target.toFixed(2)),
+            cashoutAt: parseFloat(target.toFixed(4)),
             amount: parseFloat(amount.toFixed(8)),
             currency: currency
         },
@@ -6120,7 +6120,7 @@ function startSocket() {
 								tdcheck.id = "checked";
 								
 								tdhigh.appendChild(tdcheck);
-								tdTargetChance.innerHTML = (0).toFixed(4) + "";
+								tdTargetChance.innerHTML = 0
 								tdRollChance.innerHTML = ""
 								tdProfit.innerHTML = current_profit.toFixed(8)
 								tdTargetNumber.innerHTML = ">" + obj.payload.data.slide.event.cashoutAt.toFixed(4) + "";
