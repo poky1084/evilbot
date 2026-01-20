@@ -271,7 +271,7 @@ function progress(){
 	bet.crash?.event?.multiplier !== undefined && bet.crash?.event?.multiplier !== null ?  log(bet.crash?.event?.multiplier) : true
 
 	bet.slide?.event?.nextRoundIn !== undefined && bet.slide?.event?.nextRoundIn !== null ?  log(bet.slide?.event?.nextRoundIn) : true
-	bet.slide?.event?.status !== undefined && bet.slide?.status !== null ?  log(bet.slide?.event?.status) : true
+	bet.slide?.event?.status !== undefined && bet.slide?.event?.status !== null ?  log(bet.slide?.event?.status) : true
 	bet.slide?.event?.multiplier !== undefined && bet.slide?.event?.multiplier !== null ?  log(bet.slide?.event?.multiplier) : true
 }
 
