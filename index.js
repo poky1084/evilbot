@@ -5341,8 +5341,8 @@ function start(){
 			if (runBet) {
 				if (fastmode) {
 					if(game != "blackjack" && game != "hilo" && game != "bluesamurai"){
-					setTimeout(runBet, 5);
-					setTimeout(runBet, 50);
+					setTimeout(runBet, 10);
+					setTimeout(runBet, 150);
 					} else {
 						runBet();
 					}
@@ -5368,8 +5368,8 @@ function start(){
 			runBet = (fn, args = []) => {
 				if (fastmode) {
 					if(game != "blackjack" && game != "hilo" && game != "bluesamurai"){
-					setTimeout(() => fn(...args), 5);
-					setTimeout(() => fn(...args), 50);
+					setTimeout(() => fn(...args), 10);
+					setTimeout(() => fn(...args), 150);
 					} else {
 						fn(...args);
 					}
