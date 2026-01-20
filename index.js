@@ -2317,7 +2317,7 @@ async function makeRequest(body, callback) {
 }
 
 function crashclick(json) {
-	if(json.errors != null || cashedoutauto) return;
+if(json.errors != null || manualcash) return;
 		manualcash = true;
 		crash_bet_placed = false;
         cbamount = json.data.multiplayerCrashCashout.payout - json.data.multiplayerCrashCashout.amount;
@@ -5498,6 +5498,12 @@ function startSocket() {
 						}
 					}
 				}
+				/*if(obj.payload.data.hasOwnProperty("slide")){ 
+				if(obj.payload.data.slide.event.nextRoundIn < 3000){
+							cashout()
+				}
+				}
+				*/
 				if(obj.payload.data.hasOwnProperty("crash") && game == "crash" ){
 					//previousbet = nextbet;
 					
