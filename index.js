@@ -2388,7 +2388,8 @@ function crashclick(json) {
 						//lastBet.targetNumber = obj.payload.data.crash.event.cashoutAt;
 						//tdRollNumber.innerHTML = ""
 						tdNonce.innerHTML = game;
-						tdBetID.innerHTML = json.data.multiplayerCrashCashout.id;
+						tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${json.data.multiplayerCrashCashout.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
+						//tdBetID.innerHTML = json.data.multiplayerCrashCashout.id;
 						tdPayout.innerHTML = json.data.multiplayerCrashCashout.payout.toFixed(8);
 						
 
@@ -2473,7 +2474,7 @@ function crashclick(json) {
 						current_balance += current_profit;
 						balance = current_balance;
 						profit = profit_total;
-						previousbet = nextbet;
+						previousbet = lastBet.amount;
 						currentprofit = current_profit;
 						
 						
@@ -4539,7 +4540,7 @@ document.addEventListener('click', async function(e) {
 		" style="cursor: pointer; color: #007bff;">
 		  <span>${data.data.bet.iid}</span> | 
 		</button><a href="https://${mirror}/casino/home?modal=bet&betId=${betId}" target="_blank" style="text-decoration: none;">Open</a>`;
-		log(data.data.bet.iid)
+		//log(data.data.bet.iid)
     }
 });
 
@@ -5498,7 +5499,7 @@ function startSocket() {
 					}
 				}
 				if(obj.payload.data.hasOwnProperty("crash") && game == "crash" ){
-					previousbet = nextbet;
+					//previousbet = nextbet;
 					
 					if(obj.payload.data.crash.event.status == "in_progress"){
 						
@@ -5512,6 +5513,18 @@ function startSocket() {
 					
 					if(obj.payload.data.crash.event.result == "autocashout")
 					{
+						const gameType = Object.keys(obj.payload)[0] === "data" ? Object.keys(obj.payload.data)[0] : Object.keys(obj.payload)[0]
+						bet = Object.keys(obj.payload)[0] === "data" ? obj.payload.data[gameType] : obj.payload[gameType]
+						
+						lastBet = {
+							id: bet.event.id,
+							amount: bet.event.amount,
+							payoutMultiplier: bet.event.payoutMultiplier,
+							payout: bet.event.payout,
+							win: bet.event.payoutMultiplier >= 1,
+							Roll: lastBet.Roll
+						};
+						
 						//manualcash = false;
 						target = parseFloat(target.toFixed(2))
 						cashedoutauto = true;
@@ -5519,9 +5532,7 @@ function startSocket() {
 						color = "#05f711";
 						bet_found = true;
 						win = true;
-						lastBet.win = true;
-						lastBet.amount = previousbet;
-						lastBet.payoutMultiplier = target;
+						
 						
 						endgame = true;
 						//win
@@ -5578,7 +5589,7 @@ function startSocket() {
 						//lastBet.targetNumber = obj.payload.data.crash.event.cashoutAt;
 						//tdRollNumber.innerHTML = ""
 						tdNonce.innerHTML = game;
-						tdBetID.innerHTML = obj.payload.data.crash.event.id;
+						tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
 						tdPayout.innerHTML = parseFloat(nextbet * target).toFixed(8);
 						
 
@@ -5663,7 +5674,7 @@ function startSocket() {
 						current_balance += current_profit;
 						balance = current_balance;
 						profit = profit_total;
-						previousbet = nextbet;
+						previousbet = lastBet.amount;
 						currentprofit = current_profit;
 						
 						
@@ -5712,7 +5723,7 @@ function startSocket() {
 						
 						//amount = nextbet;
 						
-						lastBet.amount = previousbet;
+						
 						lastBet.target = target;
 
 						/*if(running){
@@ -5727,6 +5738,17 @@ function startSocket() {
 						
 					}
 					if(obj.payload.data.crash.event.result == "busted"){
+						const gameType = Object.keys(obj.payload)[0] === "data" ? Object.keys(obj.payload.data)[0] : Object.keys(obj.payload)[0]
+						bet = Object.keys(obj.payload)[0] === "data" ? obj.payload.data[gameType] : obj.payload[gameType]
+						lastBet = {
+							id: bet.event.id,
+							amount: bet.event.amount,
+							payoutMultiplier: bet.event.payoutMultiplier,
+							payout: bet.event.payout,
+							win: bet.event.payoutMultiplier >= 1,
+							Roll: lastBet.Roll
+						};
+						
 						//manualcash = false;
 						target = parseFloat(target.toFixed(2))
 						color = "#f72a42"
@@ -5736,11 +5758,9 @@ function startSocket() {
 						losses++;
 						losestreak++
 						winstreak = 0;
-						lastBet.payoutMultiplier = 0;
+						
 						win = false;
-						lastBet.win = false;
-						lastBet.amount = previousbet;
-						lastBet.payoutMultiplier = 0;
+						
 						
 						endgame = false;
 						betcount++;
@@ -5786,7 +5806,7 @@ function startSocket() {
 						lastBet.targetNumber = target;
 						tdRollNumber.innerHTML = ""
 						tdNonce.innerHTML = game;
-						tdBetID.innerHTML = "";
+						tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
 						tdPayout.innerHTML = ""
 						
 						
@@ -5863,7 +5883,7 @@ function startSocket() {
 						current_balance += current_profit;
 						balance = current_balance;
 						profit = profit_total;
-						previousbet = nextbet;
+						previousbet = lastBet.amount;
 						currentprofit = current_profit;
 						
 						
@@ -5912,7 +5932,7 @@ function startSocket() {
 						
 						//amount = nextbet;
 						
-						lastBet.amount = previousbet;
+						
 						lastBet.target = target;
 						
 						if(running){
@@ -5926,6 +5946,9 @@ function startSocket() {
 				
 					}
 					if(obj.payload.data.crash.event.status == "crash"){
+							
+							lastBet.Roll = obj.payload.data.crash.event.multiplier
+							
 							crash_bet_placed = false;
 							slide_bet_placed = false;
 							make_slide_bet = false;
@@ -6097,7 +6120,7 @@ function startSocket() {
 							crash_bet_placed = false
 							make_slide_bet = false;
 							betlist = []
-							previousbet = nextbet;
+							previousbet = lastBet.amount;
 							
 							document.getElementById("result").innerHTML = "Slide at " + obj.payload.data.slide.event.multiplier.toFixed(2);
 							const loader1 = document.querySelector('.loader');
@@ -6195,13 +6218,23 @@ function startSocket() {
 						if(obj.payload.data.slide.event.__typename == "MultiplayerSlideBet"){
 						
 							if(obj.payload.data.slide.event.result == "autocashout"){
+								const gameType = Object.keys(obj.payload)[0] === "data" ? Object.keys(obj.payload.data)[0] : Object.keys(obj.payload)[0]
+								bet = Object.keys(obj.payload)[0] === "data" ? obj.payload.data[gameType] : obj.payload[gameType]
+								lastBet = {
+									id: bet.event.id,
+									amount: bet.event.amount,
+									payoutMultiplier: bet.event.payoutMultiplier,
+									payout: bet.event.payout,
+									win: bet.event.payoutMultiplier >= 1,
+									Roll: lastBet.Roll
+								};
 								betlist = []
 								color = "#05f711";
 								bet_found = true;
 								win = true;
-								lastBet.win = true;
-								lastBet.amount = previousbet;
-								lastBet.payoutMultiplier = obj.payload.data.slide.event.payoutMultiplier;
+								
+								
+								
 								
 								//obj2 = (99 / obj.payload.data.slide.event.cashoutAt)
 								//object1 = { obj2: win }
@@ -6249,7 +6282,7 @@ function startSocket() {
 								//lastBet.targetNumber = target_multi;
 								tdRollNumber.innerHTML = lastBet.Roll.toFixed(4) + "";
 								tdNonce.innerHTML = game;
-								tdBetID.innerHTML = obj.payload.data.slide.event.gameId;
+								tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
 								tdPayout.innerHTML = obj.payload.data.slide.event.payout.toFixed(8);
 
 			
@@ -6323,7 +6356,7 @@ function startSocket() {
 								current_balance += current_profit;
 								balance = current_balance;
 								profit = profit_total;
-								previousbet = nextbet;
+								previousbet = lastBet.amount;
 								currentprofit = current_profit;
 		
 								
@@ -6378,14 +6411,26 @@ function startSocket() {
 						
 							
 							if (obj.payload.data.slide.event.result == "busted"){
+								const gameType = Object.keys(obj.payload)[0] === "data" ? Object.keys(obj.payload.data)[0] : Object.keys(obj.payload)[0]
+								bet = Object.keys(obj.payload)[0] === "data" ? obj.payload.data[gameType] : obj.payload[gameType]
+								
+								lastBet = {
+									id: bet.event.id,
+									amount: bet.event.amount,
+									payoutMultiplier: bet.event.payoutMultiplier,
+									payout: bet.event.payout,
+									win: bet.event.payoutMultiplier >= 1,
+									Roll: lastBet.Roll
+								};
+								
 								betlist = []
 								color = "#f72a42"
 								losses++;
 								losestreak++
 								winstreak = 0;
-								lastBet.amount = previousbet;
+								
 								win = false;
-								lastBet.win = false;
+								
 								id[gamelist[obj.payload.data.slide.event.id]] = win
 								//obj2 = (99 / obj.payload.data.slide.event.cashoutAt)
 								//object1 = { obj2: win }
@@ -6429,7 +6474,7 @@ function startSocket() {
 								//lastBet.targetNumber = target_multi;
 								tdRollNumber.innerHTML = lastBet.Roll.toFixed(4) + "";
 								tdNonce.innerHTML = game;
-								tdBetID.innerHTML = obj.payload.data.slide.event.gameId;
+								tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
 								tdPayout.innerHTML = obj.payload.data.slide.event.payout.toFixed(8);
 								
 								
@@ -6503,7 +6548,7 @@ function startSocket() {
 								current_balance += current_profit;
 								balance = current_balance;
 								profit = profit_total;
-								//previousbet = amount;
+								previousbet = lastBet.amount;
 								currentprofit = current_profit;
 			
 								
