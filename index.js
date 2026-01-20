@@ -6306,7 +6306,7 @@ function startSocket() {
 			
 								
 			} else if(obj.payload.data.hasOwnProperty("slide") && game == "slide"){
-					console.log(obj.payload.data.slide.event.status)
+					//console.log(obj.payload.data.slide.event.status)
 					
 					if(obj.payload.data.slide.event.status == "starting"){
 					//currentcount = true;
