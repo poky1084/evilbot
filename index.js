@@ -1647,7 +1647,8 @@ var slide_bet_placed = false;
 var crash_game_ran = false;
 var slide_game_ran = false;
 var make_slide_bet = false;
-dobet = function(){}
+dobet = function(){};
+progress = function(){};
 var gamelist = {}
 var makecount = 0
 var id = {}
@@ -5224,7 +5225,8 @@ function start(){
 		run_clicked = true;
 		sleeptime = 0;
 		btnStart.disabled = true;
-		dobet = function(){}
+		dobet = function(){};
+		progress = function(){};
 		document.getElementById("result").innerHTML = ""
 		currency = document.getElementById("botMenuCoin").value;
 		
@@ -5506,10 +5508,18 @@ function startSocket() {
 				}
 				}
 				*/
+				const gameType = Object.keys(obj.payload)[0] === "data" ? Object.keys(obj.payload.data)[0] : Object.keys(obj.payload)[0]
+				bet = Object.keys(obj.payload)[0] === "data" ? obj.payload.data : obj.payload
+				
+				if(running){
+					progress();
+				}
 				if(obj.payload.data.hasOwnProperty("crash") && game == "crash" ){
 					//previousbet = nextbet;
 					
 					if(obj.payload.data.crash.event.status == "in_progress"){
+						
+						
 						
 						finished_round = false
 						multiplier_start = obj.payload.data.crash.event.multiplier
@@ -5517,19 +5527,19 @@ function startSocket() {
 						 const randomValue = Math.random() * 100; // target number
 						animateCounter(counterEl, obj.payload.data.crash.event.multiplier, 400, 2); // 1.5s duration
 						//document.getElementById("result").innerHTML = obj.payload.data.crash.event.multiplier.toFixed(2) + 'x'
+						
 					} 
 					
 					if(obj.payload.data.crash.event.result == "autocashout")
 					{
-						const gameType = Object.keys(obj.payload)[0] === "data" ? Object.keys(obj.payload.data)[0] : Object.keys(obj.payload)[0]
-						bet = Object.keys(obj.payload)[0] === "data" ? obj.payload.data[gameType] : obj.payload[gameType]
+						
 						
 						lastBet = {
-							id: bet.event.id,
-							amount: bet.event.amount,
-							payoutMultiplier: bet.event.payoutMultiplier,
-							payout: bet.event.payout,
-							win: bet.event.payoutMultiplier >= 1,
+							id: bet.crash.event.id,
+							amount: bet.crash.event.amount,
+							payoutMultiplier: bet.crash.event.payoutMultiplier,
+							payout: bet.crash.event.payout,
+							win: bet.crash.event.payoutMultiplier >= 1,
 							Roll: lastBet.Roll
 						};
 						
@@ -5597,7 +5607,7 @@ function startSocket() {
 						//lastBet.targetNumber = obj.payload.data.crash.event.cashoutAt;
 						//tdRollNumber.innerHTML = ""
 						tdNonce.innerHTML = game;
-						tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
+						tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.crash.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
 						tdPayout.innerHTML = parseFloat(nextbet * target).toFixed(8);
 						
 
@@ -5746,14 +5756,13 @@ function startSocket() {
 						
 					}
 					if(obj.payload.data.crash.event.result == "busted"){
-						const gameType = Object.keys(obj.payload)[0] === "data" ? Object.keys(obj.payload.data)[0] : Object.keys(obj.payload)[0]
-						bet = Object.keys(obj.payload)[0] === "data" ? obj.payload.data[gameType] : obj.payload[gameType]
+						
 						lastBet = {
-							id: bet.event.id,
-							amount: bet.event.amount,
-							payoutMultiplier: bet.event.payoutMultiplier,
-							payout: bet.event.payout,
-							win: bet.event.payoutMultiplier >= 1,
+							id: bet.crash.event.id,
+							amount: bet.crash.event.amount,
+							payoutMultiplier: bet.crash.event.payoutMultiplier,
+							payout: bet.crash.event.payout,
+							win: bet.crash.event.payoutMultiplier >= 1,
 							Roll: lastBet.Roll
 						};
 						
@@ -5814,7 +5823,7 @@ function startSocket() {
 						lastBet.targetNumber = target;
 						tdRollNumber.innerHTML = ""
 						tdNonce.innerHTML = game;
-						tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
+						tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.crash.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
 						tdPayout.innerHTML = ""
 						
 						
@@ -6075,6 +6084,8 @@ function startSocket() {
 						}*/
 						
 						if(obj.payload.data.crash.event.nextRoundIn < 5000 && obj.payload.data.crash.event.nextRoundIn > 200){
+							
+								
 								slide_game_ran = false
 								crash_game_ran = false
 								if(run_clicked){
@@ -6226,14 +6237,13 @@ function startSocket() {
 						if(obj.payload.data.slide.event.__typename == "MultiplayerSlideBet"){
 						
 							if(obj.payload.data.slide.event.result == "autocashout"){
-								const gameType = Object.keys(obj.payload)[0] === "data" ? Object.keys(obj.payload.data)[0] : Object.keys(obj.payload)[0]
-								bet = Object.keys(obj.payload)[0] === "data" ? obj.payload.data[gameType] : obj.payload[gameType]
+								
 								lastBet = {
-									id: bet.event.id,
-									amount: bet.event.amount,
-									payoutMultiplier: bet.event.payoutMultiplier,
-									payout: bet.event.payout,
-									win: bet.event.payoutMultiplier >= 1,
+									id: bet.slide.event.id,
+									amount: bet.slide.event.amount,
+									payoutMultiplier: bet.slide.event.payoutMultiplier,
+									payout: bet.slide.event.payout,
+									win: bet.slide.event.payoutMultiplier >= 1,
 									Roll: lastBet.Roll
 								};
 								betlist = []
@@ -6290,7 +6300,7 @@ function startSocket() {
 								//lastBet.targetNumber = target_multi;
 								tdRollNumber.innerHTML = lastBet.Roll.toFixed(4) + "";
 								tdNonce.innerHTML = game;
-								tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
+								tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.slide.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
 								tdPayout.innerHTML = obj.payload.data.slide.event.payout.toFixed(8);
 
 			
@@ -6419,15 +6429,14 @@ function startSocket() {
 						
 							
 							if (obj.payload.data.slide.event.result == "busted"){
-								const gameType = Object.keys(obj.payload)[0] === "data" ? Object.keys(obj.payload.data)[0] : Object.keys(obj.payload)[0]
-								bet = Object.keys(obj.payload)[0] === "data" ? obj.payload.data[gameType] : obj.payload[gameType]
+								
 								
 								lastBet = {
-									id: bet.event.id,
-									amount: bet.event.amount,
-									payoutMultiplier: bet.event.payoutMultiplier,
-									payout: bet.event.payout,
-									win: bet.event.payoutMultiplier >= 1,
+									id: bet.slide.event.id,
+									amount: bet.slide.event.amount,
+									payoutMultiplier: bet.slide.event.payoutMultiplier,
+									payout: bet.slide.event.payout,
+									win: bet.slide.event.payoutMultiplier >= 1,
 									Roll: lastBet.Roll
 								};
 								
@@ -6482,7 +6491,7 @@ function startSocket() {
 								//lastBet.targetNumber = target_multi;
 								tdRollNumber.innerHTML = lastBet.Roll.toFixed(4) + "";
 								tdNonce.innerHTML = game;
-								tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
+								tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.slide.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
 								tdPayout.innerHTML = obj.payload.data.slide.event.payout.toFixed(8);
 								
 								
