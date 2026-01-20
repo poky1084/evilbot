@@ -2317,7 +2317,9 @@ async function makeRequest(body, callback) {
 }
 
 function crashclick(json) {
-if(json.errors != null || manualcash) return;
+		if(json.errors != null || cashedoutauto){ 
+
+		} else {
 		manualcash = true;
 		crash_bet_placed = false;
         cbamount = json.data.multiplayerCrashCashout.payout - json.data.multiplayerCrashCashout.amount;
@@ -2517,7 +2519,7 @@ if(json.errors != null || manualcash) return;
 						document.getElementById("botPercentWagered").innerHTML = (wagered / started_bal).toFixed(2);
 						
 						lastBet.percent = (profit_total / started_bal * 100)
-					
+		}
 }
 
 function cashout() {
