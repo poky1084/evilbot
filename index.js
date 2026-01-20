@@ -5960,7 +5960,6 @@ function startSocket() {
 									sendLua();
 								} else if(value == "js"){
 									dobet();
-									
 								}
 								if(game != "crash" && game != "slide"){
 									cashout_done = true;
@@ -6144,13 +6143,13 @@ function startSocket() {
 							if(endgame){
 								endgame = null;
 								if(running){
-									var value = document.getElementById("botMenuMode").value;
-									if(value == "lua"){
-										sendLua();
-									} else if(value == "js"){
-										dobet();
-									}
-									if(game != "crash" && game != "slide"){
+								var value = document.getElementById("botMenuMode").value;
+								if(value == "lua"){
+									sendLua();
+								} else if(value == "js"){
+									dobet();
+								}
+								if(game != "crash" && game != "slide"){
 									cashout_done = true;
 									 const gameHandlers = {
 										hilo: () => {
@@ -6233,7 +6232,8 @@ function startSocket() {
 										gameHandlers[game]();
 									}
 									}
-								}}
+								
+								}
 								
 								if (document.getElementById(window.lastRollCellId)) {
 									document.getElementById(window.lastRollCellId).innerHTML = lastBet.Roll.toFixed(4);
@@ -6279,7 +6279,6 @@ function startSocket() {
 										
 										
 									}
-									
 								}
 							
 							//win = false;
@@ -6390,100 +6389,7 @@ function startSocket() {
 									table.deleteRow(table.rows.length - 1);
 								}
 							}
-							setTimeout(() => {
-								if(running){
-								var value = document.getElementById("botMenuMode").value;
-								if(value == "lua"){
-									sendLua();
-								} else if(value == "js"){
-									dobet();
-								}
-								if(game != "crash" && game != "slide"){
-									cashout_done = true;
-									 const gameHandlers = {
-										hilo: () => {
-											if (cashout_done) {
-												cashout_done = false;
-												hiloBet(nextbet, startcard);
-											} else {
-												const lastCard = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
-												
-												if ([2, 4, 5, 7].includes(hiloguess)) {
-													const guesses = {
-														2: 'equal',
-														7: 'skip',
-														5: {
-															A: 'higher',
-															K: 'equal',
-															Q: 'higherEqual',
-															J: 'higherEqual',
-															default: 'higherEqual'
-														},
-														4: {
-															A: 'equal',
-															K: 'lower',
-															Q: 'lowerEqual',
-															J: 'lowerEqual',
-															default: 'lowerEqual'
-														}
-													};
-													
-													let guessed;
-													if (hiloguess === 5 || hiloguess === 4) {
-														guessed = guesses[hiloguess][lastCard] || guesses[hiloguess].default;
-													} else {
-														guessed = guesses[hiloguess];
-													}
-													
-													hiloNext(guessed);
-												} else if (hiloguess === 3) {
-													hiloCash();
-												}
-											}
-										},
-										blackjack: () => {
-											if (cashout_done) {
-												cashout_done = false;
-												blackjackBet(nextbet);
-											} else {
-												blackjackNext(action);
-											}
-										},
-										bars: () => barsBet(nextbet, difficulty, tiles),
-										tomeoflife: () => tomeBet(nextbet, lines),
-										scarabspin: () => scarabBet(nextbet, lines),
-										bluesamurai: () => samuraiBet(nextbet),
-										diamonds: () => diamondBet(nextbet),
-										cases: () => caseBet(nextbet, difficulty),
-										videopoker: () => videopokerBet(nextbet),
-										rps: () => rockpaperBet(nextbet, guesses),
-										flip: () => flipBet(nextbet, guesses),
-										snakes: () => snakesBet(nextbet, difficulty, rolls),
-										pump: () => pumpBet(nextbet, pumps, difficulty),
-										baccarat: () => baccaratbet(tie, player, banker),
-										dragontower: () => dragontowerBet(nextbet, difficulty, eggs),
-										roulette: () => roulettebet(chips),
-										wheel: () => wheelbet(nextbet, segments, risk),
-										plinko: () => plinkobet(nextbet, rows, risk),
-										mines: () => minebet(nextbet, fields, mines),
-										keno: () => kenobet(nextbet, numbers, risk),
-										dice: () => DiceBet(nextbet, chance, bethigh),
-										limbo: () => LimboBet(nextbet, target),
-										darts: () => dartsBet(nextbet, difficulty),
-										packs: () => packsBet(nextbet), 
-										chicken: () => chickenBet(nextbet, difficulty, steps),
-										tarot: () => tarotBet(nextbet, difficulty),
-										drill: () => drillBet(nextbet, target, pick),
-										primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
-									};
-
-									if (gameHandlers[game]) {
-										gameHandlers[game]();
-									}
-									}
-								
-								}
-							}, "5000");
+				
 					
 					}
 			
@@ -6676,7 +6582,98 @@ function startSocket() {
 								
 								lastBet.percent = (profit_total / started_bal * 100)
 								
-							
+								if(running){
+								var value = document.getElementById("botMenuMode").value;
+								if(value == "lua"){
+									sendLua();
+								} else if(value == "js"){
+									dobet();
+								}
+								if(game != "crash" && game != "slide"){
+									cashout_done = true;
+									 const gameHandlers = {
+										hilo: () => {
+											if (cashout_done) {
+												cashout_done = false;
+												hiloBet(nextbet, startcard);
+											} else {
+												const lastCard = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
+												
+												if ([2, 4, 5, 7].includes(hiloguess)) {
+													const guesses = {
+														2: 'equal',
+														7: 'skip',
+														5: {
+															A: 'higher',
+															K: 'equal',
+															Q: 'higherEqual',
+															J: 'higherEqual',
+															default: 'higherEqual'
+														},
+														4: {
+															A: 'equal',
+															K: 'lower',
+															Q: 'lowerEqual',
+															J: 'lowerEqual',
+															default: 'lowerEqual'
+														}
+													};
+													
+													let guessed;
+													if (hiloguess === 5 || hiloguess === 4) {
+														guessed = guesses[hiloguess][lastCard] || guesses[hiloguess].default;
+													} else {
+														guessed = guesses[hiloguess];
+													}
+													
+													hiloNext(guessed);
+												} else if (hiloguess === 3) {
+													hiloCash();
+												}
+											}
+										},
+										blackjack: () => {
+											if (cashout_done) {
+												cashout_done = false;
+												blackjackBet(nextbet);
+											} else {
+												blackjackNext(action);
+											}
+										},
+										bars: () => barsBet(nextbet, difficulty, tiles),
+										tomeoflife: () => tomeBet(nextbet, lines),
+										scarabspin: () => scarabBet(nextbet, lines),
+										bluesamurai: () => samuraiBet(nextbet),
+										diamonds: () => diamondBet(nextbet),
+										cases: () => caseBet(nextbet, difficulty),
+										videopoker: () => videopokerBet(nextbet),
+										rps: () => rockpaperBet(nextbet, guesses),
+										flip: () => flipBet(nextbet, guesses),
+										snakes: () => snakesBet(nextbet, difficulty, rolls),
+										pump: () => pumpBet(nextbet, pumps, difficulty),
+										baccarat: () => baccaratbet(tie, player, banker),
+										dragontower: () => dragontowerBet(nextbet, difficulty, eggs),
+										roulette: () => roulettebet(chips),
+										wheel: () => wheelbet(nextbet, segments, risk),
+										plinko: () => plinkobet(nextbet, rows, risk),
+										mines: () => minebet(nextbet, fields, mines),
+										keno: () => kenobet(nextbet, numbers, risk),
+										dice: () => DiceBet(nextbet, chance, bethigh),
+										limbo: () => LimboBet(nextbet, target),
+										darts: () => dartsBet(nextbet, difficulty),
+										packs: () => packsBet(nextbet), 
+										chicken: () => chickenBet(nextbet, difficulty, steps),
+										tarot: () => tarotBet(nextbet, difficulty),
+										drill: () => drillBet(nextbet, target, pick),
+										primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
+									};
+
+									if (gameHandlers[game]) {
+										gameHandlers[game]();
+									}
+									}
+								
+								}
 								/*
 								dobet();
 					
@@ -6867,7 +6864,98 @@ function startSocket() {
 								
 								lastBet.percent = (profit_total / started_bal * 100)
 													
+								if(running){
+								var value = document.getElementById("botMenuMode").value;
+								if(value == "lua"){
+									sendLua();
+								} else if(value == "js"){
+									dobet();
+								}
+								if(game != "crash" && game != "slide"){
+									cashout_done = true;
+									 const gameHandlers = {
+										hilo: () => {
+											if (cashout_done) {
+												cashout_done = false;
+												hiloBet(nextbet, startcard);
+											} else {
+												const lastCard = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
+												
+												if ([2, 4, 5, 7].includes(hiloguess)) {
+													const guesses = {
+														2: 'equal',
+														7: 'skip',
+														5: {
+															A: 'higher',
+															K: 'equal',
+															Q: 'higherEqual',
+															J: 'higherEqual',
+															default: 'higherEqual'
+														},
+														4: {
+															A: 'equal',
+															K: 'lower',
+															Q: 'lowerEqual',
+															J: 'lowerEqual',
+															default: 'lowerEqual'
+														}
+													};
+													
+													let guessed;
+													if (hiloguess === 5 || hiloguess === 4) {
+														guessed = guesses[hiloguess][lastCard] || guesses[hiloguess].default;
+													} else {
+														guessed = guesses[hiloguess];
+													}
+													
+													hiloNext(guessed);
+												} else if (hiloguess === 3) {
+													hiloCash();
+												}
+											}
+										},
+										blackjack: () => {
+											if (cashout_done) {
+												cashout_done = false;
+												blackjackBet(nextbet);
+											} else {
+												blackjackNext(action);
+											}
+										},
+										bars: () => barsBet(nextbet, difficulty, tiles),
+										tomeoflife: () => tomeBet(nextbet, lines),
+										scarabspin: () => scarabBet(nextbet, lines),
+										bluesamurai: () => samuraiBet(nextbet),
+										diamonds: () => diamondBet(nextbet),
+										cases: () => caseBet(nextbet, difficulty),
+										videopoker: () => videopokerBet(nextbet),
+										rps: () => rockpaperBet(nextbet, guesses),
+										flip: () => flipBet(nextbet, guesses),
+										snakes: () => snakesBet(nextbet, difficulty, rolls),
+										pump: () => pumpBet(nextbet, pumps, difficulty),
+										baccarat: () => baccaratbet(tie, player, banker),
+										dragontower: () => dragontowerBet(nextbet, difficulty, eggs),
+										roulette: () => roulettebet(chips),
+										wheel: () => wheelbet(nextbet, segments, risk),
+										plinko: () => plinkobet(nextbet, rows, risk),
+										mines: () => minebet(nextbet, fields, mines),
+										keno: () => kenobet(nextbet, numbers, risk),
+										dice: () => DiceBet(nextbet, chance, bethigh),
+										limbo: () => LimboBet(nextbet, target),
+										darts: () => dartsBet(nextbet, difficulty),
+										packs: () => packsBet(nextbet), 
+										chicken: () => chickenBet(nextbet, difficulty, steps),
+										tarot: () => tarotBet(nextbet, difficulty),
+										drill: () => drillBet(nextbet, target, pick),
+										primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
+									};
+
+									if (gameHandlers[game]) {
+										gameHandlers[game]();
+									}
+									}
 								
+								}
 								
 								/*
 								dobet();
@@ -6930,7 +7018,6 @@ function startSocket() {
 										
 										
 									}
-									
 									
 									
 								}
