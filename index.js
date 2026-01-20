@@ -5508,11 +5508,13 @@ function startSocket() {
 				}
 				}
 				*/
+				if(game === "crash" || game === "slide"){
 				const gameType = Object.keys(obj.payload)[0] === "data" ? Object.keys(obj.payload.data)[0] : Object.keys(obj.payload)[0]
 				bet = Object.keys(obj.payload)[0] === "data" ? obj.payload.data : obj.payload
 				
 				if(running){
 					progress();
+				}
 				}
 				if(obj.payload.data.hasOwnProperty("crash") && game == "crash" ){
 					//previousbet = nextbet;
