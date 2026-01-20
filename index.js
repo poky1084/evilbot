@@ -1657,7 +1657,7 @@ var betidentifier = "identity01"
 var betlist = []
 var finished_round = false
 var mirror = "stake.ac"
-
+var donecashout = false;
 
 let websocket = null;
 let reconnectTimeout = null;
@@ -2266,6 +2266,7 @@ function datacrash(json) {
     if (json.data.multiplayerCrashBet.result === "pending") {
         crash_bet_placed = true;
 		manualcash = false;
+		donecashout = false;
         cbamount = json.data.multiplayerCrashBet.amount;
         cbtarget = json.data.multiplayerCrashBet.cashoutAt;
         log(`Crash bet placed | Amount: ${cbamount.toFixed(8)} | Target: ${cbtarget.toFixed(2)}`);
@@ -2319,7 +2320,7 @@ async function makeRequest(body, callback) {
 }
 
 function crashclick(json) {
-		if(json.errors != null || cashedoutauto){ 
+		if(json.errors != null || cashedoutauto || donecashout){ 
 
 		} else {
 		manualcash = true;
@@ -2327,6 +2328,7 @@ function crashclick(json) {
         cbamount = json.data.multiplayerCrashCashout.payout - json.data.multiplayerCrashCashout.amount;
         cbtarget = json.data.multiplayerCrashCashout.payoutMultiplier;
         log(`Crash manual | multiplier: ${cbtarget.toFixed(2)} | Profit: ${cbamount.toFixed(8)}`);
+		donecashout = true
 		
 						//cashedoutauto = true;
 						//bet_has_been_made = false;
