@@ -267,7 +267,7 @@ function dobet(){
 function progress(){
 
 	bet.crash?.event?.nextRoundIn !== undefined && bet.crash?.event?.nextRoundIn !== null ?  log(bet.crash?.event?.nextRoundIn) : true
-	bet.crash?.event?.status !== undefined && bet.crash?.status !== null ?  log(bet.crash?.event?.status) : true
+	bet.crash?.event?.status !== undefined && bet.crash?.event?.status !== null ?  log(bet.crash?.event?.status) : true
 	bet.crash?.event?.multiplier !== undefined && bet.crash?.event?.multiplier !== null ?  log(bet.crash?.event?.multiplier) : true
 
 	bet.slide?.event?.nextRoundIn !== undefined && bet.slide?.event?.nextRoundIn !== null ?  log(bet.slide?.event?.nextRoundIn) : true
