@@ -5549,7 +5549,7 @@ function startSocket() {
 						};
 						
 						//manualcash = false;
-						target = parseFloat(target.toFixed(2))
+						
 						cashedoutauto = true;
 						//bet_has_been_made = false;
 						color = "#05f711";
@@ -5566,9 +5566,9 @@ function startSocket() {
 						bets = betcount;
 						
 					
-						current_profit = parseFloat(nextbet * target) - parseFloat(nextbet);
-						profit_total += parseFloat(nextbet * target) - parseFloat(nextbet);
-						wagered += parseFloat(nextbet);
+						current_profit = parseFloat(lastBet.payout) - parseFloat(lastBet.amount);
+						profit_total += current_profit;
+						wagered += parseFloat(lastBet.amount);
 						
 						var row = document.createElement("tr");
 					
@@ -5596,7 +5596,7 @@ function startSocket() {
 						window.lastRollCellId = tdRollNumber.id;
 						
 						tdbets.innerHTML = betcount;
-						tdamount.innerHTML = nextbet.toFixed(8)
+						tdamount.innerHTML = lastBet.amount.toFixed(8)
 						
 						var tdcheck = document.createElement("input");
 						tdcheck.type = "checkbox";
@@ -5605,10 +5605,10 @@ function startSocket() {
 						tdcheck.id = "checked";
 						
 						tdhigh.appendChild(tdcheck);
-						tdTargetChance.innerHTML = target.toFixed(2) + ""
+						tdTargetChance.innerHTML = bet.crash.event.payout.cashoutAt.toFixed(2) + ""
 						tdRollChance.innerHTML = ""
 						tdProfit.innerHTML = current_profit.toFixed(8)
-						tdTargetNumber.innerHTML = ">" + target.toFixed(2)
+						tdTargetNumber.innerHTML = ">" + bet.crash.event.payout.cashoutAt.toFixed(2)
 						//lastBet.targetNumber = obj.payload.data.crash.event.cashoutAt;
 						//tdRollNumber.innerHTML = ""
 						tdNonce.innerHTML = game;
@@ -5673,9 +5673,9 @@ function startSocket() {
 							currentstreak = -losestreak;
 						}
 					
-						if(highest_bet[highest_bet.length-1] < nextbet){
+						if(highest_bet[highest_bet.length-1] < lastBet.amount){
 							highest_bet.pop();
-							highest_bet.push(nextbet);
+							highest_bet.push(lastBet.amount);
 						}
 						if(highest_profit[highest_profit.length-1] < profit_total){
 							highest_profit.pop();
@@ -5747,7 +5747,7 @@ function startSocket() {
 						//amount = nextbet;
 						
 						
-						lastBet.target = target;
+						//lastBet.target = target;
 
 						/*if(running){
 							var value = document.getElementById("botMenuMode").value;
@@ -5772,11 +5772,11 @@ function startSocket() {
 						};
 						
 						//manualcash = false;
-						target = parseFloat(target.toFixed(2))
+						//target = parseFloat(target.toFixed(2))
 						color = "#f72a42"
-						current_profit = -parseFloat(nextbet);
-						profit_total += -parseFloat(nextbet);
-						wagered += parseFloat(nextbet);
+						current_profit = parseFloat(lastBet.payout)-parseFloat(lastBet.amount);
+						profit_total += current_profit
+						wagered += parseFloat(lastBet.amount);
 						losses++;
 						losestreak++
 						winstreak = 0;
@@ -5824,8 +5824,8 @@ function startSocket() {
 						tdTargetChance.innerHTML = 0
 						tdRollChance.innerHTML = ""
 						tdProfit.innerHTML = current_profit.toFixed(8)
-						tdTargetNumber.innerHTML = ">" + target.toFixed(2)
-						lastBet.targetNumber = target;
+						tdTargetNumber.innerHTML = ">" + bet.crash.event.cashoutAt.toFixed(2)
+						lastBet.targetNumber = bet.crash.event.cashoutAt;
 						tdRollNumber.innerHTML = ""
 						tdNonce.innerHTML = game;
 						tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.crash.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
@@ -5881,9 +5881,9 @@ function startSocket() {
 							currentstreak = -losestreak;
 						}
 					
-						if(highest_bet[highest_bet.length-1] < nextbet){
+						if(highest_bet[highest_bet.length-1] < lastBet.amount){
 							highest_bet.pop();
-							highest_bet.push(nextbet);
+							highest_bet.push(lastBet.amount);
 						}
 						if(highest_profit[highest_profit.length-1] < profit_total){
 							highest_profit.pop();
@@ -5955,7 +5955,7 @@ function startSocket() {
 						//amount = nextbet;
 						
 						
-						lastBet.target = target;
+						//lastBet.target = lastBet.amount;
 						
 						if(running){
 								var value = document.getElementById("botMenuMode").value;
