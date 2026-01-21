@@ -3256,83 +3256,35 @@ function outvault(json){
 	}
 
 }
-function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
-
-    fetch(`https://${mirror}/${url}`, {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-            'Content-Type': 'application/json',
-            'x-access-token': tokenapi
-        }
-    })
-    .then(res => {
-        if (!res.ok) {
-            // Manually throw an object with the status code
-            throw { status: res.status };
-        }
-        return res.json();
-    })
-    .then(json => data(json))
-    .catch(err => {
-        if (running) {
-           // console.log("Caught error status:", err.status);
-
-            if (err.status === 403) {
-                setTimeout(() => {
-			console.log("error status 403");
-			
-			if (running) {
-				
-			runBet = (fn, args = []) => {
-				fn(...args);
-			};
-
-			gameFunctions = {
-				bars: 		 () => runBet(barsBet, [nextbet, difficulty, tiles]),
-				hilo:        () => runBet(hiloBet, [nextbet, startcard]),
-				bluesamurai: () => runBet(samuraiBet, [nextbet]),
-				darts:       () => runBet(dartsBet, [nextbet, difficulty]),
-				tomeoflife:  () => runBet(tomeBet, [nextbet, lines]),
-				scarabspin:  () => runBet(scarabBet, [nextbet, lines]),
-				diamonds:    () => runBet(diamondBet, [nextbet]),
-				cases:       () => runBet(caseBet, [nextbet, difficulty]),
-				videopoker:  () => runBet(videopokerBet, [nextbet]),
-				rps:         () => runBet(rockpaperBet, [nextbet, guesses]),
-				flip:        () => runBet(flipBet, [nextbet, guesses]),
-				snakes:      () => runBet(snakesBet, [nextbet, difficulty, rolls]),
-				pump:        () => runBet(pumpBet, [nextbet, pumps, difficulty]),
-				baccarat:    () => runBet(baccaratbet, [tie, player, banker]),
-				dragontower: () => runBet(dragontowerBet, [nextbet, difficulty, eggs]),
-				roulette:    () => runBet(roulettebet, [chips]),
-				wheel:       () => runBet(wheelbet, [nextbet, segments, risk]),
-				plinko:      () => runBet(plinkobet, [nextbet, rows, risk]),
-				mines:       () => runBet(minesbet, [nextbet, fields, mines]),
-				keno:        () => runBet(kenobet, [nextbet, numbers, risk]),
-				dice:        () => runBet(DiceBet, [nextbet, chance, bethigh]),
-				limbo:       () => runBet(LimboBet, [nextbet, target]),
-				packs:       () => runBet(packsBet, [nextbet]),
-				blackjack:	 () => runBet(blackjackBet, [nextbet]),
-				chicken: 	 () => runBet(chickenBet, [nextbet, difficulty, steps]),
-				tarot: 	 	 () => runBet(tarotBet, [nextbet, difficulty]),
-				drill: 	 	 () => runBet(drillBet, [nextbet, target, pick]),
-				primedice:   () => runBet(PrimeBet, [nextbet, target1, target2, target3, target4, condition])
-			};
-
-			if (game in gameFunctions) gameFunctions[game]();
-			}		
-					
-                }, 2000);
-            } else {
-                setTimeout(() => {
-                    //console.log("betrequest");
-					if (running) {
-						betRequest({ url, body, retryParams, retryDelay });
-					}
-                }, 2000);
+function betRequest({ url, body, retryParams = [], retryDelay = 2000 }) {
+    // Don't wait for previous request to complete - just fire new one
+    const makeRequest = () => {
+        fetch(`https://${mirror}/${url}`, {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': tokenapi
             }
-        }
-    });
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw { status: res.status };
+            }
+            return res.json();
+        })
+        .then(json => data(json))
+        .catch(err => {
+            if (running) {
+                setTimeout(() => {
+                    // Simply retry without checking other requests
+                    makeRequest();
+                }, retryDelay);
+            }
+        });
+    };
+    
+    makeRequest();
 }
 
 function drillBet(amount, target, pick) {
@@ -4433,9 +4385,11 @@ function data(json){
 		}
 		}
 		if (running && !samuraiskip) {
-		sleepfor(sleeptime).then(() => {
-        sleeptime = 0;
+		//sleepfor(sleeptime).then(() => {
+		setTimeout(() => {
+        //sleeptime = 0;
         if (!running) return;
+		sleeptime = 0;
 
         const gameHandlers = {
             hilo: () => {
@@ -4517,7 +4471,8 @@ function data(json){
         if (gameHandlers[game]) {
             gameHandlers[game]();
         }
-    });
+		}, sleeptime);
+    //});
 	}		
 }
 
