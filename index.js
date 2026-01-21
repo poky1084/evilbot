@@ -3275,12 +3275,7 @@ function betRequest({ url, body, retryParams = [], retryDelay = 2000 }) {
         })
         .then(json => data(json))
         .catch(err => {
-            if (running) {
-                setTimeout(() => {
-                    // Simply retry without checking other requests
-                    makeRequest();
-                }, retryDelay);
-            }
+
         });
     };
     
