@@ -166,9 +166,7 @@ segments = 10
 <b>baccarat:</b>
 ```javascript
 game = "baccarat"
-player = 0.001
-banker = 0
-tie = 0
+nextbet = { player: 0, banker: 0.004, tie: 0}
  ```
 <b>dragon tower:</b>
 ```javascript
