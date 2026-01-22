@@ -4653,17 +4653,17 @@ function addHILOGameControls() {
 		running = false;
 		manualhilo = true;
 		let guesser = "lowerEqual"
-		if(currentBet.state.rounds.at(-1)?.card.rank === "K"){
+		if(currentBet?.state?.rounds?.at(-1)?.card?.rank === "K"){
 			guesser = "lower"
 		}
-		if(currentBet.state.rounds.length === 0 && currentBet.state.startCard.rank === "K"){
+		if(currentBet.state.rounds.length === 0 && currentBet?.state?.startCard?.rank === "K"){
 			guesser = "lower"
 		}
 		
-		if(currentBet.state.rounds.at(-1)?.card.rank === "A"){
+		if(currentBet?.state?.rounds?.at(-1)?.card?.rank === "A"){
 			return;
 		}
-		if(currentBet.state.rounds.length === 0 && currentBet.state.startCard.rank === "A"){
+		if(currentBet.state.rounds.length === 0 && currentBet?.state?.startCard?.rank === "A"){
 			return;
 		}
 		hiloNext(guesser);
@@ -4679,17 +4679,17 @@ function addHILOGameControls() {
 		running = false;
 		manualhilo = true;
 		let guesser = "higherEqual"
-		if(currentBet.state.rounds.at(-1)?.card.rank === "A"){
+		if(currentBet?.state?.rounds?.at(-1)?.card?.rank === "A"){
 			guesser = "higher"
 		}
-		if(currentBet.state.rounds.length === 0 && currentBet.state.startCard.rank === "A"){
+		if(currentBet.state.rounds.length === 0 && currentBet?.state?.startCard?.rank === "A"){
 			guesser = "higher"
 		}
 		
-		if(currentBet.state.rounds.at(-1)?.card.rank === "K"){
+		if(currentBet?.state?.rounds?.at(-1)?.card?.rank === "K"){
 			return;
 		}
-		if(currentBet.state.rounds.length === 0 && currentBet.state.startCard.rank === "K"){
+		if(currentBet.state.rounds.length === 0 && currentBet?.state?.startCard?.rank === "K"){
 			return;
 		}
 		hiloNext(guesser);
@@ -12574,7 +12574,7 @@ function data(json){
             currentBet = bet;
 			//console.log(currentBet, hiloguess)
 			
-			const lastCard11 = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
+			const lastCard11 = currentBet?.state?.rounds?.at(-1)?.card?.rank || currentBet?.state?.startCard?.rank;
                     
 			if ([2, 4, 5, 7].includes(hiloguess)) {
 				const guesses = {
@@ -12611,7 +12611,7 @@ function data(json){
 				}
 			} else {
 				// Normal start
-				//const lastCard11 = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
+				//const lastCard11 = currentBet?.state?.rounds?.at(-1)?.card?.rank || currentBet?.state?.startCard?.rank;
 				
 				// (Rest of your existing code for handling guesses)
 				if(true){
@@ -12963,7 +12963,7 @@ function data(json){
                     cashout_done = false;
                     hiloBet(nextbet, startcard);
                 } else {
-                    const lastCard = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
+                    const lastCard = currentBet?.state?.rounds?.at(-1)?.card?.rank || currentBet?.state?.startCard?.rank;
                     
                     if ([2, 4, 5, 7].includes(hiloguess)) {
                         const guesses = {
@@ -14494,7 +14494,7 @@ function startSocket() {
 												cashout_done = false;
 												hiloBet(nextbet, startcard);
 											} else {
-												const lastCard = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
+												const lastCard = currentBet?.state?.rounds?.at(-1)?.card?.rank || currentBet?.state?.startCard?.rank;
 												
 												if ([2, 4, 5, 7].includes(hiloguess)) {
 													const guesses = {
@@ -14682,7 +14682,7 @@ function startSocket() {
 												cashout_done = false;
 												hiloBet(nextbet, startcard);
 											} else {
-												const lastCard = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
+												const lastCard = currentBet?.state?.rounds?.at(-1)?.card?.rank || currentBet?.state?.startCard?.rank;
 												
 												if ([2, 4, 5, 7].includes(hiloguess)) {
 													const guesses = {
@@ -14851,7 +14851,7 @@ function startSocket() {
 								cashout_done = false;
 								hiloBet(nextbet, startcard);
 							} else {
-								const lastCard = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
+								const lastCard = currentBet?.state?.rounds?.at(-1)?.card?.rank || currentBet?.state?.startCard?.rank;
 								
 								if ([2, 4, 5, 7].includes(hiloguess)) {
 									const guesses = {
