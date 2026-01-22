@@ -8384,12 +8384,12 @@ function toggleBaccaratBet(betType) {
     // Toggle the bet
     if (nextbet[betType] > 0) {
         // Remove bet
-        nextbet[betType] = 0;
+        //nextbet[betType] = 0;
         option.classList.remove('active', `${betType}-bet`);
         option.querySelector('.bet-amount').textContent = '0';
     } else {
         // Add bet
-        nextbet[betType] = betAmount;
+        //nextbet[betType] = betAmount;
         option.classList.add('active', `${betType}-bet`);
         option.querySelector('.bet-amount').textContent = betAmount;
     }
@@ -8404,9 +8404,7 @@ function toggleBaccaratBet(betType) {
     //document.getElementById('baccaratPlayBtn').disabled = totalBetAmount <= 0;
     
     // Update bet variables
-    player = nextbet.player;
-    banker = nextbet.banker;
-    tie = nextbet.tie;
+
 }
 
 // Update bet information display
@@ -8419,7 +8417,7 @@ function updateBetInfoDisplay() {
     `;
     
     // Update total bet
-    document.getElementById('totalBetAmount').textContent = totalBetAmount.toFixed(8);
+    document.getElementById('totalBetAmount').textContent = 0;
 }
 
 let betamount = {player: 0,banker: 0,tie: 0};
@@ -8461,9 +8459,7 @@ function clearBaccaratBet() {
     resetBaccaratCards();
     
     // Reset bet variables
-    player = nextbet.player;
-    banker = nextbet.banker;
-    tie = nextbet.tie;
+
 }
 
 // Reset Baccarat cards display
