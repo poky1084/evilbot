@@ -6922,7 +6922,7 @@ function playKenoGame() {
     if (kenoSelectedNumbers.length === 0 || kenoGameActive) return;
     
     // Get bet amount from your system
-    const betamount = basebet;
+    const betamount = nextbet;
     const numbers = [...kenoSelectedNumbers]; // Already 0-39 internally
     const risk = currentRiskLevel;
     
@@ -8426,7 +8426,7 @@ let betamount = {player: 0,banker: 0,tie: 0};
 // Clear all Baccarat bets
 function clearBaccaratBet() {
     // Reset all bet amounts
-    baccaratBetAmounts = betamount
+    baccaratBetAmounts = nextbet
     totalBetAmount = 0;
     baccaratGameActive = false;
     
@@ -8506,7 +8506,7 @@ function playBaccaratGame() {
     });
     
     // Place bet using your existing baccaratbet function
-    baccaratbet(tie, player, banker);
+    baccaratbet(nextbet.tie, nextbet.player, nextbet.banker);
 }
 
 // Function to display Baccarat results from JSON response
@@ -11536,7 +11536,7 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
 				flip:        () => runBet(flipBet, [nextbet, guesses]),
 				snakes:      () => runBet(snakesBet, [nextbet, difficulty, rolls]),
 				pump:        () => runBet(pumpBet, [nextbet, pumps, difficulty]),
-				baccarat:    () => runBet(baccaratbet, [tie, player, banker]),
+				baccarat:    () => runBet(baccaratbet, [nextbet.tie, nextbet.player, nextbet.banker]),
 				dragontower: () => runBet(dragontowerBet, [nextbet, difficulty, eggs]),
 				roulette:    () => runBet(roulettebet, [chips]),
 				wheel:       () => runBet(wheelbet, [nextbet, segments, risk]),
@@ -13030,7 +13030,7 @@ function data(json){
             flip: () => flipBet(nextbet, guesses),
             snakes: () => snakesBet(nextbet, difficulty, rolls),
             pump: () => pumpBet(nextbet, pumps, difficulty),
-            baccarat: () => baccaratbet(tie, player, banker),
+            baccarat: () => baccaratbet(nextbet.tie, nextbet.player, nextbet.banker),
             dragontower: () => dragontowerBet(nextbet, difficulty, eggs),
             roulette: () => roulettebet(chips),
             wheel: () => wheelbet(nextbet, segments, risk),
@@ -13857,7 +13857,7 @@ function start(){
 				flip: () => flipBet(nextbet, guesses),
 				snakes: () => snakesBet(nextbet, difficulty, rolls),
 				pump: () => pumpBet(nextbet, pumps, difficulty),
-				baccarat: () => baccaratbet(tie, player, banker),
+				baccarat: () => baccaratbet(nextbet.tie, nextbet.player, nextbet.banker),
 				dragontower: () => dragontowerBet(nextbet, difficulty, eggs),
 				roulette: () => roulettebet(chips),
 				wheel: () => wheelbet(nextbet, segments, risk),
@@ -13914,9 +13914,7 @@ function start(){
 					fn(...args);
 				}
 			};
-			player = betamount.player || player
-			banker = betamount.banker || banker
-			tie = betamount.tie || tie
+			
 			gameFunctions = {
 				bars: 		 () => runBet(barsBet, [nextbet, difficulty, tiles]),
 				hilo:        () => runBet(hiloBet, [nextbet, startcard]),
@@ -13931,7 +13929,7 @@ function start(){
 				flip:        () => runBet(flipBet, [nextbet, guesses]),
 				snakes:      () => runBet(snakesBet, [nextbet, difficulty, rolls]),
 				pump:        () => runBet(pumpBet, [nextbet, pumps, difficulty]),
-				baccarat:    () => runBet(baccaratbet, [tie, player, banker]),
+				baccarat:    () => runBet(baccaratbet, [nextbet.tie, nextbet.player, nextbet.banker]),
 				dragontower: () => runBet(dragontowerBet, [nextbet, difficulty, eggs]),
 				roulette:    () => runBet(roulettebet, [chips]),
 				wheel:       () => runBet(wheelbet, [nextbet, segments, risk]),
@@ -14563,7 +14561,7 @@ function startSocket() {
 										flip: () => flipBet(nextbet, guesses),
 										snakes: () => snakesBet(nextbet, difficulty, rolls),
 										pump: () => pumpBet(nextbet, pumps, difficulty),
-										baccarat: () => baccaratbet(tie, player, banker),
+										baccarat: () => baccaratbet(nextbet.tie, nextbet.player, nextbet.banker),
 										dragontower: () => dragontowerBet(nextbet, difficulty, eggs),
 										roulette: () => roulettebet(chips),
 										wheel: () => wheelbet(nextbet, segments, risk),
@@ -14751,7 +14749,7 @@ function startSocket() {
 										flip: () => flipBet(nextbet, guesses),
 										snakes: () => snakesBet(nextbet, difficulty, rolls),
 										pump: () => pumpBet(nextbet, pumps, difficulty),
-										baccarat: () => baccaratbet(tie, player, banker),
+										baccarat: () => baccaratbet(nextbet.tie, nextbet.player, nextbet.banker),
 										dragontower: () => dragontowerBet(nextbet, difficulty, eggs),
 										roulette: () => roulettebet(chips),
 										wheel: () => wheelbet(nextbet, segments, risk),
@@ -14920,7 +14918,7 @@ function startSocket() {
 						flip: () => flipBet(nextbet, guesses),
 						snakes: () => snakesBet(nextbet, difficulty, rolls),
 						pump: () => pumpBet(nextbet, pumps, difficulty),
-						baccarat: () => baccaratbet(tie, player, banker),
+						baccarat: () => baccaratbet(nextbet.tie, nextbet.player, nextbet.banker),
 						dragontower: () => dragontowerBet(nextbet, difficulty, eggs),
 						roulette: () => roulettebet(chips),
 						wheel: () => wheelbet(nextbet, segments, risk),
