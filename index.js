@@ -8382,20 +8382,20 @@ function toggleBaccaratBet(betType) {
     const betAmount = nextbet; // Use current nextbet amount
     
     // Toggle the bet
-    if (baccaratBetAmounts[betType] > 0) {
+    if (nextbet[betType] > 0) {
         // Remove bet
-        baccaratBetAmounts[betType] = 0;
+        nextbet[betType] = 0;
         option.classList.remove('active', `${betType}-bet`);
         option.querySelector('.bet-amount').textContent = '0';
     } else {
         // Add bet
-        baccaratBetAmounts[betType] = betAmount;
+        nextbet[betType] = betAmount;
         option.classList.add('active', `${betType}-bet`);
-        option.querySelector('.bet-amount').textContent = betAmount.toFixed(2);
+        option.querySelector('.bet-amount').textContent = betAmount;
     }
     
     // Calculate total bet
-    totalBetAmount = baccaratBetAmounts.player + baccaratBetAmounts.banker + baccaratBetAmounts.tie;
+    totalBetAmount = nextbet.player + nextbet.banker + nextbet.tie;
     
     // Update bet info
     updateBetInfoDisplay();
@@ -8404,18 +8404,18 @@ function toggleBaccaratBet(betType) {
     //document.getElementById('baccaratPlayBtn').disabled = totalBetAmount <= 0;
     
     // Update bet variables
-    player = baccaratBetAmounts.player;
-    banker = baccaratBetAmounts.banker;
-    tie = baccaratBetAmounts.tie;
+    player = nextbet.player;
+    banker = nextbet.banker;
+    tie = nextbet.tie;
 }
 
 // Update bet information display
 function updateBetInfoDisplay() {
     // Update bet amounts summary
     document.getElementById('betAmountsSummary').innerHTML = `
-        <div class="bet-amount-item">Player: ${baccaratBetAmounts.player.toFixed(8)}</div>
-        <div class="bet-amount-item">Tie: ${baccaratBetAmounts.tie.toFixed(8)}</div>
-		<div class="bet-amount-item">Banker: ${baccaratBetAmounts.banker.toFixed(8)}</div>
+        <div class="bet-amount-item">Player: ${nextbet.player}</div>
+        <div class="bet-amount-item">Tie: ${nextbet.tie}</div>
+		<div class="bet-amount-item">Banker: ${nextbet.banker}</div>
     `;
     
     // Update total bet
@@ -8461,9 +8461,9 @@ function clearBaccaratBet() {
     resetBaccaratCards();
     
     // Reset bet variables
-    player = baccaratBetAmounts.player;
-    banker = baccaratBetAmounts.banker;
-    tie = baccaratBetAmounts.tie;
+    player = nextbet.player;
+    banker = nextbet.banker;
+    tie = nextbet.tie;
 }
 
 // Reset Baccarat cards display
@@ -8490,7 +8490,7 @@ function resetBaccaratCards() {
 // Play Baccarat game
 function playBaccaratGame() {
 	if(running) return;
-    if (totalBetAmount <= 0 || baccaratGameActive) return;
+   
     
     baccaratGameActive = true;
     
@@ -8605,22 +8605,22 @@ function calculateAndDisplayWinnings(result, betData) {
     // Check which bets won
     const winningBets = [];
     
-    if (result === 'player' && baccaratBetAmounts.player > 0) {
-        const payout = baccaratBetAmounts.player * 2; // 1:1 payout
+    if (result === 'player' && nextbet.player > 0) {
+        const payout = nextbet.player * 2; // 1:1 payout
         totalPayout += payout;
         winningBets.push('Player');
         document.getElementById('playerBetOption').classList.add('winner');
     }
     
-    if (result === 'banker' && baccaratBetAmounts.banker > 0) {
-        const payout = baccaratBetAmounts.banker * 1.95; // 0.95:1 payout
+    if (result === 'banker' && nextbet.banker > 0) {
+        const payout = nextbet.banker * 1.95; // 0.95:1 payout
         totalPayout += payout;
         winningBets.push('Banker');
         document.getElementById('bankerBetOption').classList.add('winner');
     }
     
-    if (result === 'tie' && baccaratBetAmounts.tie > 0) {
-        const payout = baccaratBetAmounts.tie * 9; // 8:1 payout
+    if (result === 'tie' && nextbet.tie > 0) {
+        const payout = nextbet.tie * 9; // 8:1 payout
         totalPayout += payout;
         winningBets.push('Tie');
         document.getElementById('tieBetOption').classList.add('winner');
