@@ -12250,8 +12250,10 @@ function data(json){
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = lastBet.Roll;
 			
+			if(gameUI){
 			 clearBaccaratBet();
              displayBaccaratResult(json);
+			}
             //break;
 		} 
         if (gameType === "dragonTowerBet"){
