@@ -6918,6 +6918,7 @@ function autoSelectKenoNumbers() {
 
 // Play Keno game
 function playKenoGame() {
+	if(running) return;
     if (kenoSelectedNumbers.length === 0 || kenoGameActive) return;
     
     // Get bet amount from your system
@@ -7514,6 +7515,7 @@ function generateUniqueRandom() {
 }
 
 function pickRandomTile() { 
+	if(running) return;
 	const minesDiv = document.querySelectorAll('.mines-tile.mine');
 	if (minesDiv.length > 0) {
 		return;
@@ -7580,8 +7582,8 @@ function initializeMinesBoard() {
 }
 
 function startMines() {
-
-      minesStart(nextbet, mines);
+		if(running) return;
+		minesStart(nextbet, mines);
    
 
 }
@@ -9349,6 +9351,7 @@ function createBlackjackSection() {
 
 // Handle Blackjack action
 function handleBlackjackAction(action) {
+	if (running) return;
     if (!blackjackGameActive) return;
     
     // Call blackjackNext with the selected action
@@ -9403,6 +9406,7 @@ function resetBlackjackGame() {
 }
 // Start new Blackjack game
 function startNewBlackjackGame() {
+	if(running) return;
     if (blackjackGameActive) {
         // If game is already active, don't start new one
         return;
@@ -9852,6 +9856,7 @@ function minesNext(fields) {
 }
 
 function minesCashout() {
+	if(running) return;
     betRequest({
         url: '_api/casino/mines/cashout',
         body: {identifier: randomString(21)},
@@ -10364,6 +10369,9 @@ changegame(game);
 
 darkorLight(!dark);
 
+activeBet();
+activeBetMines()
+activeBetBJ();
 }
 
 setTimeout(() => {
@@ -15623,6 +15631,8 @@ setTimeout(() => {
    //darkorLight(!dark);
 }, 3000);
 addBot();
+
+
 
 
 
