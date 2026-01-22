@@ -8340,7 +8340,7 @@ function createBaccaratSection() {
             
             <!-- Controls -->
             <div class="baccarat-controls">
-                <button class="baccarat-btn play" id="baccaratPlayBtn" disabled>PLAY BACCARAT</button>
+                <button class="baccarat-btn play" id="baccaratPlayBtn">PLAY BACCARAT</button>
                 <button class="baccarat-btn clear" id="baccaratClearBtn">CLEAR ALL BETS</button>
             </div>
             
@@ -8401,7 +8401,7 @@ function toggleBaccaratBet(betType) {
     updateBetInfoDisplay();
     
     // Enable/disable play button based on if any bets are placed
-    document.getElementById('baccaratPlayBtn').disabled = totalBetAmount <= 0;
+    //document.getElementById('baccaratPlayBtn').disabled = totalBetAmount <= 0;
     
     // Update bet variables
     player = baccaratBetAmounts.player;
@@ -8422,6 +8422,7 @@ function updateBetInfoDisplay() {
     document.getElementById('totalBetAmount').textContent = totalBetAmount.toFixed(8);
 }
 
+let betamount = {player: 0,banker: 0,tie: 0};
 // Clear all Baccarat bets
 function clearBaccaratBet() {
     // Reset all bet amounts
@@ -8439,7 +8440,7 @@ function clearBaccaratBet() {
     document.getElementById('playerCardsContainer').classList.remove('winner');
     document.getElementById('bankerCardsContainer').classList.remove('winner');
     
-    document.getElementById('baccaratPlayBtn').disabled = true;
+    //document.getElementById('baccaratPlayBtn').disabled = true;
     
     // Reset bet info
     updateBetInfoDisplay();
@@ -8488,13 +8489,14 @@ function resetBaccaratCards() {
 
 // Play Baccarat game
 function playBaccaratGame() {
+	if(running) return;
     if (totalBetAmount <= 0 || baccaratGameActive) return;
     
     baccaratGameActive = true;
     
     // Disable controls during game
-    document.getElementById('baccaratPlayBtn').disabled = true;
-    document.getElementById('baccaratClearBtn').disabled = true;
+    //document.getElementById('baccaratPlayBtn').disabled = true;
+    //document.getElementById('baccaratClearBtn').disabled = true;
     
     // Reset winner highlights
     document.getElementById('playerCardsContainer').classList.remove('winner');
@@ -8589,8 +8591,8 @@ function displayBaccaratResult(baccaratResponse) {
     calculateAndDisplayWinnings(result, betData);
     
     // Re-enable controls
-    document.getElementById('baccaratPlayBtn').disabled = true;
-    document.getElementById('baccaratClearBtn').disabled = false;
+    //document.getElementById('baccaratPlayBtn').disabled = true;
+    //document.getElementById('baccaratClearBtn').disabled = false;
     
     baccaratGameActive = false;
 }
@@ -12251,6 +12253,9 @@ function data(json){
             tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = lastBet.targetNumber;
             tdRollNumber.innerHTML = lastBet.Roll;
+			
+			 clearBaccaratBet();
+             displayBaccaratResult(json);
             //break;
 		} 
         if (gameType === "dragonTowerBet"){
