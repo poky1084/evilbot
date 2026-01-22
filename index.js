@@ -13914,7 +13914,9 @@ function start(){
 					fn(...args);
 				}
 			};
-
+			player = betamount.player || player
+			banker = betamount.banker || banker
+			tie = betamount.tie || tie
 			gameFunctions = {
 				bars: 		 () => runBet(barsBet, [nextbet, difficulty, tiles]),
 				hilo:        () => runBet(hiloBet, [nextbet, startcard]),
