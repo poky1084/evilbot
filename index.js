@@ -11499,7 +11499,7 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
     .then(res => {
         if (!res.ok) {
             // Manually throw an object with the status code
-            throw { status: res.status };
+            console.log("res not ok")
         }
         return res.json();
     })
@@ -11508,9 +11508,9 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
         if (running) {
            // console.log("Caught error status:", err.status);
 
-            if (err.status === 403) {
+            //if (err.status === 403) {
                 setTimeout(() => {
-			console.log("error status 403");
+			console.log("error status " + err.status);
 			
 			if (running) {
 				
@@ -11553,14 +11553,15 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
 			}		
 					
                 }, 2000);
-            } else {
+            //} 
+			/*else {
                 setTimeout(() => {
                     //console.log("betrequest");
 					if (running) {
 						betRequest({ url, body, retryParams, retryDelay });
 					}
                 }, 2000);
-            }
+            }*/
         }
     });
 }
@@ -12037,7 +12038,7 @@ function data(json){
 			if(json.errors[0].errorType.includes("insignificantBet") && game === "blackjack"){
 				cashout_done = true
 			} 
-			bet = {active: true}
+			
 			//return;
 		} else {
 		errorgame = false
