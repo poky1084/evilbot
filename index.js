@@ -12341,7 +12341,7 @@ function data(json){
             tdRollNumber.innerHTML = hitmines;
 			}
 			running = false
-			if(gameUI){
+			if(true){
             updateMinesUIFromResponse(json);
 			}
 		}
@@ -12362,7 +12362,7 @@ function data(json){
             tdRollNumber.innerHTML = hitmines;
 			
 			running = false
-			if(gameUI){
+			if(true){
             updateMinesUIFromResponse(json);
 			}
 		}		
@@ -12516,7 +12516,7 @@ function data(json){
         } 
 
 		if (gameType === "blackjackBet"){
-			if(gameUI){
+			if(true){
 					resetBlackjackGame()
 					//running = false
 					updateBlackjackUI(json);
@@ -12542,7 +12542,7 @@ function data(json){
             }
         }    
         if (gameType === "blackjackNext"){
-			if(gameUI){
+			if(true){
 			stopBlinking();
 			//running = false
 			updateBlackjackUI(json);
@@ -12606,7 +12606,7 @@ function data(json){
 			
 			 if (bet.payoutMultiplier < 1) {
 				// Immediate loss on first card
-				if(gameUI){
+				if(true){
 				handleLossRoundCard(bet);
 				}
 			} else {
@@ -12614,7 +12614,7 @@ function data(json){
 				//const lastCard11 = currentBet.state.rounds.at(-1)?.card.rank || currentBet.state.startCard.rank;
 				
 				// (Rest of your existing code for handling guesses)
-				if(gameUI){
+				if(true){
 				feedCard(startcard, 1, guessed, 1, 1)
 				}
 			}
@@ -12633,7 +12633,7 @@ function data(json){
 				const lastRound = currentBet.state.rounds.at(-1);
 				if (lastRound) {
 					const resultlast = lastRound.payoutMultiplier >= 0.98 ? 'win' : 'lose';
-					if(gameUI){
+					if(true){
 					feedCard(
 						lastRound.card,
 						currentBet.state.rounds.length + 1,
@@ -12665,7 +12665,7 @@ function data(json){
 				tdRollChance.innerHTML = "";
 				
 				// Handle card display for loss
-				if(gameUI){
+				if(true){
 				handleLossRoundCard(bet);
 				sleep(300)
 				}
@@ -12696,7 +12696,7 @@ function data(json){
 			
 			// Handle card display for loss
 			if (bet.payoutMultiplier < 0.98) {
-				if(gameUI){
+				if(true){
 				// This is a loss
 				handleLossRoundCard(bet);
 				}
@@ -12704,7 +12704,7 @@ function data(json){
 				// This is a win (cashout with profit)
 				const lastRound = bet.state.rounds.at(-1);
 				if (lastRound) {
-					if(gameUI){
+					if(true){
 					feedCard(
 						lastRound.card,
 						bet.state.rounds.length + 1,
@@ -12715,7 +12715,7 @@ function data(json){
 					}
 				}
 			}
-			if(gameUI){
+			if(true){
 			resetCards();
 			}
 			if(manualhilo){
