@@ -12037,6 +12037,7 @@ function data(json){
 			if(json.errors[0].errorType.includes("insignificantBet") && game === "blackjack"){
 				cashout_done = true
 			} 
+			bet = {active: true}
 			//return;
 		} else {
 		errorgame = false
