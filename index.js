@@ -12969,8 +12969,9 @@ function data(json){
 			stop()
 		}
 		
-		if(hiloguess == 3 && running == false && manualhilo == false && cashout_done == false && game === "hilo" && win == false){
+		if(hiloguess == 3 && bet.active && running == false && manualhilo == false && cashout_done == false && game === "hilo" && win == false){
 			//cashout_done = true
+			log("run cashout 1")
 			hiloCash()
 		}
 		}
@@ -13018,6 +13019,7 @@ function data(json){
                         
                         hiloNext(guessed);
                     } else if (hiloguess === 3) {
+						log("run cashout 2")
                         hiloCash();
                     }
                 }
