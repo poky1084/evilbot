@@ -2993,6 +2993,7 @@ var betlist = []
 var finished_round = false
 var mirror = "stake.ac"
 var donecashout = false;
+let active_blackjack = false;
 
 let websocket = null;
 let reconnectTimeout = null;
@@ -11549,8 +11550,16 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
 				primedice:   () => runBet(PrimeBet, [nextbet, target1, target2, target3, target4, condition])
 			};
 
-			if (game in gameFunctions) gameFunctions[game]();
-			}		
+			if (game in gameFunctions){
+					if(active_blackjack){
+						active_blackjack = false;
+						blackjackNext("stand");				
+					} else {
+						gameFunctions[game](); 
+					}
+				}
+			}	
+					
 					
                 }, 2000);
             //} 
@@ -11652,6 +11661,7 @@ function activeBetBJ(){
 }
 
 function outbetbj(json){
+	active_blackjack = true;
 	 if (json.user.activeCasinoBet != null) {
 			updateBlackjackUI(json);
 	}	
