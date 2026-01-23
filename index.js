@@ -11552,8 +11552,12 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
 
 			if (game in gameFunctions){
 					if(active_blackjack){
+						if(game === "blackjack"){
 						active_blackjack = false;
-						blackjackNext("stand");				
+						blackjackNext("stand");		
+						} else {
+						gameFunctions[game]();
+						}							
 					} else {
 						gameFunctions[game](); 
 					}
