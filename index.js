@@ -13059,7 +13059,10 @@ function data(json){
 			drill: () => drillBet(nextbet, target, pick),
 			primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
         };
-		//changegame(game);
+		if(gameUI){
+			changegame(game);
+		}
+		
         if (gameHandlers[game]) {
             gameHandlers[game]();
         }
