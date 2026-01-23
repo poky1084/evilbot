@@ -11661,8 +11661,9 @@ function activeBetBJ(){
 }
 
 function outbetbj(json){
-	active_blackjack = true;
+
 	 if (json.user.activeCasinoBet != null) {
+		 	active_blackjack = true;
 			updateBlackjackUI(json);
 	}	
 }
