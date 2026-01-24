@@ -12004,16 +12004,11 @@ function data(json){
 			errorgame = true
 			}
 			if(json.errors[0].errorType.includes("existingGame")){
-				if(game==="hilo"){
+				if(game==="mines" || game==="blackjack" || game==="hilo"){
 					activeBet();
-				}
-				if(game==="mines"){
-					activeBetMines()
-				}
-				if(game==="blackjack"){
+					activeBetMines();
 					activeBetBJ();
-				};
-				
+				}
 				hiloguess = round()
 				nextactions = round()
 				if(nextactions === "BLACKJACK_STAND"){
