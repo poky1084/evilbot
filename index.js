@@ -12409,6 +12409,9 @@ function data(json){
                 : (100 - bet.state.result).toFixed(4);
             tdTargetNumber.innerHTML = ">" + lastBet.targetNumber.toFixed(4);
             tdRollNumber.innerHTML = bet.state.result.toFixed(2);
+			
+			chanceMeta.textContent = lastBet.chance.toFixed(2) + '%';
+			payoutMeta.textContent = computePayout(chance).toFixed(2) + 'x';
             //break;
 		}
         
@@ -12423,6 +12426,9 @@ function data(json){
             tdRollChance.innerHTML = (99 / bet.state.result).toFixed(4);
             tdTargetNumber.innerHTML = ">" + bet.state.multiplierTarget.toFixed(4);
             tdRollNumber.innerHTML = bet.state.result.toFixed(2);
+			
+			chanceMeta.textContent = (99 / bet.state.multiplierTarget).toFixed(2) + '%';
+			payoutMeta.textContent = bet.state.multiplierTarget.toFixed(2) + 'x';
             //break;
 		}
         if (gameType === "pumpBet"){
