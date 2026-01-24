@@ -10563,6 +10563,8 @@ darkorLight(!dark);
 activeBet();
 activeBetMines()
 activeBetBJ();
+
+showOnChange(true);
 }
 
 setTimeout(() => {
