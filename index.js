@@ -1302,6 +1302,9 @@
             <button class="btn-grad" id="resetAlles">ResetAll</button>
           </span>
 		  <span>
+		  <button class="btn-grad" id="toggleUI">Toggle Code</button>
+		  </span>
+		  <span>
             <button class="btn-grad" id="showConsolePopup">Show UI</button>
           </span>
         </center>
@@ -3034,6 +3037,58 @@ let pingInterval = null;
             localStorage.setItem('botTheme', 'dark');
         }
     });
+
+
+
+
+  // Get the button
+  const toggleUIButton = document.getElementById('toggleUI');
+  
+  // Get the elements to toggle
+  const botTabMenu = document.getElementById('botTabMenu');
+  const botWrapMode = document.getElementById('botWrapMode');
+  const botControlMenu = document.getElementById('botControlMenu');
+  
+  // Check if button exists (for safety)
+ // if (!toggleUIButton) return;
+  
+  // Initialize hidden state
+  let isHidden = false;
+  
+  // Add click event listener
+  toggleUIButton.addEventListener('click', function() {
+    if (isHidden) {
+      // Show all elements
+      botTabMenu.style.display = 'flex';
+      botWrapMode.style.display = 'block';
+      //botControlMenu.style.display = 'flex';
+      
+      // Update button text
+      toggleUIButton.textContent = 'Hide Code';
+      isHidden = false;
+	  
+	  document.getElementById("botWrapHistory").style.width = "100%"
+	  document.getElementById("chartContainer").style.width = "100%"
+	  drawChart();
+	  
+    } else {
+      // Hide all elements
+      botTabMenu.style.display = 'none';
+      botWrapMode.style.display = 'none';
+      //botControlMenu.style.display = 'none';
+      
+      // Update button text
+      toggleUIButton.textContent = 'Show Code';
+      isHidden = true;
+	  
+	  document.getElementById("botWrapHistory").style.width = "1000px"
+	  document.getElementById("chartContainer").style.width = "1000px"
+	  drawChart();
+    }
+  });
+  
+  // Initialize button text
+  toggleUIButton.textContent = 'Hide Code';
 
 
 function changegame(gamer) {
