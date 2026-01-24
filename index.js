@@ -12411,7 +12411,7 @@ function data(json){
             tdRollNumber.innerHTML = bet.state.result.toFixed(2);
 			
 			chanceMeta.textContent = lastBet.chance.toFixed(2) + '%';
-			payoutMeta.textContent = computePayout(chance).toFixed(2) + 'x';
+			payoutMeta.textContent = computePayout(lastBet.chance).toFixed(2) + 'x';
             //break;
 		}
         
