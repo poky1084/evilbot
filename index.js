@@ -13166,10 +13166,11 @@ function data(json){
 			hiloCash()
 		}
 		}
+		
+		if (running && !samuraiskip) {
 		if(gameUI){
 			changegame(game);
 		}
-		if (running && !samuraiskip) {
 		//sleepfor(sleeptime).then(() => {
 		setTimeout(() => {
         //sleeptime = 0;
