@@ -1302,7 +1302,7 @@
             <button class="btn-grad" id="resetAlles">ResetAll</button>
           </span>
 		  <span>
-		  <button class="btn-grad" id="toggleUI">Toggle Code</button>
+		  <button class="btn-grad" id="toggleUI">Hide Code</button>
 		  </span>
 		  <span>
             <button class="btn-grad" id="showConsolePopup">Show UI</button>
@@ -3088,7 +3088,7 @@ let pingInterval = null;
   });
   
   // Initialize button text
-  toggleUIButton.textContent = 'Hide Code';
+  //toggleUIButton.textContent = 'Hide Code';
 
 
 function changegame(gamer) {
