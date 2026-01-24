@@ -12241,7 +12241,7 @@ function data(json){
 				cashout_done = true
 			} 
 			
-			sleep(1000);
+			
 		} else {
 		errorgame = false
 		var table = document.getElementById("botHistory");
@@ -13166,6 +13166,9 @@ function data(json){
 			hiloCash()
 		}
 		}
+		if(gameUI){
+			changegame(game);
+		}
 		if (running && !samuraiskip) {
 		//sleepfor(sleeptime).then(() => {
 		setTimeout(() => {
@@ -13250,9 +13253,7 @@ function data(json){
 			drill: () => drillBet(nextbet, target, pick),
 			primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
         };
-		if(gameUI){
-			changegame(game);
-		}
+		
 		
         if (gameHandlers[game]) {
             gameHandlers[game]();
