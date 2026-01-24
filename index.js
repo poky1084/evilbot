@@ -3058,94 +3058,11 @@ let pingInterval = null;
         }
     });
 
-
-
-  // Get elements
+ const toggleUIButton = document.getElementById('toggleUI');
+   const chartContainer2 = document.getElementById('chartContainer');
   const toggleChartButton = document.getElementById('toggleChart');
   const chartContainer = document.getElementById('chartContainer');
   const botWrapHistory = document.getElementById('botWrapHistory');
-  
-  // Check if chart should be hidden by default (you can change this)
-  let isChartVisible = true;
-  
-  // Function to toggle chart visibility
-  function toggleChartVisibility() {
-    isChartVisible = !isChartVisible;
-    
-    if (isChartVisible) {
-      // Show chart
-      chartContainer.classList.remove('hidden');
-      toggleChartButton.textContent = 'Hide Chart';
-      toggleChartButton.classList.remove('hidden-state');
-      
-      // Restore original height
-      //chartContainer.style.height = '160px';
-      
-      // Add margin back to history
-      botWrapHistory.style.marginTop = '4px';
-	  botWrapHistory.style.height = '160px';
-	  
-	  if (typeof drawChart === 'function') drawChart();
-    } else {
-      // Hide chart
-      chartContainer.classList.add('hidden');
-      toggleChartButton.textContent = 'Show Chart';
-      toggleChartButton.classList.add('hidden-state');
-      
-      // Remove margin from history
-      botWrapHistory.style.marginTop = '0';
-	  botWrapHistory.style.height = '320px';
-	  
-	  if (typeof drawChart === 'function') drawChart();
-    }
-    
-    // Save state to localStorage
-    //localStorage.setItem('chartVisible', isChartVisible);
-  }
-  
-
-  const chartContainer2 = document.getElementById('chartContainer');
-  
-  if (chartContainer2) {
-    // Set the height to 160px
-    chartContainer2.style.height = '140px';
-    
-    // Also ensure any child chart elements have proper height
-    const chartChildren = chartContainer2.querySelectorAll('*');
-    chartChildren.forEach(child => {
-      if (child.style && child.style.height) {
-        // If child has explicit height, adjust it proportionally
-        if (child.style.height.includes('px')) {
-          const currentHeight = parseInt(child.style.height);
-          child.style.height = '140px';
-        }
-      }
-    });
-    
-    console.log('Chart container height set to 160px');
-  }
-
-  
-  // Initialize button text based on saved state
-  /*const savedChartState = localStorage.getItem('chartVisible');
-  if (savedChartState !== null) {
-    isChartVisible = savedChartState === 'true';
-    
-    if (!isChartVisible) {
-      chartContainer.classList.add('hidden');
-      toggleChartButton.textContent = 'Show Chart';
-      toggleChartButton.classList.add('hidden-state');
-      botWrapHistory.style.marginTop = '0';
-    }
-  }
-  */
-  
-  // Add click event listener
-  toggleChartButton.addEventListener('click', toggleChartVisibility);
-  
-
-  // Get the button
-  const toggleUIButton = document.getElementById('toggleUI');
 
 toggleUIButton.addEventListener('click', function() {
   const botTabMenu = document.getElementById('botTabMenu');
@@ -3196,7 +3113,116 @@ toggleUIButton.addEventListener('click', function() {
     document.getElementById("chartContainer").style.width = "100%";
     if (typeof drawChart === 'function') drawChart();
   }
+  if (toggleUIButton.textContent === 'Show Code' && toggleChartButton.textContent == 'Hide Chart') {
+   
+	botWrapHistory.style.height = '176px';
+		
+	}
+
+
+	if (toggleUIButton.textContent === 'Show Code' && toggleChartButton.textContent == 'Show Chart') {
+	   
+	botWrapHistory.style.height = '320px';
+		
+	}
 });
+
+  // Get elements
+
+  
+  // Check if chart should be hidden by default (you can change this)
+  let isChartVisible = true;
+  
+  // Function to toggle chart visibility
+  function toggleChartVisibility() {
+    isChartVisible = !isChartVisible;
+    
+    if (isChartVisible) {
+      // Show chart
+      chartContainer.classList.remove('hidden');
+      toggleChartButton.textContent = 'Hide Chart';
+      toggleChartButton.classList.remove('hidden-state');
+      
+      // Restore original height
+      //chartContainer.style.height = '160px';
+      
+      // Add margin back to history
+      botWrapHistory.style.marginTop = '4px';
+	  botWrapHistory.style.height = '160px';
+	  
+	  if (typeof drawChart === 'function') drawChart();
+    } else {
+      // Hide chart
+      chartContainer.classList.add('hidden');
+      toggleChartButton.textContent = 'Show Chart';
+      toggleChartButton.classList.add('hidden-state');
+      
+      // Remove margin from history
+      botWrapHistory.style.marginTop = '0';
+	  botWrapHistory.style.height = '320px';
+	  
+	  if (typeof drawChart === 'function') drawChart();
+    }
+	
+	if (toggleUIButton.textContent === 'Show Code' && toggleChartButton.textContent == 'Hide Chart') {
+   
+	botWrapHistory.style.height = '176px';
+		
+	}
+
+
+	if (toggleUIButton.textContent === 'Show Code' && toggleChartButton.textContent == 'Show Chart') {
+	   
+	botWrapHistory.style.height = '320px';
+		
+	}
+    // Save state to localStorage
+    //localStorage.setItem('chartVisible', isChartVisible);
+  }
+  
+
+ 
+  
+  if (chartContainer2) {
+    // Set the height to 160px
+    chartContainer2.style.height = '140px';
+    
+    // Also ensure any child chart elements have proper height
+    const chartChildren = chartContainer2.querySelectorAll('*');
+    chartChildren.forEach(child => {
+      if (child.style && child.style.height) {
+        // If child has explicit height, adjust it proportionally
+        if (child.style.height.includes('px')) {
+          const currentHeight = parseInt(child.style.height);
+          child.style.height = '140px';
+        }
+      }
+    });
+    
+    console.log('Chart container height set to 160px');
+  }
+
+  
+  // Initialize button text based on saved state
+  /*const savedChartState = localStorage.getItem('chartVisible');
+  if (savedChartState !== null) {
+    isChartVisible = savedChartState === 'true';
+    
+    if (!isChartVisible) {
+      chartContainer.classList.add('hidden');
+      toggleChartButton.textContent = 'Show Chart';
+      toggleChartButton.classList.add('hidden-state');
+      botWrapHistory.style.marginTop = '0';
+    }
+  }
+  */
+  
+  // Add click event listener
+  toggleChartButton.addEventListener('click', toggleChartVisibility);
+  
+
+  // Get the button
+ 
   
   // Initialize button text
   //toggleUIButton.textContent = 'Hide Code';
