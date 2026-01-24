@@ -1301,6 +1301,9 @@
           <span>
             <button class="btn-grad" id="resetAlles">ResetAll</button>
           </span>
+		   <span>
+		  <button class="btn-grad" id="toggleChart">Hide Chart</button>
+		</span>
 		  <span>
 		  <button class="btn-grad" id="toggleUI">Hide Code</button>
 		  </span>
@@ -2791,6 +2794,21 @@ input[type=range]::-moz-range-thumb {
 
 
 
+#chartContainer.hidden {
+  height: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+  opacity: 0;
+}
+
+/* Adjust botWrapHistory when chart is hidden */
+#chartContainer.hidden + #botWrapHistory {
+  margin-top: 0 !important;
+}
+
+
+
 </style>`)
  
  function getCookie(name) {
@@ -3042,6 +3060,89 @@ let pingInterval = null;
 
 
 
+  // Get elements
+  const toggleChartButton = document.getElementById('toggleChart');
+  const chartContainer = document.getElementById('chartContainer');
+  const botWrapHistory = document.getElementById('botWrapHistory');
+  
+  // Check if chart should be hidden by default (you can change this)
+  let isChartVisible = true;
+  
+  // Function to toggle chart visibility
+  function toggleChartVisibility() {
+    isChartVisible = !isChartVisible;
+    
+    if (isChartVisible) {
+      // Show chart
+      chartContainer.classList.remove('hidden');
+      toggleChartButton.textContent = 'Hide Chart';
+      toggleChartButton.classList.remove('hidden-state');
+      
+      // Restore original height
+      //chartContainer.style.height = '160px';
+      
+      // Add margin back to history
+      botWrapHistory.style.marginTop = '4px';
+	  botWrapHistory.style.height = '160px';
+	  
+	  if (typeof drawChart === 'function') drawChart();
+    } else {
+      // Hide chart
+      chartContainer.classList.add('hidden');
+      toggleChartButton.textContent = 'Show Chart';
+      toggleChartButton.classList.add('hidden-state');
+      
+      // Remove margin from history
+      botWrapHistory.style.marginTop = '0';
+	  botWrapHistory.style.height = '320px';
+	  
+	  if (typeof drawChart === 'function') drawChart();
+    }
+    
+    // Save state to localStorage
+    //localStorage.setItem('chartVisible', isChartVisible);
+  }
+  
+
+  const chartContainer2 = document.getElementById('chartContainer');
+  
+  if (chartContainer2) {
+    // Set the height to 160px
+    chartContainer2.style.height = '140px';
+    
+    // Also ensure any child chart elements have proper height
+    const chartChildren = chartContainer2.querySelectorAll('*');
+    chartChildren.forEach(child => {
+      if (child.style && child.style.height) {
+        // If child has explicit height, adjust it proportionally
+        if (child.style.height.includes('px')) {
+          const currentHeight = parseInt(child.style.height);
+          child.style.height = '140px';
+        }
+      }
+    });
+    
+    console.log('Chart container height set to 160px');
+  }
+
+  
+  // Initialize button text based on saved state
+  /*const savedChartState = localStorage.getItem('chartVisible');
+  if (savedChartState !== null) {
+    isChartVisible = savedChartState === 'true';
+    
+    if (!isChartVisible) {
+      chartContainer.classList.add('hidden');
+      toggleChartButton.textContent = 'Show Chart';
+      toggleChartButton.classList.add('hidden-state');
+      botWrapHistory.style.marginTop = '0';
+    }
+  }
+  */
+  
+  // Add click event listener
+  toggleChartButton.addEventListener('click', toggleChartVisibility);
+  
 
   // Get the button
   const toggleUIButton = document.getElementById('toggleUI');
