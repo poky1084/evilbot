@@ -1499,7 +1499,7 @@ end</textarea>
 <!-- Console Popup (Hidden by default) -->
 <div id="consolePopup" class="console-popup" style="display: none; border: 2px solid #333; border-radius: 8px; z-index: 10000; padding: 5px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
   <div id="movePopup" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 1px;">
-    <h3 style="margin: 0; color: #fff;">Game UI</h3>
+    <h3 id="gameText" style="margin: 0; color: #fff;">Game UI</h3>
     <button id="closeLimboConsole" style="background: #ff4444; color: white; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer;">Close</button>
   </div>
   
@@ -3336,7 +3336,8 @@ function changegame(gamer) {
 		 
 		game = 'blackjack';
 		}
-		//game = gamer;
+		game = gamer;
+		document.getElementById("gameText").textContent = "Game UI - " + game
 		
 	}
 	
@@ -14708,14 +14709,14 @@ function startSocket() {
 						
 						
 						//lastBet.target = lastBet.amount;
-						
-						if(running){
-								var value = document.getElementById("botMenuMode").value;
+						var value = document.getElementById("botMenuMode").value;
 								if(value == "lua"){
 									sendLua();
 								} else if(value == "js"){
 									dobet();
 								}
+						if(running){
+								
 								if(game != "crash" && game != "slide"){
 									cashout_done = true;
 									 const gameHandlers = {
@@ -14896,16 +14897,17 @@ function startSocket() {
 									table.deleteRow(table.rows.length - 1);
 								}
 							}
-	
+								
 							if(endgame){
-								endgame = null;
-								if(running){
 								var value = document.getElementById("botMenuMode").value;
 								if(value == "lua"){
 									sendLua();
 								} else if(value == "js"){
 									dobet();
 								}
+								endgame = null;
+								if(running){
+								
 								if(game != "crash" && game != "slide"){
 									cashout_done = true;
 									 const gameHandlers = {
@@ -15070,13 +15072,14 @@ function startSocket() {
 					//currentcount = true;
 				if(currentcount){
 					currentcount = false;
-				if(running){
-				var value = document.getElementById("botMenuMode").value;
+					var value = document.getElementById("botMenuMode").value;
 				if(value == "lua"){
 					sendLua();
 				} else if(value == "js"){
 					dobet();
 				}
+				if(running){
+				
 				if(game != "crash" && game != "slide"){
 					cashout_done = true;
 					 const gameHandlers = {
