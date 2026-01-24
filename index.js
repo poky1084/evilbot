@@ -11500,7 +11500,7 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
     .then(res => {
         if (!res.ok) {
             // Manually throw an object with the status code
-            console.log("res not ok")
+            //console.log("res not ok")
         }
         return res.json();
     })
@@ -12054,7 +12054,7 @@ function data(json){
 				cashout_done = true
 			} 
 			
-			//return;
+			sleep(1000);
 		} else {
 		errorgame = false
 		var table = document.getElementById("botHistory");
@@ -14597,7 +14597,9 @@ function startSocket() {
 										drill: () => drillBet(nextbet, target, pick),
 										primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
 									};
-
+									if(gameUI){
+										changegame(game);
+									}
 									if (gameHandlers[game]) {
 										gameHandlers[game]();
 									}
@@ -14785,7 +14787,9 @@ function startSocket() {
 										drill: () => drillBet(nextbet, target, pick),
 										primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
 									};
-
+									if(gameUI){
+										changegame(game);
+									}
 									if (gameHandlers[game]) {
 										gameHandlers[game]();
 									}
@@ -14954,7 +14958,9 @@ function startSocket() {
 						drill: () => drillBet(nextbet, target, pick),
 						primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
 					};
-
+					if(gameUI){
+						changegame(game);
+					}
 					if (gameHandlers[game]) {
 						gameHandlers[game]();
 					}
