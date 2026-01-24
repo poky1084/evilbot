@@ -15072,14 +15072,14 @@ function startSocket() {
 					//currentcount = true;
 				if(currentcount){
 					currentcount = false;
+				
+				if(running){
 					var value = document.getElementById("botMenuMode").value;
 				if(value == "lua"){
 					sendLua();
 				} else if(value == "js"){
 					dobet();
 				}
-				if(running){
-				
 				if(game != "crash" && game != "slide"){
 					cashout_done = true;
 					 const gameHandlers = {
