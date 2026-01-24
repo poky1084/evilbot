@@ -2789,6 +2789,8 @@ input[type=range]::-moz-range-thumb {
     cursor: not-allowed;
 }
 
+
+
 </style>`)
  
  function getCookie(name) {
@@ -3043,49 +3045,57 @@ let pingInterval = null;
 
   // Get the button
   const toggleUIButton = document.getElementById('toggleUI');
-  
-  // Get the elements to toggle
+
+toggleUIButton.addEventListener('click', function() {
   const botTabMenu = document.getElementById('botTabMenu');
   const botWrapMode = document.getElementById('botWrapMode');
   const botControlMenu = document.getElementById('botControlMenu');
+  const rightColumn = botControlMenu.closest('.bot-flex-container > div:last-child');
   
-  // Check if button exists (for safety)
- // if (!toggleUIButton) return;
-  
-  // Initialize hidden state
-  let isHidden = false;
-  
-  // Add click event listener
-  toggleUIButton.addEventListener('click', function() {
-    if (isHidden) {
-      // Show all elements
-      botTabMenu.style.display = 'flex';
-      botWrapMode.style.display = 'block';
-      //botControlMenu.style.display = 'flex';
-      
-      // Update button text
-      toggleUIButton.textContent = 'Hide Code';
-      isHidden = false;
-	  
-	  document.getElementById("botWrapHistory").style.width = "100%"
-	  document.getElementById("chartContainer").style.width = "100%"
-	  drawChart();
-	  
-    } else {
-      // Hide all elements
-      botTabMenu.style.display = 'none';
-      botWrapMode.style.display = 'none';
-      //botControlMenu.style.display = 'none';
-      
-      // Update button text
-      toggleUIButton.textContent = 'Show Code';
-      isHidden = true;
-	  
-	  document.getElementById("botWrapHistory").style.width = "1000px"
-	  document.getElementById("chartContainer").style.width = "1000px"
-	  drawChart();
-    }
-  });
+  if (toggleUIButton.textContent === 'Hide Code') {
+    // Hide code elements
+    botTabMenu.style.display = 'none';
+    botWrapMode.style.display = 'none';
+    
+    // Style right column to push control menu to bottom
+    rightColumn.style.display = 'flex';
+    rightColumn.style.flexDirection = 'column';
+    rightColumn.style.justifyContent = 'flex-end';
+    //rightColumn.style.minHeight = '400px';
+    
+    // Make control menu stick to bottom
+    botControlMenu.style.marginTop = 'auto';
+    botControlMenu.style.position = 'relative';
+    
+    toggleUIButton.textContent = 'Show Code';
+    
+    // Adjust chart sizes
+    document.getElementById("botWrapHistory").style.width = "1000px";
+    document.getElementById("chartContainer").style.width = "1000px";
+    if (typeof drawChart === 'function') drawChart();
+    
+  } else {
+    // Show code elements
+    botTabMenu.style.display = 'flex';
+    botWrapMode.style.display = 'block';
+    
+    // Reset right column styling
+    rightColumn.style.display = '';
+    rightColumn.style.flexDirection = '';
+    rightColumn.style.justifyContent = '';
+    
+    // Reset control menu
+    //botControlMenu.style.marginTop = '10px';
+    botControlMenu.style.position = '';
+    
+    toggleUIButton.textContent = 'Hide Code';
+    
+    // Reset chart sizes
+    document.getElementById("botWrapHistory").style.width = "100%";
+    document.getElementById("chartContainer").style.width = "100%";
+    if (typeof drawChart === 'function') drawChart();
+  }
+});
   
   // Initialize button text
   //toggleUIButton.textContent = 'Hide Code';
