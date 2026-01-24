@@ -3199,7 +3199,7 @@ toggleUIButton.addEventListener('click', function() {
       }
     });
     
-    console.log('Chart container height set to 160px');
+    
   }
 
   
@@ -14347,15 +14347,15 @@ function startSocket() {
 						tdcheck.id = "checked";
 						
 						tdhigh.appendChild(tdcheck);
-						tdTargetChance.innerHTML = bet.crash.event.payout.cashoutAt.toFixed(2) + ""
+						tdTargetChance.innerHTML = bet.crash.event.cashoutAt.toFixed(2) + ""
 						tdRollChance.innerHTML = ""
 						tdProfit.innerHTML = current_profit.toFixed(8)
-						tdTargetNumber.innerHTML = ">" + bet.crash.event.payout.cashoutAt.toFixed(2)
+						tdTargetNumber.innerHTML = ">" + bet.crash.event.cashoutAt.toFixed(2)
 						//lastBet.targetNumber = obj.payload.data.crash.event.cashoutAt;
 						//tdRollNumber.innerHTML = ""
 						tdNonce.innerHTML = game;
 						tdBetID.innerHTML = `<span class="clickable-bet-id" data-betid="${bet.crash.event.id}" style="cursor: pointer; color: #007bff; text-decoration: underline;">View</span>`;
-						tdPayout.innerHTML = parseFloat(nextbet * target).toFixed(8);
+						tdPayout.innerHTML = parseFloat(lastBet.payout).toFixed(8);
 						
 
 
