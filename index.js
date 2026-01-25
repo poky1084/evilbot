@@ -1618,16 +1618,22 @@ end</textarea>
     text-shadow: var(--text-shadow);
 }
 
-.win {
+
+
+#consolePopup.light-theme .loss {
+    color: #000000;
+}
+
+#consolePopup.light-theme .win {
+    color: #018a01;
+}
+
+.number.win {
     color: #06d614;
 }
 
-.loss {
+.number.loss {
     color: #c4c1c0;
-}
-
-#bot.light-theme .loss {
-    color: #000000;
 }
 
 .separator {
@@ -2475,13 +2481,7 @@ body.header-visible {
     text-shadow: var(--text-shadow);
 }
 
-.win {
-    color: #06d614;
-}
 
-.loss {
-    color: #c4c1c0;
-}
 
 .separator {
     color: rgba(196, 193, 192, 0.3);
@@ -3045,6 +3045,7 @@ let pingInterval = null;
     if (savedTheme === 'light') {
         themeSwitch.checked = true;
         botContainer.classList.add('light-theme');
+		consolePopup.classList.add('light-theme');
 		dark = false;
     } else {
 		dark = true;
@@ -3055,10 +3056,13 @@ let pingInterval = null;
         if (this.checked) {
 			darkorLight(this.checked)
             botContainer.classList.add('light-theme');
+			consolePopup.classList.add('light-theme');
             localStorage.setItem('botTheme', 'light');
+
         } else {
 			darkorLight(this.checked)
             botContainer.classList.remove('light-theme');
+			consolePopup.classList.remove('light-theme');
             localStorage.setItem('botTheme', 'dark');
         }
     });
@@ -5505,13 +5509,7 @@ body.header-visible {
     text-shadow: var(--text-shadow);
 }
 
-.win {
-    color: #1fa807;
-}
 
-.loss {
-    color: #000000 ;
-}
 
 .separator {
     color: rgba(56, 55, 54, 0.3);
