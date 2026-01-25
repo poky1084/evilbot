@@ -319,7 +319,7 @@ function round(){
   skippedCards = currentBet.state.rounds.filter(round => round.guess === 'skip').length;	
 	
     if(currentBet.state.rounds.length < pattern.length){
-	 guessing = pattern[index]
+	 guessing = pattern[currentBet.state.rounds.length]
     } else {
          return HILO_CASHOUT;
     }
