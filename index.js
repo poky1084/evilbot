@@ -13223,8 +13223,12 @@ function data(json){
                         
                         hiloNext(guessed);
                     } else if (hiloguess === 3) {
-						
-                        hiloCash();
+						if(bet?.state?.rounds?.length === 0){
+							hiloNext("equal");
+						} else {
+							hiloCash();
+						}
+                        
                     }
                 }
             },
@@ -14756,7 +14760,11 @@ function startSocket() {
 													
 													hiloNext(guessed);
 												} else if (hiloguess === 3) {
-													hiloCash();
+													if(bet?.state?.rounds?.length === 0){
+														hiloNext("equal");
+													} else {
+														hiloCash();
+													}
 												}
 											}
 										},
@@ -14947,7 +14955,11 @@ function startSocket() {
 													
 													hiloNext(guessed);
 												} else if (hiloguess === 3) {
-													hiloCash();
+													if(bet?.state?.rounds?.length === 0){
+														hiloNext("equal");
+													} else {
+														hiloCash();
+													}
 												}
 											}
 										},
@@ -15119,7 +15131,11 @@ function startSocket() {
 									
 									hiloNext(guessed);
 								} else if (hiloguess === 3) {
-									hiloCash();
+									if(bet?.state?.rounds?.length === 0){
+										hiloNext("equal");
+									} else {
+										hiloCash();
+									}
 								}
 							}
 						},
