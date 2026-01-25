@@ -3017,6 +3017,7 @@ var finished_round = false
 var mirror = "stake.ac"
 var donecashout = false;
 let active_blackjack = false;
+let check_out = false;
 
 let websocket = null;
 let reconnectTimeout = null;
@@ -12197,6 +12198,7 @@ function data(json){
 			if(!json.errors[0].errorType.includes("parallelCasinoBet")){
 			log(json.errors[0].errorType + ". " +json.errors[0].message )
 			errorgame = true
+			sleep(1000);
 			}
 			if(json.errors[0].errorType.includes("existingGame")){
 				if(game==="mines" || game==="blackjack" || game==="hilo"){
@@ -13224,7 +13226,9 @@ function data(json){
                         hiloNext(guessed);
                     } else if (hiloguess === 3) {
 						if(bet?.state?.rounds?.length === 0){
+							//cashout_done = true;
 							hiloNext("equal");
+							console.log("hiloguess = 3, called hilonext equal");
 						} else {
 							hiloCash();
 						}
