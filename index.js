@@ -4843,8 +4843,8 @@ function addHILOGameControls() {
     gameControls.className = 'hilo-game-controls';
     gameControls.innerHTML = `
         <button class="hilo-action-btn lower" id="guessLowerBtn">Guess LOWER</button>
-		<button class="hilo-action-btn higher" id="guessHigherBtn">Guess HIGHER</button>
-        <button class="hilo-action-btn equal" id="guessEqualBtn">Guess EQUAL</button>        
+        <button class="hilo-action-btn equal" id="guessEqualBtn">Guess EQUAL</button>  
+		<button class="hilo-action-btn higher" id="guessHigherBtn">Guess HIGHER</button>		
         <button class="hilo-action-btn skip" id="guessSkipBtn">Guess SKIP</button>
         <button class="hilo-action-btn cashout" id="cashoutBtn">CASHOUT</button>
     `;
