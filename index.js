@@ -13225,13 +13225,14 @@ function data(json){
                         
                         hiloNext(guessed);
                     } else if (hiloguess === 3) {
-						if(bet?.state?.rounds?.length === 0){
+						/*if(bet?.state?.rounds?.length === 0){
 							//cashout_done = true;
-							hiloNext("equal");
-							console.log("hiloguess = 3, called hilonext equal");
+							//hiloNext("equal");
+							//console.log("hiloguess = 3, called hilonext equal");
 						} else {
 							hiloCash();
-						}
+						}*/
+						hiloCash();
                         
                     }
                 }
