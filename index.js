@@ -1626,6 +1626,10 @@ end</textarea>
     color: #c4c1c0;
 }
 
+#bot.light-theme .loss {
+    color: #000000;
+}
+
 .separator {
     color: rgba(196, 193, 192, 0.3);
     margin: 0 4px;
@@ -5861,6 +5865,16 @@ function updateExistingGuessOverlays() {
 			const consolepop = document.querySelector('.console-popup');
 			consolepop.style.background = "#d1d1d1"
 			
+			const roller = document.querySelector('.roller');
+			const allElements1 = roller.querySelectorAll('*');
+
+			// Apply black color to all elements
+			allElements1.forEach(element => {
+				element.style.color = 'black';
+			});
+			
+			 document.getElementById("gameText").style.color = "black"
+			
 			const cardStats = document.getElementById('cardStats');
 
 			// Get ALL elements inside cardStats
@@ -5891,7 +5905,15 @@ function updateExistingGuessOverlays() {
 			const consolepop = document.querySelector('.console-popup');
 			consolepop.style.background = "#1e1e1e"
 			const cardStats = document.getElementById('cardStats');
+			document.getElementById("gameText").style.color = "white"
+			
+			const roller = document.querySelector('.roller');
+			const allElements1 = roller.querySelectorAll('*');
 
+			// Apply black color to all elements
+			allElements1.forEach(element => {
+				element.style.color = 'white';
+			});
 			// Get ALL elements inside cardStats
 			const allElements = cardStats.getElementsByTagName('*');
 
@@ -5899,6 +5921,7 @@ function updateExistingGuessOverlays() {
 			for (let element of allElements) {
 				//element.style.color = 'gray';
 			}
+			
 			const controls = document.querySelector('.hilo-game-controls');
 			const allElements2 = controls.getElementsByTagName('button');
 
@@ -13227,8 +13250,8 @@ function data(json){
                     } else if (hiloguess === 3) {
 						/*if(bet?.state?.rounds?.length === 0){
 							//cashout_done = true;
-							//hiloNext("equal");
-							//console.log("hiloguess = 3, called hilonext equal");
+							hiloNext("skip");
+							console.log("hiloguess = 3, called hilonext skip");
 						} else {
 							hiloCash();
 						}*/
