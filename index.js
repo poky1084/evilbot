@@ -12872,10 +12872,11 @@ function data(json){
 			
         }    
         if (gameType === "hiloNext"){
+			currentBet = bet;
 			if (bet.active) {
 				// Active game continues
 				cashout_done = false;
-				currentBet = bet;
+				lastBet.Roll = bet.state.rounds.at(-1).card.rank || bet.state.startCard.rank;
 				
 				const lastRound = currentBet.state.rounds.at(-1);
 				if (lastRound) {
@@ -12894,7 +12895,7 @@ function data(json){
 			} else {
 				// Game ended (loss)
 				cashout_done = true;
-				lastBet.Roll = bet.payoutMultiplier;
+				lastBet.Roll = bet.state.rounds.at(-1).card.rank || bet.state.startCard.rank;
 				lastBet.target = 0;
 				
 				// Process cards
@@ -12924,7 +12925,7 @@ function data(json){
         // In the hiloCashout section:
 		if (gameType === "hiloCashout"){
 			cashout_done = true;
-			lastBet.Roll = bet.payoutMultiplier;
+			lastBet.Roll = bet.state.rounds.at(-1).card.rank || bet.state.startCard.rank;
 			lastBet.target = 0;
 			
 			// Process cards
