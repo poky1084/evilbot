@@ -11647,13 +11647,14 @@ var body = {
 
 function outbals(json, newbal){
 
-	balance = 0
+	
 	var balan1 = document.getElementById("botBalance");
 	balan1.innerHTML = balance.toFixed(8);
 	for (var i = 0; i < json.data.user.balances.length; i++)
 	{
 		if (json.data.user.balances[i].available.currency == currency)
 		{
+			balance = 0;
 			current_balance = json.data.user.balances[i].available.amount;
 			balance = current_balance;
 			var balan = document.getElementById("botBalance");
