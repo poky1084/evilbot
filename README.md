@@ -6,7 +6,7 @@ the strategy script must be coded in javascript (JsMode), or can run Lua script 
 
 # Videos: <br /> 
 install extension: [https://vimeo.com/1092943750](https://vimeo.com/1092943750) <br />
-demo: https://www.youtube.com/watch?v=9io2MuZwfCY
+demo: https://www.youtube.com/watch?v=mtVi5s4OnkY
 # Info: <br />
 Please give a Star on the repo in case you liked/used it. Thank you!
 
@@ -16,21 +16,16 @@ Please give a Star on the repo in case you liked/used it. Thank you!
 <b>Stake</b>: poky1084 <br />
 <b>Telegram:</b>: https://t.me/poky_1084
 
-
-<img width="1123" height="676" alt="Screenshot 2026-01-16 110728" src="https://github.com/user-attachments/assets/4eef67cb-d36a-428c-ba40-f66edc219ad6" />
+![Screenshot 2025-06-21 191559](https://github.com/user-attachments/assets/2f7229be-e874-4ea9-b459-415c0adcf44b)
 
 
 
 # Use: <br />
 
-<b>functions:</b> `resetseed('clientseed'), resetstats(), vault(amount), unvault(amount, 'password'), log('text'), view(lastBet.id), start(), stop(), sleep(1000), resetAll(), resetChart(), deleteLogs()` <br />
-
-<b>Crash game manual cashout:</b> `cashout()` in script, or use it as command in Log tab
+<b>functions:</b> `resetseed('clientseed'), resetstats(), vault(amount), log('text'), start(), stop(), sleep(1000), resetAll(), resetChart(), deleteLogs()` <br />
 
 <b>Variables:</b> `game = "limbo", win, currentstreak, profit, wagered, balance, previousbet, currentprofit, bets, wins, losses, losestreak, winstreak, fastmode = true` <br />
-<b>lastBet vars:</b> `lastBet.Roll, lastBet.win, lastBet.amount, lastBet.payout, lastBet.payoutMultiplier, lastBet.name, lastBet.id`
-
-Use `bet.*` variable to access betting data. eg: `bet.payoutMultiplier` or `bet.crash?.event?.multiplier` or `bet.slide?.event?.status`
+<b>lastBet vars:</b> `lastBet.Roll, lastBet.win, lastBet.amount, lastBet.payout, lastBet.payoutMultiplier, lastBet.name`
 
 !!the strategy must be in `dobet()` method, and `dobet()` must be declared as shown below!!
 ```javascript
@@ -166,7 +161,9 @@ segments = 10
 <b>baccarat:</b>
 ```javascript
 game = "baccarat"
-nextbet = { player: 0, banker: 0.004, tie: 0}
+player = 0.001
+banker = 0
+tie = 0
  ```
 <b>dragon tower:</b>
 ```javascript
@@ -256,24 +253,7 @@ nextbet = 0
 ```javascript
 game = "crash"
 target = 2
-nextbet = 0
-
-function dobet(){
-
-}
-
-function progress(){
-
-	bet.crash?.event?.nextRoundIn !== undefined && bet.crash?.event?.nextRoundIn !== null ?  log(bet.crash?.event?.nextRoundIn) : true
-	bet.crash?.event?.status !== undefined && bet.crash?.event?.status !== null ?  log(bet.crash?.event?.status) : true
-	bet.crash?.event?.multiplier !== undefined && bet.crash?.event?.multiplier !== null ?  log(bet.crash?.event?.multiplier) : true
-
-	bet.slide?.event?.nextRoundIn !== undefined && bet.slide?.event?.nextRoundIn !== null ?  log(bet.slide?.event?.nextRoundIn) : true
-	bet.slide?.event?.status !== undefined && bet.slide?.event?.status !== null ?  log(bet.slide?.event?.status) : true
-	bet.slide?.event?.multiplier !== undefined && bet.slide?.event?.multiplier !== null ?  log(bet.slide?.event?.multiplier) : true
-}
-
-USE THIS>>>> cashout() function in script to manually cashout!
+nextbet = 0 
 ```
 
 <b>Slide:</b>
@@ -305,12 +285,14 @@ game = "hilo"
 nextbet = 0
 startcard = {"rank":"A","suit":"H"}
 pattern = [5,5]
-//selection = [4,5] 
+//selection = [4,5]
+index = 0  
 
 function dobet(){
     card = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"].sort(() => Math.random() - 0.5).slice(0, 1).toString();
     startcard = {"rank":card,"suit":"H"}  
     //pattern = selection.sort(() => Math.random() - 0.5).slice(0, 1)
+    index = 0
 }	
 
 function round(){
@@ -318,12 +300,12 @@ function round(){
   payoutMultiplier = currentBet.state.rounds.at(-1)?.payoutMultiplier || 0;
   skippedCards = currentBet.state.rounds.filter(round => round.guess === 'skip').length;	
 	
-    if(currentBet.state.rounds.length < pattern.length){
-	 guessing = pattern[currentBet.state.rounds.length]
+    if(index < pattern.length){
+	 guessing = pattern[index]
     } else {
          return HILO_CASHOUT;
     }
-
+    index++ 
 	
     if (currentCardRank === "A" && guessing === 4) {
         return HILO_BET_LOW;

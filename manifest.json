@@ -20,7 +20,8 @@
 	  "resources": [
       "index.js",
       "inject.js",
-      "js/*.js"
+      "js/*.js",
+	  "ding.mp3"
     ],
 	  "matches": [ "https://*/*" ]
 	}

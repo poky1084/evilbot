@@ -2877,7 +2877,7 @@ var gameUI = false;
     }
   });
 
-
+imagedir = document.getElementById("imagedata").dataset.active;
 var tokenapi = "";
 var currency = null;
 var target_multi = 1.01;
@@ -3231,11 +3231,34 @@ toggleUIButton.addEventListener('click', function() {
   
 
   // Get the button
- 
+function ding() {
+  const url = 'chrome-extension://' + imagedir +'/ding.mp3';
+  const audio = new Audio(url);
+  audio.volume = 1.0;
+  audio.play();
+}
   
   // Initialize button text
   //toggleUIButton.textContent = 'Hide Code';
+function ching() {
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+  const oscillator = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+
+  oscillator.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+
+  oscillator.type = 'triangle';
+  oscillator.frequency.setValueAtTime(4500, audioCtx.currentTime);
+  oscillator.frequency.exponentialRampToValueAtTime(2000, audioCtx.currentTime + 0.3);
+
+  gainNode.gain.setValueAtTime(0.8, audioCtx.currentTime);
+gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
+
+  oscillator.start(audioCtx.currentTime);
+ oscillator.stop(audioCtx.currentTime + 1.5);
+}
 
 function changegame(gamer) {
     // Get references to the elements

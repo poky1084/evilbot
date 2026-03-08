@@ -19,3 +19,8 @@ addJs(chrome.runtime.getURL('js/fengari-web.js'), () => {
   // ✅ FINAL script
   addJs(chrome.runtime.getURL('index.js'));
 });});});});});});});});});});
+
+const div1 = document.createElement('div');
+div1.id = "imagedata";
+div1.dataset.active =  chrome.runtime.id;
+document.body.appendChild(div1)
