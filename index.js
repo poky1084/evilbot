@@ -11779,7 +11779,7 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
 				roulette:    () => runBet(roulettebet, [chips]),
 				wheel:       () => runBet(wheelbet, [nextbet, segments, risk]),
 				plinko:      () => runBet(plinkobet, [nextbet, rows, risk]),
-				mines:       () => runBet(minesbet, [nextbet, fields, mines]),
+				mines:       () => runBet(minebet, [nextbet, fields, mines]),
 				keno:        () => runBet(kenobet, [nextbet, numbers, risk]),
 				dice:        () => runBet(DiceBet, [nextbet, chance, bethigh]),
 				limbo:       () => runBet(LimboBet, [nextbet, target]),
@@ -13366,7 +13366,7 @@ async function fetchBetDetails(betId) {
             'x-access-token': tokenapi
         },
         body: JSON.stringify({
-            "query":"query BetLookup($iid: String, $betId: String) {    bet(iid: $iid, betId: $betId) {        iid    }}",
+            "query":"query BetLookup($iid: String, $betId: String) {    bet(iid: $iid, betId: $betId) {    iid    }}",
             "variables": {
                 "betId": betId 
             }
