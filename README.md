@@ -13,7 +13,6 @@ Please give a Star on the repo in case you liked/used it. Thank you!
 <b>Donate:</b> https://ko-fi.com/poky <br />
 
 <b>Discord</b>: fisk_992 <br />
-<b>Stake</b>: poky1084 <br />
 <b>Telegram:</b>: https://t.me/poky_1084
 
 
