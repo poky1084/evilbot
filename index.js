@@ -13926,21 +13926,46 @@ function loadLua() {
 	fengari.load(`function cashout()
         return js.global:cashout()
     end`)()
+	fengari.load(`function ding()
+        return js.global:ding()
+    end`)()
+	fengari.load(`function ching()
+        return js.global:ching()
+    end`)()
 	var value = document.getElementById("botMenuMode").value;
 	if(value == "lua"){
 		fengari.load('balance=' + balance)()
 	}
 }
 
+function jsToLua(obj) {
+  if (obj === null || obj === undefined) return "nil";
+  if (typeof obj === "boolean") return obj.toString();
+  if (typeof obj === "number") return obj.toString();
+  if (typeof obj === "string") return `"${obj.replace(/"/g, '\\"')}"`;
+  if (Array.isArray(obj)) {
+    const items = obj.map(jsToLua).join(", ");
+    return `{${items}}`;
+  }
+  if (typeof obj === "object") {
+    const pairs = Object.entries(obj)
+      .map(([k, v]) => `["${k}"] = ${jsToLua(v)}`)
+      .join(", ");
+    return `{${pairs}}`;
+  }
+  return "nil";
+}
+
 function sendLua() {
     // Basic stats
     fengari.load(`
-        previousbet = ${previousbet}
-        win = ${win}
-        balance = ${balance}
-        profit = ${profit_total}
-        currentprofit = ${currentprofit}
-    `)();
+	  bet = ${jsToLua(bet)}
+	  previousbet = ${previousbet}
+	  win = ${win}
+	  balance = ${balance}
+	  profit = ${profit_total}
+	  currentprofit = ${currentprofit}
+	`)();
 
     // Counters
     fengari.load(`
