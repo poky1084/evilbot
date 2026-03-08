@@ -13,7 +13,6 @@ Please give a Star on the repo in case you liked/used it. Thank you!
 <b>Donate:</b> https://ko-fi.com/poky <br />
 
 <b>Discord</b>: fisk_992 <br />
-<b>Stake</b>: poky1084 <br />
 <b>Telegram:</b>: https://t.me/poky_1084
 
 
@@ -25,14 +24,14 @@ Please give a Star on the repo in case you liked/used it. Thank you!
 
 <b>functions:</b> `resetseed('clientseed'), resetstats(), vault(amount), unvault(amount, 'password'), log('text'), view(lastBet.id), start(), stop(), sleep(1000), resetAll(), resetChart(), deleteLogs()` <br />
 
-<b>Crash game manual cashout:</b> `cashout()` in script, or use it as command in Log tab
-
 <b>Variables:</b> `game = "limbo", win, currentstreak, profit, wagered, balance, previousbet, currentprofit, bets, wins, losses, losestreak, winstreak, fastmode = true` <br />
 <b>lastBet vars:</b> `lastBet.Roll, lastBet.win, lastBet.amount, lastBet.payout, lastBet.payoutMultiplier, lastBet.name, lastBet.id`
 
 Use `bet.*` variable to access betting data. eg: `bet.payoutMultiplier` or `bet.crash?.event?.multiplier` or `bet.slide?.event?.status`
 
-Play sound effect on hit, use: `ding()` or `ching()`
+<b>Play sound effect on hit, use:</b> `ding()` or `ching()`
+
+<b>Crash game manual cashout:</b> `cashout()` in script, or use it as command in Log tab
 
 !!the strategy must be in `dobet()` method, and `dobet()` must be declared as shown below!!
 ```javascript
