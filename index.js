@@ -13309,7 +13309,7 @@ function data(json){
 
 async function view(betId){
 	const data = await fetchBetDetails(betId);
-	log(data.data.bet.iid);
+	log(data.data.bet.iid.replace(/house:/g, 'casino:'));
 }
 
 document.addEventListener('click', async function(e) {
@@ -13325,11 +13325,11 @@ document.addEventListener('click', async function(e) {
 		element21.innerHTML = `<button onclick="
 		  const span = this.querySelector('span');
 		  const originalText = span.textContent;
-		  navigator.clipboard.writeText('${data.data.bet.iid}');
+		  navigator.clipboard.writeText('${data.data.bet.iid.replace(/house:/g, 'casino:')}');
 		  span.textContent = 'Copied!';
 		  setTimeout(() => span.textContent = originalText, 1500);
 		" style="cursor: pointer; color: #007bff;">
-		  <span>${data.data.bet.iid}</span> | 
+		  <span>${data.data.bet.iid.replace(/house:/g, 'casino:')}</span> | 
 		</button><a href="https://${mirror}/casino/home?modal=bet&betId=${betId}" target="_blank" style="text-decoration: none;">Open</a>`;
 		//log(data.data.bet.iid)
     }
