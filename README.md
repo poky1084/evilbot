@@ -32,6 +32,8 @@ Please give a Star on the repo in case you liked/used it. Thank you!
 
 Use `bet.*` variable to access betting data. eg: `bet.payoutMultiplier` or `bet.crash?.event?.multiplier` or `bet.slide?.event?.status`
 
+Play sound effect on hit, use: `ding()` or `ching()`
+
 !!the strategy must be in `dobet()` method, and `dobet()` must be declared as shown below!!
 ```javascript
 nextbet = 0.00001 //in crypto format, not USD
