@@ -3240,7 +3240,7 @@ function ding() {
   
   // Initialize button text
   //toggleUIButton.textContent = 'Hide Code';
-function ching() {
+function beep() {
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   const oscillator = audioCtx.createOscillator();
@@ -13929,8 +13929,8 @@ function loadLua() {
 	fengari.load(`function ding()
         return js.global:ding()
     end`)()
-	fengari.load(`function ching()
-        return js.global:ching()
+	fengari.load(`function beep()
+        return js.global:beep()
     end`)()
 	var value = document.getElementById("botMenuMode").value;
 	if(value == "lua"){
