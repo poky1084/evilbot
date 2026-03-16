@@ -22,14 +22,14 @@ Please give a Star on the repo in case you liked/used it. Thank you!
 
 # Use: <br />
 
-<b>functions:</b> `resetseed('clientseed'), resetstats(), vault(amount), unvault(amount, 'password'), log('text'), view(lastBet.id), start(), stop(), sleep(1000), resetAll(), resetChart(), deleteLogs()` <br />
+<b>functions:</b> `resetseed('clientseed'), resetstats(), vault(amount), unvault(amount, 'password'), log('text'), view(bet.id), start(), stop(), sleep(1000), resetAll(), resetChart(), deleteLogs()` <br />
 
 <b>Variables:</b> `game = "limbo", win, currentstreak, profit, wagered, balance, previousbet, currentprofit, bets, wins, losses, losestreak, winstreak, fastmode = true` <br />
 <b>lastBet vars:</b> `lastBet.Roll, lastBet.win, lastBet.amount, lastBet.payout, lastBet.payoutMultiplier, lastBet.name, lastBet.id`
 
 Use `bet.*` variable to access betting data. eg: `bet.payoutMultiplier` or `bet.crash?.event?.multiplier` or `bet.slide?.event?.status`
 
-<b>Play sound effect on hit, use:</b> `ding()` or `ching()`
+<b>Play sound effect on hit, use:</b> `ding()` or `beep()`
 
 <b>Crash game manual cashout:</b> `cashout()` in script, or use it as command in Log tab
 
