@@ -3242,25 +3242,40 @@ function ding() {
   //toggleUIButton.textContent = 'Hide Code';
 
 function beep() {
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const ctx = new AudioContext();
+  const now = ctx.currentTime;
+  const attack = 0.001;   // 70ms attack
+  const decay = 5.5;     // total duration
+  const tau = 0.30;      // decay time constant
 
-  const oscillator = audioCtx.createOscillator();
-  const gainNode = audioCtx.createGain();
+  // Master gain (envelope)
+  const env = ctx.createGain();
+  env.gain.setValueAtTime(0, now);
+  env.gain.linearRampToValueAtTime(1.0, now + attack);
+  env.gain.setTargetAtTime(0, now + attack, tau); // exponential decay
+  env.connect(ctx.destination);
 
-  oscillator.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
+  // Primary tone: 2642 Hz (E7)
+  const osc1 = ctx.createOscillator();
+  const gain1 = ctx.createGain();
+  osc1.type = 'sine';
+  osc1.frequency.value = 2642;
+  gain1.gain.value = 1.0;
+  osc1.connect(gain1);
+  gain1.connect(env);
+  osc1.start(now);
+  osc1.stop(now + decay);
 
-  oscillator.type = 'triangle';
-  oscillator.frequency.setValueAtTime(4500, audioCtx.currentTime);
-  oscillator.frequency.exponentialRampToValueAtTime(2000, audioCtx.currentTime + 0.3);
-
-
-  gainNode.gain.setValueAtTime(0.8, audioCtx.currentTime);
-gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
-
-
-  oscillator.start(audioCtx.currentTime);
- oscillator.stop(audioCtx.currentTime + 1.5);
+  // Bell overtone: 6869 Hz at 8% amplitude
+  const osc2 = ctx.createOscillator();
+  const gain2 = ctx.createGain();
+  osc2.type = 'sine';
+  osc2.frequency.value = 6869;
+  gain2.gain.value = 0.08;
+  osc2.connect(gain2);
+  gain2.connect(env);
+  osc2.start(now);
+  osc2.stop(now + decay);
 }
 
 function changegame(gamer) {
