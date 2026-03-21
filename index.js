@@ -3242,25 +3242,25 @@ function ding() {
   //toggleUIButton.textContent = 'Hide Code';
 
 function beep() {
-  const ctx = new AudioContext();
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-  const oscillator = ctx.createOscillator();
-  const gainNode = ctx.createGain();
+  const oscillator = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
 
   oscillator.connect(gainNode);
-  gainNode.connect(ctx.destination);
+  gainNode.connect(audioCtx.destination);
 
-  // Bell-like tone
-  oscillator.type = 'sine';
-  oscillator.frequency.setValueAtTime(800, ctx.currentTime); // A5
-  oscillator.frequency.exponentialRampToValueAtTime(1500, ctx.currentTime + 0.5); // pitch drops
+  oscillator.type = 'triangle';
+  oscillator.frequency.setValueAtTime(4500, audioCtx.currentTime);
+  oscillator.frequency.exponentialRampToValueAtTime(2000, audioCtx.currentTime + 0.3);
 
-  // Sharp attack, slow fade out
-  gainNode.gain.setValueAtTime(1, ctx.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
 
-  oscillator.start(ctx.currentTime);
-  oscillator.stop(ctx.currentTime + 0.5);
+  gainNode.gain.setValueAtTime(0.8, audioCtx.currentTime);
+gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
+
+
+  oscillator.start(audioCtx.currentTime);
+ oscillator.stop(audioCtx.currentTime + 1.5);
 }
 
 function changegame(gamer) {
