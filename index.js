@@ -10691,8 +10691,8 @@ document.addEventListener("mouseup", () => {
 });
 */
 
-function sleep(ms){
-	sleeptime = ms || 0
+function sleep(ms) {
+    sleeptime = (ms && ms > 0) ? ms : 0;
 }
 
 function sleepfor (time) {
@@ -13243,7 +13243,8 @@ function data(json){
 		}
 		
 		if (running && !samuraiskip) {
-		
+		const delay = sleeptime;
+		sleeptime = 0;
 		//sleepfor(sleeptime).then(() => {
 		setTimeout(() => {
         //sleeptime = 0;
@@ -13251,7 +13252,7 @@ function data(json){
 		if(gameUI){
 			changegame(game);
 		}
-		sleeptime = 0;
+		//sleeptime = 0;
 
         const gameHandlers = {
             hilo: () => {
@@ -13342,7 +13343,7 @@ function data(json){
         if (gameHandlers[game]) {
             gameHandlers[game]();
         }
-		}, sleeptime);
+		}, delay);
     //});
 	}		
 }
