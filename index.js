@@ -2952,7 +2952,7 @@ var errorgame = false
 var htmlEditor = ''
 var htmlEditor2 = ''
 var fastmode = false;
-var startMS = performance.now()
+//var startMS = performance.now()
 let mines = 1
 let fields = [1,2,3]
 let risk = "low"
@@ -2990,7 +2990,7 @@ let ms = 0
 let sleeptime = 0
 let timeoutClear = null
 var timeouts = [];
-var measures = [];
+//var measures = [];
 var socketstart = [];
 let steps = 1
 let pick = 1
@@ -12245,15 +12245,31 @@ function DiceBet(amount, chance, bethigh) {
 }
 
 
-function updatePerformanceMetrics(){
-	const endMS = performance.now();
-	var meter = document.getElementById("botSpeed");
-	measures.push(endMS - startMS)
-	if(measures.length > 3){
-		measures.shift()
-	}
-	meter.innerHTML = (1000 / (measures.reduce((partialSum, a) => partialSum + a, 0)/measures.length)).toFixed(1) + " bet/s"
-	startMS = performance.now();	
+const completionTimes = [];
+const SPEED_WINDOW_MS = 2000; // measure rate over last 3 seconds
+const SPEED_WINDOW_MIN = 2;   // need at least 2 completions to calculate
+
+function updatePerformanceMetrics() {
+    const now = performance.now();
+    completionTimes.push(now);
+
+    // Drop entries older than the window
+    while (completionTimes.length > 1 && (now - completionTimes[0]) > SPEED_WINDOW_MS) {
+        completionTimes.shift();
+    }
+
+    const meter = document.getElementById("botSpeed");
+
+    if (completionTimes.length < SPEED_WINDOW_MIN) {
+        meter.innerHTML = "-- bet/s";
+        return;
+    }
+
+    const elapsed = now - completionTimes[0];
+    const betsCompleted = completionTimes.length - 1;
+    const betsPerSecond = (betsCompleted / elapsed) * 1000;
+
+    meter.innerHTML = betsPerSecond.toFixed(1) + " bet/s";
 }
 
 function data(json){
@@ -12335,7 +12351,7 @@ function data(json){
 		tdhigh.appendChild(tdcheck);
 		
 		if(!json.hasOwnProperty("data")){
-			if(!json.hasOwnProperty("hiloNext") && !json.hasOwnProperty("hiloCashout"))
+			if(!json.hasOwnProperty("hiloNext") && !json.hasOwnProperty("hiloCashout") && !json.hasOwnProperty("blackjackNext"))
 			{
 				updatePerformanceMetrics()
 			}
