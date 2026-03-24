@@ -12422,7 +12422,7 @@ function data(json){
             
             // UI Updates
             tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
-            tdTargetNumber.innerHTML = bet.state.molesCount + "|" + bet.state.currentRound;
+            tdTargetNumber.innerHTML = bet.state.molesCount + "|" + picks.length;
             tdRollNumber.innerHTML = bet.state.currentRound;
 			tdRollChance.innerHTML = bet.state.molesCount + "|" + bet.state.currentRound
             //break;
