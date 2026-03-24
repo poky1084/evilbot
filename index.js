@@ -1240,6 +1240,7 @@
 			<option value="dragontower">dragontower</option>
 			<option value="baccarat">baccarat</option>
 			<option value="chicken">chicken</option>
+			<option value="moles">moles</option>
 			<option value="drill">drill</option>
 			<option value="tarot">tarot</option>
 			<option value="pump">pump</option>
@@ -2994,6 +2995,8 @@ var timeouts = [];
 var socketstart = [];
 let steps = 1
 let pick = 1
+let moles = 3
+let picks = [0]
 
 var stoponwin = false;
 var stopped = true;
@@ -11806,7 +11809,8 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
 				chicken: 	 () => runBet(chickenBet, [nextbet, difficulty, steps]),
 				tarot: 	 	 () => runBet(tarotBet, [nextbet, difficulty]),
 				drill: 	 	 () => runBet(drillBet, [nextbet, target, pick]),
-				primedice:   () => runBet(PrimeBet, [nextbet, target1, target2, target3, target4, condition])
+				primedice:   () => runBet(PrimeBet, [nextbet, target1, target2, target3, target4, condition]),
+				moles: 	 	 () => runBet(molesBet, [nextbet, moles, picks])
 			};
 
 			if (game in gameFunctions){
@@ -11929,6 +11933,14 @@ function outbetbj(json){
 		 	active_blackjack = true;
 			updateBlackjackUI(json);
 	}	
+}
+
+function molesBet(amount, molesCount, picks) {
+    betRequest({
+        url: '_api/casino/moles/autobet',
+        body: { amount, currency, identifier: randomString(21), molesCount, picks },
+        retryParams: [amount, molesCount, picks]
+    });
 }
 
 function drillBet(amount, target, pick) {
@@ -12402,6 +12414,19 @@ function data(json){
 		}
 		
 		if (json && !json.data) {
+		
+		if (gameType === "molesAutobet"){
+            lastBet.Roll = bet.state.currentRound;
+            lastBet.target = bet.state.molesCount;
+            lastBet.targetNumber = lastBet.target
+            
+            // UI Updates
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
+            tdTargetNumber.innerHTML = bet.state.molesCount + "|" + bet.state.currentRound;
+            tdRollNumber.innerHTML = bet.state.currentRound;
+			tdRollChance.innerHTML = bet.state.molesCount + "|" + bet.state.currentRound
+            //break;
+        }
 		
 		if (gameType === "drillBet"){
             lastBet.Roll = bet.payoutMultiplier;
@@ -13352,7 +13377,8 @@ function data(json){
 			chicken: () => chickenBet(nextbet, difficulty, steps),
 			tarot: () => tarotBet(nextbet, difficulty),
 			drill: () => drillBet(nextbet, target, pick),
-			primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
+			primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition),
+			moles: () => molesBet(nextbet, moles, picks)
         };
 		
 		
@@ -14055,6 +14081,7 @@ function sendLua() {
     fields = JSON.parse(fengari.load(`return "[" .. table.concat(fields or {1}, ",") .. "]"`)());
     numbers = JSON.parse(fengari.load(`return "[" .. table.concat(numbers or {1}, ",") .. "]"`)());
     guesses = fengari.load(`return table.concat(guesses or {1}, ",")`)().split(",");
+	picks = JSON.parse(fengari.load(`return "[" .. table.concat(picks or {1}, ",") .. "]"`)());
 	//tiles = JSON.parse(fengari.load(`return "[" .. table.concat(tiles or {1}, ",") .. "]"`));
 
     // Direct values
@@ -14076,7 +14103,8 @@ function sendLua() {
 	//action = getLua("action");
 	steps = fengari.load(`return steps`)();
 	pick = fengari.load(`return pick`)();
-
+	moles  = fengari.load(`return moles`)();
+	
     // Token key
     tokenapi = fengari.load(`return tokenapi`)();
     if (tokenapi === undefined || tokenapi === null) {
@@ -14158,12 +14186,14 @@ function start(){
 			action = getLua("action");
 			steps = getLua("steps");
 			pick = getLua("pick");
+			moles = getLua("moles");
 			
-			let eggs = JSON.parse(getLua('"[" .. table.concat(eggs or {1}, ",") .. "]"'));
-			let fields = JSON.parse(getLua('"[" .. table.concat(fields or {1}, ",") .. "]"'));
-			let numbers = JSON.parse(getLua('"[" .. table.concat(numbers or {1}, ",") .. "]"'));
-			let guesses = getLua('table.concat(guesses or {1}, ",")').split(',');
-			let tiles = JSON.parse(getLua('"[" .. table.concat(tiles or {1}, ",") .. "]"'));
+			eggs = JSON.parse(getLua('"[" .. table.concat(eggs or {1}, ",") .. "]"'));
+			fields = JSON.parse(getLua('"[" .. table.concat(fields or {1}, ",") .. "]"'));
+			numbers = JSON.parse(getLua('"[" .. table.concat(numbers or {1}, ",") .. "]"'));
+			guesses = getLua('table.concat(guesses or {1}, ",")').split(',');
+			tiles = JSON.parse(getLua('"[" .. table.concat(tiles or {1}, ",") .. "]"'));
+			picks = JSON.parse(getLua('"[" .. table.concat(picks or {1}, ",") .. "]"'));
 			
 			// Fallbacks
 			if (!tokenapi) tokenapi = getEl("tokenkey").value;
@@ -14205,7 +14235,8 @@ function start(){
 				chicken: () => chickenBet(nextbet, difficulty, steps),
 				tarot: () => tarotBet(nextbet, difficulty),
 				drill: () => drillBet(nextbet, target, pick),
-				primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition)
+				primedice: () => PrimeBet(nextbet, target1, target2, target3, target4, condition),
+				moles: () => molesBet(nextbet, moles, picks)
 			};
 
 			const runBet = betFunctions[game];
@@ -14277,7 +14308,8 @@ function start(){
 				chicken: 	 () => runBet(chickenBet, [nextbet, difficulty, steps]),
 				tarot: 	 	 () => runBet(tarotBet, [nextbet, difficulty]),
 				drill: 	 	 () => runBet(drillBet, [nextbet, target, pick]),
-				primedice:   () => runBet(PrimeBet, [nextbet, target1, target2, target3, target4, condition])
+				primedice:   () => runBet(PrimeBet, [nextbet, target1, target2, target3, target4, condition]),
+				moles: 	 	 () => runBet(molesBet, [nextbet, moles, picks])
 			};
 
 			if (game in gameFunctions) gameFunctions[game]();
