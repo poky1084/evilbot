@@ -86,6 +86,14 @@ function round(){
 }
 ```
 
+<b>moles: </b>
+```javascript
+game = "moles"
+nextbet = 0
+moles = 6
+picks = [0,1,1,1,2,6]
+```
+
 <b>drill: </b>
 ```javascript
 game = "drill"
