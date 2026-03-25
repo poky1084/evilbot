@@ -12161,13 +12161,28 @@ function wheelbet(amount, segments, risk) {
         retryParams: [amount, segments, risk]
     });
 }
-
+/*
 function plinkobet(amount, rows, risk) {
     betRequest({
         url: '_api/casino/plinko/bet',
         body: { amount, currency, identifier: randomString(21), risk, rows },
         retryParams: [amount, rows, risk]
     });
+}*/
+
+function plinkobet(amount, rows, risk){
+	const body = {
+				"query": "mutation PlinkoBet($amount: Float!, $currency: CurrencyEnum!, $risk: CasinoGamePlinkoRiskEnum!, $rows: Int!, $identifier: String!) {\n  plinkoBet(\n    amount: $amount\n    currency: $currency\n    risk: $risk\n    rows: $rows\n    identifier: $identifier\n  ) {\n    ...CasinoBet\n    state {\n      ...CasinoGamePlinko\n    }\n  }\n}\n\nfragment CasinoGamePlinko on CasinoGamePlinko {\n  risk\n  rows\n  point\n  path\n}\n\nfragment CasinoBet on CasinoBet {\n  id\n  active\n  payoutMultiplier\n  amountMultiplier\n  amount\n  payout\n  updatedAt\n  currency\n  game\n  user {\n    id\n    name\n  }\n}",
+				"variables": {
+					"currency": currency,
+					"amount": amount,
+					"rows": rows,
+					"risk": risk,
+					"identifier": randomString(21)
+				}
+			}
+    
+    makeRequest(body, data);
 }
 
 function kenobet(amount, numbers, risk) {
@@ -12411,6 +12426,18 @@ function data(json){
             tdRollNumber.innerHTML = lastBet.Roll;
             //break;
 		}
+		
+		if (gameType === "plinkoBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = bet.state.rows;
+            lastBet.targetNumber = `${bet.state.risk}|${bet.state.rows}`;
+            
+            // UI Updates
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = lastBet.Roll;
+            //break;
+        }  
 		}
 		
 		if (json && !json.data) {
@@ -12608,17 +12635,7 @@ function data(json){
             tdRollNumber.innerHTML = lastBet.Roll;
             //break;
         }    
-        if (gameType === "plinkoBet"){
-            lastBet.Roll = bet.payoutMultiplier;
-            lastBet.target = bet.state.rows;
-            lastBet.targetNumber = `${bet.state.risk}|${bet.state.rows}`;
-            
-            // UI Updates
-            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
-            tdTargetNumber.innerHTML = lastBet.targetNumber;
-            tdRollNumber.innerHTML = lastBet.Roll;
-            //break;
-        }    
+  
         if (gameType === "kenoBet"){
             lastBet.Roll = bet.state.drawnNumbers;
             const kenofield = bet.state.selectedNumbers;
