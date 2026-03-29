@@ -10,7 +10,8 @@ demo: https://www.youtube.com/watch?v=9io2MuZwfCY
 # Info: <br />
 Please give a Star on the repo in case you liked/used it. Thank you!
 
-<b>Donate:</b> https://ko-fi.com/poky <br />
+<b>Donate1:</b> https://cwallet.com/t/87SPDPGG <br />
+<b>Donate2:</b> https://ko-fi.com/poky <br />
 
 <b>Discord</b>: fisk_992 <br />
 <b>Telegram:</b>: https://t.me/poky_1084
