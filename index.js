@@ -13431,7 +13431,7 @@ document.addEventListener('click', async function(e) {
 		  setTimeout(() => span.textContent = originalText, 1500);
 		" style="cursor: pointer; color: #007bff;">
 		  <span>${data.data.bet.iid.replace(/house:/g, 'casino:')}</span> | 
-		</button><a href="https://${mirror}/casino/home?modal=bet&betId=${betId}" target="_blank" style="text-decoration: none;">Open</a>`;
+		</button><a href="https://${mirror}/?modal=bet&iid=${data.data.bet.iid.replace(/house:/g, 'casino:')}" target="_blank" style="text-decoration: none;">Open</a>`;
 		//log(data.data.bet.iid)
     }
 });
