@@ -117,6 +117,17 @@ function dobet() {
     beep();
   }
 }
+
+// Possible values:
+//   "royalFlush"     → 800x
+//   "straightFlush"  → 60x
+//   "fourOfAKind"    → 22x
+//   "fullHouse"      → 9x
+//   "flush"          → 6x
+//   "straight"       → 4x
+//   "threeOfAKind"   → 3x
+//   "twoPair"        → 2x
+//   "onePair"  → 1x
 ```
 
 
