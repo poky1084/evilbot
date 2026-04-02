@@ -92,8 +92,8 @@ function round(){
 game = "videopoker"
 nextbet = 0.0
 target = [
-  { A: 2, 2: 3 },
-  { A: 3, 3: 2 }
+  { A: 2, K: 3 },
+  { A: 3, K: 2 }
 ]
 // target = null set this if want to run optimal strategy, or fill card labels and how many to find { card: amount, Q: 3 }
 
