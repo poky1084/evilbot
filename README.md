@@ -95,7 +95,8 @@ target = [
   { A: 2, K: 3 },
   { A: 3, K: 2 }
 ]
-// target = null set this if want to run overall optimal strategy, or fill card labels and how many to find { card: amount, Q: 3 }
+// target = null
+// set this if want to run overall optimal strategy, or fill card labels and how many to find { card: amount, Q: 3 }
 
 function dobet() {
 
