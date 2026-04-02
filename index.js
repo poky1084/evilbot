@@ -12787,7 +12787,7 @@ function updatePerformanceMetrics() {
 
 function data(json){
 		if(json.errors != null){
-			if(!json.errors[0].errorType.includes("parallelCasinoBet")){
+			if(!json.errors[0].errorType.includes("parallelCasinoBet") || !json.errors[0].errorType.includes("internalError")){
 			log(json.errors[0].errorType + ". " +json.errors[0].message )
 			errorgame = true
 			sleep(1000);
