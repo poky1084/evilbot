@@ -11985,9 +11985,9 @@ function outbetbj(json){
 // ============================================================
 //  RANK / SUIT HELPERS
 // ============================================================
-const RANK_ORDER    = ["2","3","4","5","6","7","8","9","T","J","Q","K","A"];
+const RANK_ORDER    = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"];
 const HIGH_RANKS    = new Set(["J","Q","K","A"]);   // Jacks or better
-const ROYAL_RANKS   = new Set(["T","J","Q","K","A"]);
+const ROYAL_RANKS   = new Set(["10","J","Q","K","A"]);
 
 const rankVal  = (r) => RANK_ORDER.indexOf(r);
 const cardStr  = (c) => `${c.rank}${c.suit}`;
