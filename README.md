@@ -87,6 +87,39 @@ function round(){
 }
 ```
 
+<b>video poker: </b>
+```javascript
+game = "videopoker"
+nextbet = 0.0
+target = [
+  { A: 2, 2: 3 },
+  { A: 3, 3: 2 }
+]
+// target = null set this if want to run optimal strategy, or fill card labels and how many to find { card: amount, Q: 3 }
+
+function dobet() {
+
+  const finalHand  = bet.state.playerHand;
+  const hitLabel = checkTargetHit(finalHand, target);
+	if (hitLabel) {
+		stop();
+		beep();
+	}
+	
+  if(bet.payoutMultiplier >= 799){
+	stop();
+	beep();
+  }
+  
+  const handresult = bet.state.handResult;
+  if(handresult == "fourOfAKind"){
+    stop();
+    beep();
+  }
+}
+```
+
+
 <b>moles: </b>
 ```javascript
 game = "moles"
