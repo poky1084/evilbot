@@ -1236,6 +1236,7 @@
 			<option value="hilo">hilo</option>
 			<option value="blackjack">blackjack</option>
 			<option value="wheel">wheel</option>
+			<option value="videopoker">videopoker</option>
 			<option value="roulette">roulette</option>
 			<option value="dragontower">dragontower</option>
 			<option value="baccarat">baccarat</option>
@@ -2997,6 +2998,8 @@ let steps = 1
 let pick = 1
 let moles = 3
 let picks = [0]
+let held = [];
+let pokerskip = false;
 
 var stoponwin = false;
 var stopped = true;
@@ -10628,8 +10631,9 @@ changegame(game);
 darkorLight(!dark);
 
 activeBet();
-activeBetMines()
+activeBetMines();
 activeBetBJ();
+activePoker();
 
 showOnChange(true);
 }
@@ -11842,6 +11846,31 @@ function betRequest({ url, body, retryParams = [], retryDelay = 1000 }) {
     });
 }
 
+function activePoker(){
+	var body = {}
+	
+	fetch('https://' + mirror + '/_api/casino/active-bet/videoPoker', {
+		method: 'post',
+		body:    JSON.stringify(body),
+		headers: { 'Content-Type': 'application/json','x-access-token': tokenapi},
+	})
+	.then(res => res.json())
+	.then(json => outpoker(json))
+	.catch(function(err, json) {
+		//console.log(err);
+		setTimeout(() => {
+									
+		}, "2000");
+	});
+}
+
+function outpoker(json){
+	 if (json.user.activeCasinoBet != null) {
+		 //pokerskip = false
+		 //bet = json.user.activeCasinoBet
+	}	
+}
+
 function activeBet(){
 	var body = {}
 	
@@ -11934,6 +11963,455 @@ function outbetbj(json){
 			updateBlackjackUI(json);
 	}	
 }
+
+
+//  List every full house combination you want to chase.
+//  Each entry is an object: { RANK: count, RANK: count }
+//  where counts must add up to 5 (3+2).
+//
+//  The engine scores every combination against the current hand
+//  and automatically plays toward whichever one already has the
+//  most matching cards.
+//
+//  Valid ranks: "2" "3" "4" "5" "6" "7" "8" "9" "T" "J" "Q" "K" "A"
+//
+//  Examples:
+//    { K:3, J:2 }  →  three Kings  + two Jacks
+//    { J:3, K:2 }  →  three Jacks  + two Kings
+//    { A:3, K:2 }  →  three Aces   + two Kings
+//    { Q:3, A:2 }  →  three Queens + two Aces
+//
+
+// ============================================================
+//  RANK / SUIT HELPERS
+// ============================================================
+const RANK_ORDER    = ["2","3","4","5","6","7","8","9","T","J","Q","K","A"];
+const HIGH_RANKS    = new Set(["J","Q","K","A"]);   // Jacks or better
+const ROYAL_RANKS   = new Set(["T","J","Q","K","A"]);
+
+const rankVal  = (r) => RANK_ORDER.indexOf(r);
+const cardStr  = (c) => `${c.rank}${c.suit}`;
+const handStr  = (h) => h.map(cardStr).join("  ");
+
+function byRank(hand) {
+  return hand.reduce((a, c) => { (a[c.rank] = a[c.rank] || []).push(c); return a; }, {});
+}
+function bySuit(hand) {
+  return hand.reduce((a, c) => { (a[c.suit] = a[c.suit] || []).push(c); return a; }, {});
+}
+function rankDesc(rg) {
+  return Object.entries(rg).sort((a, b) => b[1].length - a[1].length);
+}
+function sortedByRank(cards) {
+  return [...cards].sort((a, b) => rankVal(a.rank) - rankVal(b.rank));
+}
+function countHighCards(cards) {
+  return cards.filter(c => HIGH_RANKS.has(c.rank)).length;
+}
+
+// ── Flush / straight detection ────────────────────────────
+function isFlushHand(hand) {
+  return Object.keys(bySuit(hand)).length === 1;
+}
+function rankVals(cards) {
+  return sortedByRank(cards).map(c => rankVal(c.rank));
+}
+function isStraightVals(vals) {
+  if (new Set(vals).size !== vals.length) return false; // duplicates
+  return vals[vals.length-1] - vals[0] === vals.length - 1;
+}
+function isStraightHand(hand) {
+  const vals = rankVals(hand);
+  if (isStraightVals(vals)) return true;
+  // Ace-low: A-2-3-4-5
+  if (vals[vals.length-1] === 12) {
+    const low = [vals[vals.length-1], ...vals.slice(0,-1)].map(v => v === 12 ? -1 : v).sort((a,b)=>a-b);
+    return isStraightVals(low.map((v,i,a) => i===0? 0: low[i]-low[0])) ;
+    // simpler:
+  }
+  return false;
+}
+function isAceLowStraight(hand) {
+  const v = rankVals(hand);
+  return JSON.stringify(v) === JSON.stringify([0,1,2,3,12]);
+}
+
+// ── N-to-Royal detection ──────────────────────────────────
+/**
+ * Returns the best same-suit subset of royal-rank cards (T,J,Q,K,A).
+ * e.g. 4-to-royal = 4 cards same suit all in {T,J,Q,K,A}
+ */
+function royalDraw(hand, n) {
+  const sg = bySuit(hand);
+  for (const cards of Object.values(sg)) {
+    const royal = cards.filter(c => ROYAL_RANKS.has(c.rank));
+    if (royal.length === n) return royal;
+    if (royal.length > n)  return sortedByRank(royal).slice(-n); // take highest n
+  }
+  return null;
+}
+function bestRoyalDraw(hand) {
+  for (let n = 5; n >= 2; n--) {
+    const r = royalDraw(hand, n);
+    if (r) return { n, cards: r };
+  }
+  return null;
+}
+
+// ── N-to-Straight-Flush detection ────────────────────────
+/**
+ * Returns the largest same-suit consecutive (or near-consecutive) run.
+ * gap=0 → pure consecutive, gap=1 → one gap allowed (inside draw).
+ */
+function straightFlushDraw(hand, minN, maxGap = 0) {
+  const sg = bySuit(hand);
+  let best = null;
+  for (const cards of Object.values(sg)) {
+    if (cards.length < minN) continue;
+    const s = sortedByRank(cards);
+    // Try all combos of size minN..cards.length
+    const combos = getCombinations(s, minN);
+    for (const combo of combos) {
+      const vals = combo.map(c => rankVal(c.rank));
+      const span = vals[vals.length-1] - vals[0];
+      const gaps = span - (combo.length - 1); // missing cards inside
+      if (gaps <= maxGap && span <= 4) {
+        if (!best || combo.length > best.length) best = combo;
+      }
+    }
+  }
+  return best;
+}
+
+/** Simple combination generator */
+function getCombinations(arr, k) {
+  if (k === 0) return [[]];
+  if (arr.length < k) return [];
+  const [first, ...rest] = arr;
+  const withFirst    = getCombinations(rest, k - 1).map(c => [first, ...c]);
+  const withoutFirst = getCombinations(rest, k);
+  return [...withFirst, ...withoutFirst];
+}
+
+// ── Outside vs Inside straight draw ──────────────────────
+/**
+ * 4-to-outside-straight: 4 consecutive ranks, open on both ends.
+ * 4-to-inside-straight : 4 ranks with exactly 1 gap (gutshot).
+ */
+function straightDraw4(hand) {
+  // Deduplicate by rank
+  const uniq = Object.values(byRank(hand)).map(g => g[0]);
+  const s    = sortedByRank(uniq);
+  const combos = getCombinations(s, 4);
+  let outside = null, inside = null;
+  for (const combo of combos) {
+    const vals = combo.map(c => rankVal(c.rank));
+    const span = vals[vals.length-1] - vals[0];
+    if (span === 3 && new Set(vals).size === 4) {
+      // Outside: can extend on both ends (low > 0 AND high < 12 effectively)
+      // Ace-low special: A-2-3-4 is outside low end only, 2-3-4-5 outside both
+      const canLow  = vals[0] > 0;
+      const canHigh = vals[3] < 12; // 12 = Ace
+      if (canLow && canHigh) outside = outside || combo;
+      else                   inside  = inside  || combo;
+    } else if (span === 4 && new Set(vals).size === 4) {
+      // Inside straight (gutshot)
+      inside = inside || combo;
+    }
+  }
+  return { outside, inside };
+}
+
+// ── 3-to-Straight-Flush helpers ──────────────────────────
+function straightFlush3(hand) {
+  // No gap (pure), 1 gap, or 2 gaps — classified for EV ordering
+  const pure  = straightFlushDraw(hand, 3, 0); // 3 consecutive same suit
+  const gap1  = straightFlushDraw(hand, 3, 1); // 3 same suit, 1 gap
+  const gap2  = straightFlushDraw(hand, 3, 2); // 3 same suit, 2 gaps (span≤4)
+  return { pure, gap1, gap2 };
+}
+
+// ============================================================
+//  HAND EVALUATOR
+// ============================================================
+function evaluateHand(hand) {
+  const rg     = byRank(hand);
+  const rd     = rankDesc(rg);
+  const counts = rd.map(([,c]) => c.length);
+  const flush  = isFlushHand(hand);
+  const vals   = rankVals(hand);
+  const seq    = isStraightVals(vals);
+  const aceLow = isAceLowStraight(hand);
+  const str    = seq || aceLow;
+
+  if (flush && str) return Math.max(...vals) === 12 && !aceLow ? "royalFlush" : "straightFlush";
+  if (counts[0] === 4)              return "fourOfAKind";
+  if (counts[0] === 3 && counts[1] === 2) return "fullHouse";
+  if (flush)                        return "flush";
+  if (str)                          return "straight";
+  if (counts[0] === 3)              return "threeOfAKind";
+  if (counts[0] === 2 && counts[1] === 2) return "twoPair";
+  if (counts[0] === 2 && HIGH_RANKS.has(rd[0][0])) return "onePair";
+  if (counts[0] === 2)              return "lowPair";
+  return "highCard";
+}
+
+// ============================================================
+//  CORE: getOptimalHold(hand)
+//  Priority order matches 9/6 Jacks-or-Better EV table.
+// ============================================================
+function getOptimalHold(hand) {
+  const rg     = byRank(hand);
+  const rd     = rankDesc(rg);
+  const counts = rd.map(([,c]) => c.length);
+
+  const flush   = isFlushHand(hand);
+  const vals    = rankVals(hand);
+  const straight = isStraightVals(vals) || isAceLowStraight(hand);
+
+  // ── TIER 1 — Pat hands (hold all 5) ──────────────────────
+  // Royal Flush
+  if (flush && straight && Math.max(...vals) === 12 && !isAceLowStraight(hand))
+    return { hold: hand, reason: "Royal Flush — hold all 5" };
+
+  // Straight Flush
+  if (flush && straight)
+    return { hold: hand, reason: "Straight Flush — hold all 5" };
+
+  // Four of a Kind
+  if (counts[0] === 4)
+    return { hold: rd[0][1], reason: "Four of a Kind — hold quads" };
+
+  // ── TIER 2 — 4-to-Royal (higher EV than Full House) ──────
+  const royal4 = royalDraw(hand, 4);
+  if (royal4)
+    return { hold: royal4, reason: "4 to Royal Flush" };
+
+  // Full House
+  if (counts[0] === 3 && counts[1] === 2)
+    return { hold: hand, reason: "Full House — hold all 5" };
+
+  // Flush
+  if (flush)
+    return { hold: hand, reason: "Flush — hold all 5" };
+
+  // Three of a Kind
+  if (counts[0] === 3)
+    return { hold: rd[0][1].slice(0, 3), reason: "Three of a Kind — hold trips" };
+
+  // Straight
+  if (straight)
+    return { hold: hand, reason: "Straight — hold all 5" };
+
+  // ── TIER 3 — 4-to-Straight-Flush ─────────────────────────
+  const sf4 = straightFlushDraw(hand, 4, 1);
+  if (sf4)
+    return { hold: sf4, reason: "4 to Straight Flush" };
+
+  // Two Pair
+  if (counts[0] === 2 && counts[1] === 2) {
+    const bothPairs = [...rd[0][1], ...rd[1][1]];
+    return { hold: bothPairs, reason: "Two Pair — hold both pairs" };
+  }
+
+  // High Pair (Jacks or Better)
+  const highPair = rd.find(([r, c]) => c.length === 2 && HIGH_RANKS.has(r));
+  if (highPair)
+    return { hold: highPair[1], reason: `High Pair (${highPair[0]}s)` };
+
+  // ── TIER 4 — 3-to-Royal ───────────────────────────────────
+  const royal3 = royalDraw(hand, 3);
+  if (royal3)
+    return { hold: royal3, reason: "3 to Royal Flush" };
+
+  // 4-to-Flush
+  const sg = bySuit(hand);
+  const flush4 = Object.values(sg).find(c => c.length === 4);
+  if (flush4)
+    return { hold: flush4, reason: "4 to Flush" };
+
+  // Low Pair (22–TT)
+  const lowPair = rd.find(([, c]) => c.length === 2);
+  if (lowPair)
+    return { hold: lowPair[1], reason: `Low Pair (${lowPair[0]}s)` };
+
+  // ── TIER 5 — 4-to-Outside-Straight ───────────────────────
+  const { outside: str4out, inside: str4in } = straightDraw4(hand);
+  if (str4out)
+    return { hold: str4out, reason: "4 to Outside Straight" };
+
+  // ── TIER 6 — 3-to-Straight-Flush (pure/gap1) ─────────────
+  const { pure: sf3pure, gap1: sf3g1 } = straightFlush3(hand);
+  if (sf3pure)
+    return { hold: sf3pure, reason: "3 to Straight Flush (pure)" };
+
+  // ── TIER 7 — 2-to-Royal (suited high cards) ──────────────
+  // Best 2-card royal suited combos by EV: JQ, JK, QK, JA, QA, KA
+  const royal2 = royalDraw(hand, 2);
+  if (royal2 && countHighCards(royal2) === 2)
+    return { hold: royal2, reason: "2 to Royal Flush (2 high cards suited)" };
+
+  // 4-to-Inside-Straight with ≥3 high cards
+  if (str4in && countHighCards(str4in) >= 3)
+    return { hold: str4in, reason: "4 to Inside Straight (3+ high cards)" };
+
+  // ── TIER 8 — 3-to-SF gap1 / gap2 ─────────────────────────
+  if (sf3g1)
+    return { hold: sf3g1, reason: "3 to Straight Flush (1 gap)" };
+
+  // 4-to-Inside-Straight with ≥2 high cards
+  if (str4in && countHighCards(str4in) >= 2)
+    return { hold: str4in, reason: "4 to Inside Straight (2 high cards)" };
+
+  // ── TIER 9 — 2 high cards ────────────────────────────────
+  const highCards = hand.filter(c => HIGH_RANKS.has(c.rank))
+                        .sort((a, b) => rankVal(b.rank) - rankVal(a.rank));
+  if (highCards.length >= 2) {
+    // Prefer suited pair of high cards (better EV toward royal)
+    const suitedHighPairs = getSuitedPairs(highCards);
+    if (suitedHighPairs)
+      return { hold: suitedHighPairs, reason: "2 suited high cards" };
+    return { hold: highCards.slice(0, 2), reason: "2 high cards (unsuited)" };
+  }
+
+  // ── TIER 10 — 3-to-SF (gap2) ─────────────────────────────
+  const { gap2: sf3g2 } = straightFlush3(hand);
+  if (sf3g2)
+    return { hold: sf3g2, reason: "3 to Straight Flush (2 gaps)" };
+
+  // ── TIER 11 — 1 high card ────────────────────────────────
+  if (highCards.length === 1)
+    return { hold: [highCards[0]], reason: `Single high card (${highCards[0].rank})` };
+
+  // ── TIER 12 — Draw all 5 ─────────────────────────────────
+  return { hold: [], reason: "No hold — draw all 5" };
+}
+
+/** Returns 2 suited high cards if any exist, else null */
+function getSuitedPairs(highCards) {
+  const sg = bySuit(highCards);
+  for (const cards of Object.values(sg)) {
+    if (cards.length >= 2)
+      return sortedByRank(cards).slice(-2); // top 2
+  }
+  return null;
+}
+
+// ============================================================
+//  PAYOUT TABLE
+// ============================================================
+const PAYOUT = {
+  royalFlush: 800, straightFlush: 60, fourOfAKind: 22,
+  fullHouse: 9, flush: 6, straight: 4,
+  threeOfAKind: 3, twoPair: 2, onePair: 1,
+  lowPair: 0, highCard: 0,
+};
+
+// ============================================================
+//  TARGETED HOLD ENGINE  (used when optimal = true)
+//
+//  Accepts the target[] array.  For every combination it:
+//    1. Scores the current hand  (cards_in_hand / cards_needed)
+//       weighted by how important each rank is to that combo.
+//    2. Picks the combination with the highest score.
+//    3. Builds the optimal hold from that winning combination:
+//       hold up to the required count of each rank, best-scoring
+//       ranks first.
+//
+//  Score formula per combination:
+//    Σ  min(hand_count, needed_count) * needed_count
+//  This weights trips slots (×3) heavier than pair slots (×2),
+//  so a hand with KKK scores higher toward {K:3,J:2} than KK
+//  does toward {K:2,J:3}.
+// ============================================================
+function getTargetedHold(hand, targetCombos) {
+  const rg = byRank(hand);   // { "K": [{…},{…}], "J": [{…}], … }
+
+  // ── 1. Score every combination ───────────────────────────
+  const scored = targetCombos.map(combo => {
+    let score = 0;
+    for (const [rank, needed] of Object.entries(combo)) {
+      const have = (rg[rank] || []).length;
+      score += Math.min(have, needed) * needed;
+    }
+    return { combo, score };
+  });
+
+  // ── 2. Pick best combination (highest score wins) ─────────
+  scored.sort((a, b) => b.score - a.score);
+  const { combo: best, score } = scored[0];
+
+  // ── 3. Build hold list from winning combination ───────────
+  //  For each rank in the combo, take up to `needed` cards.
+  //  Sort ranks by needed-count desc so trips slots fill first.
+  const ranksByPriority = Object.entries(best)
+    .sort((a, b) => b[1] - a[1]);   // [["K",3],["J",2]]
+
+  const hold = [];
+  const label = ranksByPriority.map(([r, n]) => `${n}×${r}`).join(" + ");
+
+  for (const [rank, needed] of ranksByPriority) {
+    const available = rg[rank] || [];
+    hold.push(...available.slice(0, needed));
+  }
+
+  // ── 4. Build human-readable reason ────────────────────────
+  const haveDesc = ranksByPriority
+    .map(([r, n]) => `${(rg[r]||[]).length}/${n} ${r}`)
+    .join(", ");
+
+  let reason;
+  if (hold.length === 5) {
+    reason = `Target complete: ${label}`;
+  } else if (score === 0) {
+    // No target cards at all — fall back to standard EV
+    const fallback = getOptimalHold(hand);
+    return {
+      hold: fallback.hold,
+      reason: `No target cards (${label}) — EV fallback: ${fallback.reason}`,
+      combo: best,
+    };
+  } else {
+    reason = `Targeting ${label} [${haveDesc}] — hold ${hold.length}, draw ${5 - hold.length}`;
+  }
+
+  return { hold, reason, combo: best };
+}
+
+// ============================================================
+//  TARGET HIT CHECK
+//  Returns the matching combo label if the final hand satisfies
+//  any element in target[], otherwise null.
+//
+//  A combo matches when the playerHand contains at least the
+//  required count of every rank listed in that combo entry.
+// ============================================================
+function checkTargetHit(hand, targetCombos) {
+	if (!Array.isArray(targetCombos)) {
+		return null;
+	}
+	if (targetCombos == null) {
+		return null;
+	}
+	if (targetCombos.length == 0) {
+		return null;
+	}
+  const rg = byRank(hand);
+  for (const combo of targetCombos) {
+    const hit = Object.entries(combo).every(([rank, needed]) =>
+      (rg[rank] || []).length >= needed
+    );
+    if (hit) {
+      const label = Object.entries(combo)
+        .sort((a, b) => b[1] - a[1])
+        .map(([r, n]) => `${n}×${r}`)
+        .join(" + ");
+      return label;
+    }
+  }
+  return null;
+}
+
 
 function molesBet(amount, molesCount, picks) {
     betRequest({
@@ -12036,6 +12514,14 @@ function videopokerBet(amount) {
         url: '_api/casino/video-poker/bet',
         body: { currency, amount },
         retryParams: [amount]
+    });
+}
+
+function videopokerNext(held) {
+    betRequest({
+        url: '_api/casino/video-poker/next',
+        body: { identifier: randomString(21), held },
+        retryParams: [held]
     });
 }
 
@@ -12307,11 +12793,20 @@ function data(json){
 			sleep(1000);
 			}
 			if(json.errors[0].errorType.includes("existingGame")){
-				if(game==="mines" || game==="blackjack" || game==="hilo"){
+				if(game==="mines" || game==="blackjack" || game==="hilo" || game==="videopoker"){
 					activeBet();
 					activeBetMines();
 					activeBetBJ();
+					activePoker();
 				}
+				
+				if(json.errors[0].message.includes("VideoPoker")){
+					pokerskip = true;
+					videopokerNext([]);
+					return;
+
+				}
+				
 				hiloguess = round()
 				nextactions = round()
 				if(nextactions === "BLACKJACK_STAND"){
@@ -12378,7 +12873,7 @@ function data(json){
 		tdhigh.appendChild(tdcheck);
 		
 		if(!json.hasOwnProperty("data")){
-			if(!json.hasOwnProperty("hiloNext") && !json.hasOwnProperty("hiloCashout") && !json.hasOwnProperty("blackjackNext"))
+			if(!json.hasOwnProperty("hiloNext") && !json.hasOwnProperty("hiloCashout") && !json.hasOwnProperty("blackjackNext") && !json.hasOwnProperty("videoPokerNext"))
 			{
 				updatePerformanceMetrics()
 			}
@@ -13070,6 +13565,60 @@ function data(json){
 				running = false
 			}
 		}
+		if (gameType === "videoPokerBet"){
+			
+             const initialHand = bet.state.initialHand;
+			 //const heldCards = getHeldCards(initialHand, target);
+			 //const { hold: heldCards, reason } = getOptimalHold(initialHand);
+			 
+			 pokerskip = true;
+			 
+			  let heldCards, reason;
+
+			  /*if (Array.isArray(target) && target.length > 0) {
+				const comboLabels = target.map(c =>
+				  Object.entries(c).sort((a,b)=>b[1]-a[1]).map(([r,n])=>`${n}×${r}`).join("+")
+				).join("  |  ");
+				console.log(`\n[2/3] Targeted hold — ${comboLabels} …`);
+				({ hold: heldCards, reason } = getTargetedHold(initialHand, target));
+			  } else {
+				//console.log("\n[2/3] Computing optimal EV hold …");
+				({ hold: heldCards, reason } = getOptimalHold(initialHand));
+			  }*/
+			  
+
+				if (Array.isArray(target) && target.length > 0) {
+				  ({ hold: heldCards, reason } = getTargetedHold(initialHand, target));
+				} else {
+				  ({ hold: heldCards, reason } = getOptimalHold(initialHand));
+				}
+			 
+			 videopokerNext(heldCards);
+        }    
+        if (gameType === "videoPokerNext"){
+			
+            pokerskip = false;
+			cashout_done = true;
+			lastBet.Roll = bet.state.handResult;
+			lastBet.target = "";
+			lastBet.targetNumber = "";
+
+			// UI Updates
+			tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
+			tdTargetNumber.innerHTML = bet.state.playerHand.map(card => card.rank).join(',');
+			tdRollNumber.innerHTML = bet.state.handResult
+			tdRollChance.innerHTML = "";
+			
+			/*if (Array.isArray(target) && target.length > 0) {
+			const finalHand  = bet.state.playerHand;
+			const hitLabel = checkTargetHit(finalHand, target);
+				if (hitLabel) {
+					//stop();
+				}
+			}*/
+        }    		
+		
+		
 		}
 		
 		
@@ -13300,7 +13849,7 @@ function data(json){
 		}
 		}
 		
-		if (running && !samuraiskip) {
+		if (running && !samuraiskip && !pokerskip) {
 		const delay = sleeptime;
 		sleeptime = 0;
 		//sleepfor(sleeptime).then(() => {
@@ -14259,7 +14808,7 @@ function start(){
 			const runBet = betFunctions[game];
 			if (runBet) {
 				if (fastmode) {
-					if(game != "blackjack" && game != "hilo" && game != "bluesamurai"){
+					if(game != "blackjack" && game != "hilo" && game != "bluesamurai" && game != "videopoker"){
 					setTimeout(runBet, 10);
 					setTimeout(runBet, 150);
 					} else {
@@ -14286,7 +14835,7 @@ function start(){
 			changegame(game);
 			runBet = (fn, args = []) => {
 				if (fastmode) {
-					if(game != "blackjack" && game != "hilo" && game != "bluesamurai"){
+					if(game != "blackjack" && game != "hilo" && game != "bluesamurai" && game != "videopoker"){
 					setTimeout(() => fn(...args), 10);
 					setTimeout(() => fn(...args), 150);
 					} else {
