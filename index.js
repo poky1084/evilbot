@@ -13594,6 +13594,7 @@ function data(json){
 				}
 			 
 			 videopokerNext(heldCards);
+			 return;
         }    
         if (gameType === "videoPokerNext"){
 			
