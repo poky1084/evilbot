@@ -106,7 +106,12 @@ function dobet() {
         currentHand.filter(card => card === r).length === hunt2.filter(card => card === r).length
     );
 
-    if (isHit || isHit2) {
+    if (isHit) {
+		stop();
+		beep();
+    }
+
+    if (isHit2) {
 		stop();
 		beep();
     }
