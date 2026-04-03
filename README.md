@@ -154,6 +154,32 @@ function dobet() {
 //   "onePair"  → 1x
 ```
 
+<b>video poker: #3 </b>
+```javascript
+game = "videopoker"
+nextbet = 0.0
+target = null
+hunt1 = ["2", "2", "2", "K", "K"];
+hunt2 = ["2", "2", "K", "K", "K"];
+
+function dobet() {
+    const currentHand = bet.state.playerHand.map(card => card.rank);
+
+    const isHit = [...new Set(hunt1)].every(r => 
+        currentHand.filter(card => card === r).length === hunt1.filter(card => card === r).length
+    );
+
+    const isHit2 = [...new Set(hunt2)].every(r => 
+        currentHand.filter(card => card === r).length === hunt2.filter(card => card === r).length
+    );
+
+    if (isHit || isHit2) {
+		stop();
+		beep();
+    }
+}
+```
+
 
 <b>moles: </b>
 ```javascript
