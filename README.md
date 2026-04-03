@@ -92,6 +92,32 @@ function round(){
 game = "videopoker"
 nextbet = 0.0
 target = null
+hunt1 = ["2", "2", "2", "K", "K"];
+hunt2 = ["2", "2", "K", "K", "K"];
+
+function dobet() {
+    const currentHand = bet.state.playerHand.map(card => card.rank);
+
+    const isHit = [...new Set(hunt1)].every(r => 
+        currentHand.filter(card => card === r).length === hunt1.filter(card => card === r).length
+    );
+
+    const isHit2 = [...new Set(hunt2)].every(r => 
+        currentHand.filter(card => card === r).length === hunt2.filter(card => card === r).length
+    );
+
+    if (isHit || isHit2) {
+		stop();
+		beep();
+    }
+}
+```
+
+<b>video poker: #2 </b>
+```javascript
+game = "videopoker"
+nextbet = 0.0
+target = null
 hunting = [
   { 10: 2, A: 3 },
   { 10: 3, A: 2 }
@@ -109,7 +135,7 @@ function dobet() {
 }
 ```
 
-<b>video poker: #2 </b>
+<b>video poker: #3 </b>
 ```javascript
 game = "videopoker"
 nextbet = 0.0
@@ -153,33 +179,6 @@ function dobet() {
 //   "twoPair"        → 2x
 //   "onePair"  → 1x
 ```
-
-<b>video poker: #3 </b>
-```javascript
-game = "videopoker"
-nextbet = 0.0
-target = null
-hunt1 = ["2", "2", "2", "K", "K"];
-hunt2 = ["2", "2", "K", "K", "K"];
-
-function dobet() {
-    const currentHand = bet.state.playerHand.map(card => card.rank);
-
-    const isHit = [...new Set(hunt1)].every(r => 
-        currentHand.filter(card => card === r).length === hunt1.filter(card => card === r).length
-    );
-
-    const isHit2 = [...new Set(hunt2)].every(r => 
-        currentHand.filter(card => card === r).length === hunt2.filter(card => card === r).length
-    );
-
-    if (isHit || isHit2) {
-		stop();
-		beep();
-    }
-}
-```
-
 
 <b>moles: </b>
 ```javascript
