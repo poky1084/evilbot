@@ -87,7 +87,29 @@ function round(){
 }
 ```
 
-<b>video poker: </b>
+<b>video poker: #1 </b>
+```javascript
+game = "videopoker"
+nextbet = 0.0
+target = null
+hunting = [
+  { 10: 2, A: 3 },
+  { 10: 3, A: 2 }
+]
+// what pattern to hunt, it stops if these cards hit the player hand
+
+function dobet() {
+
+  const finalHand  = bet.state.playerHand;
+  const hitLabel = checkTargetHit(finalHand, hunting);
+	if (hitLabel) {
+		stop();
+		beep();
+	}
+}
+```
+
+<b>video poker: #2 </b>
 ```javascript
 game = "videopoker"
 nextbet = 0.0
