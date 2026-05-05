@@ -12911,7 +12911,8 @@ function data(json){
         }
 	
         if (gameType === "flipBet") {
-            lastBet.Roll = bet.state.currentRound;
+			const matched = guesses.filter((val, i) => val === bet.state.playedRounds[i]).length;
+            lastBet.Roll = matched;
             lastBet.target = guesses.length;
             lastBet.targetNumber = guesses.length;
             
