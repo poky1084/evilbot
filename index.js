@@ -2918,8 +2918,11 @@ input[type=range]::-moz-range-thumb {
 #topMultipliersPopup .tm-betid.tm-resolved {
   color: #483D8B;
   font-size: 13px;
-  cursor: text;
+  cursor: pointer;
   text-decoration: none;
+}
+#topMultipliersPopup .tm-betid.tm-resolved:hover {
+  text-decoration: underline;
 }
 #topMultipliersPopup .tm-multi {
   text-align: center;
@@ -3218,7 +3221,7 @@ var gameUI = false;
         if (entry.resolvedIid) {
           span.textContent = entry.resolvedIid;
           span.classList.add('tm-resolved');
-          span.title = 'Click for context menu (right-click)';
+          span.title = 'Click to copy IID (right-click for menu)';
         } else {
           span.textContent = 'View';
           span.title = 'Click to resolve IID';
@@ -3257,7 +3260,7 @@ var gameUI = false;
       }
     }
 
-    // ── Left-click on Bet ID column → resolve & reveal ──
+    // ── Left-click on Bet ID column → resolve, then copy IID ──
     tmBody.addEventListener('click', async (e) => {
       const span = e.target.closest('.tm-betid');
       if (!span) return;
@@ -3266,12 +3269,25 @@ var gameUI = false;
       const betId = tr.dataset.betid;
       const entry = state.entries.find(x => x.betId === betId);
       if (!entry) return;
-      if (entry.resolvedIid) return; // already resolved
 
-      span.style.cursor = 'wait';
-      const iid = await resolveIid(entry);
-      span.style.cursor = '';
-      if (iid) rebuildList();
+      if (!entry.resolvedIid) {
+        // First click: resolve via fetchBetDetails, then re-render
+        span.style.cursor = 'wait';
+        const iid = await resolveIid(entry);
+        span.style.cursor = '';
+        if (iid) rebuildList();
+        return;
+      }
+
+      // Already resolved → copy IID and flash "Copied!" for 1.5s
+      try { navigator.clipboard.writeText(entry.resolvedIid); } catch (_) {}
+      span.textContent = 'Copied!';
+      // Cancel any pending revert from a previous rapid click on this span
+      if (span._tmCopyTimer) clearTimeout(span._tmCopyTimer);
+      span._tmCopyTimer = setTimeout(() => {
+        span.textContent = entry.resolvedIid;
+        span._tmCopyTimer = null;
+      }, 1500);
     });
 
     // ── Right-click → context menu (Copy + Open) ────────
