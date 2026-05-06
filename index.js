@@ -2863,6 +2863,17 @@ input[type=range]::-moz-range-thumb {
   height: 310px;
   overflow-y: auto;
   overflow-x: hidden;
+  /* Allow the user to select bet IDs / IIDs / game names with the mouse */
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  cursor: text;
+}
+#topMultipliersPopup .tm-table-wrap,
+#topMultipliersPopup .tm-table-wrap * {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
 }
 #topMultipliersPopup table.tm-list {
   width: 100%;
@@ -2907,6 +2918,8 @@ input[type=range]::-moz-range-thumb {
 #topMultipliersPopup .tm-betid.tm-resolved {
   color: #483D8B;
   font-size: 13px;
+  cursor: text;
+  text-decoration: none;
 }
 #topMultipliersPopup .tm-multi {
   text-align: center;
