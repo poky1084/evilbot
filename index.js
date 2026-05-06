@@ -1312,6 +1312,9 @@
 		  <span>
             <button class="btn-grad" id="showConsolePopup">Show UI</button>
           </span>
+		  <span>
+            <button class="btn-grad" id="showTopMultipliers">Top 10</button>
+          </span>
         </center>
       </div>
 
@@ -2813,7 +2816,173 @@ input[type=range]::-moz-range-thumb {
   margin-top: 0 !important;
 }
 
+/* ===== Top Multipliers Popup (modeled after C# TopMultipliersForm) ===== */
+#topMultipliersPopup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px;
+  background: #f5f5fa;
+  border: 2px solid #333;
+  border-radius: 8px;
+  z-index: 10001;
+  padding: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #000;
+  user-select: none;
+}
+#topMultipliersPopup .tm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 4px 6px 4px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 6px;
+  cursor: move;
+}
+#topMultipliersPopup .tm-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(40, 40, 80);
+}
+#topMultipliersPopup .tm-close {
+  background: #ff4444;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 3px 9px;
+  cursor: pointer;
+  font-size: 12px;
+}
+#topMultipliersPopup .tm-table-wrap {
+  border: 1px solid #b8b8c8;
+  background: #fff;
+  height: 310px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#topMultipliersPopup table.tm-list {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+#topMultipliersPopup table.tm-list thead th {
+  background: #ececf2;
+  border-bottom: 1px solid #b8b8c8;
+  border-right: 1px solid #d8d8e0;
+  text-align: left;
+  padding: 3px 6px;
+  font-weight: bold;
+  color: #202028;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+#topMultipliersPopup table.tm-list thead th:last-child { border-right: none; }
+#topMultipliersPopup table.tm-list td {
+  border-bottom: 1px solid #e8e8ee;
+  border-right: 1px solid #e8e8ee;
+  padding: 2px 6px;
+  vertical-align: middle;
+  height: 16px;
+  line-height: 1.1;
+}
+#topMultipliersPopup table.tm-list td:last-child { border-right: none; }
+#topMultipliersPopup table.tm-list tr.tm-row:nth-child(even) td { background: #f8f8fc; }
+#topMultipliersPopup table.tm-list tr.tm-row:nth-child(odd)  td { background: #ffffff; }
+#topMultipliersPopup table.tm-list tr.tm-row.tm-newest td { background: rgb(210, 245, 215); }
+#topMultipliersPopup .tm-betid {
+  cursor: pointer;
+  color: #4169E1;
+  text-decoration: underline;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 100%;
+}
+#topMultipliersPopup .tm-betid.tm-resolved {
+  color: #483D8B;
+  font-size: 13px;
+}
+#topMultipliersPopup .tm-multi {
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+}
+#topMultipliersPopup tr:nth-child(1 of .tm-row) .tm-multi { color: rgb(184,134,11); }   /* gold */
+#topMultipliersPopup tr:nth-child(2 of .tm-row) .tm-multi { color: rgb(108,108,108); }  /* silver */
+#topMultipliersPopup tr:nth-child(3 of .tm-row) .tm-multi { color: rgb(149,87,56); }    /* bronze */
+#topMultipliersPopup tr.tm-row .tm-multi { color: rgb(50,120,50); }
+#topMultipliersPopup tr.tm-row:nth-child(1) .tm-multi { color: rgb(184,134,11) !important; }
+#topMultipliersPopup tr.tm-row:nth-child(2) .tm-multi { color: rgb(108,108,108) !important; }
+#topMultipliersPopup tr.tm-row:nth-child(3) .tm-multi { color: rgb(149,87,56)  !important; }
+#topMultipliersPopup .tm-empty {
+  text-align: center;
+  color: #888;
+  padding: 18px 0 !important;
+  font-style: italic;
+}
+#topMultipliersPopup .tm-clear {
+  width: 100%;
+  margin-top: 8px;
+  padding: 6px 0;
+  background: transparent;
+  color: rgb(180,30,30);
+  border: 1px solid rgb(200,50,50);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+#topMultipliersPopup .tm-clear:hover { background: rgba(200,50,50,0.08); }
+#topMultipliersPopup .tm-ctxmenu,
+.tm-ctxmenu {
+  position: fixed;
+  background: #fff;
+  border: 1px solid #888;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  z-index: 10200;
+  padding: 3px 0;
+  font-size: 12px;
+  min-width: 180px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #000;
+}
+#topMultipliersPopup .tm-ctxmenu .tm-mi,
+.tm-ctxmenu .tm-mi {
+  padding: 5px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+#topMultipliersPopup .tm-ctxmenu .tm-mi:hover,
+.tm-ctxmenu .tm-mi:hover { background: #e6e6f0; }
+.tm-ctxmenu.tm-dark {
+  background: #2a2a30;
+  color: #ddd;
+  border-color: #555;
+}
+.tm-ctxmenu.tm-dark .tm-mi:hover { background: #3a3a45; }
 
+/* Dark theme for top multipliers popup */
+#bot.light-theme ~ #topMultipliersPopup,
+#topMultipliersPopup.tm-dark {
+  background: #2a2a30;
+  color: #ddd;
+}
+#topMultipliersPopup.tm-dark .tm-title { color: #b8c4ff; }
+#topMultipliersPopup.tm-dark .tm-header { border-bottom-color: #444; }
+#topMultipliersPopup.tm-dark .tm-table-wrap { background: #1e1e22; border-color: #444; }
+#topMultipliersPopup.tm-dark table.tm-list thead th { background: #34343c; color: #ddd; border-bottom-color: #444; border-right-color: #444; }
+#topMultipliersPopup.tm-dark table.tm-list tr.tm-row:nth-child(even) td { background: #25252a; }
+#topMultipliersPopup.tm-dark table.tm-list tr.tm-row:nth-child(odd)  td { background: #1e1e22; }
+#topMultipliersPopup.tm-dark table.tm-list tr.tm-row.tm-newest td { background: rgb(50, 90, 55); }
+#topMultipliersPopup.tm-dark table.tm-list td { border-bottom-color: #333; border-right-color: #333; color: #ddd; }
+#topMultipliersPopup.tm-dark .tm-betid { color: #7aa9ff; }
+#topMultipliersPopup.tm-dark .tm-betid.tm-resolved { color: #a89bff; }
 
 </style>`)
  
@@ -2844,7 +3013,7 @@ function addJs(src, cb) {
 
 addCss('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css', () => {})
 addCss('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/darcula.min.css', () => {})
-
+let dark = true;
 var gameUI = false;
 
   const showConsoleBtn = document.getElementById('showConsolePopup');
@@ -2878,6 +3047,299 @@ var gameUI = false;
       
     }
   });
+
+  /* ===========================================================
+   *  TOP 10 HIGHEST MULTIPLIERS POPUP
+   *  (modeled after C# StakeBotUI/TopMultipliersForm.cs)
+   * =========================================================== */
+
+    const MAX_ENTRIES = 10;
+    const state = {
+      entries: [],          // [{ betId, game, multiplier, insertionOrder, resolvedIid }]
+      insertionCounter: 0,
+      lastAddedBetId: null
+    };
+
+    // ── Build popup DOM ────────────────────────────────────
+    const popup = document.createElement('div');
+    popup.id = 'topMultipliersPopup';
+    popup.innerHTML = `
+      <div class="tm-header" id="tmHeader">
+        <span class="tm-title">🏆 Top 10 Highest Multipliers</span>
+        <button class="tm-close" id="tmCloseBtn">Close</button>
+      </div>
+      <div class="tm-table-wrap">
+        <table class="tm-list" id="tmTable">
+          <thead>
+            <tr>
+              <th style="width:155px;">Bet ID</th>
+              <th style="width:90px;">Game</th>
+              <th style="width:90px;text-align:center;">Multiplier</th>
+            </tr>
+          </thead>
+          <tbody id="tmBody"></tbody>
+        </table>
+      </div>
+      <button class="tm-clear" id="tmClearBtn">🗑 Clear List</button>
+    `;
+    document.body.appendChild(popup);
+
+    const tmBody     = popup.querySelector('#tmBody');
+    const tmCloseBtn = popup.querySelector('#tmCloseBtn');
+    const tmClearBtn = popup.querySelector('#tmClearBtn');
+    const tmHeader   = popup.querySelector('#tmHeader');
+
+    // Sync dark theme with the rest of the bot
+    function syncTheme() {
+      // dark === false means light theme is active
+      if (typeof dark !== 'undefined' && dark) popup.classList.remove('tm-dark');
+      else popup.classList.add('tm-dark');
+    }
+    syncTheme();
+    // Re-sync when the theme switch is toggled
+    const themeSwitchEl = document.getElementById('themeSwitch');
+    if (themeSwitchEl) themeSwitchEl.addEventListener('change', () => setTimeout(syncTheme, 10));
+
+    // ── Show / hide ──────────────────────────────────────
+    const showTopBtn = document.getElementById('showTopMultipliers');
+    if (showTopBtn) {
+      showTopBtn.addEventListener('click', () => {
+        syncTheme();
+        popup.style.display = 'block';
+      });
+    }
+    tmCloseBtn.addEventListener('click', () => { popup.style.display = 'none'; });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && popup.style.display === 'block') {
+        popup.style.display = 'none';
+      }
+    });
+
+    // ── Drag handle ──────────────────────────────────────
+    (function makeDraggable() {
+      let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
+      tmHeader.addEventListener('mousedown', (e) => {
+        if (e.target === tmCloseBtn) return;
+        dragging = true;
+        sx = e.clientX; sy = e.clientY;
+        const rect = popup.getBoundingClientRect();
+        ox = rect.left + rect.width / 2;
+        oy = rect.top  + rect.height / 2;
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', (e) => {
+        if (!dragging) return;
+        const dx = e.clientX - sx;
+        const dy = e.clientY - sy;
+        popup.style.transform =
+          `translate(calc(-50% + ${(ox - window.innerWidth/2) + dx}px), calc(-50% + ${(oy - window.innerHeight/2) + dy}px))`;
+      });
+      document.addEventListener('mouseup', () => { dragging = false; });
+    })();
+
+    // ── Public API: try-add ──────────────────────────────
+    function tryAdd(betId, gameName, multiplier) {
+      if (!betId) return;
+      const m = parseFloat(multiplier);
+      if (!isFinite(m) || m <= 0) return;
+
+      // Already in list? skip
+      if (state.entries.some(e => e.betId === betId)) return;
+
+      const lowest = state.entries.length === MAX_ENTRIES
+        ? state.entries[state.entries.length - 1].multiplier
+        : -Infinity;
+
+      let shouldAdd = state.entries.length < MAX_ENTRIES || m > lowest;
+      // Tie with lowest — also add (matches C# behavior)
+      if (!shouldAdd && state.entries.length === MAX_ENTRIES && m === lowest) shouldAdd = true;
+      if (!shouldAdd) return;
+
+      // Pop the lowest if full
+      if (state.entries.length === MAX_ENTRIES) state.entries.pop();
+
+      state.entries.push({
+        betId: String(betId),
+        game: gameName || '',
+        multiplier: m,
+        insertionOrder: ++state.insertionCounter,
+        resolvedIid: null
+      });
+      state.lastAddedBetId = String(betId);
+
+      // Sort: multiplier desc; ties → newer first
+      state.entries.sort((a, b) => {
+        if (b.multiplier !== a.multiplier) return b.multiplier - a.multiplier;
+        return b.insertionOrder - a.insertionOrder;
+      });
+      if (state.entries.length > MAX_ENTRIES) state.entries.length = MAX_ENTRIES;
+
+      rebuildList();
+    }
+
+    function formatMulti(m) {
+      if (m >= 1000) return Math.round(m).toString() + 'x';
+      // Trim trailing zeros up to 4 decimals
+      return parseFloat(m.toFixed(4)).toString() + 'x';
+    }
+
+    // ── Render ───────────────────────────────────────────
+    function rebuildList() {
+      tmBody.innerHTML = '';
+      if (state.entries.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = '<td class="tm-empty" colspan="3">No multipliers yet — start betting…</td>';
+        tmBody.appendChild(tr);
+        return;
+      }
+      for (const entry of state.entries) {
+        const tr = document.createElement('tr');
+        tr.className = 'tm-row';
+        if (entry.betId === state.lastAddedBetId) tr.classList.add('tm-newest');
+        tr.dataset.betid = entry.betId;
+
+        // Col 0 — BetId (View link or resolved IID)
+        const tdId = document.createElement('td');
+        const span = document.createElement('span');
+        span.className = 'tm-betid';
+        if (entry.resolvedIid) {
+          span.textContent = entry.resolvedIid;
+          span.classList.add('tm-resolved');
+          span.title = 'Click for context menu (right-click)';
+        } else {
+          span.textContent = 'View';
+          span.title = 'Click to resolve IID';
+        }
+        tdId.appendChild(span);
+
+        // Col 1 — Game
+        const tdGame = document.createElement('td');
+        tdGame.textContent = entry.game;
+
+        // Col 2 — Multiplier
+        const tdMulti = document.createElement('td');
+        tdMulti.className = 'tm-multi';
+        tdMulti.textContent = formatMulti(entry.multiplier);
+
+        tr.appendChild(tdId);
+        tr.appendChild(tdGame);
+        tr.appendChild(tdMulti);
+        tmBody.appendChild(tr);
+      }
+    }
+    rebuildList();
+
+    // ── Resolve IID via the existing fetchBetDetails() ──
+    async function resolveIid(entry) {
+      if (entry.resolvedIid) return entry.resolvedIid;
+      try {
+        // fetchBetDetails is defined later in this file
+        if (typeof fetchBetDetails !== 'function') return null;
+        const data = await fetchBetDetails(entry.betId);
+        const raw = data && data.data && data.data.bet && data.data.bet.iid;
+        if (raw) entry.resolvedIid = raw.replace(/house:/g, 'casino:');
+        return entry.resolvedIid;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    // ── Left-click on Bet ID column → resolve & reveal ──
+    tmBody.addEventListener('click', async (e) => {
+      const span = e.target.closest('.tm-betid');
+      if (!span) return;
+      const tr = span.closest('tr.tm-row');
+      if (!tr) return;
+      const betId = tr.dataset.betid;
+      const entry = state.entries.find(x => x.betId === betId);
+      if (!entry) return;
+      if (entry.resolvedIid) return; // already resolved
+
+      span.style.cursor = 'wait';
+      const iid = await resolveIid(entry);
+      span.style.cursor = '';
+      if (iid) rebuildList();
+    });
+
+    // ── Right-click → context menu (Copy + Open) ────────
+    let activeMenu = null;
+    function closeMenu() {
+      if (activeMenu && activeMenu.parentNode) activeMenu.parentNode.removeChild(activeMenu);
+      activeMenu = null;
+    }
+    document.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+    tmBody.addEventListener('contextmenu', async (e) => {
+      const tr = e.target.closest('tr.tm-row');
+      if (!tr) return;
+      e.preventDefault();
+      const betId = tr.dataset.betid;
+      const entry = state.entries.find(x => x.betId === betId);
+      if (!entry) return;
+
+      // Resolve IID on demand so menu can show real IID
+      if (!entry.resolvedIid) {
+        await resolveIid(entry);
+        rebuildList();
+      }
+
+      closeMenu();
+      const menu = document.createElement('div');
+      menu.className = 'tm-ctxmenu';
+      if (popup.classList.contains('tm-dark')) menu.classList.add('tm-dark');
+      menu.style.left = e.clientX + 'px';
+      menu.style.top  = e.clientY + 'px';
+
+      const copyText  = entry.resolvedIid || entry.betId;
+      const copyLabel = entry.resolvedIid
+        ? `📋 Copy IID:  ${entry.resolvedIid}`
+        : `📋 Copy Bet ID:  ${entry.betId}`;
+      const site = (typeof mirror !== 'undefined' && mirror) ? mirror : 'stake.com';
+      const openUrl = entry.resolvedIid
+        ? `https://${site}/?modal=bet&iid=${entry.resolvedIid}`
+        : `https://${site}/?betId=${entry.betId}&modal=bet`;
+
+      const miCopy = document.createElement('div');
+      miCopy.className = 'tm-mi';
+      miCopy.textContent = copyLabel;
+      miCopy.addEventListener('click', () => {
+        try { navigator.clipboard.writeText(copyText); } catch (_) {}
+        closeMenu();
+      });
+
+      const miOpen = document.createElement('div');
+      miOpen.className = 'tm-mi';
+      miOpen.textContent = '🌐 Open in browser';
+      miOpen.addEventListener('click', () => {
+        try { window.open(openUrl, '_blank'); } catch (_) {}
+        closeMenu();
+      });
+
+      menu.appendChild(miCopy);
+      menu.appendChild(miOpen);
+      // Append to body (NOT popup) — popup has transform which would
+      // re-anchor position:fixed children to itself instead of the viewport.
+      document.body.appendChild(menu);
+      activeMenu = menu;
+
+      // Reposition if it overflows the viewport
+      const rect = menu.getBoundingClientRect();
+      if (rect.right > window.innerWidth)  menu.style.left = (window.innerWidth  - rect.width  - 4) + 'px';
+      if (rect.bottom > window.innerHeight) menu.style.top  = (window.innerHeight - rect.height - 4) + 'px';
+    });
+
+    // ── Clear button ─────────────────────────────────────
+    tmClearBtn.addEventListener('click', () => {
+      state.entries = [];
+      state.insertionCounter = 0;
+      state.lastAddedBetId = null;
+      rebuildList();
+    });
+
+    // ── Expose globally for hooks below ─────────────────
+    window.tryAddTopMultiplier = tryAdd;
+
 
 imagedir = document.getElementById("imagedata").dataset.active;
 var tokenapi = "";
@@ -2925,7 +3387,7 @@ var lastBet = {'amount': 0, 'win': false, 'Roll': 0, 'payoutMultiplier': 0, 'cha
 var dps = []
 var chart = ''
 var color = "red"
-let dark = true;
+
 var started_bal = 0;
 
 //var condition = "below";
@@ -5905,7 +6367,8 @@ function updateExistingGuessOverlays() {
   
   function darkorLight(opt){
 	  dark = opt
-      
+      if (typeof dark !== 'undefined' && dark) popup.classList.remove('tm-dark');
+      else popup.classList.add('tm-dark');
 	  if(dark){
 			const consolepop = document.querySelector('.console-popup');
 			consolepop.style.background = "#d1d1d1"
@@ -10833,6 +11296,9 @@ function crashclick(json) {
 						lastBet.amount = json.data.multiplayerCrashCashout.amount;
 						lastBet.payoutMultiplier = json.data.multiplayerCrashCashout.payoutMultiplier;
 						
+						// Track top 10 highest multipliers
+						try { if (window.tryAddTopMultiplier) window.tryAddTopMultiplier(json.data.multiplayerCrashCashout.id, game, json.data.multiplayerCrashCashout.payoutMultiplier); } catch (_) {}
+						
 						endgame = true;
 						//win
 						winstreak++;
@@ -13638,6 +14104,8 @@ function data(json){
 				win: bet.payoutMultiplier >= 1
 			};
 			
+			// Track top 10 highest multipliers
+			try { if (window.tryAddTopMultiplier) window.tryAddTopMultiplier(bet.id, game, bet.payoutMultiplier); } catch (_) {}
 			
 			if (lastBet.win) {
 				win = true;
@@ -15017,6 +15485,9 @@ function startSocket() {
 							Roll: lastBet.Roll
 						};
 						
+						// Track top 10 highest multipliers
+						try { if (window.tryAddTopMultiplier) window.tryAddTopMultiplier(bet.crash.event.id, game, bet.crash.event.payoutMultiplier); } catch (_) {}
+						
 						//manualcash = false;
 						
 						cashedoutauto = true;
@@ -15992,6 +16463,10 @@ function startSocket() {
 									win: bet.slide.event.payoutMultiplier >= 1,
 									Roll: lastBet.Roll
 								};
+								
+								// Track top 10 highest multipliers
+								try { if (window.tryAddTopMultiplier) window.tryAddTopMultiplier(bet.slide.event.id, game, bet.slide.event.payoutMultiplier); } catch (_) {}
+								
 								betlist = []
 								color = "#05f711";
 								bet_found = true;
