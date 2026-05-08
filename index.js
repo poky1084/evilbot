@@ -13434,15 +13434,18 @@ function data(json){
 		if (json && !json.data) {
 		
 		if (gameType === "molesAutobet"){
-            lastBet.Roll = bet.state.currentRound;
+			const targetIndex = bet.state.rounds.findLastIndex(round => round.hit === true);
+			
+            lastBet.Roll = targetIndex + 1;
             lastBet.target = bet.state.molesCount;
             lastBet.targetNumber = lastBet.target
             
+			
             // UI Updates
             tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(4) + "x";
             tdTargetNumber.innerHTML = bet.state.molesCount + "|" + picks.length;
-            tdRollNumber.innerHTML = bet.state.currentRound;
-			tdRollChance.innerHTML = bet.state.molesCount + "|" + bet.state.currentRound
+            tdRollNumber.innerHTML = lastBet.Roll;
+			tdRollChance.innerHTML = bet.state.molesCount + "|" + lastBet.Roll
             //break;
         }
 		
