@@ -1,3 +1,4 @@
+
 # evilbot
 stake.com, stake.us, primedice bot by me with ❤
 
@@ -487,3 +488,5 @@ function round(){
     return HILO_SKIP;
 }
  ```
+
+
