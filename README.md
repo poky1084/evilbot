@@ -17,7 +17,7 @@ Please give a Star on the repo in case you liked/used it. Thank you!
 <b>Telegram:</b>: https://t.me/poky_1084
 
 
-sourcecode: https://gitlab.com/poky1084/evilbot
+sourcecode: https://github.com/poky1084/evilbot
 
 
 <img width="1123" height="676" alt="Screenshot 2026-01-16 110728" src="https://github.com/user-attachments/assets/4eef67cb-d36a-428c-ba40-f66edc219ad6" />
