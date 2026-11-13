@@ -1,4 +1,3 @@
-
 # evilbot
 stake.com, stake.us, primedice bot by me with ❤
 
@@ -22,6 +21,14 @@ sourcecode: https://gitlab.com/poky1084/evilbot
 
 
 <img width="1123" height="676" alt="Screenshot 2026-01-16 110728" src="https://github.com/user-attachments/assets/4eef67cb-d36a-428c-ba40-f66edc219ad6" />
+
+# Multi API keys (run up to 5 accounts at once) <br />
+
+Click the **🔑 Multi API** button at the top of the bot window. In the dialog you can enter up to 5 API keys (with an optional label each). Every key is saved to localStorage (`evilbotMultiKey1` … `evilbotMultiKey5`). **Check keys** shows the account name and balance for each key.
+
+**Start all** runs the strategy that is in the JS or Lua editor (JsMode / LuaMode from the main window) for every ticked key **at the same time**. Game, coin and site are taken from the main window, and a script can still set `game`, `currency`, `nextbet`, etc. Each key gets its own isolated copy of the strategy: its own variables, Lua state, balance, profit, streaks and stats. `log()`, `stop()`, `sleep()`, `resetstats()`, `resetseed()`, `vault()`, `ding()` and `beep()` only affect that key. The ▶ / ■ buttons start or stop a single key.
+
+Supported in multi-key mode: dice, limbo, primedice, mines, keno, plinko, wheel, roulette, dragontower, baccarat, chicken, moles, drill, tarot, pump, flip, darts, snakes, bars, packs, cases, rps, tomeoflife, scarabspin, diamonds. Not supported: hilo, blackjack, videopoker, bluesamurai, crash, slide (they need several requests per round). Fast mode is not used here: each key places one bet at a time, and the 5 keys run in parallel.
 
 # Use: <br />
 
@@ -538,4 +545,4 @@ function round(){
 
     return HILO_SKIP;
 }
- ```
+```
